@@ -72,7 +72,7 @@
         <tbody>
             @foreach ($data_skkl as $skkl)
             <tr>
-                <td>{{ ++$no }}</td>
+                <td>{{ $loop->iteration }}</td>
                 <td>{{ $skkl->nama_usaha_baru }}</td>
                 <td>{{ $skkl->perihal }}</td>
                 <td>{{ $skkl->nib }}</td>
@@ -107,8 +107,8 @@
                         </div>
                     </div> -->
                     <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="{{ '#aksiModal'.$skkl->id }}">
-                            Pilih
-                        </button>
+                        Pilih
+                    </button>
                 </td>
             </tr>
             @endforeach
@@ -134,8 +134,8 @@
                 <div class="modal-body">
                     <span><b>File yang sudah terupload:</b></span>
                     <div class="input-group mb-3">
-                        <form action="{{ route('operator.destroy.file', $skkl->id) }}" method="POST" class="btn-group" role="group">
-                            <a @if ($skkl->file == null) disabled @endif type="button" class="btn btn-sm btn-success @if ($skkl->file == null) disabled @endif" target="_blank" href="{{ asset('storage/files/skkl/'.$skkl->file) }}">Lihat</a>
+                        <form action="{{ route('operator.destroy.file', $skkl->id) }}" method="POST">
+                            <a @if ($skkl->file == null) disabled @endif type="button" class="btn btn-sm btn-success @if ($skkl->file == null) disabled @endif mr-1" target="_blank" href="{{ asset('storage/files/skkl/'.$skkl->file) }}">Lihat</a>
                             <button class="btn btn-sm btn-danger" @if ($skkl->file == null) disabled @endif type="submit">Hapus</button>
                         </form>
                     </div>
@@ -147,13 +147,13 @@
                             <label class="custom-file-label" for="file">Choose file</label>
                         </div>
                     </div>
-                    <small class="text-muted">Max file size: 5mb | Format file: PDF only</small>
+                    <small class="text-muted mb-3">Max file size: 5mb | Format file: PDF only</small>
                     @error('file')
-                            <div class="invalid-feedback">
+                            <div class="invalid-feedback mb-3">
                                 Format file salah!
                             </div>
                     @enderror
-                    <br>
+                    <br class="mb-3">
                     <span class="mt-3"><b>Apakah file yang akan diupload sudah final?</b></span>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="status" id="status1" value="draft" checked>
