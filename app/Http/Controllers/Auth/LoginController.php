@@ -1,0 +1,100 @@
+<?php
+
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth as authenticate;
+use App\User;
+
+class LoginController extends Controller
+{
+    /*
+    |--------------------------------------------------------------------------
+    | Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
+    |
+    */
+
+    use AuthenticatesUsers;
+
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        // if (authenticate::check()) {
+        //     $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
+        //     ->where('initiators.user_type', 'Pemrakarsa')
+        //     ->get();
+
+        //     $operator = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
+        //     ->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
+        //     ->where('feasibility_test_teams.authority', 'Pusat')
+        //     ->select('users.email')
+        //     ->get();
+            
+        //     $level = 'unregistered';
+        //     for ($i = 0; $i < count($pemrakarsa); $i++) {
+        //         if (authenticate::user()->getEmail() == $pemrakarsa[$i]->email) {
+        //             $level = 'Pemrakarsa';
+        //         }
+        //     }
+
+        //     for ($i = 0; $i < count($operator); $i++) {
+        //         if (authenticate::user()->getEmail() == $operator[$i]->email) {
+        //             $level = 'Operator';
+        //         }
+        //     }
+
+        //     $this->redirectTo = '/' . $level;
+        // }
+        $this->middleware('guest')->except('logout');
+    }
+
+    public function index()
+    {
+        if (authenticate::check()) {
+            $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
+            ->where('initiators.user_type', 'Pemrakarsa')
+            ->get();
+
+            $operator = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
+            ->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
+            ->where('feasibility_test_teams.authority', 'Pusat')
+            ->select('users.email')
+            ->get();
+            
+            $level = 'unregistered';
+            for ($i = 0; $i < count($pemrakarsa); $i++) {
+                if (authenticate::user()->email == $pemrakarsa[$i]->email) {
+                    $level = 'Pemrakarsa';
+                }
+            }
+
+            for ($i = 0; $i < count($operator); $i++) {
+                if (authenticate::user()->email == $operator[$i]->email) {
+                    $level = 'Operator';
+                }
+            }
+
+            return redirect()->intended('/'.$level);
+        } else {
+            return view('auth.login');
+        }
+    }
+}
