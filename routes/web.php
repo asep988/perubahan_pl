@@ -61,7 +61,7 @@ Route::group(['middleware' => ['auth', 'cekRole:Operator,Pemrakarsa']], function
     Route::get('/Operator/download/{id}', 'OperatorController@download')->name('operator.download');
     Route::get('/Operator/preview/{id}', 'OperatorController@preview')->name('operator.preview');
     Route::put('/Operator/upload_file', 'OperatorController@upload_file')->name('operator.upload_file');
-    Route::get('/Operator/file/delete/{id}', 'OperatorController@destroyFile')->name('operator.destroy.file');
+    Route::delete('/Operator/file/delete/{id}', 'OperatorController@destroyFile')->name('operator.destroy.file');
 });
 
 Route::group(['middleware' => ['auth', 'cekRole:Sekretariat']], function() {

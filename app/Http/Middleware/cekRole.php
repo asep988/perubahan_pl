@@ -7,7 +7,7 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-class cekRole
+class CekRole
 {
     /**
      * Handle an incoming request.

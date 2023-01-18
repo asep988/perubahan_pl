@@ -138,6 +138,10 @@ class OperatorController extends Controller
             Storage::delete($destination);
         }
 
+        $skkl->update([
+            'file' => null
+        ]);
+
         return back()->with('message', 'PDF berhasil dihapus!');
     }
 

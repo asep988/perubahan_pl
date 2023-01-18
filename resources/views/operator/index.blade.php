@@ -141,17 +141,19 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('operator.upload_file') }}" enctype="multipart/form-data" method="post">
-                @csrf
-                @method('PUT')
-                <div class="modal-body">
-                    <span><b>File yang sudah terupload:</b></span>
-                    <div class="input-group mb-3">
-                        <form action="{{ route('operator.destroy.file', $skkl->id) }}" method="POST">
-                            <a @if ($skkl->file == null) disabled @endif type="button" class="btn btn-sm btn-success @if ($skkl->file == null) disabled @endif mr-1" target="_blank" href="{{ asset('storage/files/skkl/'.$skkl->file) }}">Lihat</a>
-                            <button class="btn btn-sm btn-danger" @if ($skkl->file == null) disabled @endif type="submit">Hapus</button>
-                        </form>
-                    </div>
+            <div class="modal-body">
+                <span><b>File yang sudah terupload:</b></span>
+                <div class="input-group mb-3">
+                    <form action="{{ route('operator.destroy.file', $skkl->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <a @if ($skkl->file == null) disabled @endif type="button" class="btn btn-sm btn-success @if ($skkl->file == null) disabled @endif mr-1" target="_blank" href="{{ asset('storage/files/skkl/'.$skkl->file) }}">Lihat</a>
+                        <button class="btn btn-sm btn-danger" @if ($skkl->file == null) disabled @endif type="submit">Hapus</button>
+                    </form>
+                </div>
+                <form action="{{ route('operator.upload_file') }}" enctype="multipart/form-data" method="post">
+                    @csrf
+                    @method('PUT')
 
                     <span><b>Pilih file:</b></span>
                     <div class="input-group">
@@ -161,11 +163,11 @@
                         </div>
                     </div>
                     <small class="text-muted mb-3">Max file size: 5mb | Format file: PDF only</small>
-                    @error('file')
+                    {{-- @error('file')
                             <div class="invalid-feedback mb-3">
                                 Format file salah!
                             </div>
-                    @enderror
+                    @enderror --}}
                     <br class="mb-3">
                     <span class="mt-3"><b>Apakah file yang akan diupload sudah final?</b></span>
                     <div class="form-check">
@@ -180,13 +182,13 @@
                             Final
                         </label>
                     </div>
+                    <input type="text" name="id_skkl" id="id_skkl" value="{{ $skkl->id }}" hidden>
+                    <button type="submit" class="btn btn-sm btn-primary btn-block">Simpan</button>
+                </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
                 </div>
-                <input type="text" name="id_skkl" id="id_skkl" value="{{ $skkl->id }}" hidden>
-            </form>
         </div>
     </div>
 </div>
@@ -216,13 +218,13 @@
 
 @push('scripts')
 <script>
-    // $(document).ready(function() {
+    $(document).ready(function() {
         $("#datatable").DataTable({
             lengthmenu: [
                 [5,10,25,50,-1],
                 [5,10,25,50,'All']
             ]
         });
-    // });
+    });
 </script>
 @endpush
