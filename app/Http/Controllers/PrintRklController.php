@@ -22,63 +22,67 @@ class PrintRklController extends Controller
 
     public function showdata($data_rkl, $no, $tahap)
     {
-        $body="";
+        $body = "";
         if (count($data_rkl) > 0) {
-            $body ='
+            $body = '
                 <tr>
-                    <td colspan="8"><strong>'.$tahap.'</strong></td>
+                    <td colspan="8"><strong>' . $tahap . '</strong></td>
                 </tr>';
-            }
+        }
         foreach ($data_rkl as $data) {
             $no++;
-            $body .='
+            $body .= '
             <tr>
-                <td align="center"> '.$no.'</td>
+                <td align="center"> ' . $no . '</td>
                 <td>
-                    '.$data->dampak_dikelola.'
+                    ' . $data->dampak_dikelola . '
                 </td>
                 <td>
-                    '.$data->sumber_dampak.'
+                    ' . $data->sumber_dampak . '
                 </td>
                 <td>
-                    '.$data->indikator.'
+                    ' . $data->indikator . '
                 </td>
                 <td>
-                    '.$data->bentuk_pengelolaan.'
+                    ' . $data->bentuk_pengelolaan . '
                 </td>
                 <td>
-                    '.$data->lokasi.'
+                    ' . $data->lokasi . '
                 </td>
                 <td>
-                    '.$data->periode.'
+                    ' . $data->periode . '
                 </td>
                 <td>
-                    '.$data->institusi.'
+                    ' . $data->institusi . '
                 </td>
             </tr>';
-        }     
+        }
         return $body;
     }
 
     public function download($id_skkl)
     {
-        $skkl=Skkl::find($id_skkl);
+        $skkl = Skkl::find($id_skkl);
         //phpword
-        $rkl_penting_prakons = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan','Pra Konstruksi')->orderBy('id', 'desc')->get();
-        $rkl_penting_konstruksi = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan','Konstruksi')->orderBy('id', 'desc')->get();
-        $rkl_penting_operasi = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan','Operasi')->orderBy('id', 'desc')->get();
-        $rkl_penting_pasca = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan','Pasca Oprerasi')->orderBy('id', 'desc')->get();
+        $rkl_penting_prakons = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan', 'Pra Konstruksi')->orderBy('id', 'desc')->get();
+        $rkl_penting_konstruksi = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan', 'Konstruksi')->orderBy('id', 'desc')->get();
+        $rkl_penting_operasi = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan', 'Operasi')->orderBy('id', 'desc')->get();
+        $rkl_penting_pasca = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan', 'Pasca Oprerasi')->orderBy('id', 'desc')->get();
 
-        $rkl_lainnya_prakons = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan','Pra Konstruksi')->orderBy('id', 'desc')->get();
-        $rkl_lainnya_konstruksi = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan','Konstruksi')->orderBy('id', 'desc')->get();
-        $rkl_lainnya_operasi = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan','Operasi')->orderBy('id', 'desc')->get();
-        $rkl_lainnya_pasca = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan','Pasca Oprerasi')->orderBy('id', 'desc')->get();
+        $rkl_lainnya_prakons = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan', 'Pra Konstruksi')->orderBy('id', 'desc')->get();
+        $rkl_lainnya_konstruksi = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan', 'Konstruksi')->orderBy('id', 'desc')->get();
+        $rkl_lainnya_operasi = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan', 'Operasi')->orderBy('id', 'desc')->get();
+        $rkl_lainnya_pasca = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan', 'Pasca Oprerasi')->orderBy('id', 'desc')->get();
+
+        // $pw = new \PhpOffice\PhpWord\PhpWord();
+        // $section = $pw->addSection();
+        // $paper = new \PhpOffice\PhpWord\Style\Paper();
 
         $headers = array(
 
             "Content-type" => "text/html",
-
-            "Content-Disposition" => "attachment;Filename=RKL_$skkl->pelaku_usaha_baru.doc"
+            'orientation' => 'landscape',
+            "Content-Disposition" => "attachment;Filename=RKL_$skkl->nama_usaha_baru.doc"
 
         );
 
@@ -89,6 +93,9 @@ class PrintRklController extends Controller
         $body .= '<style>
                     body {
                         font-family:"Bookman Old Style,serif";
+                        size:841.9pt 595.3pt;
+                        mso-page-orientation:landscape;
+                        margin: 0.7cm 0.7cm 0.7cm 0.7cm;
                     }
                     ol {
                     columns:2;
@@ -103,10 +110,10 @@ class PrintRklController extends Controller
                 </style>';
 
 
-        $body .='<body>
+        $body .= '<body>
                 <center>MATRIKS RENCANA PENGELOLAAN LINGKUNGAN HIDUP<center>';
 
-        $body .='<table width="100%" border="1" rules="all" cellpadding="5" cellspacing="0" style="font-size: 6pt;">
+        $body .= '<table width="100%" border="1" rules="all" cellpadding="5" cellspacing="0" style="font-size: 6pt;">
 		<thead>
 			<tr>
 				<th>No</th>
@@ -133,11 +140,11 @@ class PrintRklController extends Controller
 
         $body .= $this->showdata($rkl_penting_operasi, $no, 'Operasi');
         $no += count($rkl_penting_operasi);
-        
+
         $body .= $this->showdata($rkl_penting_pasca, $no, 'Pasca Operasi');
         $no += count($rkl_penting_pasca);
-        
-        
+
+
         //========= DAMPAK LAINNYA =============
         $body .= '<tr id="dampakpenting">
             <td colspan="8"><b>DAMPAK LAINNYA YANG DIKELOLA</b></td>
@@ -152,15 +159,21 @@ class PrintRklController extends Controller
 
         $body .= $this->showdata($rkl_lainnya_operasi, $no, 'Operasi');
         $no += count($rkl_lainnya_operasi);
-        
+
         $body .= $this->showdata($rkl_lainnya_pasca, $no, 'Pasca Operasi');
         $no += count($rkl_lainnya_pasca);
 
-       
+
         $body .= '</tbody></table>
             </body>
             </html>';
 
+        // \PhpOffice\PhpWord\Shared\Html::addHtml($section, $body, $no, false, false);
+
+        // header("Content-Type: application/octet-stream");
+        // header("Content-Disposition: attachment;filename=\"convert.docx\"");
+        // $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($pw, "Word2007");
+        // $objWriter->save("php://output");
         return \Response::make($body, 200, $headers);
     }
 

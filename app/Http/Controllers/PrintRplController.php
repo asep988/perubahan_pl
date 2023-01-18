@@ -35,6 +35,12 @@ class PrintRplController extends Controller
             <tr>
                 <td align="center"> '.$no.'</td>
                 <td>
+                    '.$data->tahap_kegiatan.'
+                </td>
+                <td>
+                    '.$data->jenis_dph.'
+                </td>
+                <td>
                     '.$data->jenis_dampak.'
                 </td>
                 <td>
@@ -84,7 +90,7 @@ class PrintRplController extends Controller
 
             "Content-type" => "text/html",
 
-            "Content-Disposition" => "attachment;Filename=RPL_$skkl->pelaku_usaha_baru.doc"
+            "Content-Disposition" => "attachment;Filename=RPL_$skkl->nama_usaha_baru.doc"
 
         );
 
@@ -119,7 +125,6 @@ class PrintRplController extends Controller
                     <th colspan="3">Dampak Lingkungan Yang Dipantau</th>
                     <th colspan="3">Bentuk Pemantauan Lingkungan Hidup</th>
                     <th colspan="3">Institusi Pemantauan Lingkungan Hidup</th>
-                    <th width="145px" rowspan="2" class="align-middle">Aksi</th>
                 </tr>
                 <tr>
                     <td>Jenis Dampak Yang Timbul(dapat di ambien dan dapat di sumbernya)</td>

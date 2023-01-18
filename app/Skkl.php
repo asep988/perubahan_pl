@@ -18,6 +18,7 @@ class Skkl extends Model
     ];
     protected $fillable = [
         'user_id',
+        'nama_operator',
         'pelaku_usaha',
         'nama_usaha',
         'jenis_usaha',
@@ -55,5 +56,10 @@ class Skkl extends Model
     public function rkl()
     {
         return $this->hasMany(rkl::class, 'id_skkl', 'id');
+    }
+
+    public function Operator()
+    {
+        return $this->hasOne(User::class, 'operator_id', 'id');
     }
 }

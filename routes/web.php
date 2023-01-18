@@ -21,6 +21,7 @@ Auth::routes([
 ]);
 
 Route::get('/loginform', 'HomeController@loginform');
+Route::get('/query-check', 'HomeController@queryCheck');
 
 //home
 Route::get('/', [LoginController::class, 'index'])->name('login.form');
@@ -56,15 +57,22 @@ Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa,Operator']], function
 Route::group(['middleware' => ['auth', 'cekRole:Operator,Pemrakarsa']], function() {
     Route::get('/Operator', 'OperatorController@index')->name('operator.index');
     Route::get('/Operator/search', 'OperatorController@search')->name('operator.search');
+    Route::put('/Operator/skkl/periksa/{id}', 'OperatorController@periksa')->name('operator.skkl.periksa');
     Route::get('/Operator/download/{id}', 'OperatorController@download')->name('operator.download');
     Route::get('/Operator/preview/{id}', 'OperatorController@preview')->name('operator.preview');
     Route::put('/Operator/upload_file', 'OperatorController@upload_file')->name('operator.upload_file');
     Route::get('/Operator/file/delete/{id}', 'OperatorController@destroyFile')->name('operator.destroy.file');
 });
 
+Route::group(['middleware' => ['auth', 'cekRole:Sekretariat']], function() {
+    Route::get('/Sekretariat', 'SekretariatController@index')->name('sekre.penugasan.index');
+    Route::put('/Sekretariat/penugasan/update/{id}', 'SekretariatController@assign')->name('sekre.penugasan.update');
+});
+
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/review/{id}', 'SkklController@review')->name('skkl.review');
 });
+
 
 //Percobaan multi-user authentication
 Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {

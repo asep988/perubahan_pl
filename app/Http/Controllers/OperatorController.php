@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Skkl;
 use App\il_skkl;
+use App\User;
 use Exception;
 use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 // use FacadePdf;
@@ -22,10 +24,9 @@ class OperatorController extends Controller
     {
         $batas = 5;
         $jumlah_skkl = Skkl::count();
-        $data_skkl = Skkl::orderBy('id', 'asc')->paginate($batas);
+        $data_skkl = Skkl::orderBy('id', 'DESC')->get();
 
-        $no = $batas * ($data_skkl->currentpage() - 1);
-        return view('operator.index', compact('data_skkl', 'no', 'jumlah_skkl'));
+        return view('operator.index', compact('data_skkl', 'jumlah_skkl'));
     }
 
     /**
@@ -94,18 +95,6 @@ class OperatorController extends Controller
         //
     }
 
-    public function search(Request $request)
-    {
-        $batas = 5;
-        $cari = $request->kata;
-        $jumlah_skkl = Skkl::count();
-        $data_skkl = Skkl::where('nib_baru', 'like', "%" . $cari . "%")
-            ->paginate($batas);
-
-        $no = $batas * ($data_skkl->currentpage() - 1);
-        return view('operator.search', compact('data_skkl', 'no', 'cari'));
-    }
-
     public function upload_file(Request $request)
     {
         // Validation
@@ -152,6 +141,20 @@ class OperatorController extends Controller
         return back()->with('message', 'PDF berhasil dihapus!');
     }
 
+    public function periksa($id)
+    {
+        Skkl::find($id)->update([
+            'nama_operator' => Auth::user()->name
+        ]);
+
+        $skkl = Skkl::find($id);
+
+        $nama_usaha = $skkl->nama_usaha_baru;
+        $nama_operator = Auth::user()->name;
+
+        return back()->with('message', 'PJM untuk ' . $nama_usaha . ' adalah ' . $nama_operator);
+    }
+
     public function download($id)
     {
         //phpword
@@ -190,7 +193,7 @@ class OperatorController extends Controller
 
             "Content-type" => "text/html",
 
-            "Content-Disposition" => "attachment;Filename=PL_$skkl->pelaku_usaha_baru.doc"
+            "Content-Disposition" => "attachment;Filename=PL_$skkl->nama_usaha_baru.doc"
 
         );
 
@@ -402,7 +405,7 @@ KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA TENTANG KELA
 </td>
 <td width="5%"> :</td>
 <td width="65%">Ruang lingkup rencana usaha dan/atau kegiatan adalah sebagaimana dimaksud dalam:
-    ' . ucfirst($skkl->lokasi_baru) . '.
+    ' . ucfirst($skkl->ruang_lingkup) . '.
 </td>
 </tr>
 <tr>

@@ -64,6 +64,7 @@
                 <th>Perihal Perubahan PL</th>
                 <th>NIB</th>
                 <th>KBLI</th>
+                <th>Nama PJM</th>
                 <th>Link Drive Kelengkapan Dokumen</th>
                 <th width="100px">PDF</th>
                 <th width="120px">Aksi</th>
@@ -77,6 +78,13 @@
                 <td>{{ $skkl->perihal }}</td>
                 <td>{{ $skkl->nib }}</td>
                 <td>{{ $skkl->knli }}</td>
+                <td>
+                    @if ($skkl->nama_operator != null)
+                        {{ $skkl->nama_operator }}
+                    @else
+                        -
+                    @endif
+                </td>
                 <td> <button class="btn btn-sm btn-info"><a style="color: white;" target="_blank" href="{{ url($skkl->link_drive) }}">Open</a></button> </td>
                 <td>
                     <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="{{ '#staticBackdrop' . $skkl->id }}">
@@ -109,12 +117,17 @@
                     <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="{{ '#aksiModal'.$skkl->id }}">
                         Pilih
                     </button>
+                    {{-- <form action="{{ route('operator.skkl.periksa', $skkl->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" onclick="return confirm('Apakah anda sebagai PJM yang memeriksa data ini?')" class="btn btn-sm btn-warning" @if ($skkl->status != "Belum") disabled @endif>Periksa</button>
+                    </form> --}}
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
-    <b> Jumlah Skkl : {{ $jumlah_skkl }} </b>
+    {{-- <b> Jumlah Skkl : {{ $jumlah_skkl }} </b> --}}
 </div>
 
 <!-- Modal -->

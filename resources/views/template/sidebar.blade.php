@@ -30,7 +30,7 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('pemrakarsa.index') }}">
+        <a class="nav-link collapsed" href="{{ route('redirection') }}">
             <i class="fas fa-book"></i>
             <span>Permohonan Perubahan PL</span>
         </a>

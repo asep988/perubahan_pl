@@ -66,6 +66,8 @@
             <thead>
                 <tr>
                     <th width="70px" rowspan="2" class="align-middle">No</th>
+                    <th rowspan="2" class="align-middle">Tahap Kegiatan</th>
+                    <th rowspan="2" class="align-middle">Jenis DPH</th>
                     <th colspan="3">Dampak Lingkungan Yang Dipantau</th>
                     <th colspan="3">Bentuk Pemantauan Lingkungan Hidup</th>
                     <th colspan="3">Institusi Pemantauan Lingkungan Hidup</th>
@@ -87,6 +89,8 @@
                 @foreach ($data_rpl as $rpl)
                 <tr>
                     <td>{{ ++$no }}</td>
+                    <td>{{ $rpl -> tahap_kegiatan}}</td>
+                    <td>{{ $rpl -> jenis_dph }}</td>
                     <td>{{ $rpl -> jenis_dampak }}</td>
                     <td>{!! $rpl -> indikator !!}</td>
                     <td>{{ $rpl -> sumber_dampak }}</td>

@@ -166,25 +166,29 @@
             </table>
             <br>
             <div class="form-group row">
-                <label for="kabupaten_kota" class="col-sm-1 col-form-label">Kabupaten/Kota</label>
-                <select class="form-control js-kabkota-multiple" multiple="multiple" style="width: 85%" name="kabupaten_kota[]" id="kabupaten_kota">
-                    @foreach ($regencies as $regency)
-                        <option value="{{ $regency->regency }}">{{ $regency->regency }}</option>
-                    @endforeach
-                </select>
+                <label for="kabupaten_kota" class="col-sm-2 col-form-label">Kabupaten/Kota</label>
+                <div class="col-sm-8">
+                    <select class="js-kabkota-multiple" multiple="multiple" style="width: 100%" name="kabupaten_kota[]" id="kabupaten_kota" required>
+                        @foreach ($regencies as $regency)
+                            <option value="{{ $regency->regency }}">{{ $regency->regency }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
             <div class="form-group row">
-                <label for="provinsi" class="col-sm-1 col-form-label">Provinsi</label>
-                <select class="js-provinsi-multiple" multiple="multiple" style="width: 85%" name="provinsi[]" id="provinsi">
-                    @foreach ($provinces as $province)
-                        <option value="{{ $province->province }}">{{ $province->province }}</option>
-                    @endforeach
-                </select>
+                <label for="provinsi" class="col-sm-2 col-form-label">Provinsi</label>
+                <div class="col-sm-8">
+                    <select class="js-provinsi-multiple" multiple="multiple" style="width: 100%" name="provinsi[]" id="provinsi" required>
+                        @foreach ($provinces as $province)
+                            <option value="{{ $province->province }}">{{ $province->province }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
             <div class="form-group row">
-                <label for="link_drive" class="col-sm-1 col-form-label">Link Google Drive</label>
-                <div class="col-sm-10"><br>
-                    <input type="text" class="form-control" id="link_drive" name="link_drive" placeholder="Pastikan Link Google Drive anda Bisa diakses Oleh Publik" required>
+                <label for="link_drive" class="col-sm-2 col-form-label">Upload Lampiran Link Drive</label>
+                <div class="col-sm-8">
+                    <input type="text" style="width: 100%" class="form-control" id="link_drive" name="link_drive" placeholder="Pastikan Link Google Drive anda Bisa diakses Oleh Publik" required>
                 </div>
             </div>
             <br>
@@ -249,9 +253,6 @@
                         </tr>
                     </tbody>
                 </table>
-                {{-- <div class="col-sm-8">
-                    <textarea class="form-control" id="mytextarea" aria-label="editor" name="il_dkk"></textarea>
-                </div> --}}
                 <div class="mt-1">
                     <button type="button" id="remove" class="btn remove-btn btn-sm btn-danger">
                         <i class="fas fa-minus fa-sm"></i>
@@ -272,7 +273,7 @@
             </div>
             
             <div>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
         </form>
     </div>

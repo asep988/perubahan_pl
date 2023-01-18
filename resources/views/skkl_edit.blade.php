@@ -167,43 +167,47 @@
             </table>
             <br>
             <div class="form-group row">
-                <label for="kabupaten_kota" class="col-sm-1 col-form-label">Kabupaten/Kota</label>
-                <select class="form-control js-kabkota-multiple" multiple="multiple" style="width: 85%" name="kabupaten_kota[]" id="kabupaten_kota">
-                    <?php $true = 0;?>
-                    @foreach ($regencies as $regency)
-                        @foreach ($selected_kabupaten_kota as $selected_kab)
-                            @if ($regency->regency == $selected_kab)
-                                <option value="{{ $regency->regency }}" selected>{{ $regency->regency }}</option>
-                                <?php $true = $regency->regency ?>
+                <label for="kabupaten_kota" class="col-sm-2 col-form-label">Kabupaten/Kota</label>
+                <div class="col-sm-8">
+                    <select class="form-control js-kabkota-multiple" multiple="multiple" style="width: 100%" style="width: 85%" name="kabupaten_kota[]" id="kabupaten_kota">
+                        <?php $true = 0;?>
+                        @foreach ($regencies as $regency)
+                            @foreach ($selected_kabupaten_kota as $selected_kab)
+                                @if ($regency->regency == $selected_kab)
+                                    <option value="{{ $regency->regency }}" selected>{{ $regency->regency }}</option>
+                                    <?php $true = $regency->regency ?>
+                                @endif
+                            @endforeach
+                            @if ($regency->regency != $true)
+                                <option value="{{ $regency->regency }}">{{ $regency->regency }}</option>
                             @endif
                         @endforeach
-                        @if ($regency->regency != $true)
-                            <option value="{{ $regency->regency }}">{{ $regency->regency }}</option>
-                        @endif
-                    @endforeach
-                </select>
+                    </select>
+                </div>
             </div>
             <div class="form-group row">
-                <label for="provinsi" class="col-sm-1 col-form-label">Provinsi</label>
-                <select class="js-provinsi-multiple" multiple="multiple" style="width: 85%" name="provinsi[]" id="provinsi">
-                    <?php $same = 0;?>
-                    @foreach ($provinces as $province)
-                        @foreach ($selected_provinces as $selected_province)
-                            @if ($province->province == $selected_province)
-                                <option value="{{ $province->province }}" selected>{{ $province->province }}</option>
-                                <?php $same = $province->province?>
+                <label for="provinsi" class="col-sm-2 col-form-label">Provinsi</label>
+                <div class="col-sm-8">
+                    <select class="js-provinsi-multiple" multiple="multiple" style="width: 100%" style="width: 85%" name="provinsi[]" id="provinsi">
+                        <?php $same = 0;?>
+                        @foreach ($provinces as $province)
+                            @foreach ($selected_provinces as $selected_province)
+                                @if ($province->province == $selected_province)
+                                    <option value="{{ $province->province }}" selected>{{ $province->province }}</option>
+                                    <?php $same = $province->province?>
+                                @endif
+                            @endforeach
+                            @if ($province->province != $same)
+                                <option value="{{ $province->province }}">{{ $province->province }}</option>
                             @endif
                         @endforeach
-                        @if ($province->province != $same)
-                            <option value="{{ $province->province }}">{{ $province->province }}</option>
-                        @endif
-                    @endforeach
-                </select>
+                    </select>
+                </div>
             </div>
             <div class="form-group row">
-                <label for="link_drive" class="col-sm-1 col-form-label">Link Google Drive</label>
-                <div class="col-sm-10"><br>
-                    <input type="text" class="form-control" id="link_drive" name="link_drive" value="{{ $skkl->link_drive }}" placeholder="Pastikan Link Google Drive anda Bisa diakses Oleh Publik" required>
+                <label for="link_drive" class="col-sm-2 col-form-label">Upload Lampiran Link Drive</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="link_drive" style="width: 100%" name="link_drive" value="{{ $skkl->link_drive }}" placeholder="Pastikan Link Google Drive anda Bisa diakses Oleh Publik" required>
                 </div>
             </div>
             <br>
@@ -295,7 +299,7 @@
             </div>
             
             <div>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
         </form>
     </div>

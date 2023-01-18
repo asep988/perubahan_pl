@@ -28,11 +28,9 @@ class RplController extends Controller
 		$id_user = Auth::user()->id;
 
 		$rpl = new rpl;
-		//$skkl->user_id 		=   $id_user;
-		// $skkl->pelaku_usaha =   $request->pelaku_usaha;
-		// $skkl->nama_usaha	=	$request->nama_usaha;
-		// $skkl->jenis_usaha	=	$request->jenis_usaha;
-
+		
+		$rpl->tahap_kegiatan		=	$request->tahap_kegiatan;
+		$rpl->jenis_dph				=	$request->jenis_dph;
 		$rpl->id_skkl				=	$request->id_skkl;
 		$rpl->jenis_dampak          =	$request->jenis_dampak;
 		$rpl->indikator		        =	$request->indikator;
@@ -43,7 +41,7 @@ class RplController extends Controller
 		$rpl->pelaksana				=	$request->pelaksana;
 		$rpl->pengawas				=	$request->pengawas;
 		$rpl->penerima				=	$request->penerima;
-		
+
 		//savedatabase
 		$rpl->save();
 

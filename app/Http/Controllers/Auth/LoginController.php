@@ -78,6 +78,14 @@ class LoginController extends Controller
             ->where('feasibility_test_teams.authority', 'Pusat')
             ->select('users.email')
             ->get();
+
+            $sekretariat = User::join('luk_members', 'users.email', 'luk_members.email')
+            ->join('feasibility_test_team_members', 'luk_members.id', 'feasibility_test_team_members.id_luk_member')
+            ->join('feasibility_test_teams', 'feasibility_test_teams.id', 'feasibility_test_team_members.id_feasibility_test_team')
+            ->select('users.email')
+            ->where('feasibility_test_team_members.position', 'Kepala Sekretariat')
+            ->where('feasibility_test_teams.authority', 'Pusat')
+            ->get();
             
             $level = 'unregistered';
             for ($i = 0; $i < count($pemrakarsa); $i++) {
@@ -89,6 +97,12 @@ class LoginController extends Controller
             for ($i = 0; $i < count($operator); $i++) {
                 if (authenticate::user()->email == $operator[$i]->email) {
                     $level = 'Operator';
+                }
+            }
+
+            for ($i = 0; $i < count($sekretariat); $i++) {
+                if (Auth::user()->email == $sekretariat[$i]->email) {
+                    $level = 'Sekretariat';
                 }
             }
 
