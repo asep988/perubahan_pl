@@ -5,12 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Skkl extends Model
+class Pkplh extends Model
 {
     use HasFactory;
 
     protected $connection = 'perubahan_pl';
-    protected $table = 'skkl';
+    protected $table = 'pkplh';
     protected $primaryKey = 'id';
     protected $casts = [
         'kabupaten_kota' => 'array',
@@ -24,7 +24,7 @@ class Skkl extends Model
         'jenis_usaha',
         'penanggung',
         'nib',
-        'knli',
+        'kbli',
         'jabatan',
         'alamat',
         'lokasi',
@@ -33,7 +33,7 @@ class Skkl extends Model
         'jenis_usaha_baru',
         'penanggung_baru',
         'nib_baru',
-        'knli_baru',
+        'kbli_baru',
         'jabatan_baru',
         'alamat_baru',
         'lokasi_baru',
@@ -48,8 +48,8 @@ class Skkl extends Model
         'status'
     ];
 
-    public function il_skkl()
+    public function il_pkplh()
     {
-        return $this->hasMany(il_skkl::class, 'id_skkl', 'id');
+        return $this->hasMany(il_pkplh::class, 'id_pkplh', 'id');
     }
 }

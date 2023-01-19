@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>SKKL & PKPLH</title>
+	<title>Inaccessible</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -28,24 +28,7 @@
 						<div class="icon d-flex align-items-center justify-content-center">
 							<span class="fa fa-user-o"></span>
 						</div>
-						@if ($role == 'Operator')
-							<h3 class="text-center mb-4">Halo, Operator!</h3>
-						@elseif ($role == 'Pemrakarsa')
-							<h3 class="text-center mb-4">Halo, Pemrakarsa</h3>
-						@else
-							<h3 class="text-center mb-4">Identify Yourself!</h3>
-						@endif
-						{{-- <form action="#" class="login-form">
-							<div class="form-group">
-								<input type="text" class="form-control rounded-left" placeholder="Email" required>
-							</div>
-							<div class="form-group d-flex">
-								<input type="password" class="form-control rounded-left" placeholder="Password" required>
-							</div>
-							<div class="form-group">
-								<button type="submit" class="form-control btn btn-primary rounded submit px-3">Login</button>
-							</div>
-						</form> --}}
+						<h3 class="text-center mb-4">Maaf anda tidak memiliki akses untuk membuka halaman ini!</h3>
 					</div>
 				</div>
 			</div>

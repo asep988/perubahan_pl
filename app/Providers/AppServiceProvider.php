@@ -34,29 +34,28 @@ class AppServiceProvider extends ServiceProvider
         Carbon::setLocale('id');
         date_default_timezone_set('Asia/Jakarta');
 
-        // $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
-		// ->where('initiators.user_type', 'Pemrakarsa')
-		// ->get();
+        $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
+		->where('initiators.user_type', 'Pemrakarsa')
+		->get();
 
-		// $operator = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
-		// ->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
-		// ->where('feasibility_test_teams.authority', 'Pusat')
-		// ->select('users.email')
-		// ->get();
+		$operator = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
+		->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
+		->where('feasibility_test_teams.authority', 'Pusat')
+		->select('users.email')
+		->get();
+
+        $sekretariat = User::join('luk_members', 'users.email', 'luk_members.email')
+        ->join('feasibility_test_team_members', 'luk_members.id', 'feasibility_test_team_members.id_luk_member')
+        ->join('feasibility_test_teams', 'feasibility_test_teams.id', 'feasibility_test_team_members.id_feasibility_test_team')
+        ->select('users.email')
+        ->where('feasibility_test_team_members.position', 'Kepala Sekretariat')
+        ->where('feasibility_test_teams.authority', 'Pusat')
+        ->get();
 		
-        // $role = 'unregistered';
-		// for ($i = 0; $i < count($pemrakarsa); $i++) {
-		// 	if (Auth::user()->email == $pemrakarsa[$i]->email) {
-		// 		$role = 'Pemrakarsa';
-		// 	}
-		// }
-
-		// for ($i = 0; $i < count($operator); $i++) {
-		// 	if (Auth::user()->email == $operator[$i]->email) {
-		// 		$role = 'Operator';
-		// 	}
-		// }
-
-        // view()->share('user_role', $role);
+        view()->share([
+            'pemrakarsa_role' => $pemrakarsa,
+            'operator_role' => $operator,
+            'sekretariat_role' => $sekretariat
+        ]);
     }
 }

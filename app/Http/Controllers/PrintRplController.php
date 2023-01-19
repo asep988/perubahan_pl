@@ -26,7 +26,7 @@ class PrintRplController extends Controller
         if (count($data_rpl) > 0) {
             $body ='
                 <tr>
-                    <td colspan="8"><strong>'.$tahap.'</strong></td>
+                    <td colspan="10"><strong>'.$tahap.'</strong></td>
                 </tr>';
             }
         foreach ($data_rpl as $data) {
@@ -34,12 +34,6 @@ class PrintRplController extends Controller
             $body .='
             <tr>
                 <td align="center"> '.$no.'</td>
-                <td>
-                    '.$data->tahap_kegiatan.'
-                </td>
-                <td>
-                    '.$data->jenis_dph.'
-                </td>
                 <td>
                     '.$data->jenis_dampak.'
                 </td>
@@ -140,7 +134,7 @@ class PrintRplController extends Controller
             </thead>
 		<tbody>
 			<tr id="dampakpenting">
-				<td colspan="8"><b>DAMPAK PENTING YANG DIKELOLA</b></td>
+				<td colspan="10"><b>DAMPAK PENTING YANG DIKELOLA</b></td>
 			</tr>';
 
         $no = 0;
@@ -159,7 +153,7 @@ class PrintRplController extends Controller
         
         //========= DAMPAK LAINNYA =============
         $body .= '<tr id="dampakpenting">
-            <td colspan="8"><b>DAMPAK LAINNYA YANG DIKELOLA</b></td>
+            <td colspan="10"><b>DAMPAK LAINNYA YANG DIKELOLA</b></td>
         </tr>';
 
         $no = 0;

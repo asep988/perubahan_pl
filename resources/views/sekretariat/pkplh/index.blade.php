@@ -11,7 +11,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 <li>
-                    <h4><b>Penugasan pada Permohonan Perubahan Kepemilikan SKKL</b></h4>
+                    <h4><b>Penugasan pada Pernyataan PKPLH</b></h4>
                 </li>
             </ul>
 
@@ -57,21 +57,21 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data_skkl as $skkl)
+            @foreach ($data_pkplh as $pkplh)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $skkl->nama_usaha_baru }}</td>
-                <td>{{ $skkl->perihal }}</td>
-                <td>{{ $skkl->nib }}</td>
+                <td>{{ $pkplh->nama_usaha_baru }}</td>
+                <td>{{ $pkplh->perihal }}</td>
+                <td>{{ $pkplh->nib }}</td>
                 <td>
-                    @if ($skkl->nama_operator != null)
-                        {{ $skkl->nama_operator }}
+                    @if ($pkplh->nama_operator != null)
+                        {{ $pkplh->nama_operator }}
                     @else
                         -
                     @endif
                 </td>
                 <td>
-                    <form action="{{ route('sekre.penugasan.update', $skkl->id) }}" method="POST">
+                    <form action="{{ route('sekre.pkplh.update', $pkplh->id) }}" method="POST">
                         @csrf
                         @method('PUT')    
                         <select class="operator-list" style="width: 100%" name="operator_name">
@@ -80,9 +80,9 @@
                                 <option value="{{ $operator->name }}">{{ $operator->name }}</option>
                             @endforeach
                         </select>
-                        <button type="submit" class="btn btn-sm btn-success btn-block" @if ($skkl->status != "Belum") disabled @endif>Tugaskan</button>
+                        <button type="submit" class="btn btn-sm btn-success btn-block" @if ($pkplh->status != "Belum") disabled @endif>Tugaskan</button>
                     </form>
-                    {{-- <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="{{ '#aksiModal'.$skkl->id }}">
+                    {{-- <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="{{ '#aksiModal'.$pkplh->id }}">
                         Tugaskan
                     </button> --}}
                 </td>
@@ -93,8 +93,8 @@
 </div>
 
 <!-- Modal -->
-@foreach ($data_skkl as $skkl)
-<div class="modal fade operator-modal" id="{{ 'aksiModal'.$skkl->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@foreach ($data_pkplh as $pkplh)
+<div class="modal fade operator-modal" id="{{ 'aksiModal'.$pkplh->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -104,7 +104,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('sekre.penugasan.update', $skkl->id) }}" method="POST">
+                <form action="{{ route('sekre.pkplh.update', $pkplh->id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
@@ -116,7 +116,7 @@
                         </select>
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-sm btn-success btn-block" @if ($skkl->status != "Belum") disabled @endif>Tugaskan</button>
+                    <button type="submit" class="btn btn-sm btn-success btn-block" @if ($pkplh->status != "Belum") disabled @endif>Tugaskan</button>
                 </form>
             </div>
         </div>

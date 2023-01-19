@@ -20,23 +20,12 @@ class RklController extends Controller
 		$id_skkl = $id;
 		$data_rkl = rkl::where('id_skkl', $id)->orderBy('id', 'desc')->get();
 
-        return view('rkl', compact('data_rkl', 'jumlah_rkl', 'id_skkl'));
-		// return view('rkl');
+        return view('home.rkl.index', compact('data_rkl', 'jumlah_rkl', 'id_skkl'));
 	}
 
 	public function store_rkl(Request $request)
 	{
-		// $kabkota = implode(", ", $request->kabupaten_kota);
-		// $prov = implode(", ", $request->provinsi);
-
-		$id_user = Auth::user()->id;
-
 		$rkl = new rkl;
-		//$skkl->user_id 		=   $id_user;
-		// $skkl->pelaku_usaha =   $request->pelaku_usaha;
-		// $skkl->nama_usaha	=	$request->nama_usaha;
-		// $skkl->jenis_usaha	=	$request->jenis_usaha;
-
 		$rkl->id_skkl				=	$request->id_skkl;
 		$rkl->dampak_dikelola		=	$request->dampak_dikelola;
 		$rkl->sumber_dampak			=	$request->sumber_dampak;
@@ -47,10 +36,7 @@ class RklController extends Controller
 		$rkl->institusi				=	$request->institusi;
 		$rkl->jenis_dph				=	$request->jenis_dph;
 		$rkl->tahap_kegiatan		=	$request->tahap_kegiatan;
-		
-		//savedatabase
 		$rkl->save();
-
 		
         return back()->with('pesan', 'Data berhasil diinput');
 	}
@@ -64,12 +50,11 @@ class RklController extends Controller
 
 	public function ubah($id){
         $rkl = rkl::find($id);
-        return view('rkl_edit', compact('rkl'));
+        return view('home.rkl.edit', compact('rkl'));
     }
 
 	public function update(Request $request, $id){
         $rkl = rkl::find($id);
-		$skkl = Skkl::find($id);
         $rkl->id_skkl				=	$request->id_skkl;
 		$rkl->dampak_dikelola		=	$request->dampak_dikelola;
 		$rkl->sumber_dampak			=	$request->sumber_dampak;

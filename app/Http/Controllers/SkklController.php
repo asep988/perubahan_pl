@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class SkklController extends Controller
 {
-	public function create()
+	public function create() //Pemrakarsa
 	{
 		$provinces = region::where('regency', "")->get();
 		$regencies = region::where('regency', '!=', "")
@@ -22,10 +22,10 @@ class SkklController extends Controller
 
 		$email = Auth::user()->email;
 
-		return view('skkl', compact('regencies', 'provinces'));
+		return view('home.skkl.form', compact('regencies', 'provinces'));
 	}
 
-	public function store(Request $request)
+	public function store(Request $request) //Pemrakarsa
 	{
 		$request->validate([
 			'pelaku_usaha' => 'required',
@@ -60,11 +60,8 @@ class SkklController extends Controller
 			'perihal' => 'required'
 		]);
 
-		// $kabkota = implode(", ", $request->kabupaten_kota);
-		// $prov = implode(", ", $request->provinsi);
 		$id_user = Auth::user()->id;
 
-		// return $kabkota;
 		$skkl = new Skkl;
 		$skkl->user_id 		=   $id_user;
 		$skkl->pelaku_usaha =   $request->pelaku_usaha;
@@ -112,26 +109,19 @@ class SkklController extends Controller
 			$il_skkl->perihal_surat = $request->perihal[$i];
 			$il_skkl->save();
 		}
-		
-		// $user_id =  Auth::user()->id;
-        // $batas = 5;
-        // $jumlah_skkl = Skkl::count('user_id');
-        // $data_skkl = Skkl::where('user_id',$user_id)->orderBy('user_id', 'desc')->get();
-
-        // $no = $batas * ($data_skkl->currentpage() - 1);
 
         return redirect()->route('pemrakarsa.index')->with('pesan', 'Data berhasil diinput');
 	}
 
-	public function review($id)
+	public function review($id) //Pemrakarsa
 	{
 		$data_skkl = Skkl::find($id);
 		$il_skkl = il_skkl::where('id_skkl', $id)->get();
 
-		return view('review', compact('data_skkl', 'il_skkl'));
+		return view('home.skkl.review', compact('data_skkl', 'il_skkl'));
 	}
 
-	public function edit($id)
+	public function edit($id) //Pemrakarsa
 	{
 		$provinces = region::where('regency', "")->get();
 		$regencies = region::where('regency', '!=', "")
@@ -143,10 +133,10 @@ class SkklController extends Controller
 		$selected_kabupaten_kota = $skkl->kabupaten_kota;
 		$jum = count($il_skkl);
 
-		return view('skkl_edit', compact('provinces', 'regencies', 'skkl', 'jum', 'il_skkl', 'selected_provinces', 'selected_kabupaten_kota'));
+		return view('home.skkl.edit', compact('provinces', 'regencies', 'skkl', 'jum', 'il_skkl', 'selected_provinces', 'selected_kabupaten_kota'));
 	}
 
-	public function update(Request $request, $id)
+	public function update(Request $request, $id) //Pemrakarsa
 	{
 		$request->validate([
 			'pelaku_usaha' => 'required',
@@ -225,5 +215,17 @@ class SkklController extends Controller
 		}
 
 		return redirect()->route('pemrakarsa.index')->with('pesan', 'Data berhasil diperbarui');
+	}
+
+	public function download($id)
+	{
+		$data_skkl = Skkl::find($id);
+        $il_skkl = il_skkl::where('id_skkl', $id)->get();
+
+		$phpWord = new \PhpOffice\PhpWord\PhpWord();
+		$section = $phpWord->addSection();
+		$report = view('operator.skkl.preview', compact('data_skkl', 'il_skkl'))->render();
+
+		\PhpOffice\PhpWord\Shared\Html::addHtml($section, $report, true);
 	}
 }

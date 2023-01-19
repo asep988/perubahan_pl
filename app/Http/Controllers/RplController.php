@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class RplController extends Controller
 {
-    public function create($id)
+    public function create($id) //Pemrakarsa
     {
         $batas = 5;
         $jumlah_rpl = rpl::where('id_skkl', $id)->count();
@@ -17,18 +17,12 @@ class RplController extends Controller
 		$data_rpl = rpl::where('id_skkl', $id)->orderBy('id', 'desc')->paginate($batas);
 
         $no = $batas * ($data_rpl->currentpage() - 1);
-        return view('rpl', compact('data_rpl', 'no', 'jumlah_rpl', 'id_skkl'));
+        return view('home.rpl.index', compact('data_rpl', 'no', 'jumlah_rpl', 'id_skkl'));
     }
 
-    public function store_rpl(Request $request)
+    public function store_rpl(Request $request) //Pemrakarsa
 	{
-		// $kabkota = implode(", ", $request->kabupaten_kota);
-		// $prov = implode(", ", $request->provinsi);
-
-		$id_user = Auth::user()->id;
-
 		$rpl = new rpl;
-		
 		$rpl->tahap_kegiatan		=	$request->tahap_kegiatan;
 		$rpl->jenis_dph				=	$request->jenis_dph;
 		$rpl->id_skkl				=	$request->id_skkl;
@@ -41,29 +35,27 @@ class RplController extends Controller
 		$rpl->pelaksana				=	$request->pelaksana;
 		$rpl->pengawas				=	$request->pengawas;
 		$rpl->penerima				=	$request->penerima;
-
-		//savedatabase
 		$rpl->save();
-
 		
         return back()->with('pesan', 'Data berhasil diinput');
 	}
 
-	public function delete($id)
+	public function delete($id) //Pemrakarsa
 	{
 		$rpl = rpl::find($id);
         $rpl->delete();
         return back()->with('pesan', 'Data RKL-RPL Berhasil di Hapus');
 	}
 
-	public function ubah($id){
+	public function ubah($id) //Pemrakarsa
+	{
         $rpl = rpl::find($id);
-        return view('rpl_edit', compact('rpl'));
+        return view('home.rpl.edit', compact('rpl'));
     }
 
-	public function update(Request $request, $id){
+	public function update(Request $request, $id) //Pemrakarsa
+	{
         $rpl = rpl::find($id);
-		$skkl = Skkl::find($id);
 
         $rpl->id_skkl				=	$request->id_skkl;
 		$rpl->indikator		        =	$request->indikator;
@@ -75,6 +67,7 @@ class RplController extends Controller
 		$rpl->pengawas				=	$request->pengawas;
 		$rpl->penerima				=	$request->penerima;
         $rpl->update();
-        return redirect('/Pemrakarsa/rpl/create/'.$rpl->id_skkl	)->with('pesan', 'Data RKL Berhasil di Update');
+
+        return redirect()->route('rpl.create')->with('pesan', 'Data RKL Berhasil di Update');
 	}
 }

@@ -11,7 +11,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 <li>
-                    <h4><b>Daftar Permohonan Perubahan Kepemilikan SKKL</b></h4>
+                    <h4><b>PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN HIDUP (PKPLH)</b></h4>
                 </li>
             </ul>
 
@@ -62,7 +62,7 @@
     </nav>
 </div>
 <div class="card-body">
-    <button class=" btn btn-sm btn-success"><a style="color: white;" href="{{ route('skkl.create') }}">Tambah</a></button><br><br>
+    <button class=" btn btn-sm btn-success"><a style="color: white;" href="{{ route('pkplh.create') }}">Tambah</a></button><br><br>
     <div class="table-responsive">
         <table id="datatable" class="table" style="width: 100%">
             <thead>
@@ -75,31 +75,20 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($data_skkl as $skkl)
+                @foreach ($data_pkplh as $pkplh)
                 <tr>
                     <td class="text-center">{{ $loop->iteration }}</td>
-                    <td class="text-center">{{$skkl->tgl_pl}}, {{ $skkl->created_at->format('H:i:s') }}</td>
-                    <td>{{$skkl->perihal}}</td>
+                    <td class="text-center">{{$pkplh->tgl_pl}}, {{ $pkplh->updated_at->format('H:i:s') }}</td>
+                    <td>{{$pkplh->perihal}}</td>
                     <td class="text-center">
-                        @if ($skkl->status == "Belum")
+                        @if ($pkplh->status == "Belum")
                             <span class="badge badge-warning">Proses Validasi</span>
                         @else
                             <span class="badge badge-success">Selesai</span>
                         @endif
                     </td>
                     <td class="text-center">
-                        {{-- <div class="dropdown">
-                            <button class="btn btn-sm btn-info dropdown-toggle" type="button" id="btn-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Aksi
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="btn-dropdown">
-                                <a class="dropdown-item @if ($skkl->status != "Belum") disabled @endif" href="{{ route('skkl.edit', $skkl->id) }}">Ubah</a>
-                                <a class="dropdown-item" href="{{ route('rkl.create', $skkl->id) }}">RKL</a>
-                                <a class="dropdown-item" href="{{ route('rpl.create', $skkl->id) }}">RPL</a>
-                                <a class="dropdown-item" href="{{ route('skkl.review', $skkl->id) }}">Preview</a>
-                            </div>
-                        </div> --}}
-                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="{{ '#exampleModal'.$skkl->id }}">
+                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="{{ '#exampleModal'.$pkplh->id }}">
                             Pilih
                         </button>
                     </td>
@@ -110,8 +99,8 @@
     </div>
 </div>
 
-@foreach ($data_skkl as $skkl)
-<div class="modal fade" id="{{ 'exampleModal'.$skkl->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@foreach ($data_pkplh as $pkplh)
+<div class="modal fade" id="{{ 'exampleModal'.$pkplh->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -121,11 +110,10 @@
           </button>
         </div>
         <div class="modal-body">
-            <a class="btn btn-success btn-block" href="{{ route('rkl.create', $skkl->id) }}">Dokumen RKL</a>
-            <a class="btn btn-success btn-block" href="{{ route('rpl.create', $skkl->id) }}">Dokumen RPL</a>
+            <!-- <a class="btn btn-success btn-block" href="{{ route('rkl.create', $pkplh->id) }}">Dokumen UKL-UPL</a> -->
             <hr>
-            <a class="btn btn-warning btn-block @if ($skkl->status != "Belum") disabled @endif" href="{{ route('skkl.edit', $skkl->id) }}">Ubah Data SKKL</a>
-            <a class="btn btn-primary btn-block" href="{{ route('skkl.review', $skkl->id) }}">Preview Dokumen SKKL</a>
+            <a class="btn btn-warning btn-block @if ($pkplh->status != "Belum") disabled @endif" href="{{ route('pkplh.edit', $pkplh->id) }}">Ubah Data PKPLH</a>
+            <a class="btn btn-primary btn-block" href="{{ route('pkplh.review', $pkplh->id) }}">Preview Dokumen PKPLH</a>
         </div>
       </div>
     </div>

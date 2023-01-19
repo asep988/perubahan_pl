@@ -27,13 +27,19 @@ Route::get('/query-check', 'HomeController@queryCheck');
 Route::get('/', [LoginController::class, 'index'])->name('login.form');
 Route::get('/redirection', 'HomeController@redirection')->name('redirection');
 
-// Route::get('/', 'SkklController@create')->middleware('auth');
-Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa,Operator']], function() {
+Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {
+    //skkl
     Route::get('/Pemrakarsa', 'HomeController@index')->name('pemrakarsa.index');
     Route::get('/Pemrakarsa/skkl/form', 'SkklController@create')->name('skkl.create');
     Route::get('/Pemrakarsa/skkl/edit/{id}', 'SkklController@edit')->name('skkl.edit');
     Route::post('/Pemrakarsa/skkl/create', 'SkklController@store')->name('skkl.store');
     Route::put('/Pemrakarsa/skkl/update/{id}', 'SkklController@update')->name('skkl.update');
+    //pkplh
+    Route::get('/Pemrakarsa/pkplh', 'PkplhController@index')->name('pkplh.index');
+    Route::get('/Pemrakarsa/pkplh/form', 'PkplhController@create')->name('pkplh.create');
+    Route::get('/Pemrakarsa/pkplh/edit/{id}', 'PkplhController@edit')->name('pkplh.edit');
+    Route::post('/Pemrakarsa/pkplh/create', 'PkplhController@store')->name('pkplh.store');
+    Route::put('/Pemrakarsa/pkplh/update/{id}', 'PkplhController@update')->name('pkplh.update');
     
     //rkl
     Route::get('/Pemrakarsa/rkl/create/{id}', 'RklController@create')->name('rkl.create');
@@ -48,29 +54,38 @@ Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa,Operator']], function
     Route::get('/Pemrakarsa/rpl/ubah/{id}', 'RplController@ubah')->name('rpl.ubah');
     Route::post('/Pemrakarsa/rpl/update/{id}', 'RplController@update')->name('rpl.update');
     Route::post('/Pemrakarsa/rpl', 'RplController@store_rpl')->name('rpl.store_rpl');
-
-    //Print doc RKL RPL
-    Route::get('/Pemrakarsa/printrkl/download/{id}', 'PrintRklController@download')->name('printrkl.download');
-    Route::get('/Pemrakarsa/printrpl/download/{id}', 'PrintRplController@download')->name('printrpl.download');
 });
 
-Route::group(['middleware' => ['auth', 'cekRole:Operator,Pemrakarsa']], function() {
+Route::group(['middleware' => ['auth', 'cekRole:Operator']], function() {
     Route::get('/Operator', 'OperatorController@index')->name('operator.index');
     Route::get('/Operator/search', 'OperatorController@search')->name('operator.search');
     Route::put('/Operator/skkl/periksa/{id}', 'OperatorController@periksa')->name('operator.skkl.periksa');
     Route::get('/Operator/download/{id}', 'OperatorController@download')->name('operator.download');
     Route::get('/Operator/preview/{id}', 'OperatorController@preview')->name('operator.preview');
     Route::put('/Operator/upload_file', 'OperatorController@upload_file')->name('operator.upload_file');
-    Route::delete('/Operator/file/delete/{id}', 'OperatorController@destroyFile')->name('operator.destroy.file');
+    Route::get('/Operator/file/delete/{id}', 'OperatorController@destroyFile')->name('operator.destroy.file'); 
+    
+    Route::get('/Operator/pkplh', 'PkplhController@operatorIndex')->name('operator.pkplh.index');
+    Route::get('/Operator/pkplh/preview/{id}', 'PkplhController@operatorPreview')->name('operator.pkplh.preview');
+    Route::put('/Operator/pkplh/upload_file', 'PkplhController@uploadFile')->name('operator.pkplh.upload');
+    Route::get('/Operator/pkplh/file/delete/{id}', 'PkplhController@destroyFile')->name('operator.pkplh.destroy');
+    Route::get('/Operator/pkplh/download/{id}', 'PkplhController@download')->name('operator.pkplh.download');
+
+    //Print doc RKL RPL
+    Route::get('/Operator/printrkl/download/{id}', 'PrintRklController@download')->name('printrkl.download');
+    Route::get('/Operator/printrpl/download/{id}', 'PrintRplController@download')->name('printrpl.download');
 });
 
 Route::group(['middleware' => ['auth', 'cekRole:Sekretariat']], function() {
     Route::get('/Sekretariat', 'SekretariatController@index')->name('sekre.penugasan.index');
     Route::put('/Sekretariat/penugasan/update/{id}', 'SekretariatController@assign')->name('sekre.penugasan.update');
+    Route::get('/Sekretariat/pkplh', 'SekretariatController@pkplhIndex')->name('sekre.pkplh.index');
+    Route::put('/Sekretariat/pkplh/update/{id}', 'SekretariatController@pkplhAssign')->name('sekre.pkplh.update');
 });
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::get('/review/{id}', 'SkklController@review')->name('skkl.review');
+    Route::get('/skkl/review/{id}', 'SkklController@review')->name('skkl.review');
+    Route::get('/pkplh/review/{id}', 'PkplhController@review')->name('pkplh.review');
 });
 
 

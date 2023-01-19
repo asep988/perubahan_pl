@@ -11,7 +11,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 <li>
-                    <h4><b>Daftar Permohonan Perubahan Kepemilikan SKKL</b></h4>
+                    <h4><b>Daftar Pernyataan PKPLH</b></h4>
                 </li>
             </ul>
 
@@ -71,89 +71,57 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data_skkl as $skkl)
+            @foreach ($data_pkplh as $pkplh)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $skkl->nama_usaha_baru }}</td>
-                <td>{{ $skkl->perihal }}</td>
-                <td>{{ $skkl->nib }}</td>
-                <td>{{ $skkl->knli }}</td>
+                <td>{{ $pkplh->nama_usaha_baru }}</td>
+                <td>{{ $pkplh->perihal }}</td>
+                <td>{{ $pkplh->nib }}</td>
+                <td>{{ $pkplh->kbli }}</td>
                 <td>
-                    @if ($skkl->nama_operator != null)
-                        {{ $skkl->nama_operator }}
+                    @if ($pkplh->nama_operator != null)
+                        {{ $pkplh->nama_operator }}
                     @else
                         -
                     @endif
                 </td>
-                <td> <button class="btn btn-sm btn-info"><a style="color: white;" target="_blank" href="{{ url($skkl->link_drive) }}">Open</a></button> </td>
+                <td> <button class="btn btn-sm btn-info"><a style="color: white;" target="_blank" href="{{ url($pkplh->link_drive) }}">Open</a></button> </td>
                 <td>
-                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="{{ '#staticBackdrop' . $skkl->id }}">
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="{{ '#staticBackdrop' . $pkplh->id }}">
                         Upload
                     </button>
-                    {{-- <form action="" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <input type="file" name="file" style="color: transparent;"><br>
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                <input type="submit" name="submit" value='Submit' class='btn btn-sm btn-success'>
-                            </div>
-                        </div>
-                    </form> --}}
                 </td>
                 <td>
-                    <!-- <div class="dropdown">
-                        <button class="btn btn-sm btn-info dropdown-toggle" type="button" id="{{ 'dropdownMenuButton'.$skkl->id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            Dropdown
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="{{ 'dropdownMenuButton'.$skkl->id }}">
-                            <div class="btn-group-vertical">
-                                <a class="dropdown-item" href="{{ route('operator.download', [$skkl->id]) }}"> Unduh PL</a></button>
-                                <a class="dropdown-item" href="{{ route('printrkl.download', [$skkl->id]) }}"> Unduh RKL</a></button>
-                                <a class="dropdown-item" href="{{ route('printrpl.download', [$skkl->id]) }}"> Unduh RPL</a></button>
-                                <a class="dropdown-item" href="{{ route('operator.preview', [$skkl->id]) }}"> Preview PL</a></button>
-                            </div>    
-                        </div>
-                    </div> -->
-                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="{{ '#aksiModal'.$skkl->id }}">
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="{{ '#aksiModal'.$pkplh->id }}">
                         Pilih
                     </button>
-                    {{-- <form action="{{ route('operator.skkl.periksa', $skkl->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <button type="submit" onclick="return confirm('Apakah anda sebagai PJM yang memeriksa data ini?')" class="btn btn-sm btn-warning" @if ($skkl->status != "Belum") disabled @endif>Periksa</button>
-                    </form> --}}
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
-    {{-- <b> Jumlah Skkl : {{ $jumlah_skkl }} </b> --}}
 </div>
 
 <!-- Modal -->
-@foreach ($data_skkl as $skkl)
-<div class="modal fade" id="{{ 'staticBackdrop'.$skkl->id }}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+@foreach ($data_pkplh as $pkplh)
+<div class="modal fade" id="{{ 'staticBackdrop'.$pkplh->id }}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Upload file PDF</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+            <form action="{{ route('operator.pkplh.upload') }}" enctype="multipart/form-data" method="post">
+                @csrf
+                @method('PUT')
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Upload file PDF</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             <div class="modal-body">
                 <span><b>File yang sudah terupload:</b></span>
                 <div class="input-group mb-3">
-                    <form action="{{ route('operator.destroy.file', $skkl->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <a @if ($skkl->file == null) disabled @endif type="button" class="btn btn-sm btn-success @if ($skkl->file == null) disabled @endif mr-1" target="_blank" href="{{ asset('storage/files/skkl/'.$skkl->file) }}">Lihat</a>
-                        <button class="btn btn-sm btn-danger" @if ($skkl->file == null) disabled @endif type="submit">Hapus</button>
-                    </form>
+                    <a type="button" class="btn btn-sm btn-success @if ($pkplh->file == null) disabled @endif mr-1" target="_blank" href="{{ asset('storage/files/pkplh/'.$pkplh->file) }}">Lihat</a>
+                    <a href="{{ route('operator.pkplh.destroy', $pkplh->id) }}" class="btn btn-sm btn-danger @if ($pkplh->file == null) disabled @endif" type="submit">Hapus</a>
                 </div>
-                <form action="{{ route('operator.upload_file') }}" enctype="multipart/form-data" method="post">
-                    @csrf
-                    @method('PUT')
 
                     <span><b>Pilih file:</b></span>
                     <div class="input-group">
@@ -182,20 +150,20 @@
                             Final
                         </label>
                     </div>
-                    <input type="text" name="id_skkl" id="id_skkl" value="{{ $skkl->id }}" hidden>
-                    <button type="submit" class="btn btn-sm btn-primary btn-block">Simpan</button>
-                </form>
+                    <input type="text" name="id_pkplh" id="id_pkplh" value="{{ $pkplh->id }}" hidden>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
                 </div>
+            </form>
         </div>
     </div>
 </div>
 @endforeach
 
-@foreach ($data_skkl as $skkl)
-<div class="modal fade" id="{{ 'aksiModal'.$skkl->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@foreach ($data_pkplh as $pkplh)
+<div class="modal fade" id="{{ 'aksiModal'.$pkplh->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -205,10 +173,9 @@
           </button>
         </div>
         <div class="modal-body">
-        <a class="btn btn-success btn-block" href="{{ route('operator.download', [$skkl->id]) }}"> Unduh PL</a></button>
-        <a class="btn btn-success btn-block" href="{{ route('printrkl.download', [$skkl->id]) }}"> Unduh RKL</a></button>
-        <a class="btn btn-success btn-block" href="{{ route('printrpl.download', [$skkl->id]) }}"> Unduh RPL</a></button>
-        <a class="btn btn-primary btn-block" href="{{ route('operator.preview', [$skkl->id]) }}"> Preview PL</a></button>
+        <a class="btn btn-success btn-block" href="">Unduh UKL-UPL</a></button>
+        <a class="btn btn-success btn-block" href="{{route('operator.pkplh.download', $pkplh->id)}}">Unduh PKPLH</a></button>
+        <a class="btn btn-primary btn-block" href="{{route('operator.pkplh.preview', $pkplh->id)}}">Preview PKPLH</a></button>
         </div>
       </div>
     </div>

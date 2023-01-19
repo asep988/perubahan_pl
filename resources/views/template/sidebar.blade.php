@@ -1,4 +1,23 @@
 <!-- Sidebar -->
+<?php 
+    for ($i = 0; $i < count($pemrakarsa_role); $i++) {
+        if (Auth::user()->email == $pemrakarsa_role[$i]->email) {
+            $role = 'Pemrakarsa';
+        }
+    }
+
+    for ($i = 0; $i < count($operator_role); $i++) {
+        if (Auth::user()->email == $operator_role[$i]->email) {
+            $role = 'Operator';
+        }
+    }
+
+    for ($i = 0; $i < count($sekretariat_role); $i++) {
+        if (Auth::user()->email == $sekretariat_role[$i]->email) {
+            $role = 'Sekretariat';
+        }
+    }
+?>
 
 <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #033022;">
     <img src="{{ asset('img/logo-amdal.png') }}" style="margin-left:25px; margin-right:25px; 
@@ -13,36 +32,50 @@
     </a>
     <center><button class=" btn btn-sm btn-success" style=" width:100px;"><a style="color: white;" href="https://amdalnet-dev.menlhk.go.id/#/dashboard"> <i class="fas fa-home"></i> Back</a></button></center>
 
-    <!-- Nav Item - Dashboard -->
-    <!-- <li class="nav-item active">
-        <a class="nav-link" href="/">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-    </li> -->
+    @if ($role == 'Pemrakarsa')
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('pemrakarsa.index') }}">
+                <i class="fas fa-book"></i>
+                <span>Permohonan Perubahan PL</span>
+            </a>
+        </li>
 
-    <!-- Divider -->
-    <!-- <hr class="sidebar-divider"> -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('pkplh.index') }}" >
+                <i class="fas fa-book"></i>
+                <span>PKPLH</span>
+            </a>
+        </li>
+    @elseif ($role == 'Operator')
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('operator.index') }}">
+                <i class="fas fa-book"></i>
+                <span>Permohonan Perubahan PL</span>
+            </a>
+        </li>
 
-    <!-- Heading -->
-    <!-- <div class="sidebar-heading">
-        Interface
-    </div> -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('operator.pkplh.index') }}" >
+                <i class="fas fa-book"></i>
+                <span>PKPLH</span>
+            </a>
+        </li>
+    @elseif ($role == 'Sekretariat')
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('sekre.penugasan.index') }}">
+                <i class="fas fa-book"></i>
+                <span>Permohonan Perubahan PL</span>
+            </a>
+        </li>
 
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('redirection') }}">
-            <i class="fas fa-book"></i>
-            <span>Permohonan Perubahan PL</span>
-        </a>
-    </li>
-
-    <!-- Nav Item - Utilities Collapse Menu -->
-    <!-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" >
-            <i class="fas fa-book"></i>
-            <span>PKPLH</span>
-        </a>
-    </li> -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('sekre.pkplh.index') }}">
+                <i class="fas fa-book"></i>
+                <span>PKPLH</span>
+            </a>
+        </li>
+    @endif
+    
 
     <!-- Divider -->
     <hr class="sidebar-divider">

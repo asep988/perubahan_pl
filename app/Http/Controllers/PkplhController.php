@@ -2,102 +2,148 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Skkl;
-use App\il_skkl;
-use App\Pkplh;
 use App\User;
-use Exception;
-use Illuminate\Contracts\Session\Session;
+use App\Pkplh;
+use App\region;
+use App\il_pkplh;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
-// use FacadePdf;
 
-class OperatorController extends Controller
+class PkplhController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $data_skkl = Skkl::orderBy('updated_at', 'DESC')->get();
+        $user_id =  Auth::user()->id;
+        $data_pkplh = Pkplh::where('user_id',$user_id)->orderBy('updated_at', 'desc')->get();
 
-        return view('operator.skkl.index', compact('data_skkl'));
+        return view('home.pkplh.index', compact('data_pkplh'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
-    {
-        //
-    }
+	{
+		$provinces = region::where('regency', "")->get();
+		$regencies = region::where('regency', '!=', "")
+		->where('district', "")
+		->get();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+		$email = Auth::user()->email;
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+		return view('home.pkplh.form', compact('regencies', 'provinces'));
+	}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+	public function store(Request $request)
+	{
+		$request->validate([
+			'pelaku_usaha' => 'required',
+			'nama_usaha' => 'required',
+			'jenis_usaha' => 'required',
+			'penanggung' => 'required',
+			'nib' => 'required',
+			'kbli' => 'required',
+			'jabatan' => 'required',
+			'alamat' => 'required',
+			'lokasi' => 'required',
+			'pelaku_usaha_baru' => 'required',
+			'nama_usaha_baru' => 'required',
+			'jenis_usaha_baru' => 'required',
+			'penanggung_baru' => 'required',
+			'nib_baru' => 'required',
+			'kbli_baru' => 'required',
+			'jabatan_baru' => 'required',
+			'alamat_baru' => 'required',
+			'lokasi_baru' => 'required',
+			'kabupaten_kota' => 'required',
+			'provinsi' => 'required',
+			'link_drive' => 'required',
+			'nomor_pl' => 'required',
+			'tgl_pl' => 'required',
+			'perihal_surat' => 'required',
+			'ruang_lingkup' => 'required',
+			'jenis_izin' => 'required',
+			'pejabat' => 'required',
+			'nomor_sk' => 'required',
+			'tgl_surat' => 'required',
+			'perihal' => 'required'
+		]);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+		// $kabkota = implode(", ", $request->kabupaten_kota);
+		// $prov = implode(", ", $request->provinsi);
+		$id_user = Auth::user()->id;
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+		// return $kabkota;
+		$pkplh = new Pkplh;
+		$pkplh->user_id 		    =   $id_user;
+		$pkplh->pelaku_usaha        =   $request->pelaku_usaha;
+		$pkplh->nama_usaha	        =	$request->nama_usaha;
+		$pkplh->jenis_usaha	        =	$request->jenis_usaha;
+		$pkplh->penanggung	        =	$request->penanggung;
+		$pkplh->nib			        =	$request->nib;
+		$pkplh->kbli			    =	$request->kbli;
+		$pkplh->jabatan		        =	$request->jabatan;
+		$pkplh->alamat		        =	$request->alamat;
+		$pkplh->lokasi		        =	$request->lokasi;
+		$pkplh->pelaku_usaha_baru   =   $request->pelaku_usaha_baru;
+		$pkplh->nama_usaha_baru	    =	$request->nama_usaha_baru;
+		$pkplh->jenis_usaha_baru	=	$request->jenis_usaha_baru;
+		$pkplh->penanggung_baru	    =	$request->penanggung_baru;
+		$pkplh->nib_baru			=	$request->nib_baru;
+		$pkplh->kbli_baru		    =	$request->kbli_baru;
+		$pkplh->jabatan_baru		=	$request->jabatan_baru;
+		$pkplh->alamat_baru		    =	$request->alamat_baru;
+		$pkplh->lokasi_baru		    =	$request->lokasi_baru;
+		
+		$pkplh->kabupaten_kota	    =	$request->kabupaten_kota;
+		$pkplh->provinsi			=	$request->provinsi; 
+		$pkplh->link_drive		    =	$request->link_drive;
 
-    public function upload_file(Request $request)
-    {
-        // Validation
-        $request->validate([
+		$pkplh->nomor_pl		    =	$request->nomor_pl;
+		$pkplh->tgl_pl		        =	$request->tgl_pl;
+		$pkplh->perihal		        =	$request->perihal_surat;
+		$pkplh->ruang_lingkup	    = $request->ruang_lingkup;
+		$pkplh->status              = "Belum";
+		$pkplh->save();
+
+		$late = Pkplh::orderBy('id', 'DESC')->take(1)->get();
+		foreach ($late as $latest) {
+			$pkplh_id = $latest->id;
+		}
+		
+		for ($i = 0; $i < count($request->jenis_izin); $i++) {
+			$il_pkplh = new il_pkplh;
+			$il_pkplh->id_pkplh = $pkplh_id;
+			$il_pkplh->jenis_sk = $request->jenis_izin[$i];
+			$il_pkplh->menerbitkan = $request->pejabat[$i];
+			$il_pkplh->nomor_surat = $request->nomor_sk[$i];
+			$il_pkplh->tgl_surat = $request->tgl_surat[$i];
+			$il_pkplh->perihal_surat = $request->perihal[$i];
+			$il_pkplh->save();
+		}
+
+        return redirect()->route('pkplh.index')->with('pesan', 'Data berhasil diinput');
+	}
+
+	public function review($id)
+	{
+		$data_pkplh = Pkplh::find($id);
+		$il_pkplh = il_pkplh::where('id_pkplh', $id)->get();
+
+		return view('home.pkplh.review', compact('data_pkplh', 'il_pkplh'));
+	}
+
+	//OPERATOR
+	public function operatorIndex()
+	{
+		$data_pkplh = Pkplh::orderBy('updated_at', 'DESC')->get();
+
+		return view('operator.pkplh.index', compact('data_pkplh'));
+	}
+
+	public function uploadFile(Request $request)
+	{
+		$request->validate([
             'file' => 'required|mimes:pdf|max:5120',
             'status' => 'required'
         ]);
@@ -108,95 +154,186 @@ class OperatorController extends Controller
             $status = "Selesai";
         }
 
-        $id = $request->id_skkl;
-        $skkl_id = Skkl::find($id);
+        $id = $request->id_pkplh;
+        $pkplh_id = Pkplh::find($id);
 
-        $destination = 'files/skkl/' . $skkl_id->file;
+        $destination = 'files/pkplh/' . $pkplh_id->file;
         if ($destination) {
             Storage::delete($destination);
         }
 
         $file = $request->file('file');
         $format = $file->getClientOriginalExtension();
-        $fileName = time() . '_skkl.' . $format; //Variabel yang menampung nama file
-        $file->storeAs('files/skkl', $fileName); //Simpan ke Storage
+        $fileName = time() . '_pkplh.' . $format; //Variabel yang menampung nama file
+        $file->storeAs('files/pkplh', $fileName); //Simpan ke Storage
 
-        Skkl::find($id)->update([
+        Pkplh::find($id)->update([
             'status' => $status,
             'file' => $fileName
         ]);
 
         return back()->with('message', 'PDF berhasil diupload!');
-    }
+	}
 
-    public function destroyFile($id)
+	public function destroyFile($id)
     {
-        $skkl = Skkl::find($id);
-        $destination = 'files/skkl/' . $skkl->file;
+        $pkplh = Pkplh::find($id);
+        $destination = 'files/pkplh/' . $pkplh->file;
         if ($destination) {
             Storage::delete($destination);
         }
 
-        $skkl->update([
+        $pkplh->update([
             'file' => null
         ]);
 
         return back()->with('message', 'PDF berhasil dihapus!');
     }
 
-    public function periksa($id)
-    {
-        Skkl::find($id)->update([
-            'nama_operator' => Auth::user()->name
-        ]);
+	public function edit($id) //Pemrakarsa
+	{
+		$provinces = region::where('regency', "")->get();
+		$regencies = region::where('regency', '!=', "")
+		->where('district', "")
+		->get();
+		$pkplh = Pkplh::find($id);
+		$il_pkplh = il_pkplh::where('id_pkplh', $id)->get();
+		$selected_provinces = $pkplh->provinsi;
+		$selected_kabupaten_kota = $pkplh->kabupaten_kota;
+		$jum = count($il_pkplh);
 
-        $skkl = Skkl::find($id);
+		return view('home.pkplh.edit', compact('provinces', 'regencies', 'pkplh', 'jum', 'il_pkplh', 'selected_provinces', 'selected_kabupaten_kota'));
+	}
 
-        $nama_usaha = $skkl->nama_usaha_baru;
-        $nama_operator = Auth::user()->name;
+	public function update(Request $request, $id) //Pemrakarsa
+	{
+		$request->validate([
+			'pelaku_usaha' => 'required',
+			'nama_usaha' => 'required',
+			'jenis_usaha' => 'required',
+			'penanggung' => 'required',
+			'nib' => 'required',
+			'kbli' => 'required',
+			'jabatan' => 'required',
+			'alamat' => 'required',
+			'lokasi' => 'required',
+			'pelaku_usaha_baru' => 'required',
+			'nama_usaha_baru' => 'required',
+			'jenis_usaha_baru' => 'required',
+			'penanggung_baru' => 'required',
+			'nib_baru' => 'required',
+			'kbli_baru' => 'required',
+			'jabatan_baru' => 'required',
+			'alamat_baru' => 'required',
+			'lokasi_baru' => 'required',
+			'kabupaten_kota' => 'required',
+			'provinsi' => 'required',
+			'link_drive' => 'required',
+			'nomor_pl' => 'required',
+			'tgl_pl' => 'required',
+			'perihal_surat' => 'required',
+			'ruang_lingkup' => 'required',
+			'jenis_izin' => 'required',
+			'pejabat' => 'required',
+			'nomor_sk' => 'required',
+			'tgl_surat' => 'required',
+			'perihal' => 'required'
+		]);
 
-        return back()->with('message', 'PJM untuk ' . $nama_usaha . ' adalah ' . $nama_operator);
-    }
+		$pkplh = Pkplh::find($id);
+		$pkplh->pelaku_usaha =   $request->pelaku_usaha;
+		$pkplh->nama_usaha	=	$request->nama_usaha;
+		$pkplh->jenis_usaha	=	$request->jenis_usaha;
+		$pkplh->penanggung	=	$request->penanggung;
+		$pkplh->nib			=	$request->nib;
+		$pkplh->kbli		=	$request->kbli;
+		$pkplh->jabatan		=	$request->jabatan;
+		$pkplh->alamat		=	$request->alamat;
+		$pkplh->lokasi		=	$request->lokasi;
+		//menjadi
+		$pkplh->pelaku_usaha_baru =   $request->pelaku_usaha_baru;
+		$pkplh->nama_usaha_baru	=	$request->nama_usaha_baru;
+		$pkplh->jenis_usaha_baru	=	$request->jenis_usaha_baru;
+		$pkplh->penanggung_baru	=	$request->penanggung_baru;
+		$pkplh->nib_baru			=	$request->nib_baru;
+		$pkplh->kbli_baru		=	$request->kbli_baru;
+		$pkplh->jabatan_baru		=	$request->jabatan_baru;
+		$pkplh->alamat_baru		=	$request->alamat_baru;
+		$pkplh->lokasi_baru		=	$request->lokasi_baru;
+		
+		$pkplh->kabupaten_kota	=	$request->kabupaten_kota;
+		$pkplh->provinsi			=	$request->provinsi; 
+		$pkplh->link_drive		=	$request->link_drive;
 
-    public function download($id)
+		$pkplh->nomor_pl		=	$request->nomor_pl;
+		$pkplh->tgl_pl		=	$request->tgl_pl;
+		$pkplh->perihal		=	$request->perihal_surat;
+		$pkplh->ruang_lingkup	= $request->ruang_lingkup;
+		$pkplh->status = "Belum";
+		$pkplh->update();
+
+		il_pkplh::where('id_pkplh', $id)->delete();
+		for ($i = 0; $i < count($request->jenis_izin); $i++) {
+			$il_pkplh = new il_pkplh;
+			$il_pkplh->id_pkplh = $id;
+			$il_pkplh->jenis_sk = $request->jenis_izin[$i];
+			$il_pkplh->menerbitkan = $request->pejabat[$i];
+			$il_pkplh->nomor_surat = $request->nomor_sk[$i];
+			$il_pkplh->tgl_surat = $request->tgl_surat[$i];
+			$il_pkplh->perihal_surat = $request->perihal[$i];
+			$il_pkplh->save();
+		}
+
+		return redirect()->route('pkplh.index')->with('pesan', 'Data berhasil diperbarui');
+	}
+
+	public function operatorPreview($id) //OPERATOR
+	{
+		$data_pkplh = Pkplh::find($id);
+		$il_pkplh = il_pkplh::where('id_pkplh', $id)->get();
+
+		return view('operator.pkplh.preview', compact('data_pkplh', 'il_pkplh'));
+	}
+
+	public function download($id)
     {
         //phpword
 
-        $skkl = Skkl::find($id);
-        $il_skkl = il_skkl::where('id_skkl', $id)->get();
-        $kabkota = implode(", ", $skkl->kabupaten_kota);
-        $prov = implode(", ", $skkl->provinsi);
+        $pkplh = Pkplh::find($id);
+        $il_pkplh = il_pkplh::where('id_pkplh', $id)->get();
+        $kabkota = implode(", ", $pkplh->kabupaten_kota);
+        $prov = implode(", ", $pkplh->provinsi);
 
         $loopkk1 = "";
-        for ($i = 0; $i < count($skkl->kabupaten_kota); $i++) {
-            $loopkk1 .= "<li>Bupati/Walikota " . ucwords(strtolower($skkl->kabupaten_kota[$i])) . "</li>";
+        for ($i = 0; $i < count($pkplh->kabupaten_kota); $i++) {
+            $loopkk1 .= "<li>Bupati/Walikota " . ucwords(strtolower($pkplh->kabupaten_kota[$i])) . "</li>";
         }
 
         $loopprov1 = "";
-        for ($i = 0; $i < count($skkl->provinsi); $i++) {
-            $loopprov1 .= "<li>Gubernur " . ucwords(strtolower($skkl->provinsi[$i])) . "</li>";
+        for ($i = 0; $i < count($pkplh->provinsi); $i++) {
+            $loopprov1 .= "<li>Gubernur " . ucwords(strtolower($pkplh->provinsi[$i])) . "</li>";
         }
 
         $loopkk2 = "";
-        for ($i = 0; $i < count($skkl->kabupaten_kota); $i++) {
-            $loopkk2 .= "<li>Bupati/Walikota " . ucwords(strtolower($skkl->kabupaten_kota[$i])) . " melalui Kepala Dinas Lingkungan Hidup Kabupaten/Kota " . ucwords(strtolower($skkl->kabupaten_kota[$i])) . "</li>";
+        for ($i = 0; $i < count($pkplh->kabupaten_kota); $i++) {
+            $loopkk2 .= "<li>Bupati/Walikota " . ucwords(strtolower($pkplh->kabupaten_kota[$i])) . " melalui Kepala Dinas Lingkungan Hidup Kabupaten/Kota " . ucwords(strtolower($pkplh->kabupaten_kota[$i])) . "</li>";
         }
 
         $loopprov2 = "";
-        for ($i = 0; $i < count($skkl->provinsi); $i++) {
-            $loopprov2 .= "<li>Gubernur " . ucwords(strtolower($skkl->provinsi[$i])) . " melalui Kepala Dinas Lingkungan Hidup Provinsi " . ucwords(strtolower($skkl->provinsi[$i])) . "</li>";
+        for ($i = 0; $i < count($pkplh->provinsi); $i++) {
+            $loopprov2 .= "<li>Gubernur " . ucwords(strtolower($pkplh->provinsi[$i])) . " melalui Kepala Dinas Lingkungan Hidup Provinsi " . ucwords(strtolower($pkplh->provinsi[$i])) . "</li>";
         }
 
         $il_dkk = "";
-        for ($i = 0; $i < count($il_skkl); $i++) {
-            $il_dkk .= "<li>" . $il_skkl[$i]->jenis_sk . " " . $il_skkl[$i]->menerbitkan . " Nomor " . $il_skkl[$i]->nomor_surat . " tanggal " . date("d m Y", strtotime($il_skkl[$i]->tgl_surat)) . " tentang " . $il_skkl[$i]->perihal_surat . "</li>";
+        for ($i = 0; $i < count($il_pkplh); $i++) {
+            $il_dkk .= "<li>" . $il_pkplh[$i]->jenis_sk . " " . $il_pkplh[$i]->menerbitkan . " Nomor " . $il_pkplh[$i]->nomor_surat . " tanggal " . date("d m Y", strtotime($il_pkplh[$i]->tgl_surat)) . " tentang " . $il_pkplh[$i]->perihal_surat . "</li>";
         }
 
         $headers = array(
 
             "Content-type" => "text/html",
 
-            "Content-Disposition" => "attachment;Filename=PL_$skkl->nama_usaha_baru.doc"
+            "Content-Disposition" => "attachment;Filename=PKPLH_$pkplh->nama_usaha_baru.doc"
 
         );
 
@@ -223,9 +360,9 @@ class OperatorController extends Controller
         <td colspan="3" width="100%">
             <center>KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN<br>REPUBLIK INDONESIA<br> 
                 NOMOR .....<br><br>TENTANG<br><br>
-                KEPUTUSAN KELAYAKAN LINGKUNGAN HIDUP ' . $skkl->nama_usaha_baru .
-                    ' DI KABUPATEN/KOTA ' . strtoupper($kabkota) . ' PROVINSI ' . strtoupper($prov) . ' OLEH '
-                    . strtoupper($skkl->pelaku_usaha_baru) . ' <br><br>
+                PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN<br>
+				HIDUP USAHA DAN/ATAU KEGIATAN' . \strtoupper($pkplh->nama_usaha_baru) .
+                    ' DI ' . strtoupper($kabkota) . ' OLEH '. strtoupper($pkplh->pelaku_usaha_baru) . ' <br><br>
                 DENGAN RAHMAT TUHAN YANG MAHA ESA<br><br>MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA,
             <center>    
         </td>
@@ -243,13 +380,14 @@ class OperatorController extends Controller
                         <li class="list_kurung">Pasal 3 ayat (2): Persetujuan Lingkungan diberikan kepada Pelaku Usaha atau Instansi Pemerintah;</li>
                         <li class="list_kurung">Pasal 3 ayat (3): Persetujuan Lingkungan menjadi prasyarat penerbitan Perizinan Berusaha atau Persetujuan Pemerintah;</li>
                         <li class="list_kurung">Pasal 3 ayat (4): Persetujuan Lingkungan dilakukan melalui penyusunan Amdal dan uji kelayakan Amdal;</li>
+						<li class="list_kurung">Pasal 64 ayat (1) : Persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup merupakan: a. bentuk persetujuan Lingkungan Hidup; dan b. prasyarat penerbitan Perizinan Berusaha atau Persetujuan Pemerintah</li>
                         <li class="list_kurung">Pasal 89 ayat (1) : Penanggungjawab Usaha dan/atau Kegiatan wajib melakukan perubahan Persetujuan Lingkungan apabila Usaha dan/atau Kegiatannya yang telah memperoleh surat Keputusan Kelayakan Lingkungan Hidup atau persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup direncanakan untuk dilakukan perubahan;</li>
                         <li class="list_kurung">Pasal 89 ayat (2) : Perubahan Persetujuan Lingkungan dilakukan melalui: a. perubahan Persetujuan Lingkungan dengan kewajiban menyusun dokumen lingkungan hidup baru; atau b. perubahan Persetujuan Lingkungan tanpa disertai kewajiban menyusun dokumen lingkungan hidup baru;</li>
                     </ol>
-                <li>bahwa ' . $skkl->jabatan . ' melalui surat Nomor: ' . $skkl->nomor_pl . ' Tanggal ' . $skkl->tgl_pl . ' perihal ' . $skkl->perihal . ' mengajukan permohonan perubahan persetujuan lingkungan kepada Menteri Lingkungan Hidup dan Kehutanan;</li>
+                <li>bahwa ' . $pkplh->jabatan . ' melalui surat Nomor: ' . $pkplh->nomor_pl . ' Tanggal ' . $pkplh->tgl_pl . ' perihal ' . $pkplh->perihal . ' mengajukan permohonan perubahan persetujuan lingkungan kepada Menteri Lingkungan Hidup dan Kehutanan;</li>
                 <li>bahwa terhadap permohonan sebagaimana dimaksud dalam huruf b, penanggung jawab usaha dan/atau kegiatan telah memiliki persetujuan lingkungan berdasarkan:<br>
                 <ol>' . $il_dkk . '</ol></li>
-                <li>berdasarkan pertimbangan sebagaimana dimaksud dalam huruf a sampai dengan huruf c, perlu menetapkan Keputusan Menteri Lingkungan Hidup dan Kehutanan Republik Indonesia tentang Kelayakan Lingkungan Hidup Usaha ' . $skkl->nama_usaha_baru . ' di ' . ucwords(strtolower($kabkota)) . ' Provinsi ' . ucwords(strtolower($prov)) . ' oleh ' . $skkl->pelaku_usaha_baru . '</li>
+                <li>berdasarkan pertimbangan sebagaimana dimaksud dalam huruf a sampai dengan huruf c, perlu menetapkan Keputusan Menteri Lingkungan Hidup dan Kehutanan Republik Indonesia Tentang Persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup Usaha dan/atau Kegiatan ' . $pkplh->nama_usaha_baru . ' di ' . ucwords(strtolower($kabkota)) . ' Provinsi ' . ucwords(strtolower($prov)) . ' oleh ' . $pkplh->pelaku_usaha_baru . '</li>
             </ol>
         </td>
         </tr>
@@ -266,7 +404,6 @@ class OperatorController extends Controller
             <li>Peraturan Presiden Nomor 68 Tahun 2019 tentang Organisasi Kementerian Negara, sebagaimana telah diubah dengan Peraturan Presiden Nomor 32 Tahun 2021;</li>
             <li>Peraturan Presiden Nomor 92 Tahun 2020 tentang Kementerian Lingkungan Hidup dan Kehutanan;</li>
             <li>Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 4 Tahun 2021 tentang Daftar usaha dan/atau kegiatan yang Wajib Memiliki Analisis Mengenai Dampak Lingkungan Hidup, Upaya Pengelolaan Lingkungan Hidup dan Upaya Pemantauan Lingkungan Hidup atau Surat Pernyataan Kesanggupan Pengelolaan dan Pemantauan Lingkungan Hidup;</li>
-            <li>Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 6 Tahun 2021</li>
             <li>Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 5 Tahun 2021 tentang Tata Cara Penerbitan Persetujuan Teknis dan Surat Kelayakan Operasional Bidang Pengendalian Pencemaran Lingkungan;</li>
             <li>Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 15 Tahun 2021 tentang Organisasi dan Tata Kerja Kementerian Lingkungan Hidup dan Kehutanan.</li>
         </ol>
@@ -277,11 +414,11 @@ class OperatorController extends Controller
             Memperhatikan
         </td>
         <td width="5%"> :</td>
-        <td width="65%">Surat Nomor: ' . $skkl->nomor_pl . ' Tanggal ' . $skkl->tgl_pl . ' perihal ' . $skkl->perihal . ' yang telah diterima PTSP KLHK pada tanggal ...
+        <td width="65%">Surat Nomor: ' . $pkplh->nomor_pl . ' Tanggal ' . $pkplh->tgl_pl . ' perihal ' . $pkplh->perihal . ' yang telah diterima PTSP KLHK pada tanggal ...
         </td>
         </tr>   
         <tr>
-        <td colspan="3"><br><center>MEMUTUSKAN</center><br></td>
+        <td colspan="3"><br><center>MEMUTUSKAN:</center><br></td>
         </tr>
         <tr>
         <td width="30%" >
@@ -289,7 +426,7 @@ class OperatorController extends Controller
         </td>
         <td width="5%"> :</td>
         <td width="65%">
-        KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA TENTANG KELAYAKAN LINGKUNGAN HIDUP USAHA ' . strtoupper($skkl->nama_usaha) . ' DI ' . strtoupper($kabkota) . ' PROVINSI ' . strtoupper($prov) . ' OLEH ' . strtoupper($skkl->pelaku_usaha_baru) . '
+        KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA TENTANG PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN HIDUP USAHA DAN/ATAU KEGIATAN ' . strtoupper($pkplh->nama_usaha) . ' DI ' . strtoupper($kabkota) . ' PROVINSI ' . strtoupper($prov) . ' OLEH ' . strtoupper($pkplh->pelaku_usaha_baru) . '
         </td>
         </tr>   
         <tr>
@@ -304,49 +441,49 @@ class OperatorController extends Controller
                     <td width="20px">1.</td>
                     <td width="40%" style="text-align: left;">Pelaku Usaha dan/atau Kegiatan</td>
                     <td>:</td>
-                    <td width= "50%">' . ucfirst($skkl->pelaku_usaha) . '</td>
+                    <td width= "50%">' . ucfirst($pkplh->pelaku_usaha) . '</td>
                 </tr>
                 <tr>
                     <td>2.</td>
                     <td style="text-align: left;">Jenis Usaha dan/atau Kegiatan</td>
                     <td>:</td>
-                    <td>' . ucfirst($skkl->jenis_usaha) . '</td>
+                    <td>' . ucfirst($pkplh->jenis_usaha) . '</td>
                 </tr>
                 <tr>
                     <td>3.</td>
                     <td style="text-align: left;">Penanggung Jawab Usaha dan/atau Kegiatan</td>
                     <td>:</td>
-                    <td>' . ucfirst($skkl->penanggung) . '</td>
+                    <td>' . ucfirst($pkplh->penanggung) . '</td>
                 </tr>
                 <tr>
                     <td>4.</td>
                     <td>NIB</td>
                     <td>:</td>
-                    <td>' . ucfirst($skkl->nib) . '</td>
+                    <td>' . ucfirst($pkplh->nib) . '</td>
                 </tr>
                 <tr>
                     <td>5.</td>
                     <td>KBLI</td>
                     <td>:</td>
-                    <td>' . ucfirst($skkl->knli) . '</td>
+                    <td>' . ucfirst($pkplh->knli) . '</td>
                 </tr>
                 <tr>
                     <td>6.</td>
                     <td>Jabatan</td>
                     <td>:</td>
-                    <td>' . ucfirst($skkl->jabatan) . '</td>
+                    <td>' . ucfirst($pkplh->jabatan) . '</td>
                 </tr>
                 <tr>
                     <td>7.</td>
                     <td>Alamat Kantor/Kegiatan</td>
                     <td>:</td>
-                    <td>' . ucfirst($skkl->alamat) . '</td>
+                    <td>' . ucfirst($pkplh->alamat) . '</td>
                 </tr>
                 <tr>
                     <td>8.</td>
                     <td style="text-align: left;">Lokasi Usaha dan/atau Kegiatan</td>
                     <td>:</td>
-                    <td>' . ucfirst($skkl->lokasi) . '</td>
+                    <td>' . ucfirst($pkplh->lokasi) . '</td>
                 </tr>
                 <tr>
                     <td colspan="4"><br>menjadi:</td>
@@ -355,49 +492,49 @@ class OperatorController extends Controller
                     <td>1.</td>
                     <td style="text-align: left;">Pelaku Usaha dan/atau Kegiatan</td>
                     <td>:</td>
-                    <td>' . ucfirst($skkl->pelaku_usaha_baru) . '</td>
+                    <td>' . ucfirst($pkplh->pelaku_usaha_baru) . '</td>
                 </tr>
                 <tr>
                     <td>2.</td>
                     <td style="text-align: left;">Jenis Usaha dan/atau Kegiatan</td>
                     <td>:</td>
-                    <td>' . ucfirst($skkl->jenis_usaha_baru) . '</td>
+                    <td>' . ucfirst($pkplh->jenis_usaha_baru) . '</td>
                 </tr>
                 <tr>
                     <td>3.</td>
                     <td style="text-align: left;">Penanggung Jawab Usaha dan/atau Kegiatan</td>
                     <td>:</td>
-                    <td>' . ucfirst($skkl->penanggung_baru) . '</td>
+                    <td>' . ucfirst($pkplh->penanggung_baru) . '</td>
                 </tr>
                 <tr>
                     <td>4.</td>
                     <td>NIB</td>
                     <td>:</td>
-                    <td>' . ucfirst($skkl->nib_baru) . '</td>
+                    <td>' . ucfirst($pkplh->nib_baru) . '</td>
                 </tr>
                 <tr>
                     <td>5.</td>
                     <td>KBLI</td>
                     <td>:</td>
-                    <td>' . ucfirst($skkl->knli_baru) . '</td>
+                    <td>' . ucfirst($pkplh->knli_baru) . '</td>
                 </tr>
                 <tr>
                     <td>6.</td>
                     <td>Jabatan</td>
                     <td>:</td>
-                    <td>' . ucfirst($skkl->jabatan_baru) . '</td>
+                    <td>' . ucfirst($pkplh->jabatan_baru) . '</td>
                 </tr>
                 <tr>
                     <td>7.</td>
                     <td>Alamat Kantor/Kegiatan</td>
                     <td>:</td>
-                    <td>' . ucfirst($skkl->alamat_baru) . '</td>
+                    <td>' . ucfirst($pkplh->alamat_baru) . '</td>
                 </tr>
                 <tr>
                     <td>8.</td>
                     <td style="text-align: left;">Lokasi Usaha dan/atau Kegiatan</td>
                     <td>:</td>
-                    <td>' . ucfirst($skkl->lokasi_baru) . '</td>
+                    <td>' . ucfirst($pkplh->lokasi_baru) . '</td>
                 <tr>
             <br>
             </table>
@@ -409,7 +546,7 @@ class OperatorController extends Controller
         </td>
         <td width="5%"> :</td>
         <td width="65%">Ruang lingkup rencana usaha dan/atau kegiatan adalah sebagaimana dimaksud dalam:
-            ' . ucfirst($skkl->ruang_lingkup) . '.
+            ' . ucfirst($pkplh->ruang_lingkup) . '.
         </td>
         </tr>
         <tr>
@@ -418,7 +555,8 @@ class OperatorController extends Controller
         </td>
         <td width="5%"> :</td>
         <td width="65%">
-            <ol> ' . $il_dkk . ' </ol>
+            Semua bentuk Keputusan sebagaimana dimaksud DIKTUM KEDUA<br> 
+			<ol> ' . $il_dkk . ' </ol>
             dipersamakan dengan Persetujuan Lingkungan.
         </td>
         </tr>
@@ -446,7 +584,7 @@ class OperatorController extends Controller
         </td>
         <td width="5%"> :</td>
         <td width="65%">
-            Penanggung Jawab Usaha dan/atau Kegiatan Wajib melakukan pengelolaan dan pematauan lingkungan sebagaimana tercantum dalam
+            Penanggung Jawab Usaha dan/atau Kegiatan wajib melakukan pengelolaan dan pemantauan lingkungan sebagai mana tercantum dalam Persetujuan Lingkungan yang dimaksud dalam DIKTUM KETIGA.
             <ol>' . $il_dkk . '</ol>
         </td>
         </tr>
@@ -456,7 +594,7 @@ class OperatorController extends Controller
         </td>
         <td width="5%"> :</td>
         <td width="65%">
-            Dalam pelaksanaan Keputusan ini, Menteri melakukan pengawasan terhadap pelaksanaan usaha yang dilaksanakan sesuai dengan peraturan perundang-undangan paling sedikit 1 (satu) kali dalam 1 (satu) tahun.
+            Dalam pelaksanaan Keputusan ini, Menteri melakukan pengawasan terhadap pelaksanaan usaha yang dilaksanakan sesuai dengan peraturan perundang-undangan paling sedikit 2 (dua) kali dalam 1 (satu) tahun.
         </td>
         </tr>
         <tr>
@@ -507,7 +645,7 @@ class OperatorController extends Controller
         </td>
         <td width="5%"> :</td>
         <td width="65%">
-        Keputusan Kelayakan Lingkungan Hidup ini merupakan prasyarat penerbitan Perizinan Berusaha atau Persetujuan Pemerintah.
+        Persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup ini merupakan Persetujuan Lingkungan dan Prasyarat penerbitan Perizinan Berusaha atau Persetujuan Pemerintah.
         </td>
         </tr>
         <tr>
@@ -516,7 +654,7 @@ class OperatorController extends Controller
         </td>
         <td width="5%"> :</td>
         <td width="65%">
-        Keputusan Menteri ini berlaku sejak tanggal ditetapkan, dan berakhir bersamaan dengan berakhirnya Perizinan Berusaha atau Persetujuan Pemerintah.
+        Keputusan ini mulai berlaku sejak tanggal ditetapkan dan berakhir bersamaan dengan berakhirnya Perizinan Berusaha atau Persetujuan Pemerintah.
         </td>
         </tr>
         <tr>
@@ -528,17 +666,19 @@ class OperatorController extends Controller
         <td width="50%">
             <table>
                 <tr>
-                    <td>Ditetapkan di</td>
-                    <td>: Jakarta</td>
+                    <td>Ditetapkan di Jakarta</td>
                 </tr>       
                 <tr>
                     <td>pada tanggal</td>
                     <td>: </td>
                 </tr>       
                 <tr>
-                    <td colspan="2">MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA
-                    <br><br><br>
-                    SITI NURBAYA
+                    <td colspan="2">a.n. MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA<br>
+					PLT. DIREKTORAT JENDRAL PLANOLOGI<br>
+					KEHUTANAN DAN TATA LINGKUNGAN,
+                    <br><br><br><br><br><br>
+                    RUANDHA AGUNG SUGARDIMAN<br>
+					NIP 19620301 198802 1 001
                     </td>
                 </tr>       
             </table>
@@ -555,7 +695,7 @@ class OperatorController extends Controller
             ' <li>Sekretaris Jendral Kementrian Lingkungan Hidup dan Kehutanan;</li>
                 <li>Direktur Jendral Penegakan Hukum Lingkungan Hidup dan Kehutanan;</li> '
             . $loopkk1 .
-            '<li>Pelaku Usaha ' . $skkl->pelaku_usaha_baru . ';</li>
+            '<li>Pelaku Usaha ' . $pkplh->pelaku_usaha_baru . ';</li>
             </ol>
         </td>
         </tr>';
@@ -563,12 +703,5 @@ class OperatorController extends Controller
         $body .= '</table>';
 
         return \Response::make($body, 200, $headers);
-    }
-
-    public function preview($id)
-    {
-        $data_skkl = Skkl::find($id);
-        $il_skkl = il_skkl::where('id_skkl', $id)->get();
-        return view('operator.skkl.preview', compact('data_skkl', 'il_skkl'));
     }
 }
