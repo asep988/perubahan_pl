@@ -15,12 +15,10 @@ class RklController extends Controller
 {
 	public function create($id)
 	{
-		$batas = 5;
-        $jumlah_rkl = rkl::where('id_skkl', $id)->count();
 		$id_skkl = $id;
 		$data_rkl = rkl::where('id_skkl', $id)->orderBy('id', 'desc')->get();
 
-        return view('home.rkl.index', compact('data_rkl', 'jumlah_rkl', 'id_skkl'));
+        return view('home.rkl.index', compact('data_rkl', 'id_skkl'));
 	}
 
 	public function store_rkl(Request $request)

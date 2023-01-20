@@ -6,9 +6,6 @@
     <i class="fa fa-bars"></i>
 </button>
 <div class="card">
-    @if(Session::has('pesan'))
-    <div style="background-color: 7FFF00; font: white;">{{ Session::get('pesan') }}</div>
-    @endif
     <div class="card-header">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -58,11 +55,15 @@
 
         </nav>
     </div>
+
     <div class="card-body">
+        @if(Session::has('pesan'))
+        <div style="background-color: 7FFF00; font: white;">{{ Session::get('pesan') }}</div>
+        @endif
         <form action="{{ route('skkl.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <h5><b>Perubahan Penanggung Jawab Usaha atau Kegiatan</b></h5>
-            <table border="1" width="100%">
+            <table border="1" width="100%" class="mb-3">
                 <tr>
                     <!-- dari -->
                     <td style="padding: 20px;">
@@ -105,11 +106,13 @@
                             </div>
                             <div class="input-box">
                                 <label for="alamat" class="form-label">Alamat Kantor/Kegiatan</label>
-                                <input type="text" class="form-control" name="alamat" required>
+                                {{-- <input type="text" class="form-control" name="alamat" required> --}}
+                                <textarea class="form-control" id="alamat" name="alamat" rows="3" required></textarea>
                             </div>
                             <div class="input-box">
                                 <label for="lokasi" class="form-label">Lokasi Usaha/Kegiatan</label>
-                                <input type="text" class="form-control" name="lokasi" required>
+                                {{-- <input type="text" class="form-control" name="lokasi" required> --}}
+                                <textarea class="form-control" id="lokasi" name="lokasi" rows="3" required></textarea>
                             </div>
                         </div>
                     </td>
@@ -154,124 +157,223 @@
                             </div>
                             <div class="input-box">
                                 <label for="alamat_baru" class="form-label">Alamat Kantor/Kegiatan</label>
-                                <input type="text" class="form-control" name="alamat_baru" required>
+                                {{-- <input type="text" class="form-control" name="alamat_baru" required> --}}
+                                <textarea class="form-control" id="alamat_baru" name="alamat_baru" rows="3" required></textarea>
                             </div>
                             <div class="input-box">
                                 <label for="lokasi_baru" class="form-label">Lokasi Usaha/Kegiatan</label>
-                                <input type="text" class="form-control" name="lokasi_baru" required>
+                                {{-- <input type="text" class="form-control" name="lokasi_baru" required> --}}
+                                <textarea class="form-control" id="lokasi_baru" name="lokasi_baru" rows="3" required></textarea>
                             </div>
                         </div>
                     </td>
                 </tr>
             </table>
-            <br>
-            <div class="form-group row">
-                <label for="kabupaten_kota" class="col-sm-2 col-form-label">Kabupaten/Kota</label>
-                <div class="col-sm-8">
-                    <select class="js-kabkota-multiple" multiple="multiple" style="width: 100%" name="kabupaten_kota[]" id="kabupaten_kota" required>
-                        @foreach ($regencies as $regency)
-                            <option value="{{ $regency->regency }}">{{ $regency->regency }}</option>
-                        @endforeach
-                    </select>
+
+            <div class="mb-3"> <!-- Provinsi, Kabupaten & Kota, Bukti Perubahan -->
+                <div class="form-group row">
+                    <label for="provinsi" class="col-sm-2 col-form-label">Provinsi</label>
+                    <div class="col-sm-8">
+                        <select class="js-provinsi-multiple" multiple="multiple" style="width: 100%" name="provinsi[]" id="provinsi" required>
+                            @foreach ($provinces as $province)
+                                <option value="{{ $province->province }}">{{ $province->province }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label for="provinsi" class="col-sm-2 col-form-label">Provinsi</label>
-                <div class="col-sm-8">
-                    <select class="js-provinsi-multiple" multiple="multiple" style="width: 100%" name="provinsi[]" id="provinsi" required>
-                        @foreach ($provinces as $province)
-                            <option value="{{ $province->province }}">{{ $province->province }}</option>
-                        @endforeach
-                    </select>
+
+                <div class="form-group row">
+                    <label for="kabupaten_kota" class="col-sm-2 col-form-label">Kabupaten/Kota</label>
+                    <div class="col-sm-8">
+                        <select class="js-kabkota-multiple" multiple="multiple" style="width: 100%" name="kabupaten_kota[]" id="kabupaten_kota" required>
+                            @foreach ($regencies as $regency)
+                                <option value="{{ $regency->regency }}">{{ $regency->regency }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label for="link_drive" class="col-sm-2 col-form-label">Upload Lampiran Link Drive</label>
-                <div class="col-sm-8">
-                    <input type="text" style="width: 100%" class="form-control" id="link_drive" name="link_drive" placeholder="Pastikan Link Google Drive anda Bisa diakses Oleh Publik" required>
-                </div>
-            </div>
-            <br>
-            <label><b>Surat Permohonan Perubahan PL :</b></label>
-            <div class="form-group row">
-                <label for="nomor_pl" class="col-sm-1 col-form-label">Nomor</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" id="nomor_pl" name="nomor_pl" placeholder="Masukkan Nomor PL" required>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="tgl_pl" class="col-sm-1 col-form-label">Tanggal</label>
-                <div class="col-sm-3">
-                    <input class="form-control" type="date" id="tgl_pl" name="tgl_pl" placeholder="yyyy/mm/dd">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="perihal_surat" class="col-sm-1 col-form-label">Perihal</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" aria-label="perihal_surat" id="perihal_surat" name="perihal_surat">
+                
+                <div class="form-group row">
+                    <label for="link_drive" class="col-sm-2 col-form-label">Upload Lampiran Bukti Perubahan</label>
+                    <div class="col-sm-8">
+                        <input type="text" style="width: 100%" class="form-control" id="link_drive" name="link_drive" placeholder="Link Google Drive" required>
+                        <small class="text-muted">Pastikan Link Google Drive anda Bisa diakses Oleh Publik</small>
+                    </div>
                 </div>
             </div>
 
-            <br>
-            <label><b>Sebutkan IL, SKKL, Persetujuan UKL-UPL, Persetujuan DELH, Persetujuan DPLH yang telah dimiliki</b></label>
-            <label><b>Contoh : </b><span>1). Surat/Keputusan/Ketetapan Kepala Dinas Pertambangan dan Lingkungan Hidup
-                    Kabupaten Sorong Nomor 660.1/113/2012 tanggal 16 Mei 2012 tentang UKL dan UPL
-                    Kegiatan Pemrduksian Sumur Walio Ext-1 (POP) di Blok Kepala Burung Kabupaten Sorong
-                    Provinsi Papua Barat.
-                </span></label>
-            <br>
-            <div class="form-group row">
-                <table border="1" width="100%">
-                    <thead>
-                        <tr class="text-center">
-                            <th>#</th>
-                            <th>Jenis Izin Persetujuan</th>
-                            <th>Pejabat yang mengesahkan</th>
-                            <th>Nomor SK</th>
-                            <th>Tanggal Surat</th>
-                            <th>Perihal/Tentang</th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-input">
-                        <tr id="claster1">
-                            <td>1</td>
-                            <td>
-                                <input type="text" name="jenis_izin[]" class="form-control" placeholder="Surat/Keputusan/Ketetapan">
-                            </td>
-                            <td>
-                                <input type="text" name="pejabat[]" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" name="nomor_sk[]" class="form-control">
-                            </td>
-                            <td>
-                                <input type="date" name="tgl_surat[]" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" name="perihal[]" class="form-control">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="mt-1">
-                    <button type="button" id="remove" class="btn remove-btn btn-sm btn-danger">
-                        <i class="fas fa-minus fa-sm"></i>
-                    </button>
-                    <button type="button" id="add" class="btn btn-sm btn-primary">
-                        <i class="fas fa-plus fa-sm"></i>
-                    </button>
+            <hr>
+
+            <div class="mb-3"> <!-- Surat Permohonan Perubahan PL & Peraturan Pemerintah Daerah -->
+                <label><b>Surat Permohonan Perubahan PL :</b></label>
+
+                <div class="form-group row">
+                    <label for="nomor_pl" class="col-sm-2 col-form-label">Nomor</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="nomor_pl" name="nomor_pl" placeholder="Masukkan Nomor PL" required>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="tgl_pl" class="col-sm-2 col-form-label">Tanggal</label>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="date" id="tgl_pl" name="tgl_pl" placeholder="yyyy/mm/dd">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="perihal_surat" class="col-sm-2 col-form-label">Perihal</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" aria-label="perihal_surat" id="perihal_surat" name="perihal_surat">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="pejabat" class="col-sm-2 col-form-label">Pejabat yang menandatangani</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" aria-label="pejabat" id="pejabat" name="pejabat">
+                    </div>
+                </div>
+
+                <label><b>Peraturan Pemerintah Daerah</b></label>
+                <div class="form-group row">
+                    <table border="1" width="100%">
+                        <thead>
+                            <tr class="text-center">
+                                <th>#</th>
+                                <th>Jenis Peraturan</th>
+                                <th>Pejabat yang mengesahkan</th>
+                                <th>Nomor SK</th>
+                                <th>Perihal/Tentang</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-input1">
+                            <tr id="1claster1">
+                                <td>1</td>
+                                <td>
+                                    <input type="text" name="jenis_peraturan[]" class="form-control" placeholder="Surat/Akta Notaris/SK">
+                                </td>
+                                <td>
+                                    <input type="text" name="pejabat_daerah[]" class="form-control">
+                                </td>
+                                <td>
+                                    <input type="text" name="nomor_peraturan[]" class="form-control">
+                                </td>
+                                <td>
+                                    <textarea class="form-control" name="perihal_peraturan[]" rows="2"></textarea>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="mt-1">
+                        <button type="button" id="remove" class="btn remove-btn1 btn-sm btn-danger">
+                            <i class="fas fa-minus fa-sm"></i>
+                        </button>
+                        <button type="button" id="add1" class="btn btn-sm btn-primary">
+                            <i class="fas fa-plus fa-sm"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
-            
-            <br>
-            <label><b>Sebutkan Ruang Lingkup (sebutkan ruang lingkup usaha dan/kegiatan yang akan di muat di dalam SK).</b></label>
-            <br>
+
+            <hr>
+
+            <div class="mb-3">
+                <label><b>Sebutkan IL, SKKL, Persetujuan UKL-UPL, Persetujuan DELH, Persetujuan DPLH yang telah dimiliki</b></label>
+                <label><b>Contoh : </b>
+                    <ol>
+                        <li>Jenis Izin Peraturan : Surat/Keputusan/Ketetapan</li>
+                        <li>Pejabat Yang Mengesahkan : Kepala Dinas Pertambangan dan Lingkungan Hidup Kabupaten Sorong</li>
+                        <li>Nomor SK : 660.1/113/2012</li>
+                        <li>Tanggal Surat : 16/05/2012</li>
+                        <li>Perihal/Tentang : UKL dan UPL Kegiatan Pemrduksian Sumur Walio Ext-1 (POP) di Blok Kepala Burung Kabupaten Sorong Provinsi Papua Barat.</li>
+                    </ol>
+                </label>
+                <div class="form-group row">
+                    <table border="1" width="100%">
+                        <thead>
+                            <tr class="text-center">
+                                <th>#</th>
+                                <th>Jenis Izin Persetujuan</th>
+                                <th>Pejabat yang mengesahkan</th>
+                                <th>Nomor SK</th>
+                                <th>Tanggal Surat</th>
+                                <th>Perihal/Tentang</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-input2">
+                            <tr id="2claster1">
+                                <td>1</td>
+                                <td>
+                                    <input type="text" name="jenis_izin[]" class="form-control" placeholder="Surat/Keputusan/Ketetapan">
+                                </td>
+                                <td>
+                                    <input type="text" name="pejabat[]" class="form-control">
+                                </td>
+                                <td>
+                                    <input type="text" name="nomor_sk[]" class="form-control">
+                                </td>
+                                <td>
+                                    <input type="date" name="tgl_surat[]" class="form-control">
+                                </td>
+                                <td>
+                                    <textarea class="form-control" name="perihal[]" rows="2"></textarea>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="mt-1">
+                        <button type="button" id="remove" class="btn remove-btn2 btn-sm btn-danger">
+                            <i class="fas fa-minus fa-sm"></i>
+                        </button>
+                        <button type="button" id="add2" class="btn btn-sm btn-primary">
+                            <i class="fas fa-plus fa-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <label><b>Sebutkan Ruang Lingkup (sebutkan ruang lingkup usaha dan/kegiatan yang akan di muat di dalam SK)</b></label>
             <div class="form-group row">
                 <div class="col-sm-8">
                     <textarea class="form-control" id="mytextarea" aria-label="editor" name="ruang_lingkup"></textarea>
                 </div>
             </div>
-            
+
+            <hr>
+
+            <div> <!-- Lampiran Persetujuan Teknis -->
+                <label><b>Lampiran Persetujuan Teknis</b></label>
+    
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" id="pertek1">
+                    <label class="custom-control-label" for="pertek1">Air Limbah</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" id="pertek2">
+                    <label class="custom-control-label" for="pertek2">Emisi</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" id="pertek3">
+                    <label class="custom-control-label" for="pertek3">Pengelolaan Limbah B3</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" id="pertek4">
+                    <label class="custom-control-label" for="pertek4">Andalalin</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" id="pertek5">
+                    <label class="custom-control-label" for="pertek5">Dokumen Rincian Teknis</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" id="pertek6">
+                    <label class="custom-control-label" for="pertek6">Rincian Teknis Penyimpanan Limbah B3</label>
+                </div>
+            </div>
+
+            <hr>
+
             <div>
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
@@ -290,9 +392,36 @@
 
     $(document).ready(function() {
         var i = 1;
-        $('#add').click(function() {
+        var j = 1;
+
+        $('#add1').click(function() {
+            j++
+            $('.table-input1').append(`<tr id="1Claster${j}">
+                            <td>${j}</td>
+                            <td>
+                                <input type="text" name="jenis_peraturan[]" class="form-control" placeholder="Surat/Akta Notaris/SK">
+                            </td>
+                            <td>
+                                <input type="text" name="pejabat_daerah[]" class="form-control">
+                            </td>
+                            <td>
+                                <input type="text" name="nomor_peraturan[]" class="form-control">
+                            </td>
+                            <td>
+                                <textarea class="form-control" name="perihal_peraturan[]" rows="2"></textarea>
+                            </td>
+                        </tr>`)
+        });
+
+        $(document).on('click', '.remove-btn1', function() {
+            var button_id = j;
+            $('#1Claster' + button_id + '').remove();
+            j--
+        });
+
+        $('#add2').click(function() {
             i++
-            $('.table-input').append(`<tr id="claster${i}">
+            $('.table-input2').append(`<tr id="2Claster${i}">
                             <td>${i}</td>
                             <td>
                                 <input type="text" name="jenis_izin[]" class="form-control" placeholder="Surat/Keputusan/Ketetapan">
@@ -307,17 +436,18 @@
                                 <input type="date" name="tgl_surat[]" class="form-control">
                             </td>
                             <td>
-                                <input type="text" name="perihal[]" class="form-control">
+                                <textarea class="form-control" name="perihal[]" rows="2"></textarea>
                             </td>
                         </tr>`)
         });
 
-        $(document).on('click', '.remove-btn', function() {
-            // var button_id = $(this).attr("id");
+        $(document).on('click', '.remove-btn2', function() {
             var button_id = i;
-            $('#claster' + button_id + '').remove();
+            $('#2Claster' + button_id + '').remove();
             i--
         });
+
+        
     });
 </script>
 @endsection

@@ -52,4 +52,9 @@ class Pkplh extends Model
     {
         return $this->hasMany(il_pkplh::class, 'id_pkplh', 'id');
     }
+
+    public function uklupl()
+    {
+        return $this->hasOne(Uklupl::class, 'id_uklupl', 'id');
+    }
 }

@@ -173,7 +173,7 @@
           </button>
         </div>
         <div class="modal-body">
-        <a class="btn btn-success btn-block" href="">Unduh UKL-UPL</a></button>
+        <a class="btn btn-success btn-block" href="{{route('printuklupl.download', $pkplh->id)}}">Unduh UKL-UPL</a></button>
         <a class="btn btn-success btn-block" href="{{route('operator.pkplh.download', $pkplh->id)}}">Unduh PKPLH</a></button>
         <a class="btn btn-primary btn-block" href="{{route('operator.pkplh.preview', $pkplh->id)}}">Preview PKPLH</a></button>
         </div>

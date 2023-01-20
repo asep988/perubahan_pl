@@ -6,9 +6,6 @@
     <i class="fa fa-bars"></i>
 </button>
 <div class="card">
-    @if(Session::has('pesan'))
-    <div style="background-color: 7FFF00; font: white;">{{ Session::get('pesan') }}</div>
-    @endif
     <div class="card-header">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -60,61 +57,61 @@
     </div>
 
     <div class="card-body">
-
-        <br><br>
-        <table id="table" class="table table-bordered table-striped" style="table-layout: fixed;">
-            <thead>
-                <tr>
-                    <th width="70px" rowspan="2" class="align-middle">No</th>
-                    <th rowspan="2" class="align-middle">Tahap Kegiatan</th>
-                    <th rowspan="2" class="align-middle">Jenis DPH</th>
-                    <th colspan="3">Dampak Lingkungan Yang Dipantau</th>
-                    <th colspan="3">Bentuk Pemantauan Lingkungan Hidup</th>
-                    <th colspan="3">Institusi Pemantauan Lingkungan Hidup</th>
-                    <th width="145px" rowspan="2" class="align-middle">Aksi</th>
-                </tr>
-                <tr>
-                    <td>Jenis Dampak Yang Timbul(dapat di ambien dan dapat di sumbernya)</td>
-                    <td>Indikator/Parameter</td>
-                    <td>Sumber Dampak</td>
-                    <td>Metode Pengumpulan dan Analisis Data</td>
-                    <td>Lokasi Pemantauan Lingkungan Hidup</td>
-                    <td>Waktu dan Frekuensi Pemantauan</td>
-                    <td>Pelaksana</td>
-                    <td>Pengawas</td>
-                    <td>Penerima Laporan</td>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($data_rpl as $rpl)
-                <tr>
-                    <td>{{ ++$no }}</td>
-                    <td>{{ $rpl -> tahap_kegiatan}}</td>
-                    <td>{{ $rpl -> jenis_dph }}</td>
-                    <td>{{ $rpl -> jenis_dampak }}</td>
-                    <td>{!! $rpl -> indikator !!}</td>
-                    <td>{{ $rpl -> sumber_dampak }}</td>
-                    <td>{!! $rpl -> metode !!}</td>
-                    <td>{!! $rpl -> lokasi !!}</td>
-                    <td>{{  $rpl -> waktu  }}</td>
-                    <td>{{  $rpl -> pelaksana  }}</td>
-                    <td>{{ $rpl -> pengawas }}</td>
-                    <td>{{ $rpl -> penerima }}</td>
-                    <td>
-                        <form action="{{route('rpl.delete', $rpl->id)}}" method="post">@csrf
-                            <a class="btn btn-sm btn-warning" href="{{route('rpl.ubah', $rpl->id)}}">
-                                Edit</a>
-                            <button class="btn btn-sm btn-danger" onclick="return confirm('yakin mau menghapus data ini??')">
-                                Hapus</button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        <b> Jumlah rpl : {{ $jumlah_rpl }} </b>
-        <br>
-        <div>{{ $data_rpl->links() }}</div>
+        @if(Session::has('pesan'))
+            <div style="background-color: 7FFF00; font: white;">{{ Session::get('pesan') }}</div>
+        @endif
+        <div class="table-responsive">
+            <table id="datatable" class="table table-bordered table-striped" style="table-layout: fixed;">
+                <thead>
+                    <tr>
+                        <th width="70px" rowspan="2" class="align-middle">No</th>
+                        <th rowspan="2" class="align-middle">Tahap Kegiatan</th>
+                        <th rowspan="2" class="align-middle">Jenis DPH</th>
+                        <th colspan="3">Dampak Lingkungan Yang Dipantau</th>
+                        <th colspan="3">Bentuk Pemantauan Lingkungan Hidup</th>
+                        <th colspan="3">Institusi Pemantauan Lingkungan Hidup</th>
+                        <th width="145px" rowspan="2" class="align-middle">Aksi</th>
+                    </tr>
+                    <tr>
+                        <td>Jenis Dampak Yang Timbul(dapat di ambien dan dapat di sumbernya)</td>
+                        <td>Indikator/Parameter</td>
+                        <td>Sumber Dampak</td>
+                        <td>Metode Pengumpulan dan Analisis Data</td>
+                        <td>Lokasi Pemantauan Lingkungan Hidup</td>
+                        <td>Waktu dan Frekuensi Pemantauan</td>
+                        <td>Pelaksana</td>
+                        <td>Pengawas</td>
+                        <td>Penerima Laporan</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data_rpl as $rpl)
+                    <tr>
+                        <td>{{ ++$no }}</td>
+                        <td>{{ $rpl -> tahap_kegiatan}}</td>
+                        <td>{{ $rpl -> jenis_dph }}</td>
+                        <td>{{ $rpl -> jenis_dampak }}</td>
+                        <td>{!! $rpl -> indikator !!}</td>
+                        <td>{{ $rpl -> sumber_dampak }}</td>
+                        <td>{!! $rpl -> metode !!}</td>
+                        <td>{!! $rpl -> lokasi !!}</td>
+                        <td>{{  $rpl -> waktu  }}</td>
+                        <td>{{  $rpl -> pelaksana  }}</td>
+                        <td>{{ $rpl -> pengawas }}</td>
+                        <td>{{ $rpl -> penerima }}</td>
+                        <td>
+                            <form action="{{route('rpl.delete', $rpl->id)}}" method="post">@csrf
+                                <a class="btn btn-sm btn-warning" href="{{route('rpl.ubah', $rpl->id)}}">
+                                    Edit</a>
+                                <button class="btn btn-sm btn-danger" onclick="return confirm('yakin mau menghapus data ini??')">
+                                    Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
 
         <form action="{{ route('rpl.store_rpl') }}" method="post" enctype="multipart/form-data">
             @csrf
@@ -221,3 +218,16 @@
 </div>
 
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $("#datatable").DataTable({
+            lengthmenu: [
+                [5,10,25,50,-1],
+                [5,10,25,50,'All']
+            ]
+        });
+    });
+</script>
+@endpush

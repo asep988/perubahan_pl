@@ -36,9 +36,6 @@
 
     <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.css') }}">
-    {{-- <link type="text/css" href="{{ asset('jquery-ui/jquery-ui.css') }}" rel="stylesheet">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script type="text/javascript" src="{{ asset('jquery-ui/jquery-ui.min.js') }}"></script> --}}
     
     <!-- jquery&datapicker -->
     <script src="{{ asset('js/jquery.js') }}"></script>
@@ -105,12 +102,7 @@
                         ],
                     });
                 </script>
-                
-                {{-- <script>
-                    $(document).ready( function () {
-                    $('#myTable').DataTable();
-                    } );
-                </script> --}}
+
             </div>
             <!-- End of Main Content -->
 

@@ -11,13 +11,10 @@ class RplController extends Controller
 {
     public function create($id) //Pemrakarsa
     {
-        $batas = 5;
-        $jumlah_rpl = rpl::where('id_skkl', $id)->count();
 		$id_skkl = $id;
-		$data_rpl = rpl::where('id_skkl', $id)->orderBy('id', 'desc')->paginate($batas);
+		$data_rpl = rpl::where('id_skkl', $id)->orderBy('id', 'desc')->get();
 
-        $no = $batas * ($data_rpl->currentpage() - 1);
-        return view('home.rpl.index', compact('data_rpl', 'no', 'jumlah_rpl', 'id_skkl'));
+        return view('home.rpl.index', compact('data_rpl', 'id_skkl'));
     }
 
     public function store_rpl(Request $request) //Pemrakarsa

@@ -110,7 +110,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <!-- <a class="btn btn-success btn-block" href="{{ route('rkl.create', $pkplh->id) }}">Dokumen UKL-UPL</a> -->
+            <a class="btn btn-success btn-block" href="{{ route('uklupl.create', $pkplh->id) }}">Dokumen UKL-UPL</a>
             <hr>
             <a class="btn btn-warning btn-block @if ($pkplh->status != "Belum") disabled @endif" href="{{ route('pkplh.edit', $pkplh->id) }}">Ubah Data PKPLH</a>
             <a class="btn btn-primary btn-block" href="{{ route('pkplh.review', $pkplh->id) }}">Preview Dokumen PKPLH</a>
