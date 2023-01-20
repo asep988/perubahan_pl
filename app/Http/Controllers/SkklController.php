@@ -27,6 +27,9 @@ class SkklController extends Controller
 
 	public function store(Request $request) //Pemrakarsa
 	{
+		$all = $request->all();
+		return $all;
+
 		$request->validate([
 			'pelaku_usaha' => 'required',
 			'nama_usaha' => 'required',

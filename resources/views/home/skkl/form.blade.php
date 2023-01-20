@@ -347,11 +347,11 @@
                 <label><b>Lampiran Persetujuan Teknis</b></label>
     
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek1" id="pertek1" onchange="pertek()">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek1" id="pertek1" onchange="pertek1()">
                     <label class="custom-control-label" for="pertek1">Air Limbah</label>
                 </div>
 
-                <div class="mb-3" id="air_limbah">
+                <div class="mb-3" id="air_limbah" style="display: none">
                     <div class="form-group row">
                         <div class="col-sm-8">
                             <label>Pendekatan Teknologi</label>
@@ -376,11 +376,11 @@
                 </div>
 
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek2" id="pertek2" onchange="pertek()">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek2" id="pertek2" onchange="pertek2()">
                     <label class="custom-control-label" for="pertek2">Emisi</label>
                 </div>
 
-                <div class="mb-3" id="emisi">
+                <div class="mb-3" id="emisi" style="display: none">
                     <div class="form-group row">
                         <div class="col-sm-8">
                             <label>Pendekatan Teknologi</label>
@@ -405,11 +405,11 @@
                 </div>
 
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek3" id="pertek3" onchange="pertek()">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek3" id="pertek3" onchange="pertek3()">
                     <label class="custom-control-label" for="pertek3">Pengelolaan Limbah B3</label>
                 </div>
 
-                <div class="mb-3" id="limbah_b3">
+                <div class="mb-3" id="limbah_b3" style="display: none">
                     <div class="form-group row">
                         <div class="col-sm-8">
                             <label>Pendekatan Teknologi</label>
@@ -434,11 +434,11 @@
                 </div>
 
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek4" id="pertek4" onchange="pertek()">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek4" id="pertek4" onchange="pertek4()">
                     <label class="custom-control-label" for="pertek4">Andalalin</label>
                 </div>
 
-                <div class="mb-3" id="andalalin">
+                <div class="mb-3" id="andalalin" style="display: none">
                     <div class="form-group row">
                         <div class="col-sm-8">
                             <label>Pendekatan Teknologi</label>
@@ -463,11 +463,11 @@
                 </div>
 
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek5" id="pertek5" onchange="pertek()">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek5" id="pertek5" onchange="pertek5()">
                     <label class="custom-control-label" for="pertek5">Dokumen Rincian Teknis</label>
                 </div>
 
-                <div class="mb-3" id="rintek">
+                <div class="mb-3" id="rintek" style="display: none">
                     <div class="form-group row">
                         <div class="col-sm-8">
                             <label>Pendekatan Teknologi</label>
@@ -502,11 +502,11 @@
                 </div>
 
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek6" id="pertek6" onchange="pertek()">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek6" id="pertek6" onchange="pertek6()">
                     <label class="custom-control-label" for="pertek6">Rincian Teknis Penyimpanan Limbah B3</label>
                 </div>
 
-                <div class="mb-3" id="rintek_limbah">
+                <div class="mb-3" id="rintek_limbah" style="display: none">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="rintek_limbah_upload">Upload dokumen yang diperlukan</span>
@@ -542,9 +542,53 @@
         var i = 1;
         var j = 1;
 
-        // $('#pertek1').onchange(function() {
-        //     $('#pertek1').is(":checked")
-        // });
+        $(document).on('change', '#pertek1', function() {
+            if ($('#pertek1').is(":checked")) {
+                $('#air_limbah').show();
+            } else {
+                $('#air_limbah').hide();
+            }
+        });
+
+        $(document).on('change', '#pertek2', function() {
+            if ($('#pertek2').is(":checked")) {
+                $('#emisi').show();
+            } else {
+                $('#emisi').hide();
+            }
+        });
+
+        $(document).on('change', '#pertek3', function() {
+            if ($('#pertek3').is(":checked")) {
+                $('#limbah_b3').show();
+            } else {
+                $('#limbah_b3').hide();
+            }
+        });
+
+        $(document).on('change', '#pertek4', function() {
+            if ($('#pertek4').is(":checked")) {
+                $('#andalalin').show();
+            } else {
+                $('#andalalin').hide();
+            }
+        });
+
+        $(document).on('change', '#pertek5', function() {
+            if ($('#pertek5').is(":checked")) {
+                $('#rintek').show();
+            } else {
+                $('#rintek').hide();
+            }
+        });
+
+        $(document).on('change', '#pertek6', function() {
+            if ($('#pertek6').is(":checked")) {
+                $('#rintek_limbah').show();
+            } else {
+                $('#rintek_limbah').hide();
+            }
+        });
 
         $('#add1').click(function() {
             j++
