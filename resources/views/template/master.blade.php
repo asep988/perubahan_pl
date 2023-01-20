@@ -84,7 +84,7 @@
                         forced_root_block: "",
                         force_br_newlines: true,
                         force_p_newlines: true,
-                        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+                        plugins: 'anchor autolink charmap codesample link lists searchreplace table visualblocks wordcount',
                         toolbar1: 'undo redo | insert | styleselect table | bold italic | hr alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media ',
                         toolbar2: 'forecolor backcolor emoticons | fontselect | fontsizeselect | fullscreen',
                         templates: [{

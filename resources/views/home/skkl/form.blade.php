@@ -347,28 +347,176 @@
                 <label><b>Lampiran Persetujuan Teknis</b></label>
     
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" id="pertek1">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek1" id="pertek1" onchange="pertek()">
                     <label class="custom-control-label" for="pertek1">Air Limbah</label>
                 </div>
+
+                <div class="mb-3" id="air_limbah">
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            <label>Pendekatan Teknologi</label>
+                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_tek[]"></textarea>
+                        </div>
+                    </div>
+    
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            <label>Pendekatan Sosial & Ekonomi</label>
+                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_sos[]"></textarea>
+                        </div>
+                    </div>
+    
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            <label>Pendekatan Institusi</label>
+                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_institut[]"></textarea>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" id="pertek2">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek2" id="pertek2" onchange="pertek()">
                     <label class="custom-control-label" for="pertek2">Emisi</label>
                 </div>
+
+                <div class="mb-3" id="emisi">
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            <label>Pendekatan Teknologi</label>
+                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_tek[]"></textarea>
+                        </div>
+                    </div>
+    
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            <label>Pendekatan Sosial & Ekonomi</label>
+                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_sos[]"></textarea>
+                        </div>
+                    </div>
+    
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            <label>Pendekatan Institusi</label>
+                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_institut[]"></textarea>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" id="pertek3">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek3" id="pertek3" onchange="pertek()">
                     <label class="custom-control-label" for="pertek3">Pengelolaan Limbah B3</label>
                 </div>
+
+                <div class="mb-3" id="limbah_b3">
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            <label>Pendekatan Teknologi</label>
+                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_tek[]"></textarea>
+                        </div>
+                    </div>
+    
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            <label>Pendekatan Sosial & Ekonomi</label>
+                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_sos[]"></textarea>
+                        </div>
+                    </div>
+    
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            <label>Pendekatan Institusi</label>
+                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_institut[]"></textarea>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" id="pertek4">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek4" id="pertek4" onchange="pertek()">
                     <label class="custom-control-label" for="pertek4">Andalalin</label>
                 </div>
+
+                <div class="mb-3" id="andalalin">
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            <label>Pendekatan Teknologi</label>
+                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_tek[]"></textarea>
+                        </div>
+                    </div>
+    
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            <label>Pendekatan Sosial & Ekonomi</label>
+                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_sos[]"></textarea>
+                        </div>
+                    </div>
+    
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            <label>Pendekatan Institusi</label>
+                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_institut[]"></textarea>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" id="pertek5">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek5" id="pertek5" onchange="pertek()">
                     <label class="custom-control-label" for="pertek5">Dokumen Rincian Teknis</label>
                 </div>
+
+                <div class="mb-3" id="rintek">
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            <label>Pendekatan Teknologi</label>
+                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_tek[]"></textarea>
+                        </div>
+                    </div>
+    
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            <label>Pendekatan Sosial & Ekonomi</label>
+                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_sos[]"></textarea>
+                        </div>
+                    </div>
+    
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            <label>Pendekatan Institusi</label>
+                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_institut[]"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="rintek_upload">Upload dokumen yang diperlukan</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="rintek_upload" aria-describedby="rintek_upload">
+                            <label class="custom-file-label" for="rintek_upload">Choose file</label>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" id="pertek6">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek6" id="pertek6" onchange="pertek()">
                     <label class="custom-control-label" for="pertek6">Rincian Teknis Penyimpanan Limbah B3</label>
+                </div>
+
+                <div class="mb-3" id="rintek_limbah">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="rintek_limbah_upload">Upload dokumen yang diperlukan</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="rintek_limbah_upload" aria-describedby="rintek_limbah_upload">
+                            <label class="custom-file-label" for="rintek_limbah_upload">Choose file</label>
+                        </div>
+                    </div>
+                    <hr>
                 </div>
             </div>
 
@@ -393,6 +541,10 @@
     $(document).ready(function() {
         var i = 1;
         var j = 1;
+
+        // $('#pertek1').onchange(function() {
+        //     $('#pertek1').is(":checked")
+        // });
 
         $('#add1').click(function() {
             j++
