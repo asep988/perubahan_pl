@@ -87,7 +87,7 @@
                 <tbody>
                     @foreach ($data_rpl as $rpl)
                     <tr>
-                        <td>{{ ++$no }}</td>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $rpl -> tahap_kegiatan}}</td>
                         <td>{{ $rpl -> jenis_dph }}</td>
                         <td>{{ $rpl -> jenis_dampak }}</td>

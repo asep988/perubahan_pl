@@ -59,7 +59,7 @@ class UkluplController extends Controller
 		$uklupl->keterangan		        =	$request->keterangan;
 		$uklupl->save();
 
-        return redirect()->route('')->with('pesan', 'Data berhasil diperbarui!');
+        return redirect()->route('uklupl.create')->with('pesan', 'Data berhasil diperbarui!');
     }
 
     public function delete($id) //Pemrakarsa
