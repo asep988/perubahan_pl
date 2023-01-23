@@ -20,9 +20,9 @@ class RplController extends Controller
     public function store_rpl(Request $request) //Pemrakarsa
 	{
 		$rpl = new rpl;
+		$rpl->id_skkl				=	$request->id_skkl;
 		$rpl->tahap_kegiatan		=	$request->tahap_kegiatan;
 		$rpl->jenis_dph				=	$request->jenis_dph;
-		$rpl->id_skkl				=	$request->id_skkl;
 		$rpl->jenis_dampak          =	$request->jenis_dampak;
 		$rpl->indikator		        =	$request->indikator;
 		$rpl->sumber_dampak			=	$request->sumber_dampak;

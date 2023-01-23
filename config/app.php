@@ -166,7 +166,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -229,6 +229,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'WordTemplate' => Novay\WordTemplate\Facade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class, 
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

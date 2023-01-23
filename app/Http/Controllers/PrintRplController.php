@@ -152,7 +152,7 @@ class PrintRplController extends Controller
         
         
         //========= DAMPAK LAINNYA =============
-        $body .= '<tr id="dampakpenting">
+        $body .= '<tr id="dampaklainnya">
             <td colspan="10"><b>DAMPAK LAINNYA YANG DIKELOLA</b></td>
         </tr>';
 

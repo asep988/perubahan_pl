@@ -49,10 +49,10 @@ Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {
 
     //ukl_upl
     Route::get('/Pemrakarsa/uklupl/create/{id}', 'UkluplController@create')->name('uklupl.create');
-    Route::post('/Pemrakarsa/uklupl/store/{id}', 'UkluplController@store')->name('uklupl.store');
     Route::post('/Pemrakarsa/uklupl/delete/{id}', 'UkluplController@delete')->name('uklupl.delete');
     Route::get('/Pemrakarsa/uklupl/ubah/{id}', 'UkluplController@ubah')->name('uklupl.ubah');
     Route::post('/Pemrakarsa/uklupl/update/{id}', 'UkluplController@update')->name('uklupl.update');
+    Route::post('/Pemrakarsa/uklupl', 'UkluplController@store')->name('uklupl.store');
 
     //rpl
     Route::get('/Pemrakarsa/rpl/create/{id}', 'RplController@create')->name('rpl.create');
@@ -81,7 +81,7 @@ Route::group(['middleware' => ['auth', 'cekRole:Operator']], function() {
     Route::get('/Operator/printrkl/download/{id}', 'PrintRklController@download')->name('printrkl.download');
     Route::get('/Operator/printrpl/download/{id}', 'PrintRplController@download')->name('printrpl.download');
     //Print doc UKL-UPL
-    Route::get('/Operator/uklupl/download/{id}', 'PrintUkluplController@download')->name('printukupl.download');
+    Route::get('/Operator/uklupl/download/{id}', 'PrintUkluplController@download')->name('printuklupl.download');
 });
 
 Route::group(['middleware' => ['auth', 'cekRole:Sekretariat']], function() {

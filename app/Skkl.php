@@ -14,7 +14,15 @@ class Skkl extends Model
     protected $primaryKey = 'id';
     protected $casts = [
         'kabupaten_kota' => 'array',
-        'provinsi' => 'array'
+        'provinsi' => 'array',
+        'region' => 'array', //baru
+        'nama_kbli' => 'array',
+        'kbli_baru' => 'array',
+        'pertek' => 'array',
+        'jenis_peraturan' => 'array',
+        'pejabat_daerah' => 'array',
+        'nomor_peraturan' => 'array',
+        'perihal_peraturan' => 'array',
     ];
     protected $fillable = [
         'user_id',
@@ -24,7 +32,7 @@ class Skkl extends Model
         'jenis_usaha',
         'penanggung',
         'nib',
-        'knli',
+        'kbli',
         'jabatan',
         'alamat',
         'lokasi',
@@ -33,7 +41,7 @@ class Skkl extends Model
         'jenis_usaha_baru',
         'penanggung_baru',
         'nib_baru',
-        'knli_baru',
+        'kbli_baru',
         'jabatan_baru',
         'alamat_baru',
         'lokasi_baru',
@@ -45,11 +53,32 @@ class Skkl extends Model
         'perihal',
         'ruang_lingkup',
         'file',
-        'status'
+        'status',
+        'nama_kbli', //baru
+        'jenis_perubahan',
+        'pejabat_pl',
+        'region',
+        'nomor_validasi',
+        'tgl_validasi',
+        'jenis_persetujuan',
+        'pejabat_daerah',
+        'nomor_peraturan',
+        'perihal_peraturan',
+        'pend_tek',
+        'pend_sos',
+        'pend_institut',
+        'nomor_rpd',
+        'tgl_rpd',
+        'pertek'
     ];
 
     public function il_skkl()
     {
         return $this->hasMany(il_skkl::class, 'id_skkl', 'id');
+    }
+
+    public function Pertek_skkl()
+    {
+        return $this->hasMany(Pertek_skkl::class, 'id_skkl', 'id');
     }
 }

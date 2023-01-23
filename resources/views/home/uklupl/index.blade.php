@@ -115,16 +115,34 @@
         </div>
 
         <h5><b>Tambah Data UKL/UPL</b></h5>
-        <form action="{{ route('uklupl.store', $id_pkplh) }}" method="post">
+        <form action="{{ route('uklupl.store') }}" method="post">
             @csrf
+            <input type="hidden" name="id_pkplh" value="{{ $id_pkplh }}">
             <table border="1" width="100%" class="mb-3">
                 <tr>
                     <!-- dari -->
                     <td style="padding: 20px;">
-                        <label for="sumber_dampak" class="form-label">Sumber Dampak</label>
-                        <div class="form-group row">
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" name="sumber_dampak" required>
+                        <div class="input-box">
+                            <br>
+                            <label for="tahap_kegiatan" class="form-label">Tahap Kegiatan</label>
+                            <div class="form-group row">
+                                <div class="col-sm-8">
+                                    <select name="tahap_kegiatan" id="tahap_kegiatan" class="form-control">
+                                        <option value="Pra Konstruksi">Pra Konstruksi</option>
+                                        <option value="Konstruksi">Konstruksi</option>
+                                        <option value="Operasi">Operasi</option>
+                                        <option value="Pasca Operasi">Pasca Operasi</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-box">
+                            <label for="sumber_dampak" class="form-label">Sumber Dampak</label>
+                            <div class="form-group row">
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" name="sumber_dampak" required>
+                                </div>
                             </div>
                         </div>
 
@@ -220,8 +238,11 @@
                     </td>
                 </tr>
             </table>
-            <input hidden name="id_pkplh" value="{{ $id_pkplh }}">
-            <button type="submit" class="btn btn-primary">Save</button>
+            <br>
+
+            <div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
         </form>
 
     </div>

@@ -13,6 +13,7 @@ class Uklupl extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'id_pkplh',
+        'tahap_kegiatan',
         'sumber_dampak',
         'jenis_dampak',
         'besaran_dampak',

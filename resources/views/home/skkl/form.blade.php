@@ -58,61 +58,48 @@
 
     <div class="card-body">
         @if(Session::has('pesan'))
-        <div style="background-color: 7FFF00; font: white;">{{ Session::get('pesan') }}</div>
+            <div style="background-color: 7FFF00; font: white;">{{ Session::get('pesan') }}</div>
         @endif
         <form action="{{ route('skkl.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <h5><b>Perubahan Penanggung Jawab Usaha atau Kegiatan</b></h5>
+
+            <div class="btn-group btn-group-toggle mb-3 btn-block" data-toggle="buttons">
+                <label class="btn btn-success">
+                  <input type="radio" name="jenis_perubahan" id="jenis_perubahan1" value="perkep1"> Perubahan Kepemilikkan
+                </label>
+                <label class="btn btn-success">
+                  <input type="radio" name="jenis_perubahan" id="jenis_perubahan2" value="perkep2" checked> Perubahan Kepemilikkan dan Integrasi Pertek/Rintek
+                </label>
+                <label class="btn btn-success">
+                  <input type="radio" name="jenis_perubahan" id="jenis_perubahan3" value="perkep3"> Integrasi Pertek/Rintek
+                </label>
+            </div>
+
             <table border="1" width="100%" class="mb-3">
                 <tr>
                     <!-- dari -->
-                    <td style="padding: 20px;">
-                        <div class="user-detail">
+                    <td style="padding: 20px;" class="align-top" id="dari">
+                        <div class="">
                             <span>Dari :</span>
                             <div class="input-box">
                                 <br>
                                 <label for="pelaku_usaha" class="form-label">Nama Pelaku Usaha/Kegiatan</label>
                                 <div>
-                                    <input type="text" class="form-control" name="pelaku_usaha" required>
-                                </div>
-                            </div>
-                            <div class="input-box">
-                                <label for="nama_usaha" class="form-label">Nama Usaha/Kegiatan</label>
-                                <div>
-                                    <input type="text" class="form-control" name="nama_usaha" required>
-                                </div>
-                            </div>
-                            <div class="input-box">
-                                <label for="jenis_usaha" class="form-label">Jenis Usaha/Kegiatan</label>
-                                <div>
-                                    <input type="text" class="form-control" name="jenis_usaha" required>
+                                    <input type="text" class="form-control" name="pelaku_usaha" value="{{ $initiator[0]->name }}">
                                 </div>
                             </div>
                             <div class="input-box">
                                 <label for="penanggung" class="form-label">Penanggung Jawab Usaha/Kegiatan</label>
-                                <input type="text" class="form-control" name="penanggung" required>
-                            </div>
-                            <div class="input-box">
-                                <label for="nib" class="form-label">NIB</label>
-                                <input type="text" class="form-control" name="nib" required>
-                            </div>
-                            <div class="input-box">
-                                <label for="knli" class="form-label">KBLI</label>
-                                <input type="text" class="form-control" name="knli" required>
+                                <input type="text" class="form-control" name="penanggung" value="{{ $initiator[0]->pic }}">
                             </div>
                             <div class="input-box">
                                 <label for="jabatan" class="form-label">Jabatan</label>
-                                <input type="text" class="form-control" name="jabatan" required>
+                                <input type="text" class="form-control" name="jabatan" value="{{ $initiator[0]->pic_role }}">
                             </div>
                             <div class="input-box">
                                 <label for="alamat" class="form-label">Alamat Kantor/Kegiatan</label>
-                                {{-- <input type="text" class="form-control" name="alamat" required> --}}
-                                <textarea class="form-control" id="alamat" name="alamat" rows="3" required></textarea>
-                            </div>
-                            <div class="input-box">
-                                <label for="lokasi" class="form-label">Lokasi Usaha/Kegiatan</label>
-                                {{-- <input type="text" class="form-control" name="lokasi" required> --}}
-                                <textarea class="form-control" id="lokasi" name="lokasi" rows="3" required></textarea>
+                                <textarea class="form-control" id="alamat" name="alamat" rows="3">{{ $initiator[0]->address }}</textarea>
                             </div>
                         </div>
                     </td>
@@ -130,13 +117,7 @@
                             <div class="input-box">
                                 <label for="nama_usaha_baru" class="form-label">Nama Usaha/Kegiatan</label>
                                 <div>
-                                    <input type="text" class="form-control" name="nama_usaha_baru" required>
-                                </div>
-                            </div>
-                            <div class="input-box">
-                                <label for="jenis_usaha_baru" class="form-label">Jenis Usaha/Kegiatan</label>
-                                <div>
-                                    <input type="text" class="form-control" name="jenis_usaha_baru" required>
+                                    <textarea class="form-control" id="nama_usaha_baru" name="nama_usaha_baru" rows="3" placeholder="Tuliskan judul nama usaha/kegiatan lengkap beserta alamat lokasi kegiatannya" required></textarea>
                                 </div>
                             </div>
                             <div class="input-box">
@@ -148,21 +129,15 @@
                                 <input type="text" class="form-control" name="nib_baru" required>
                             </div>
                             <div class="input-box">
-                                <label for="knli_baru" class="form-label">KBLI</label>
-                                <input type="text" class="form-control" name="knli_baru" required>
-                            </div>
-                            <div class="input-box">
                                 <label for="jabatan_baru" class="form-label">Jabatan</label>
                                 <input type="text" class="form-control" name="jabatan_baru" required>
                             </div>
                             <div class="input-box">
                                 <label for="alamat_baru" class="form-label">Alamat Kantor/Kegiatan</label>
-                                {{-- <input type="text" class="form-control" name="alamat_baru" required> --}}
                                 <textarea class="form-control" id="alamat_baru" name="alamat_baru" rows="3" required></textarea>
                             </div>
                             <div class="input-box">
                                 <label for="lokasi_baru" class="form-label">Lokasi Usaha/Kegiatan</label>
-                                {{-- <input type="text" class="form-control" name="lokasi_baru" required> --}}
                                 <textarea class="form-control" id="lokasi_baru" name="lokasi_baru" rows="3" required></textarea>
                             </div>
                         </div>
@@ -171,6 +146,42 @@
             </table>
 
             <div class="mb-3"> <!-- Provinsi, Kabupaten & Kota, Bukti Perubahan -->
+                <div class="form-group row">
+                    <label for="nomor_pl" class="col-sm-2 col-form-label">Jenis Usaha/Kegiatan & KBLI</label>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <table border="1">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th>#</th>
+                                        <th>Jenis Usaha/Kegiatan</th>
+                                        <th>KBLI</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-kbli">
+                                    <tr id="kbli-claster1">
+                                        <td>1</td>
+                                        <td>
+                                            <input type="text" name="nama_kbli[]" class="form-control" placeholder="Ketik jenis usaha/kegiatan">
+                                        </td>
+                                        <td>
+                                            <input type="text" name="nomor_kbli[]" class="form-control" placeholder="Ketik kode KBLI">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="mt-1">
+                                <button type="button" id="remove" class="btn remove-kbli btn-sm btn-danger">
+                                    <i class="fas fa-minus fa-sm"></i>
+                                </button>
+                                <button type="button" id="add-kbli" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-plus fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-group row">
                     <label for="provinsi" class="col-sm-2 col-form-label">Provinsi</label>
                     <div class="col-sm-8">
@@ -198,6 +209,20 @@
                     <div class="col-sm-8">
                         <input type="text" style="width: 100%" class="form-control" id="link_drive" name="link_drive" placeholder="Link Google Drive" required>
                         <small class="text-muted">Pastikan Link Google Drive anda Bisa diakses Oleh Publik</small>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="region" class="col-sm-2 col-form-label">Region Lokasi Usaha/Kegiatan</label>
+                    <div class="col-sm-8">
+                        <select class="regional-multiple" multiple="multiple" style="width: 100%" name="region" id="region" required>
+                            <option value="Sumatera">Sumatera</option>
+                            <option value="Jawa">Jawa</option>
+                            <option value="Kalimantan">Kalimantan</option>
+                            <option value="Bali Nusa Tenggara">Bali Nusa Tenggara</option>
+                            <option value="Sulawesi Maluku">Sulawesi Maluku</option>
+                            <option value="Papua">Papua</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -231,64 +256,91 @@
                 <div class="form-group row">
                     <label for="pejabat" class="col-sm-2 col-form-label">Pejabat yang menandatangani</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" aria-label="pejabat" id="pejabat" name="pejabat">
+                        <input type="text" class="form-control" aria-label="pejabat" id="pejabat" name="pejabat_pl">
                     </div>
                 </div>
 
-                <label><b>Peraturan Pemerintah Daerah</b></label>
                 <div class="form-group row">
-                    <table border="1" width="100%">
-                        <thead>
-                            <tr class="text-center">
-                                <th>#</th>
-                                <th>Jenis Peraturan</th>
-                                <th>Pejabat yang mengesahkan</th>
-                                <th>Nomor SK</th>
-                                <th>Perihal/Tentang</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-input1">
-                            <tr id="1claster1">
-                                <td>1</td>
-                                <td>
-                                    <input type="text" name="jenis_peraturan[]" class="form-control" placeholder="Surat/Akta Notaris/SK">
-                                </td>
-                                <td>
-                                    <input type="text" name="pejabat_daerah[]" class="form-control">
-                                </td>
-                                <td>
-                                    <input type="text" name="nomor_peraturan[]" class="form-control">
-                                </td>
-                                <td>
-                                    <textarea class="form-control" name="perihal_peraturan[]" rows="2"></textarea>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="mt-1">
-                        <button type="button" id="remove" class="btn remove-btn1 btn-sm btn-danger">
-                            <i class="fas fa-minus fa-sm"></i>
-                        </button>
-                        <button type="button" id="add1" class="btn btn-sm btn-primary">
-                            <i class="fas fa-plus fa-sm"></i>
-                        </button>
+                    <label for="nomor_validasi" class="col-sm-2 col-form-label">Nomor Bukti Validasi Administrasi PTSP</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" aria-label="nomor_validasi" id="nomor_validasi" name="nomor_validasi">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="tgl_validasi" class="col-sm-2 col-form-label">Tanggal Validasi</label>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="date" id="tgl_validasi" name="tgl_validasi" placeholder="yyyy/mm/dd">
+                    </div>
+                </div>
+
+                <div id="dasar_perubahan">
+                    <hr>
+                    <span><b>Dasar Perubahan Kepemilikan</b></span><br>
+                    <label><b>Contoh : </b>
+                        <ol>
+                            <li>Jenis Dasar Perubahan : Surat/Akta Notaris/SK</li>
+                            <li>Pejabat Yang Mengesahkan : Gubernur Jawa Timur</li>
+                            <li>Nomor Surat: 40 Tahun 2021</li>
+                            <li>Perihal/Tentang : Penugasan Kepada PT Jatim Grha Utama sebagai Pengelola Pusat Pengelolaan Sampah dan Limbah Bahan Berbahaya dan Beracun Jawa Timur.</li>
+                        </ol>
+                    </label>
+
+                    <div class="form-group row">
+                        <table border="1" width="100%">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#</th>
+                                    <th>Jenis Dasar Perubahan</th>
+                                    <th>Pejabat yang mengesahkan</th>
+                                    <th>Nomor Surat</th>
+                                    <th>Perihal/Tentang</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-input1">
+                                <tr id="1claster1">
+                                    <td>1</td>
+                                    <td>
+                                        <input type="text" name="jenis_peraturan[]" class="form-control" placeholder="Surat/Akta Notaris/SK">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="pejabat_daerah[]" class="form-control">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="nomor_peraturan[]" class="form-control">
+                                    </td>
+                                    <td>
+                                        <textarea class="form-control" name="perihal_peraturan[]" rows="2"></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="mt-1">
+                            <button type="button" id="remove" class="btn remove-btn1 btn-sm btn-danger">
+                                <i class="fas fa-minus fa-sm"></i>
+                            </button>
+                            <button type="button" id="add1" class="btn btn-sm btn-primary">
+                                <i class="fas fa-plus fa-sm"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <hr>
 
-            <div class="mb-3">
-                <label><b>Sebutkan IL, SKKL, Persetujuan UKL-UPL, Persetujuan DELH, Persetujuan DPLH yang telah dimiliki</b></label>
+            <div class="mb-3"> <!-- IL SKKL -->
+                <span><b>Sebutkan IL, SKKL, Persetujuan UKL-UPL, Persetujuan DELH, Persetujuan DPLH yang telah dimiliki</b></span><br>
                 <label><b>Contoh : </b>
                     <ol>
-                        <li>Jenis Izin Peraturan : Surat/Keputusan/Ketetapan</li>
+                        <li>Jenis Izin Persetujuan : Surat/Keputusan/Ketetapan</li>
                         <li>Pejabat Yang Mengesahkan : Kepala Dinas Pertambangan dan Lingkungan Hidup Kabupaten Sorong</li>
                         <li>Nomor SK : 660.1/113/2012</li>
                         <li>Tanggal Surat : 16/05/2012</li>
                         <li>Perihal/Tentang : UKL dan UPL Kegiatan Pemrduksian Sumur Walio Ext-1 (POP) di Blok Kepala Burung Kabupaten Sorong Provinsi Papua Barat.</li>
                     </ol>
                 </label>
+                
                 <div class="form-group row">
                     <table border="1" width="100%">
                         <thead>
@@ -343,149 +395,207 @@
 
             <hr>
 
-            <div> <!-- Lampiran Persetujuan Teknis -->
+            <div> <!-- Lampiran I Pendekatan Pengelolaan Lingkungan -->
+                <label><b>Lampiran I Pendekatan Pengelolaan Lingkungan</b></label>
+
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        <label>Pendekatan Teknologi</label>
+                        <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_tek"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        <label>Pendekatan Sosial & Ekonomi</label>
+                        <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_sos"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        <label>Pendekatan Institusi</label>
+                        <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_institut"></textarea>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <hr>
+
+            <div id="lampiran"> <!-- Lampiran Persetujuan Teknis -->
                 <label><b>Lampiran Persetujuan Teknis</b></label>
     
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek1" id="pertek1" onchange="pertek1()">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek1" id="pertek1">
                     <label class="custom-control-label" for="pertek1">Air Limbah</label>
                 </div>
 
                 <div class="mb-3" id="air_limbah" style="display: none">
                     <div class="form-group row">
-                        <div class="col-sm-8">
-                            <label>Pendekatan Teknologi</label>
-                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_tek[]"></textarea>
+                        <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek1">
                         </div>
                     </div>
-    
+
                     <div class="form-group row">
-                        <div class="col-sm-8">
-                            <label>Pendekatan Sosial & Ekonomi</label>
-                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_sos[]"></textarea>
+                        <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek1">
                         </div>
                     </div>
-    
+
                     <div class="form-group row">
-                        <div class="col-sm-8">
-                            <label>Pendekatan Institusi</label>
-                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_institut[]"></textarea>
+                        <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek1">
                         </div>
                     </div>
-                    <hr>
+
+                    <div class="form-group row">
+                        <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek1">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek2" id="pertek2" onchange="pertek2()">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek2" id="pertek2">
                     <label class="custom-control-label" for="pertek2">Emisi</label>
                 </div>
 
                 <div class="mb-3" id="emisi" style="display: none">
                     <div class="form-group row">
-                        <div class="col-sm-8">
-                            <label>Pendekatan Teknologi</label>
-                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_tek[]"></textarea>
+                        <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek2">
                         </div>
                     </div>
-    
+
                     <div class="form-group row">
-                        <div class="col-sm-8">
-                            <label>Pendekatan Sosial & Ekonomi</label>
-                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_sos[]"></textarea>
+                        <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek2">
                         </div>
                     </div>
-    
+
                     <div class="form-group row">
-                        <div class="col-sm-8">
-                            <label>Pendekatan Institusi</label>
-                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_institut[]"></textarea>
+                        <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek2">
                         </div>
                     </div>
-                    <hr>
+
+                    <div class="form-group row">
+                        <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek2">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek3" id="pertek3" onchange="pertek3()">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek3" id="pertek3">
                     <label class="custom-control-label" for="pertek3">Pengelolaan Limbah B3</label>
                 </div>
 
                 <div class="mb-3" id="limbah_b3" style="display: none">
                     <div class="form-group row">
-                        <div class="col-sm-8">
-                            <label>Pendekatan Teknologi</label>
-                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_tek[]"></textarea>
+                        <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek3">
                         </div>
                     </div>
-    
+
                     <div class="form-group row">
-                        <div class="col-sm-8">
-                            <label>Pendekatan Sosial & Ekonomi</label>
-                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_sos[]"></textarea>
+                        <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek3">
                         </div>
                     </div>
-    
+
                     <div class="form-group row">
-                        <div class="col-sm-8">
-                            <label>Pendekatan Institusi</label>
-                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_institut[]"></textarea>
+                        <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek3">
                         </div>
                     </div>
-                    <hr>
+
+                    <div class="form-group row">
+                        <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek3">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek4" id="pertek4" onchange="pertek4()">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek4" id="pertek4">
                     <label class="custom-control-label" for="pertek4">Andalalin</label>
                 </div>
 
                 <div class="mb-3" id="andalalin" style="display: none">
                     <div class="form-group row">
-                        <div class="col-sm-8">
-                            <label>Pendekatan Teknologi</label>
-                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_tek[]"></textarea>
+                        <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek4">
                         </div>
                     </div>
-    
+
                     <div class="form-group row">
-                        <div class="col-sm-8">
-                            <label>Pendekatan Sosial & Ekonomi</label>
-                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_sos[]"></textarea>
+                        <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek4">
                         </div>
                     </div>
-    
+
                     <div class="form-group row">
-                        <div class="col-sm-8">
-                            <label>Pendekatan Institusi</label>
-                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_institut[]"></textarea>
+                        <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek4">
                         </div>
                     </div>
-                    <hr>
+
+                    <div class="form-group row">
+                        <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek4">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek5" id="pertek5" onchange="pertek5()">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek5" id="pertek5">
                     <label class="custom-control-label" for="pertek5">Dokumen Rincian Teknis</label>
                 </div>
 
                 <div class="mb-3" id="rintek" style="display: none">
                     <div class="form-group row">
-                        <div class="col-sm-8">
-                            <label>Pendekatan Teknologi</label>
-                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_tek[]"></textarea>
+                        <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek5">
                         </div>
                     </div>
-    
+
                     <div class="form-group row">
-                        <div class="col-sm-8">
-                            <label>Pendekatan Sosial & Ekonomi</label>
-                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_sos[]"></textarea>
+                        <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek5">
                         </div>
                     </div>
-    
+
                     <div class="form-group row">
-                        <div class="col-sm-8">
-                            <label>Pendekatan Institusi</label>
-                            <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_institut[]"></textarea>
+                        <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek5">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek5">
                         </div>
                     </div>
 
@@ -502,7 +612,7 @@
                 </div>
 
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek6" id="pertek6" onchange="pertek6()">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek6" id="pertek6">
                     <label class="custom-control-label" for="pertek6">Rincian Teknis Penyimpanan Limbah B3</label>
                 </div>
 
@@ -518,9 +628,9 @@
                     </div>
                     <hr>
                 </div>
+                <hr>
             </div>
 
-            <hr>
 
             <div>
                 <button type="submit" class="btn btn-primary">Simpan</button>
@@ -538,47 +648,116 @@
         dropdownCssClass: "select2--small",
     });
 
+    $('.regional-multiple').select2({
+        dropdownCssClass: "select2--small",
+    });
+
     $(document).ready(function() {
         var i = 1;
         var j = 1;
+        var k = 1;
+
+        $(document).on('change', '#jenis_perubahan1', function () {
+            if ($('#jenis_perubahan1').prop('checked', true)) {
+                $('#lampiran').hide();
+                $('#dari').show();
+                $('#dasar_perubahan').show();
+            }
+        });
+
+        $(document).on('change', '#jenis_perubahan2', function () {
+            if ($('#jenis_perubahan2').prop('checked', true)) {
+                $('#lampiran').show();
+                $('#dari').show();
+                $('#dasar_perubahan').show();
+            }
+        });
+
+        $(document).on('change', '#jenis_perubahan3', function () {
+            if ($('#jenis_perubahan3').prop('checked', true)) {
+                $('#dari').hide();
+                $('#dasar_perubahan').hide();
+                $('#lampiran').show();
+            }
+        });
 
         $(document).on('change', '#pertek1', function() {
             if ($('#pertek1').is(":checked")) {
                 $('#air_limbah').show();
+                $('#surat_pertek1').attr('name', 'surat_pertek[]')
+                $('#nomor_pertek1').attr('name', 'nomor_pertek[]')
+                $('#tgl_pertek1').attr('name', 'tgl_pertek[]')
+                $('#perihal_pertek1').attr('name', 'perihal_pertek[]')
             } else {
                 $('#air_limbah').hide();
+                $('#surat_pertek1').removeAttr('name')
+                $('#nomor_pertek1').removeAttr('name')
+                $('#tgl_pertek1').removeAttr('name')
+                $('#perihal_pertek1').removeAttr('name')
             }
         });
 
         $(document).on('change', '#pertek2', function() {
             if ($('#pertek2').is(":checked")) {
                 $('#emisi').show();
+                $('#surat_pertek2').attr('name', 'surat_pertek[]')
+                $('#nomor_pertek2').attr('name', 'nomor_pertek[]')
+                $('#tgl_pertek2').attr('name', 'tgl_pertek[]')
+                $('#perihal_pertek2').attr('name', 'perihal_pertek[]')
             } else {
                 $('#emisi').hide();
+                $('#surat_pertek2').removeAttr('name')
+                $('#nomor_pertek2').removeAttr('name')
+                $('#tgl_pertek2').removeAttr('name')
+                $('#perihal_pertek2').removeAttr('name')
             }
         });
 
         $(document).on('change', '#pertek3', function() {
             if ($('#pertek3').is(":checked")) {
                 $('#limbah_b3').show();
+                $('#surat_pertek3').attr('name', 'surat_pertek[]')
+                $('#nomor_pertek3').attr('name', 'nomor_pertek[]')
+                $('#tgl_pertek3').attr('name', 'tgl_pertek[]')
+                $('#perihal_pertek3').attr('name', 'perihal_pertek[]')
             } else {
                 $('#limbah_b3').hide();
+                $('#surat_pertek3').removeAttr('name')
+                $('#nomor_pertek3').removeAttr('name')
+                $('#tgl_pertek3').removeAttr('name')
+                $('#perihal_pertek3').removeAttr('name')
             }
         });
 
         $(document).on('change', '#pertek4', function() {
             if ($('#pertek4').is(":checked")) {
                 $('#andalalin').show();
+                $('#surat_pertek4').attr('name', 'surat_pertek[]')
+                $('#nomor_pertek4').attr('name', 'nomor_pertek[]')
+                $('#tgl_pertek4').attr('name', 'tgl_pertek[]')
+                $('#perihal_pertek4').attr('name', 'perihal_pertek[]')
             } else {
                 $('#andalalin').hide();
+                $('#surat_pertek4').removeAttr('name')
+                $('#nomor_pertek4').removeAttr('name')
+                $('#tgl_pertek4').removeAttr('name')
+                $('#perihal_pertek4').removeAttr('name')
             }
         });
 
         $(document).on('change', '#pertek5', function() {
             if ($('#pertek5').is(":checked")) {
                 $('#rintek').show();
+                $('#surat_pertek5').attr('name', 'surat_pertek[]')
+                $('#nomor_pertek5').attr('name', 'nomor_pertek[]')
+                $('#tgl_pertek5').attr('name', 'tgl_pertek[]')
+                $('#perihal_pertek5').attr('name', 'perihal_pertek[]')
             } else {
                 $('#rintek').hide();
+                $('#surat_pertek5').removeAttr('name')
+                $('#nomor_pertek5').removeAttr('name')
+                $('#tgl_pertek5').removeAttr('name')
+                $('#perihal_pertek5').removeAttr('name')
             }
         });
 
@@ -588,6 +767,26 @@
             } else {
                 $('#rintek_limbah').hide();
             }
+        });
+
+        $('#add-kbli').click(function() {
+            k++
+            $('.table-kbli').append(`<tr id="kbli-claster${k}">
+                                        <td>${k}</td>
+                                        <td>
+                                            <input type="text" name="nama_kbli[]" class="form-control" placeholder="Ketik jenis usaha/kegiatan">
+                                        </td>
+                                        <td>
+                                            <input type="text" name="nomor_kbli[]" class="form-control" placeholder="Nomor KBLI">
+                                        </td>
+                                    </tr>
+            `)
+        });
+
+        $(document).on('click', '.remove-kbli', function() {
+            var button_id = k;
+            $('#kbli-claster' + button_id + '').remove();
+            k--
         });
 
         $('#add1').click(function() {
