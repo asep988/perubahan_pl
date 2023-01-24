@@ -63,9 +63,9 @@
                 <th>Nama Usaha/Kegiatan</th>
                 <th>Perihal Perubahan PL</th>
                 <th>NIB</th>
-                <th>KBLI</th>
                 <th>Nama PJM</th>
                 <th>Link Drive Kelengkapan Dokumen</th>
+                <th>RPD</th>
                 <th width="100px">PDF</th>
                 <th>Aksi</th>
             </tr>
@@ -76,8 +76,7 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $skkl->nama_usaha_baru }}</td>
                 <td>{{ $skkl->perihal }}</td>
-                <td>{{ $skkl->nib }}</td>
-                <td>{{ $skkl->knli }}</td>
+                <td>{{ $skkl->nib_baru }}</td>
                 <td>
                     @if ($skkl->nama_operator != null)
                         {{ $skkl->nama_operator }}
@@ -86,6 +85,11 @@
                     @endif
                 </td>
                 <td> <button class="btn btn-sm btn-info"><a style="color: white;" target="_blank" href="{{ url($skkl->link_drive) }}">Open</a></button> </td>
+                <td>
+                    <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="{{ '#rpdModal'.$skkl->id }}">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                </td>
                 <td>
                     <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="{{ '#staticBackdrop' . $skkl->id }}">
                         Upload
@@ -173,15 +177,68 @@
           </button>
         </div>
         <div class="modal-body">
-        <a class="btn btn-success btn-block" href="{{ route('operator.download', [$skkl->id]) }}"> Unduh PL</a></button>
-        <a class="btn btn-success btn-block" href="{{ route('printrkl.download', [$skkl->id]) }}"> Unduh RKL</a></button>
-        <a class="btn btn-success btn-block" href="{{ route('printrpl.download', [$skkl->id]) }}"> Unduh RPL</a></button>
-        <a class="btn btn-primary btn-block" href="{{ route('operator.preview', [$skkl->id]) }}"> Preview PL</a></button>
+            <a class="btn btn-success btn-block" href="{{ route('operator.download', [$skkl->id]) }}">Unduh PL</a></button>
+            <a class="btn btn-success btn-block" href="{{ route('printrkl.download', [$skkl->id]) }}">Unduh RKL</a></button>
+            <a class="btn btn-success btn-block" href="{{ route('printrpl.download', [$skkl->id]) }}">Unduh RPL</a></button>
+            @if ($skkl->rintek_upload)
+                <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/rintek/' . $skkl->rintek_upload) }}">Unduh Dokumen Rincian Teknis</a></button>
+            @endif
+            @if ($skkl->rintek_limbah_upload)
+                <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/rintek/' . $skkl->rintek_limbah_upload) }}">Unduh Dokumen Rincian Teknis Penyimpanan Limbah B3</a></button>
+            @endif
+
+            <hr>
+
+            <a class="btn btn-primary btn-block mb-2" href="{{ route('operator.download.lampiran1', $skkl->id) }}">Unduh lampiran I</a>
+            <?php $i = 3; ?> 
+            @foreach ($skkl->pertek as $pertek)
+                <form @if ($pertek != "pertek6") action="{{ route('operator.download.pertek', $skkl->id) }}" @else action="{{ route('operator.download.rintek', $skkl->id) }}" @endif method="GET">
+                    @csrf
+                    <input type="text" name="pertek" value="{{ $pertek }}" hidden>
+                    <button type="submit" class="btn btn-primary btn-block mb-2">Unduh lampiran {{ integerToRoman($i) }}</button>
+                </form>
+                <?php $i++; ?>
+            @endforeach
+
+            <hr>
+            <a class="btn btn-warning btn-block" href="{{ route('operator.preview', [$skkl->id]) }}">Preview PL</a></button>
         </div>
       </div>
     </div>
 </div>
 @endforeach
+
+@foreach ($data_skkl as $skkl)
+<div class="modal fade" id="{{ 'rpdModal'.$skkl->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Risalah Pengolahan Data</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="{{ route('operator.skkl.rpd', $skkl->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="input-box mb-2">
+                    <label for="nomor_rpd" class="form-label">Nomor Risalah Pengolahan Data</label>
+                    <input type="text" class="form-control" name="nomor_rpd" @if ($skkl->nomor_rpd) value="{{ $skkl->nomor_rpd }}" @endif required>
+                </div>
+                <div class="input-box mb-2">
+                    <label for="tgl_rpd" class="form-label">Tanggal Risalah Pengolahan Data</label>
+                    <input type="date" class="form-control" name="tgl_rpd" @if ($skkl->tgl_rpd) value="{{ $skkl->tgl_rpd }}" @endif required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+@endforeach
+
 @endsection
 
 @push('scripts')

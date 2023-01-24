@@ -82,7 +82,7 @@ class PrintRklController extends Controller
 
             "Content-type" => "text/html",
             'orientation' => 'landscape',
-            "Content-Disposition" => "attachment;Filename=RKL_$skkl->nama_usaha_baru.doc"
+            "Content-Disposition" => "attachment;Filename=RKL_$skkl->pelaku_usaha_baru.doc"
 
         );
 

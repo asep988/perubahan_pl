@@ -432,6 +432,13 @@
 
                 <div class="mb-3" id="air_limbah" style="display: none">
                     <div class="form-group row">
+                        <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek1">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
                         <div class="col-sm-5">
                             <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek1">
@@ -466,6 +473,13 @@
                 </div>
 
                 <div class="mb-3" id="emisi" style="display: none">
+                    <div class="form-group row">
+                        <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek2">
+                        </div>
+                    </div>
+
                     <div class="form-group row">
                         <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
                         <div class="col-sm-5">
@@ -502,6 +516,13 @@
 
                 <div class="mb-3" id="limbah_b3" style="display: none">
                     <div class="form-group row">
+                        <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek3">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
                         <div class="col-sm-5">
                             <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek3">
@@ -536,6 +557,13 @@
                 </div>
 
                 <div class="mb-3" id="andalalin" style="display: none">
+                    <div class="form-group row">
+                        <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek4">
+                        </div>
+                    </div>
+
                     <div class="form-group row">
                         <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
                         <div class="col-sm-5">
@@ -604,7 +632,7 @@
                             <span class="input-group-text" id="rintek_upload">Upload dokumen yang diperlukan</span>
                         </div>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="rintek_upload" aria-describedby="rintek_upload">
+                            <input type="file" class="custom-file-input" id="rintek_upload" name="rintek_upload" aria-describedby="rintek_upload">
                             <label class="custom-file-label" for="rintek_upload">Choose file</label>
                         </div>
                     </div>
@@ -622,7 +650,7 @@
                             <span class="input-group-text" id="rintek_limbah_upload">Upload dokumen yang diperlukan</span>
                         </div>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="rintek_limbah_upload" aria-describedby="rintek_limbah_upload">
+                            <input type="file" class="custom-file-input" id="rintek_limbah_upload" name="rintek_limbah_upload" aria-describedby="rintek_limbah_upload">
                             <label class="custom-file-label" for="rintek_limbah_upload">Choose file</label>
                         </div>
                     </div>
@@ -630,7 +658,6 @@
                 </div>
                 <hr>
             </div>
-
 
             <div>
                 <button type="submit" class="btn btn-primary">Simpan</button>
@@ -684,12 +711,14 @@
         $(document).on('change', '#pertek1', function() {
             if ($('#pertek1').is(":checked")) {
                 $('#air_limbah').show();
+                $('#judul_pertek1').attr('name', 'judul_pertek[]')
                 $('#surat_pertek1').attr('name', 'surat_pertek[]')
                 $('#nomor_pertek1').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek1').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek1').attr('name', 'perihal_pertek[]')
             } else {
                 $('#air_limbah').hide();
+                $('#judul_pertek1').removeAttr('name')
                 $('#surat_pertek1').removeAttr('name')
                 $('#nomor_pertek1').removeAttr('name')
                 $('#tgl_pertek1').removeAttr('name')
@@ -700,12 +729,14 @@
         $(document).on('change', '#pertek2', function() {
             if ($('#pertek2').is(":checked")) {
                 $('#emisi').show();
+                $('#judul_pertek2').attr('name', 'judul_pertek[]')
                 $('#surat_pertek2').attr('name', 'surat_pertek[]')
                 $('#nomor_pertek2').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek2').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek2').attr('name', 'perihal_pertek[]')
             } else {
                 $('#emisi').hide();
+                $('#judul_pertek2').removeAttr('name')
                 $('#surat_pertek2').removeAttr('name')
                 $('#nomor_pertek2').removeAttr('name')
                 $('#tgl_pertek2').removeAttr('name')
@@ -716,12 +747,14 @@
         $(document).on('change', '#pertek3', function() {
             if ($('#pertek3').is(":checked")) {
                 $('#limbah_b3').show();
+                $('#judul_pertek3').attr('name', 'judul_pertek[]')
                 $('#surat_pertek3').attr('name', 'surat_pertek[]')
                 $('#nomor_pertek3').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek3').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek3').attr('name', 'perihal_pertek[]')
             } else {
                 $('#limbah_b3').hide();
+                $('#judul_pertek3').removeAttr('name')
                 $('#surat_pertek3').removeAttr('name')
                 $('#nomor_pertek3').removeAttr('name')
                 $('#tgl_pertek3').removeAttr('name')
@@ -732,12 +765,14 @@
         $(document).on('change', '#pertek4', function() {
             if ($('#pertek4').is(":checked")) {
                 $('#andalalin').show();
+                $('#judul_pertek4').attr('name', 'judul_pertek[]')
                 $('#surat_pertek4').attr('name', 'surat_pertek[]')
                 $('#nomor_pertek4').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek4').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek4').attr('name', 'perihal_pertek[]')
             } else {
                 $('#andalalin').hide();
+                $('#judul_pertek4').removeAttr('name')
                 $('#surat_pertek4').removeAttr('name')
                 $('#nomor_pertek4').removeAttr('name')
                 $('#tgl_pertek4').removeAttr('name')
@@ -748,12 +783,14 @@
         $(document).on('change', '#pertek5', function() {
             if ($('#pertek5').is(":checked")) {
                 $('#rintek').show();
+                $('#judul_pertek5').attr('name', 'judul_pertek[]')
                 $('#surat_pertek5').attr('name', 'surat_pertek[]')
                 $('#nomor_pertek5').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek5').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek5').attr('name', 'perihal_pertek[]')
             } else {
                 $('#rintek').hide();
+                $('#judul_pertek5').removeAttr('name')
                 $('#surat_pertek5').removeAttr('name')
                 $('#nomor_pertek5').removeAttr('name')
                 $('#tgl_pertek5').removeAttr('name')
@@ -841,8 +878,6 @@
             $('#2Claster' + button_id + '').remove();
             i--
         });
-
-        
     });
 </script>
 @endsection

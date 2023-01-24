@@ -78,7 +78,7 @@
                 @foreach ($data_skkl as $skkl)
                 <tr>
                     <td class="text-center">{{ $loop->iteration }}</td>
-                    <td class="text-center">{{$skkl->tgl_pl}}, {{ $skkl->updated_at->format('H:i:s') }}</td>
+                    <td>{{$skkl->created_at->format('d F Y')}}, {{ $skkl->created_at->format('H:i:s') }}</td>
                     <td>{{$skkl->perihal}}</td>
                     <td class="text-center">
                         @if ($skkl->status == "Belum")

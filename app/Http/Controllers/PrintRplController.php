@@ -84,17 +84,21 @@ class PrintRplController extends Controller
 
             "Content-type" => "text/html",
 
-            "Content-Disposition" => "attachment;Filename=RPL_$skkl->nama_usaha_baru.doc"
+            "Content-Disposition" => "attachment;Filename=RPL_$skkl->pelaku_usaha_baru.doc"
 
         );
 
         $body = '<html>
-                <head><meta charset="utf-8"></head>
+                <head><meta charset="utf-8">
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.4.1/paper.css"></head>
                 <body>';
 
         $body .= '<style>
                     body {
                         font-family:"Bookman Old Style,serif";
+                        transform: rotate(-90deg);
+                        display: flex;
                     }
                     ol {
                     columns:2;
@@ -106,10 +110,18 @@ class PrintRplController extends Controller
                         vertical-align: top;
                         text-align: justify;
                     }
+                    @page{
+                        size: A4 landscape;
+                    }
+                    @media (orientation: landscape) {
+                        body {
+                          flex-direction: row;
+                        }
+                      }
                 </style>';
 
 
-        $body .='<body>
+        $body .='<body class="A4 landscape">
                 <center>MATRIKS RENCANA PENGELOLAAN LINGKUNGAN HIDUP<center>';
 
         $body .='<table width="100%" border="1" rules="all" cellpadding="5" cellspacing="0" style="font-size: 6pt;">

@@ -14,6 +14,7 @@ class Pertek_pkplh extends Model
     protected $fillable = [
         'id_pkplh',
         'pertek',
+        'judul_pertek',
         'surat_pertek',
         'nomor_pertek',
         'tgl_pertek',

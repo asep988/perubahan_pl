@@ -129,9 +129,9 @@
             font-family: "Bookman Old Style", serif;
             font-size: 12pt
         }
-    </style>
+        </style>
 </head>
-<button><a href="{{route ('operator.index')}}">kembali</a></button>
+<button><a href="{{route ('pemrakarsa.index')}}">kembali</a></button>
 <body>
     <div class="page">
         <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:12pt"><span style="font-family:'Bookman Old Style', serif">KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN</span></p>

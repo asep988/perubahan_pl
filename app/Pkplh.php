@@ -69,7 +69,9 @@ class Pkplh extends Model
         'pend_institut',
         'nomor_rpd',
         'tgl_rpd',
-        'pertek'
+        'pertek',
+        'rintek_upload',
+        'rintek_limbah_upload'
     ];
 
     public function il_pkplh()

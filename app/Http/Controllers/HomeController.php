@@ -2,8 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\il_pkplh;
+use App\il_skkl;
+use App\Pertek_pkplh;
+use App\Pertek_skkl;
+use App\Pkplh;
+use App\rkl;
+use App\rpl;
 use Illuminate\Http\Request;
 use App\Skkl;
+use App\Uklupl;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,6 +38,21 @@ class HomeController extends Controller
         $data_skkl = Skkl::where('user_id',$user_id)->orderBy('updated_at', 'desc')->get();
 
         return view('home.skkl.index', compact('data_skkl'));
+    }
+
+    public function reset()
+    {
+        il_skkl::truncate();
+        il_pkplh::truncate();
+        Skkl::truncate();
+        Pkplh::truncate();
+        Pertek_skkl::truncate();
+        Pertek_pkplh::truncate();
+        rkl::truncate();
+        rpl::truncate();
+        Uklupl::truncate();
+
+        return redirect()->route('redirection');
     }
 
     public function redirection()

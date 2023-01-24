@@ -26,6 +26,7 @@ Route::get('/query-check', 'HomeController@queryCheck');
 //home
 Route::get('/', [LoginController::class, 'index'])->name('login.form');
 Route::get('/redirection', 'HomeController@redirection')->name('redirection');
+Route::get('/truncate-reset', 'HomeController@reset');
 
 Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {
     //skkl
@@ -66,6 +67,7 @@ Route::group(['middleware' => ['auth', 'cekRole:Operator']], function() {
     Route::get('/Operator', 'OperatorController@index')->name('operator.index');
     Route::get('/Operator/search', 'OperatorController@search')->name('operator.search');
     Route::put('/Operator/skkl/periksa/{id}', 'OperatorController@periksa')->name('operator.skkl.periksa');
+    Route::put('/Operator/skkl/rpd/{id}', 'OperatorController@rpd_skkl')->name('operator.skkl.rpd');
     Route::get('/Operator/download/{id}', 'OperatorController@download')->name('operator.download');
     Route::get('/Operator/preview/{id}', 'OperatorController@preview')->name('operator.preview');
     Route::put('/Operator/upload_file', 'OperatorController@upload_file')->name('operator.upload_file');
@@ -82,6 +84,10 @@ Route::group(['middleware' => ['auth', 'cekRole:Operator']], function() {
     Route::get('/Operator/printrpl/download/{id}', 'PrintRplController@download')->name('printrpl.download');
     //Print doc UKL-UPL
     Route::get('/Operator/uklupl/download/{id}', 'PrintUkluplController@download')->name('printuklupl.download');
+    //Print Lampiran I, Pertek dan Rintek
+    Route::get('/Operator/lampiran/satu/{id}', 'SkklController@download_lampiranI')->name('operator.download.lampiran1');
+    Route::get('/Operator/pertek/{id}', 'SkklController@download_pertek')->name('operator.download.pertek');
+    Route::get('/Operator/rintek/{id}', 'SkklController@download_rintek')->name('operator.download.rintek');
 });
 
 Route::group(['middleware' => ['auth', 'cekRole:Sekretariat']], function() {
