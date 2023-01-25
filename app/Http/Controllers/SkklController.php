@@ -111,7 +111,7 @@ class SkklController extends Controller
 			$file1 = $request->file('rintek_upload');
 			$format1 = $file1->getClientOriginalExtension();
 			$fileName1 = time() . '_rintek.' . $format1; //Variabel yang menampung nama file
-			$file1->storeAs('files/rintek', $fileName1); //Simpan ke Storage
+			$file1->storeAs('files/skkl/rintek', $fileName1); //Simpan ke Storage
 		} else {
 			$fileName1 = null;
 		}
@@ -120,7 +120,7 @@ class SkklController extends Controller
 			$file2 = $request->file('rintek_limbah_upload');
 			$format2 = $file2->getClientOriginalExtension();
 			$fileName2 = time() . '_rintek_limbah.' . $format2; //Variabel yang menampung nama file
-			$file2->storeAs('files/rintek', $fileName2); //Simpan ke Storage
+			$file2->storeAs('files/skkl/rintek', $fileName2); //Simpan ke Storage
 		} else {
 			$fileName2 = null;
 		}
@@ -129,10 +129,14 @@ class SkklController extends Controller
 		$skkl = new Skkl;
 		$skkl->user_id 				=   $id_user;
 		$skkl->jenis_perubahan 		=   $request->jenis_perubahan;
-		$skkl->pelaku_usaha 		=   $request->pelaku_usaha;
-		$skkl->penanggung			=	$request->penanggung;
-		$skkl->jabatan				=	$request->jabatan;
-		$skkl->alamat				=	$request->alamat;
+
+		if ($request->jenis_perubahan != "perkep3") {
+			$skkl->pelaku_usaha 	=   $request->pelaku_usaha;
+			$skkl->penanggung		=	$request->penanggung;
+			$skkl->jabatan			=	$request->jabatan;
+			$skkl->alamat			=	$request->alamat;
+		}
+
 		$skkl->pelaku_usaha_baru 	=   $request->pelaku_usaha_baru;
 		$skkl->nama_usaha_baru		=	$request->nama_usaha_baru;
 		$skkl->penanggung_baru		=	$request->penanggung_baru;
@@ -149,6 +153,8 @@ class SkklController extends Controller
 		$skkl->kabupaten_kota		=	$kabkota;
 		$skkl->region				=	$region;
 		$skkl->link_drive			=	$request->link_drive;
+		$skkl->pic_pemohon			=	$request->pic_pemohon;
+		$skkl->no_hp_pic			=	$request->no_hp_pic;
 		$skkl->nomor_pl				=	$request->nomor_pl;
 		$skkl->tgl_pl				=	$request->tgl_pl;
 		$skkl->perihal				=	$request->perihal_surat;
@@ -183,16 +189,18 @@ class SkklController extends Controller
 			$il_skkl->save();
 		}
 		
-		for ($i = 0; $i < count($request->judul_pertek); $i++) {
-			$pertek_skkl = new Pertek_skkl;
-			$pertek_skkl->id_skkl = $skkl_id;
-			$pertek_skkl->pertek = $request->pertek[$i];
-			$pertek_skkl->judul_pertek = $request->judul_pertek[$i];
-			$pertek_skkl->surat_pertek = $request->surat_pertek[$i];
-			$pertek_skkl->nomor_pertek = $request->nomor_pertek[$i];
-			$pertek_skkl->tgl_pertek = $request->tgl_pertek[$i];
-			$pertek_skkl->perihal_pertek = $request->perihal_pertek[$i];
-			$pertek_skkl->save();
+		if ($request->jenis_perubahan != "perkep1") {
+			for ($i = 0; $i < count($request->judul_pertek); $i++) {
+				$pertek_skkl = new Pertek_skkl;
+				$pertek_skkl->id_skkl = $skkl_id;
+				$pertek_skkl->pertek = $request->pertek[$i];
+				$pertek_skkl->judul_pertek = $request->judul_pertek[$i];
+				$pertek_skkl->surat_pertek = $request->surat_pertek[$i];
+				$pertek_skkl->nomor_pertek = $request->nomor_pertek[$i];
+				$pertek_skkl->tgl_pertek = $request->tgl_pertek[$i];
+				$pertek_skkl->perihal_pertek = $request->perihal_pertek[$i];
+				$pertek_skkl->save();
+			}
 		}
 		DB::commit();
 
@@ -203,8 +211,9 @@ class SkklController extends Controller
 	{
 		$data_skkl = Skkl::find($id);
 		$il_skkl = il_skkl::where('id_skkl', $id)->get();
+		$pertek_skkl = Pertek_skkl::where('id_skkl', $id)->get();
 
-		return view('home.skkl.review', compact('data_skkl', 'il_skkl'));
+		return view('home.skkl.review', compact('data_skkl', 'il_skkl', 'pertek_skkl'));
 	}
 
 	public function edit($id) //Pemrakarsa
@@ -307,7 +316,7 @@ class SkklController extends Controller
 		$data = Skkl::find($id);
 
 		if ($request->rintek_upload) {
-			$destination = 'files/rintek/' . $data->rintek_upload;
+			$destination = 'files/skkl/rintek/' . $data->rintek_upload;
 			if ($destination) {
 				Storage::delete($destination);
 			}
@@ -315,13 +324,13 @@ class SkklController extends Controller
 			$file1 = $request->file('rintek_upload');
 			$format1 = $file1->getClientOriginalExtension();
 			$fileName1 = time() . '_rintek.' . $format1; //Variabel yang menampung nama file
-			$file1->storeAs('files/rintek', $fileName1); //Simpan ke Storage
+			$file1->storeAs('files/skkl/rintek', $fileName1); //Simpan ke Storage
 		} else {
 			$fileName1 = null;
 		}
 
 		if ($request->rintek_limbah_upload) {
-			$destination = 'files/rintek/' . $data->rintek_limbah_upload;
+			$destination = 'files/skkl/rintek/' . $data->rintek_limbah_upload;
 			if ($destination) {
 				Storage::delete($destination);
 			}
@@ -329,7 +338,7 @@ class SkklController extends Controller
 			$file2 = $request->file('rintek_limbah_upload');
 			$format2 = $file2->getClientOriginalExtension();
 			$fileName2 = time() . '_rintek_limbah.' . $format2; //Variabel yang menampung nama file
-			$file2->storeAs('files/rintek', $fileName2); //Simpan ke Storage
+			$file2->storeAs('files/skkl/rintek', $fileName2); //Simpan ke Storage
 		} else {
 			$fileName2 = null;
 		}
@@ -338,10 +347,14 @@ class SkklController extends Controller
 		$skkl = Skkl::find($id);
 		$skkl->user_id 				=   $id_user;
 		$skkl->jenis_perubahan 		=   $request->jenis_perubahan;
-		$skkl->pelaku_usaha 		=   $request->pelaku_usaha;
-		$skkl->penanggung			=	$request->penanggung;
-		$skkl->jabatan				=	$request->jabatan;
-		$skkl->alamat				=	$request->alamat;
+		
+		if ($request->jenis_perubahan != "perkep3") {
+			$skkl->pelaku_usaha 	=   $request->pelaku_usaha;
+			$skkl->penanggung		=	$request->penanggung;
+			$skkl->jabatan			=	$request->jabatan;
+			$skkl->alamat			=	$request->alamat;
+		}
+
 		$skkl->pelaku_usaha_baru 	=   $request->pelaku_usaha_baru;
 		$skkl->nama_usaha_baru		=	$request->nama_usaha_baru;
 		$skkl->penanggung_baru		=	$request->penanggung_baru;
@@ -358,6 +371,8 @@ class SkklController extends Controller
 		$skkl->kabupaten_kota		=	$kabkota;
 		$skkl->region				=	$region;
 		$skkl->link_drive			=	$request->link_drive;
+		$skkl->pic_pemohon			=	$request->pic_pemohon;
+		$skkl->no_hp_pic			=	$request->no_hp_pic;
 		$skkl->nomor_pl				=	$request->nomor_pl;
 		$skkl->tgl_pl				=	$request->tgl_pl;
 		$skkl->perihal				=	$request->perihal_surat;
@@ -388,257 +403,254 @@ class SkklController extends Controller
 			$il_skkl->save();
 		}
 
-		Pertek_skkl::where('id_skkl', $id)->delete();
-		for ($i = 0; $i < count($request->judul_pertek); $i++) {
-			$pertek_skkl = new Pertek_skkl;
-			$pertek_skkl->id_skkl = $id;
-			$pertek_skkl->pertek = $request->pertek[$i];
-			$pertek_skkl->judul_pertek = $request->judul_pertek[$i];
-			$pertek_skkl->surat_pertek = $request->surat_pertek[$i];
-			$pertek_skkl->nomor_pertek = $request->nomor_pertek[$i];
-			$pertek_skkl->tgl_pertek = $request->tgl_pertek[$i];
-			$pertek_skkl->perihal_pertek = $request->perihal_pertek[$i];
-			$pertek_skkl->save();
+		if ($request->jenis_perubahan != 'perkep1') {
+			Pertek_skkl::where('id_skkl', $id)->delete();
+			for ($i = 0; $i < count($request->judul_pertek); $i++) {
+				$pertek_skkl = new Pertek_skkl;
+				$pertek_skkl->id_skkl = $id;
+				$pertek_skkl->pertek = $request->pertek[$i];
+				$pertek_skkl->judul_pertek = $request->judul_pertek[$i];
+				$pertek_skkl->surat_pertek = $request->surat_pertek[$i];
+				$pertek_skkl->nomor_pertek = $request->nomor_pertek[$i];
+				$pertek_skkl->tgl_pertek = $request->tgl_pertek[$i];
+				$pertek_skkl->perihal_pertek = $request->perihal_pertek[$i];
+				$pertek_skkl->save();
+			}
 		}
 		DB::commit();
 
 		return redirect()->route('pemrakarsa.index')->with('pesan', 'Data berhasil diperbarui');
 	}
 
-	// public function download($id)
-	// {
-	// 	$data_skkl = Skkl::find($id);
-    //     $il_skkl = il_skkl::where('id_skkl', $id)->get();
+	public function download_lampiranI($id)
+	{
+		$skkl = Skkl::find($id);
+		$il_skkl = il_skkl::where('id_skkl', $id)->get();
 
-	// 	$phpWord = new \PhpOffice\PhpWord\PhpWord();
-	// 	$section = $phpWord->addSection();
-	// 	$report = view('operator.skkl.preview', compact('data_skkl', 'il_skkl'))->render();
+		$headers = array(
+			"Content-type" => "text/html",
 
-	// 	\PhpOffice\PhpWord\Shared\Html::addHtml($section, $report, true);
-	// }
+			"Content-Disposition" => "attachment; Filename=LampiranI_$skkl->pelaku_usaha_baru.doc"
+		);
 
-		public function download_lampiranI($id)
-		{
-			$skkl = Skkl::find($id);
-			$il_skkl = il_skkl::where('id_skkl', $id)->get();
-
-			$headers = array(
-				"Content-type" => "text/html",
-
-				"Content-Disposition" => "attachment; Filename=LampiranI_$skkl->pelaku_usaha_baru.doc"
-			);
-
-			$body = '
-			<style>
-				body {
-					font-family:"Bookman Old Style,serif";
-				}
-			</style>';
-			$body .='
-				<table>
-					<tr>
-						<td>
-							LAMPIRAN I <br>
-							KEPUTUSAN MENTRI LINGKUNGAN HIDUP <br>
-							DAN KEHUTANAN REPUBLIK INDONESIA <br>
-							NOMOR <br>
-							TENTANG KELAYAKAN LINGKUNGAN HIDUP LEGIATAN '. strtoupper($skkl->nama_usaha_baru).' 
-							OLEH '.strtoupper($skkl->pelaku_usaha_baru).'
-						</td>
-						<br><br>
-						PENDEKATAN PENGELOLAAN LINGKUNGAN
-						<br><br>
-						<ol typr="A">
-							<li>
-								Pendekatan Teknologi<br>
-								<p style="text-align: justify; text-justify: inter-word;">'.$skkl->pend_tek.'</p>
-							</li>
-							<li>
-								Pendekatan Sosial dan Ekonomi<br>
-								<p style="text-align: justify; text-justify: inter-word;">'.$skkl->pend_sos.'</p>
-							</li>
-							<li>
-								Pendekatan Institusi
-								<p style="text-align: justify; text-justify: inter-word;">'.$skkl->pend_institut.'</p>
-							</li>
-						</ol>
-					</tr>';
-			$body .='
-				</table>';
-			$body .='
-				<table>
+		$body = '
+		<style>
+			body {
+				font-family:"Bookman Old Style,serif";
+			}
+		</style>';
+		$body .='
+			<table>
 				<tr>
-					<td width="50%">&nbsp;</td>
-					<td width="50%">
-						<table>       
-							<tr>
-								<td colspan="2">MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA,
-								<br><br><br><br><br><br>
-								SITI NURBAYA
-								</td>
-							</tr>       
-						</table>
+					<td>
+						LAMPIRAN I <br>
+						KEPUTUSAN MENTRI LINGKUNGAN HIDUP <br>
+						DAN KEHUTANAN REPUBLIK INDONESIA <br>
+						NOMOR <br>
+						TENTANG KELAYAKAN LINGKUNGAN HIDUP LEGIATAN '. strtoupper($skkl->nama_usaha_baru).' 
+						OLEH '.strtoupper($skkl->pelaku_usaha_baru).'
 					</td>
+					<br><br>
+					PENDEKATAN PENGELOLAAN LINGKUNGAN
+					<br><br>
+					<ol typr="A">
+						<li>
+							Pendekatan Teknologi<br>
+							<p style="text-align: justify; text-justify: inter-word;">'.$skkl->pend_tek.'</p>
+						</li>
+						<li>
+							Pendekatan Sosial dan Ekonomi<br>
+							<p style="text-align: justify; text-justify: inter-word;">'.$skkl->pend_sos.'</p>
+						</li>
+						<li>
+							Pendekatan Institusi
+							<p style="text-align: justify; text-justify: inter-word;">'.$skkl->pend_institut.'</p>
+						</li>
+					</ol>
 				</tr>';
-			$body .='
-				</table>';
+		$body .='
+			</table>';
+		$body .='
+			<table>
+			<tr>
+				<td width="50%">&nbsp;</td>
+				<td width="50%">
+					<table>       
+						<tr>
+							<td colspan="2">MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA,
+							<br><br><br><br><br><br>
+							SITI NURBAYA
+							</td>
+						</tr>       
+					</table>
+				</td>
+			</tr>';
+		$body .='
+			</table>';
 
-				return \Response::make($body, 200, $headers);
+			return \Response::make($body, 200, $headers);
+	}
+
+	public function download_pertek(Request $request ,$id)
+	{
+		$skkl = Skkl::find($id);
+		$pertek = Pertek_skkl::where('id_skkl', $id)->get();
+
+		$data = array();
+		foreach ($pertek as $row) {
+			$data[] = $row->pertek;
 		}
 
-		public function download_pertek(Request $request ,$id)
-		{
-			$skkl = Skkl::find($id);
-			$pertek = Pertek_skkl::where('id_skkl', $id)->get();
-
-			$data = array();
-			foreach ($pertek as $row) {
-				$data[] = $row->pertek;
-			}
-
-			if ($request->pertek == "pertek1") {
-				$isi = "Persetujuan Teknis Pemenuhan Baku Mutu Air Limbah";
-				$index = array_search('pertek1', $data);
-			}
-			if ($request->pertek == "pertek2") {
-				$isi = "Persetujuan Teknis Pemenuhan Baku Mutu Emisi";
-				$index = array_search('pertek2', $data);
-			}
-			if ($request->pertek == "pertek3") {
-				$isi = "Persetujuan Teknis Di Bidang Pengelolaan Limbah B3";
-				$index = array_search('pertek3', $data);
-			}
-			if ($request->pertek == "pertek4") {
-				$isi = "Persetujuan Teknis Andalalin";
-				$index = array_search('pertek4', $data);
-			}
-			if ($request->pertek == "pertek5") {
-				$isi = "Persetujuan Teknis Dokumen Rincian Teknis";
-				$index = array_search('pertek5', $data);
-			}
-
-			$headers = array(
-				"Content-type" => "text/html",
-
-				"Content-Disposition" => "attachment; Filename=Pertek_$skkl->pelaku_usaha_baru.doc"
-			);
-
-			$body = '
-			<style>
-				body {
-					font-family:"Bookman Old Style,serif";
-				}
-			</style>';
-			$body .='
-				<table>
-					<tr>
-						<td>
-							LAMPIRAN ... <br>
-							KEPUTUSAN MENTRI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
-							NOMOR <br>
-							TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($skkl->nama_usaha_baru).' 
-							OLEH '. strtoupper($skkl->pelaku_usaha_baru).'
-						</td>
-                    </tr>
-						<br><br><br>
-                    <tr>
-                        <td>
-                            '. strtoupper($isi) .' UNTUK '.strtoupper($pertek[$index]->judul_pertek).'
-						</td>
-					</tr>
-                        <br><br>
-                    <tr>
-                        <td>
-                            Berdasarkan Surat '.ucfirst($pertek[$index]->surat_pertek).'
-                            Nomor: '.strtoupper($pertek[$index]->nomor_pertek).'
-                            tanggal '. tgl_indo($pertek[$index]->tgl_pertek).'
-                            tentang '.ucfirst($pertek[$index]->perihal_pertek).';
-                        </td>
-                    </tr>';
-			$body .='
-				</table>';
-			$body .='
-				<table>
-				<tr>
-					<td width="50%">&nbsp;</td>
-					<td width="50%">
-						<table>       
-							<tr>
-								<td colspan="2">MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA,
-								<br><br><br><br><br><br>
-								SITI NURBAYA
-								</td>
-							</tr>       
-						</table>
-					</td>
-				</tr>';
-			$body .='
-				</table>';
-
-				return \Response::make($body, 200, $headers);
+		if ($request->pertek == "pertek1") {
+			$isi = "Persetujuan Teknis Pemenuhan Baku Mutu Air Limbah";
+			$index = array_search('pertek1', $data);
+			$roman = 3 + $index;
+		}
+		if ($request->pertek == "pertek2") {
+			$isi = "Persetujuan Teknis Pemenuhan Baku Mutu Emisi";
+			$index = array_search('pertek2', $data);
+			$roman = 3 + $index;
+		}
+		if ($request->pertek == "pertek3") {
+			$isi = "Persetujuan Teknis Di Bidang Pengelolaan Limbah B3";
+			$index = array_search('pertek3', $data);
+			$roman = 3 + $index;
+		}
+		if ($request->pertek == "pertek4") {
+			$isi = "Persetujuan Teknis Andalalin";
+			$index = array_search('pertek4', $data);
+			$roman = 3 + $index;
+		}
+		if ($request->pertek == "pertek5") {
+			$isi = "Persetujuan Teknis Dokumen Rincian Teknis";
+			$index = array_search('pertek5', $data);
+			$roman = 3 + $index;
 		}
 
-		public function download_rintek($id)
-		{
-			$skkl = Skkl::find($id);
-			$il_skkl = il_skkl::where('id_skkl', $id)->get();
+		$headers = array(
+			"Content-type" => "text/html",
 
-			$headers = array(
-				"Content-type" => "text/html",
+			"Content-Disposition" => "attachment; Filename=Pertek_$skkl->pelaku_usaha_baru.doc"
+		);
 
-				"Content-Disposition" => "attachment; Filename=Rintek_$skkl->pelaku_usaha_baru.doc"
-			);
-
-			$body = '
-			<style>
-				body {
-					font-family:"Bookman Old Style,serif";
-				}
-			</style>';
-			$body .='
-				<table>
-					<tr>
-						<td>
-							LAMPIRAN ... <br>
-							KEPUTUSAN MENTRI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
-							NOMOR <br>
-							TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($skkl->nama_usaha_baru).' 
-							OLEH '. strtoupper($skkl->pelaku_usaha_baru).'
-						</td>
-                    </tr>
-						<br><br><br>
-                    <tr>
-                        <td>
-                          <b>RINCIAN TEKNIS PENYIMPANAN LIMBAH B3</b>
-						</td>
-					</tr>
-                        <br><br>
-                    <tr>
-                        <td>
-                            
-                        </td>
-                    </tr>';
-			$body .='
-				</table>';
-			$body .='
-				<table>
+		$body = '
+		<style>
+			body {
+				font-family:"Bookman Old Style,serif";
+			}
+		</style>';
+		$body .='
+			<table>
 				<tr>
-					<td width="50%">&nbsp;</td>
-					<td width="50%">
-						<table>       
-							<tr>
-								<td colspan="2">MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA,
-								<br><br><br><br><br><br>
-								SITI NURBAYA
-								</td>
-							</tr>       
-						</table>
+					<td>
+						LAMPIRAN '. integerToRoman($roman) .' <br>
+						KEPUTUSAN MENTRI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
+						NOMOR <br>
+						TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($skkl->nama_usaha_baru).' 
+						OLEH '. strtoupper($skkl->pelaku_usaha_baru).'
+					</td>
+				</tr>
+					<br><br><br>
+				<tr>
+					<td>
+						'. strtoupper($isi) .' UNTUK '.strtoupper($pertek[$index]->judul_pertek).'
+					</td>
+				</tr>
+					<br><br>
+				<tr>
+					<td>
+						Berdasarkan Surat '.ucfirst($pertek[$index]->surat_pertek).'
+						Nomor: '.strtoupper($pertek[$index]->nomor_pertek).'
+						tanggal '. tgl_indo($pertek[$index]->tgl_pertek).'
+						tentang '.ucfirst($pertek[$index]->perihal_pertek).';
 					</td>
 				</tr>';
-			$body .='
-				</table>';
+		$body .='
+			</table>';
+		$body .='
+			<table>
+			<tr>
+				<td width="50%">&nbsp;</td>
+				<td width="50%">
+					<table>       
+						<tr>
+							<td colspan="2">MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA,
+							<br><br><br><br><br><br>
+							SITI NURBAYA
+							</td>
+						</tr>       
+					</table>
+				</td>
+			</tr>';
+		$body .='
+			</table>';
 
-				return \Response::make($body, 200, $headers);
-		}
+			return \Response::make($body, 200, $headers);
+	}
+
+	public function download_rintek($id)
+	{
+		$skkl = Skkl::find($id);
+		$il_skkl = il_skkl::where('id_skkl', $id)->get();
+		$pertek = Pertek_skkl::where('id_skkl', $id)->get();
+		$roman = 2 + count($pertek);
+
+		$headers = array(
+			"Content-type" => "text/html",
+
+			"Content-Disposition" => "attachment; Filename=Rintek_$skkl->pelaku_usaha_baru.doc"
+		);
+
+		$body = '
+		<style>
+			body {
+				font-family:"Bookman Old Style,serif";
+			}
+		</style>';
+		$body .='
+			<table>
+				<tr>
+					<td>
+						LAMPIRAN ' . integerToRoman($roman) . ' <br>
+						KEPUTUSAN MENTRI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
+						NOMOR <br>
+						TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($skkl->nama_usaha_baru).' 
+						OLEH '. strtoupper($skkl->pelaku_usaha_baru).'
+					</td>
+				</tr>
+					<br><br><br>
+				<tr>
+					<td>
+						<b>RINCIAN TEKNIS PENYIMPANAN LIMBAH B3</b>
+					</td>
+				</tr>
+					<br><br>
+				<tr>
+					<td>
+						
+					</td>
+				</tr>';
+		$body .='
+			</table>';
+		$body .='
+			<table>
+			<tr>
+				<td width="50%">&nbsp;</td>
+				<td width="50%">
+					<table>       
+						<tr>
+							<td colspan="2">MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA,
+							<br><br><br><br><br><br>
+							SITI NURBAYA
+							</td>
+						</tr>       
+					</table>
+				</td>
+			</tr>';
+		$body .='
+			</table>';
+
+			return \Response::make($body, 200, $headers);
+	}
 
 }

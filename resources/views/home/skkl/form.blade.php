@@ -225,6 +225,21 @@
                         </select>
                     </div>
                 </div>
+
+                <div class="form-group row">
+                    <label for="pic_pemohon" class="col-sm-2 col-form-label">Nama PIC</label>
+                    <div class="col-sm-8">
+                        <input type="text" style="width: 100%" class="form-control" id="pic_pemohon" name="pic_pemohon" placeholder="Nama Lengkap PIC" required>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="no_hp_pic" class="col-sm-2 col-form-label">Nomor PIC yang bisa dihubungi</label>
+                    <div class="col-sm-8">
+                        <input type="text" style="width: 100%" class="form-control" id="no_hp_pic" name="no_hp_pic" placeholder="Nomor Telepon PIC" required>
+                    </div>
+                </div>
+
             </div>
 
             <hr>
@@ -600,6 +615,13 @@
 
                 <div class="mb-3" id="rintek" style="display: none">
                     <div class="form-group row">
+                        <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek5">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
                         <div class="col-sm-5">
                             <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek5">
@@ -636,7 +658,7 @@
                             <label class="custom-file-label" for="rintek_upload">Choose file</label>
                         </div>
                     </div>
-                    <hr>
+                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 5 mb </small>
                 </div>
 
                 <div class="custom-control custom-checkbox">
@@ -645,7 +667,7 @@
                 </div>
 
                 <div class="mb-3" id="rintek_limbah" style="display: none">
-                    <div class="input-group mb-3">
+                    <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="rintek_limbah_upload">Upload dokumen yang diperlukan</span>
                         </div>
@@ -654,7 +676,7 @@
                             <label class="custom-file-label" for="rintek_limbah_upload">Choose file</label>
                         </div>
                     </div>
-                    <hr>
+                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 5 mb </small>
                 </div>
                 <hr>
             </div>

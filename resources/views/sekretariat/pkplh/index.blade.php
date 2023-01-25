@@ -45,51 +45,77 @@
             {{ session('message') }}
         </div>
     @endif
-    <table id="datatable" class="table table-bordered table-striped" style="table-layout: fixed;">
-        <thead>
-            <tr class="text-center">
-                <th width="70px">No</th>
-                <th>Nama Usaha/Kegiatan</th>
-                <th>Perihal Perubahan PL</th>
-                <th>NIB</th>
-                <th>Nama PJM</th>
-                <th width="120px">Penugasan</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($data_pkplh as $pkplh)
-            <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $pkplh->nama_usaha_baru }}</td>
-                <td>{{ $pkplh->perihal }}</td>
-                <td>{{ $pkplh->nib }}</td>
-                <td>
-                    @if ($pkplh->nama_operator != null)
-                        {{ $pkplh->nama_operator }}
-                    @else
-                        -
-                    @endif
-                </td>
-                <td>
-                    <form action="{{ route('sekre.pkplh.update', $pkplh->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')    
-                        <select class="operator-list" style="width: 100%" name="operator_name">
-                            <option value="-">Pilih</option>
-                            @foreach ($operators as $operator)
-                                <option value="{{ $operator->name }}">{{ $operator->name }}</option>
-                            @endforeach
-                        </select>
-                        <button type="submit" class="btn btn-sm btn-success btn-block" @if ($pkplh->status != "Belum") disabled @endif>Tugaskan</button>
-                    </form>
-                    {{-- <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="{{ '#aksiModal'.$pkplh->id }}">
-                        Tugaskan
-                    </button> --}}
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <form action="{{ route('sekre.pkplh.update') }}" method="POST">
+        @csrf
+        @method('PUT')    
+        <table id="datatable" class="table table-bordered table-striped" style="table-layout: fixed;">
+            <thead>
+                <tr class="text-center">
+                    <th width="70px">No</th>
+                    <th>Nama Usaha/Kegiatan</th>
+                    <th>Perihal Perubahan PL</th>
+                    <th>NIB</th>
+                    <th>Nama PJM</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                    <th width="120px">Penugasan</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($data_pkplh as $pkplh)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $pkplh->nama_usaha_baru }}</td>
+                        <td>{{ $pkplh->perihal }}</td>
+                        <td>{{ $pkplh->nib_baru }}</td>
+                        <td>
+                            @if ($pkplh->nama_operator != null)
+                                {{ $pkplh->nama_operator }}
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td>
+                            @if ($pkplh->status == "Belum")
+                                <span class="badge badge-secondary">Belum diproses</span>
+                            @elseif ($pkplh->status == "Proses")
+                                <span class="badge badge-warning">Proses Validasi</span>
+                            @elseif ($pkplh->status == "Draft")
+                                <span class="badge badge-primary">Selesai Drafting</span>
+                            @elseif ($pkplh->status == "Final")
+                                <span class="badge badge-success">Selesai</span>
+                            @else
+                                <span class="badge badge-danger">Ditolak</span>
+                            @endif
+                        </td>
+                        <td>
+                            <a href="{{ route('sekre.pkplh.reject', $pkplh->id) }}" class="btn btn-sm btn-danger @if ($pkplh->status == 'Ditolak') disabled @endif" onclick="return confirm('Yakin ingin menolak pengajuan ini?')">Tolak</a>
+                        </td>
+                        <td>
+                            <select class="operator-list" style="width: 100%" name="operator_name[]">
+                                <option value="-">Pilih</option>
+                                @foreach ($operators as $operator)
+                                    <option value="{{ $operator->name }}">{{ $operator->name }}</option>
+                                @endforeach
+                            </select>
+                            <input type="text" name="id[]" value="{{ $pkplh->id }}" hidden>
+                            {{-- <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="{{ '#aksiModal'.$pkplh->id }}">
+                                Tugaskan
+                            </button> --}}
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="7"></th>
+                    <th>
+                        <button type="submit" class="btn btn-sm btn-success btn-block">Tugaskan</button>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
 </div>
 
 <!-- Modal -->
@@ -138,15 +164,6 @@
             lengthmenu: [
                 [5,10,25,50,-1],
                 [5,10,25,50,'All']
-            ],
-            responsive: true,
-            "columns": [
-                { "width": "1%" },
-                null,
-                null,
-                null,
-                null,
-                { "width": "25%" }
             ]
         });
     });

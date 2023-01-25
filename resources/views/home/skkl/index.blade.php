@@ -70,6 +70,9 @@
                     <th style="width: 50px;">No</th>
                     <th style="width: 250px;">Tanggal, Waktu Permohonan</th>
                     <th>Perihal Permohonan</th>
+                    <th>PIC</th>
+                    <th>No. PIC</th>
+                    <th>Tanggal proses</th>
                     <th style="width: 150px;">Status</th>
                     <th width="120px">Aksi</th>
                 </tr>
@@ -78,13 +81,28 @@
                 @foreach ($data_skkl as $skkl)
                 <tr>
                     <td class="text-center">{{ $loop->iteration }}</td>
-                    <td>{{$skkl->created_at->format('d F Y')}}, {{ $skkl->created_at->format('H:i:s') }}</td>
-                    <td>{{$skkl->perihal}}</td>
+                    <td>{{ $skkl->created_at->format('d F Y')}}, {{ $skkl->created_at->format('H:i:s') }}</td>
+                    <td>{{ $skkl->perihal }}</td>
+                    <td>{{ $skkl->pic_pemohon }}</td>
+                    <td>{{ $skkl->no_hp_pic }}</td>
+                    <td>
+                        @if ($skkl->tgl_update)
+                            {{ $skkl->tgl_update }}
+                        @else
+                            -
+                        @endif
+                    </td>
                     <td class="text-center">
                         @if ($skkl->status == "Belum")
+                            <span class="badge badge-secondary">Belum diproses</span>
+                        @elseif ($skkl->status == "Proses")
                             <span class="badge badge-warning">Proses Validasi</span>
-                        @else
+                        @elseif ($skkl->status == "Draft")
+                            <span class="badge badge-primary">Selesai Drafting</span>
+                        @elseif ($skkl->status == "Final")
                             <span class="badge badge-success">Selesai</span>
+                        @else
+                            <span class="badge badge-danger">Ditolak</span>
                         @endif
                     </td>
                     <td class="text-center">
@@ -110,10 +128,32 @@
           </button>
         </div>
         <div class="modal-body">
+            <a class="btn btn-warning btn-block @if ($skkl->status != "Belum") disabled @endif" href="{{ route('skkl.edit', $skkl->id) }}">Ubah Data SKKL</a>
+            <hr>
             <a class="btn btn-success btn-block" href="{{ route('rkl.create', $skkl->id) }}">Dokumen RKL</a>
             <a class="btn btn-success btn-block" href="{{ route('rpl.create', $skkl->id) }}">Dokumen RPL</a>
             <hr>
-            <a class="btn btn-warning btn-block @if ($skkl->status != "Belum") disabled @endif" href="{{ route('skkl.edit', $skkl->id) }}">Ubah Data SKKL</a>
+            @if ($skkl->rintek_upload)
+                <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek_upload) }}">Unduh Dokumen Rincian Teknis</a></button>
+            @endif
+            @if ($skkl->rintek_limbah_upload)
+                <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek_limbah_upload) }}">Unduh Dokumen Rincian Teknis Penyimpanan Limbah B3</a></button>
+            @endif
+
+            <hr>
+
+            <a class="btn btn-primary btn-block mb-2" href="{{ route('pemrakarsa.download.lampiran1', $skkl->id) }}">Preview lampiran I</a>
+            <?php $i = 3; ?> 
+            @if ($skkl->jenis_perubahan != 'perkep1')
+                @foreach ($skkl->pertek as $pertek)
+                    <form @if ($pertek != "pertek6") action="{{ route('pemrakarsa.download.pertek', $skkl->id) }}" @else action="{{ route('pemrakarsa.download.rintek', $skkl->id) }}" @endif method="GET">
+                        @csrf
+                        <input type="text" name="pertek" value="{{ $pertek }}" hidden>
+                        <button type="submit" class="btn btn-primary btn-block mb-2">Preview lampiran {{ integerToRoman($i) }}</button>
+                    </form>
+                    <?php $i++; ?>
+                @endforeach
+            @endif
             <a class="btn btn-primary btn-block" href="{{ route('skkl.review', $skkl->id) }}">Preview Dokumen SKKL</a>
         </div>
       </div>

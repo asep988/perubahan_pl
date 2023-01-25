@@ -62,7 +62,7 @@
         </li>
     @elseif ($role == 'Sekretariat')
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('sekre.penugasan.index') }}">
+            <a class="nav-link collapsed" href="{{ route('sekre.skkl.index') }}">
                 <i class="fas fa-book"></i>
                 <span>Permohonan Perubahan PL</span>
             </a>

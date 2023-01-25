@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use il;
 use App\User;
 use App\Pkplh;
 use App\region;
 use App\il_pkplh;
+use App\initiator;
+use App\Pertek_pkplh;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -30,80 +34,149 @@ class PkplhController extends Controller
 		->get();
 
 		$email = Auth::user()->email;
+		$initiator = initiator::where('email', $email)->get();
 
-		return view('home.pkplh.form', compact('regencies', 'provinces'));
+		return view('home.pkplh.form', compact('regencies', 'provinces', 'initiator'));
 	}
 
 	public function store(Request $request)
 	{
+		$id_user = Auth::user()->id;
 		$request->validate([
-			'pelaku_usaha' => 'required',
-			'nama_usaha' => 'required',
-			'jenis_usaha' => 'required',
-			'penanggung' => 'required',
-			'nib' => 'required',
-			'kbli' => 'required',
-			'jabatan' => 'required',
-			'alamat' => 'required',
-			'lokasi' => 'required',
-			'pelaku_usaha_baru' => 'required',
-			'nama_usaha_baru' => 'required',
-			'jenis_usaha_baru' => 'required',
-			'penanggung_baru' => 'required',
-			'nib_baru' => 'required',
-			'kbli_baru' => 'required',
-			'jabatan_baru' => 'required',
-			'alamat_baru' => 'required',
-			'lokasi_baru' => 'required',
-			'kabupaten_kota' => 'required',
-			'provinsi' => 'required',
-			'link_drive' => 'required',
-			'nomor_pl' => 'required',
-			'tgl_pl' => 'required',
-			'perihal_surat' => 'required',
-			'ruang_lingkup' => 'required',
-			'jenis_izin' => 'required',
-			'pejabat' => 'required',
-			'nomor_sk' => 'required',
-			'tgl_surat' => 'required',
-			'perihal' => 'required'
+			'rintek_upload' => 'nullable|max:5120',
+			'rintek_limbah_upload' => 'nullable|max:5120'
 		]);
 
-		// $kabkota = implode(", ", $request->kabupaten_kota);
-		// $prov = implode(", ", $request->provinsi);
-		$id_user = Auth::user()->id;
+		if (is_array($request->kabupaten_kota)) {
+			$kabkota = $request->kabupaten_kota;
+		} else {
+			$kabkota = array();
+			$kabkota[] = $request->kabupaten_kota;
+		}
 
-		// return $kabkota;
+		if (is_array($request->provinsi)) {
+			$provinsi = $request->provinsi;
+		} else {
+			$provinsi = array();
+			$provinsi[] = $request->provinsi;
+		}
+		if (is_array($request->region)) {
+			$region = $request->region;
+		} else {
+			$region = array();
+			$region[] = $request->region;
+		}
+
+		if (is_array($request->nama_kbli)) {
+			$nama_kbli = $request->nama_kbli;
+		} else {
+			$nama_kbli = array();
+			$nama_kbli[] = $request->nama_kbli;
+		}
+
+		if (is_array($request->nomor_kbli)) {
+			$nomor_kbli = $request->nomor_kbli;
+		} else {
+			$nomor_kbli = array();
+			$nomor_kbli[] = $request->nomor_kbli;
+		}
+
+		if (is_array($request->pertek)) {
+			$pertek = $request->pertek;
+		} else {
+			$pertek = array();
+			$pertek[] = $request->pertek;
+		}
+
+		if (is_array($request->jenis_peraturan)) {
+			$jenis_peraturan = $request->jenis_peraturan;
+		} else {
+			$jenis_peraturan = array();
+			$jenis_peraturan[] = $request->jenis_peraturan;
+		}
+
+		if (is_array($request->pejabat_daerah)) {
+			$pejabat_daerah = $request->pejabat_daerah;
+		} else {
+			$pejabat_daerah = array();
+			$pejabat_daerah[] = $request->pejabat_daerah;
+		}
+
+		if (is_array($request->nomor_peraturan)) {
+			$nomor_peraturan = $request->nomor_peraturan;
+		} else {
+			$nomor_peraturan = array();
+			$nomor_peraturan[] = $request->nomor_peraturan;
+		}
+
+		if (is_array($request->perihal_peraturan)) {
+			$perihal_peraturan = $request->perihal_peraturan;
+		} else {
+			$perihal_peraturan = array();
+			$perihal_peraturan[] = $request->perihal_peraturan;
+		}
+
+		if ($request->rintek_upload) {
+			$file1 = $request->file('rintek_upload');
+			$format1 = $file1->getClientOriginalExtension();
+			$fileName1 = time() . '_rintek.' . $format1; //Variabel yang menampung nama file
+			$file1->storeAs('files/pkplh/rintek', $fileName1); //Simpan ke Storage
+		} else {
+			$fileName1 = null;
+		}
+
+		if ($request->rintek_limbah_upload) {
+			$file2 = $request->file('rintek_limbah_upload');
+			$format2 = $file2->getClientOriginalExtension();
+			$fileName2 = time() . '_rintek_limbah.' . $format2; //Variabel yang menampung nama file
+			$file2->storeAs('files/pkplh/rintek', $fileName2); //Simpan ke Storage
+		} else {
+			$fileName2 = null;
+		}
+
+		DB::beginTransaction();
 		$pkplh = new Pkplh;
-		$pkplh->user_id 		    =   $id_user;
-		$pkplh->pelaku_usaha        =   $request->pelaku_usaha;
-		$pkplh->nama_usaha	        =	$request->nama_usaha;
-		$pkplh->jenis_usaha	        =	$request->jenis_usaha;
-		$pkplh->penanggung	        =	$request->penanggung;
-		$pkplh->nib			        =	$request->nib;
-		$pkplh->kbli			    =	$request->kbli;
-		$pkplh->jabatan		        =	$request->jabatan;
-		$pkplh->alamat		        =	$request->alamat;
-		$pkplh->lokasi		        =	$request->lokasi;
-		$pkplh->pelaku_usaha_baru   =   $request->pelaku_usaha_baru;
-		$pkplh->nama_usaha_baru	    =	$request->nama_usaha_baru;
-		$pkplh->jenis_usaha_baru	=	$request->jenis_usaha_baru;
-		$pkplh->penanggung_baru	    =	$request->penanggung_baru;
-		$pkplh->nib_baru			=	$request->nib_baru;
-		$pkplh->kbli_baru		    =	$request->kbli_baru;
-		$pkplh->jabatan_baru		=	$request->jabatan_baru;
-		$pkplh->alamat_baru		    =	$request->alamat_baru;
-		$pkplh->lokasi_baru		    =	$request->lokasi_baru;
-		
-		$pkplh->kabupaten_kota	    =	$request->kabupaten_kota;
-		$pkplh->provinsi			=	$request->provinsi; 
-		$pkplh->link_drive		    =	$request->link_drive;
+		$pkplh->user_id 				=   $id_user;
+		$pkplh->jenis_perubahan 		=   $request->jenis_perubahan;
 
-		$pkplh->nomor_pl		    =	$request->nomor_pl;
-		$pkplh->tgl_pl		        =	$request->tgl_pl;
-		$pkplh->perihal		        =	$request->perihal_surat;
-		$pkplh->ruang_lingkup	    = $request->ruang_lingkup;
-		$pkplh->status              = "Belum";
+		if ($request->jenis_perubahan != "perkep3") {
+			$pkplh->pelaku_usaha 	    =   $request->pelaku_usaha;
+			$pkplh->penanggung		    =	$request->penanggung;
+			$pkplh->jabatan			    =	$request->jabatan;
+			$pkplh->alamat			    =	$request->alamat;
+		}
+
+		$pkplh->pelaku_usaha_baru 	    =   $request->pelaku_usaha_baru;
+		$pkplh->nama_usaha_baru		    =	$request->nama_usaha_baru;
+		$pkplh->penanggung_baru		    =	$request->penanggung_baru;
+		$pkplh->nib_baru				=	$request->nib_baru;
+		$pkplh->jabatan_baru			=	$request->jabatan_baru;
+		$pkplh->alamat_baru			    =	$request->alamat_baru;
+		$pkplh->lokasi_baru			    =	$request->lokasi_baru;
+		$pkplh->nama_kbli			    =	$nama_kbli;
+		$pkplh->kbli_baru			    =	$nomor_kbli;
+		$pkplh->rintek_upload		    =	$fileName1;
+		$pkplh->rintek_limbah_upload	=	$fileName2;
+
+		$pkplh->provinsi				=	$provinsi; 
+		$pkplh->kabupaten_kota	    	=	$kabkota;
+		$pkplh->region			    	=	$region;
+		$pkplh->link_drive		    	=	$request->link_drive;
+		$pkplh->pic_pemohon		    	=	$request->pic_pemohon;
+		$pkplh->no_hp_pic		    	=	$request->no_hp_pic;
+		$pkplh->nomor_pl				=	$request->nomor_pl;
+		$pkplh->tgl_pl			    	=	$request->tgl_pl;
+		$pkplh->perihal			    	=	$request->perihal_surat;
+		$pkplh->pejabat_pl		    	=	$request->pejabat_pl;
+		$pkplh->nomor_validasi		    =	$request->nomor_validasi;
+		$pkplh->tgl_validasi			=	$request->tgl_validasi;
+		$pkplh->jenis_peraturan	    	=	$jenis_peraturan;
+		$pkplh->pejabat_daerah	    	=	$pejabat_daerah;
+		$pkplh->nomor_peraturan		    =	$nomor_peraturan;
+		$pkplh->perihal_peraturan	    =	$perihal_peraturan;
+		$pkplh->ruang_lingkup		    = 	$request->ruang_lingkup;
+		$pkplh->pertek				    = 	$pertek;
+		$pkplh->status 				    = 	"Belum";
 		$pkplh->save();
 
 		$late = Pkplh::orderBy('id', 'DESC')->take(1)->get();
@@ -121,6 +194,21 @@ class PkplhController extends Controller
 			$il_pkplh->perihal_surat = $request->perihal[$i];
 			$il_pkplh->save();
 		}
+		
+		if ($request->jenis_perubahan != "perkep1") {
+			for ($i = 0; $i < count($request->judul_pertek); $i++) {
+				$pertek_pkplh = new Pertek_pkplh;
+				$pertek_pkplh->id_pkplh = $pkplh_id;
+				$pertek_pkplh->pertek = $request->pertek[$i];
+				$pertek_pkplh->judul_pertek = $request->judul_pertek[$i];
+				$pertek_pkplh->surat_pertek = $request->surat_pertek[$i];
+				$pertek_pkplh->nomor_pertek = $request->nomor_pertek[$i];
+				$pertek_pkplh->tgl_pertek = $request->tgl_pertek[$i];
+				$pertek_pkplh->perihal_pertek = $request->perihal_pertek[$i];
+				$pertek_pkplh->save();
+			}
+		}
+		DB::commit();
 
         return redirect()->route('pkplh.index')->with('pesan', 'Data berhasil diinput');
 	}
@@ -129,14 +217,17 @@ class PkplhController extends Controller
 	{
 		$data_pkplh = Pkplh::find($id);
 		$il_pkplh = il_pkplh::where('id_pkplh', $id)->get();
+		$pertek_pkplh = Pertek_pkplh::where('id_pkplh', $id)->get();
 
-		return view('home.pkplh.review', compact('data_pkplh', 'il_pkplh'));
+		return view('home.pkplh.review', compact('data_pkplh', 'il_pkplh', 'pertek_pkplh'));
 	}
 
 	//OPERATOR
 	public function operatorIndex()
 	{
-		$data_pkplh = Pkplh::orderBy('updated_at', 'DESC')->get();
+		$data_pkplh = Pkplh::orderBy('created_at', 'DESC')
+        ->where('nama_operator', Auth::user()->name)
+        ->get();
 
 		return view('operator.pkplh.index', compact('data_pkplh'));
 	}
@@ -192,84 +283,174 @@ class PkplhController extends Controller
 
 	public function edit($id) //Pemrakarsa
 	{
+		$email = Auth::user()->email;
+		$initiator = initiator::where('email', $email)->get();
 		$provinces = region::where('regency', "")->get();
 		$regencies = region::where('regency', '!=', "")
 		->where('district', "")
 		->get();
+
 		$pkplh = Pkplh::find($id);
 		$il_pkplh = il_pkplh::where('id_pkplh', $id)->get();
+		$pertek_pkplh = Pertek_pkplh::where('id_pkplh', $id)->get();
+
 		$selected_provinces = $pkplh->provinsi;
 		$selected_kabupaten_kota = $pkplh->kabupaten_kota;
 		$jum = count($il_pkplh);
 
-		return view('home.pkplh.edit', compact('provinces', 'regencies', 'pkplh', 'jum', 'il_pkplh', 'selected_provinces', 'selected_kabupaten_kota'));
+		return view('home.pkplh.edit', compact('provinces', 'initiator', 'regencies', 'pkplh', 'jum', 'il_pkplh', 'selected_provinces', 'selected_kabupaten_kota', 'pertek_pkplh'));
 	}
 
 	public function update(Request $request, $id) //Pemrakarsa
 	{
+		$id_user = Auth::user()->id;
 		$request->validate([
-			'pelaku_usaha' => 'required',
-			'nama_usaha' => 'required',
-			'jenis_usaha' => 'required',
-			'penanggung' => 'required',
-			'nib' => 'required',
-			'kbli' => 'required',
-			'jabatan' => 'required',
-			'alamat' => 'required',
-			'lokasi' => 'required',
-			'pelaku_usaha_baru' => 'required',
-			'nama_usaha_baru' => 'required',
-			'jenis_usaha_baru' => 'required',
-			'penanggung_baru' => 'required',
-			'nib_baru' => 'required',
-			'kbli_baru' => 'required',
-			'jabatan_baru' => 'required',
-			'alamat_baru' => 'required',
-			'lokasi_baru' => 'required',
-			'kabupaten_kota' => 'required',
-			'provinsi' => 'required',
-			'link_drive' => 'required',
-			'nomor_pl' => 'required',
-			'tgl_pl' => 'required',
-			'perihal_surat' => 'required',
-			'ruang_lingkup' => 'required',
-			'jenis_izin' => 'required',
-			'pejabat' => 'required',
-			'nomor_sk' => 'required',
-			'tgl_surat' => 'required',
-			'perihal' => 'required'
+			'rintek_upload' => 'nullable|max:5120',
+			'rintek_limbah_upload' => 'nullable|max:5120'
 		]);
 
-		$pkplh = Pkplh::find($id);
-		$pkplh->pelaku_usaha =   $request->pelaku_usaha;
-		$pkplh->nama_usaha	=	$request->nama_usaha;
-		$pkplh->jenis_usaha	=	$request->jenis_usaha;
-		$pkplh->penanggung	=	$request->penanggung;
-		$pkplh->nib			=	$request->nib;
-		$pkplh->kbli		=	$request->kbli;
-		$pkplh->jabatan		=	$request->jabatan;
-		$pkplh->alamat		=	$request->alamat;
-		$pkplh->lokasi		=	$request->lokasi;
-		//menjadi
-		$pkplh->pelaku_usaha_baru =   $request->pelaku_usaha_baru;
-		$pkplh->nama_usaha_baru	=	$request->nama_usaha_baru;
-		$pkplh->jenis_usaha_baru	=	$request->jenis_usaha_baru;
-		$pkplh->penanggung_baru	=	$request->penanggung_baru;
-		$pkplh->nib_baru			=	$request->nib_baru;
-		$pkplh->kbli_baru		=	$request->kbli_baru;
-		$pkplh->jabatan_baru		=	$request->jabatan_baru;
-		$pkplh->alamat_baru		=	$request->alamat_baru;
-		$pkplh->lokasi_baru		=	$request->lokasi_baru;
-		
-		$pkplh->kabupaten_kota	=	$request->kabupaten_kota;
-		$pkplh->provinsi			=	$request->provinsi; 
-		$pkplh->link_drive		=	$request->link_drive;
+		if (is_array($request->kabupaten_kota)) {
+			$kabkota = $request->kabupaten_kota;
+		} else {
+			$kabkota = array();
+			$kabkota[] = $request->kabupaten_kota;
+		}
 
-		$pkplh->nomor_pl		=	$request->nomor_pl;
-		$pkplh->tgl_pl		=	$request->tgl_pl;
-		$pkplh->perihal		=	$request->perihal_surat;
-		$pkplh->ruang_lingkup	= $request->ruang_lingkup;
-		$pkplh->status = "Belum";
+		if (is_array($request->provinsi)) {
+			$provinsi = $request->provinsi;
+		} else {
+			$provinsi = array();
+			$provinsi[] = $request->provinsi;
+		}
+		if (is_array($request->region)) {
+			$region = $request->region;
+		} else {
+			$region = array();
+			$region[] = $request->region;
+		}
+
+		if (is_array($request->nama_kbli)) {
+			$nama_kbli = $request->nama_kbli;
+		} else {
+			$nama_kbli = array();
+			$nama_kbli[] = $request->nama_kbli;
+		}
+
+		if (is_array($request->nomor_kbli)) {
+			$nomor_kbli = $request->nomor_kbli;
+		} else {
+			$nomor_kbli = array();
+			$nomor_kbli[] = $request->nomor_kbli;
+		}
+
+		if (is_array($request->pertek)) {
+			$pertek = $request->pertek;
+		} else {
+			$pertek = array();
+			$pertek[] = $request->pertek;
+		}
+
+		if (is_array($request->jenis_peraturan)) {
+			$jenis_peraturan = $request->jenis_peraturan;
+		} else {
+			$jenis_peraturan = array();
+			$jenis_peraturan[] = $request->jenis_peraturan;
+		}
+
+		if (is_array($request->pejabat_daerah)) {
+			$pejabat_daerah = $request->pejabat_daerah;
+		} else {
+			$pejabat_daerah = array();
+			$pejabat_daerah[] = $request->pejabat_daerah;
+		}
+
+		if (is_array($request->nomor_peraturan)) {
+			$nomor_peraturan = $request->nomor_peraturan;
+		} else {
+			$nomor_peraturan = array();
+			$nomor_peraturan[] = $request->nomor_peraturan;
+		}
+
+		if (is_array($request->perihal_peraturan)) {
+			$perihal_peraturan = $request->perihal_peraturan;
+		} else {
+			$perihal_peraturan = array();
+			$perihal_peraturan[] = $request->perihal_peraturan;
+		}
+
+		$data = Pkplh::find($id);
+
+		if ($request->rintek_upload) {
+			$destination = 'files/pkplh/rintek/' . $data->rintek_upload;
+			if ($destination) {
+				Storage::delete($destination);
+			}
+
+			$file1 = $request->file('rintek_upload');
+			$format1 = $file1->getClientOriginalExtension();
+			$fileName1 = time() . '_rintek.' . $format1; //Variabel yang menampung nama file
+			$file1->storeAs('files/pkplh/rintek', $fileName1); //Simpan ke Storage
+		} else {
+			$fileName1 = null;
+		}
+
+		if ($request->rintek_limbah_upload) {
+			$destination = 'files/pkplh/rintek/' . $data->rintek_limbah_upload;
+			if ($destination) {
+				Storage::delete($destination);
+			}
+
+			$file2 = $request->file('rintek_limbah_upload');
+			$format2 = $file2->getClientOriginalExtension();
+			$fileName2 = time() . '_rintek_limbah.' . $format2; //Variabel yang menampung nama file
+			$file2->storeAs('files/pkplh/rintek', $fileName2); //Simpan ke Storage
+		} else {
+			$fileName2 = null;
+		}
+
+		DB::beginTransaction();
+		$pkplh = Pkplh::find($id);
+		$pkplh->user_id 				=   $id_user;
+		$pkplh->jenis_perubahan 		=   $request->jenis_perubahan;
+		
+		if ($request->jenis_perubahan != "perkep3") {
+			$pkplh->pelaku_usaha 	=   $request->pelaku_usaha;
+			$pkplh->penanggung		=	$request->penanggung;
+			$pkplh->jabatan			=	$request->jabatan;
+			$pkplh->alamat			=	$request->alamat;
+		}
+
+		$pkplh->pelaku_usaha_baru 	=   $request->pelaku_usaha_baru;
+		$pkplh->nama_usaha_baru		=	$request->nama_usaha_baru;
+		$pkplh->penanggung_baru		=	$request->penanggung_baru;
+		$pkplh->nib_baru			=	$request->nib_baru;
+		$pkplh->jabatan_baru		=	$request->jabatan_baru;
+		$pkplh->alamat_baru			=	$request->alamat_baru;
+		$pkplh->lokasi_baru			=	$request->lokasi_baru;
+		$pkplh->nama_kbli			=	$nama_kbli;
+		$pkplh->kbli_baru			=	$nomor_kbli;
+		$pkplh->rintek_upload		=	$fileName1;
+		$pkplh->rintek_limbah_upload=	$fileName2;
+
+		$pkplh->provinsi			=	$provinsi; 
+		$pkplh->kabupaten_kota		=	$kabkota;
+		$pkplh->region				=	$region;
+		$pkplh->link_drive			=	$request->link_drive;
+		$pkplh->pic_pemohon			=	$request->pic_pemohon;
+		$pkplh->no_hp_pic			=	$request->no_hp_pic;
+		$pkplh->nomor_pl			=	$request->nomor_pl;
+		$pkplh->tgl_pl				=	$request->tgl_pl;
+		$pkplh->perihal				=	$request->perihal_surat;
+		$pkplh->pejabat_pl			=	$request->pejabat_pl;
+		$pkplh->nomor_validasi		=	$request->nomor_validasi;
+		$pkplh->tgl_validasi		=	$request->tgl_validasi;
+		$pkplh->jenis_peraturan		=	$jenis_peraturan;
+		$pkplh->pejabat_daerah		=	$pejabat_daerah;
+		$pkplh->nomor_peraturan		=	$nomor_peraturan;
+		$pkplh->perihal_peraturan	=	$perihal_peraturan;
+		$pkplh->ruang_lingkup		= 	$request->ruang_lingkup;
+		$pkplh->pertek				= 	$pertek;
+		$pkplh->status 				= 	"Belum";
 		$pkplh->update();
 
 		il_pkplh::where('id_pkplh', $id)->delete();
@@ -283,6 +464,22 @@ class PkplhController extends Controller
 			$il_pkplh->perihal_surat = $request->perihal[$i];
 			$il_pkplh->save();
 		}
+
+		if ($request->jenis_perubahan != 'perkep1') {
+			Pertek_pkplh::where('id_pkplh', $id)->delete();
+			for ($i = 0; $i < count($request->judul_pertek); $i++) {
+				$pertek_pkplh = new Pertek_pkplh;
+				$pertek_pkplh->id_pkplh = $id;
+				$pertek_pkplh->pertek = $request->pertek[$i];
+				$pertek_pkplh->judul_pertek = $request->judul_pertek[$i];
+				$pertek_pkplh->surat_pertek = $request->surat_pertek[$i];
+				$pertek_pkplh->nomor_pertek = $request->nomor_pertek[$i];
+				$pertek_pkplh->tgl_pertek = $request->tgl_pertek[$i];
+				$pertek_pkplh->perihal_pertek = $request->perihal_pertek[$i];
+				$pertek_pkplh->save();
+			}
+		}
+		DB::commit();
 
 		return redirect()->route('pkplh.index')->with('pesan', 'Data berhasil diperbarui');
 	}
@@ -301,8 +498,48 @@ class PkplhController extends Controller
 
         $pkplh = Pkplh::find($id);
         $il_pkplh = il_pkplh::where('id_pkplh', $id)->get();
+        $pertek_pkplh = Pertek_pkplh::where('id_pkplh', $id)->get(); 
         $kabkota = implode(", ", $pkplh->kabupaten_kota);
         $prov = implode(", ", $pkplh->provinsi);
+
+        $pertek = "";
+        for ($i = 0; $i < count($pkplh->pertek); $i++) {
+            if ($pkplh->pertek[$i] == "pertek1") {
+                $pertek .= "<li>Persetujuan Teknis Pemenuhan Baku Mutu Air Limbah untuk Kegiatan " . $pertek_pkplh[$i]->judul_pertek . " yang merupakan pengelolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
+            }
+            if ($pkplh->pertek[$i] == "pertek2") {
+                $pertek .= "<li>Persetujuan Teknis Pemenuhan Baku Mutu Emisi untuk Kegiatan " . $pertek_pkplh[$i]->judul_pertek . " yang merupakan pengelolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
+            }
+            if ($pkplh->pertek[$i] == "pertek3") {
+                $pertek .= "<li>Persetujuan Teknis Di Bidang Pengelolaan Limbah B3 untuk Kegiatan " . $pertek_pkplh[$i]->judul_pertek . " yang merupakan penglolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
+            }
+            if ($pkplh->pertek[$i] == "pertek4") {
+                $pertek .= "<li>Persetujuan Teknis Andalalin untuk Kegiatan " . $pertek_pkplh[$i]->judul_pertek . " yang merupakan penglolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
+            }
+            if ($pkplh->pertek[$i] == "pertek5") {
+                $pertek .= "<li>Persetujuan Teknis Dokumen Rincian Teknis untuk Kegiatan " . $pertek_pkplh[$i]->judul_pertek . " yang merupakan penglolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
+            }
+        }
+
+        $dasper = "";
+        for ($i = 0; $i < count($pkplh->jenis_peraturan); $i++) {
+            $dasper = '<li>'. $pkplh->jenis_peraturan[$i] . ' ' . $pkplh->pejabat_daerah[$i] . ' Nomor ' . $pkplh->nomor_peraturan[$i] . ' tentang ' . $pkplh->perihal_peraturan[$i] . '</li>';
+        }
+
+        $perkep = "";
+        if ($pkplh->jenis_perubahan == "perkep1") {
+            $perkep .= "bahwa terdapat perubahan kepemilikan " . $pkplh->nama_usaha_baru ." oleh " . $pkplh->pelaku_usaha_baru . " Berdasarkan <ol>" . $dasper .  "</ol>";
+        } elseif ($pkplh->jenis_perubahan == "perkep2") {
+            $perkep .= "bahwa terdapat perubahan kepemilikan " . $pkplh->nama_usaha_baru ." oleh " . $pkplh->pelaku_usaha_baru . " Berdasarkan <ol>" . $dasper .  "</ol> <br>
+            dan perubahan pengelolaan dan pemantauan oleh " . $pkplh->pelaku_usaha_baru . " akan mengintegrasikan: <ol start='1'>" . $pertek . "</ol>";
+        } else {
+            $perkep .= "bahwa terdapat perubahan pengelolaan dan pemantauan " . $pkplh->pelaku_usaha_baru . " akan mengintegrasikan: <ol>" . $pertek . "</ol>";
+        }
+
+        $loopkbli = "";
+        for ($i = 0; $i < count($pkplh->nama_kbli); $i++){
+            $loopkbli .= "<li>" . ucwords($pkplh->nama_kbli[$i]) . " (Kode KBLI:".$pkplh->kbli_baru[$i]."; </li>";
+        }
 
         $loopkk1 = "";
         for ($i = 0; $i < count($pkplh->kabupaten_kota); $i++) {
@@ -329,6 +566,34 @@ class PkplhController extends Controller
             $il_dkk .= "<li>" . $il_pkplh[$i]->jenis_sk . " " . $il_pkplh[$i]->menerbitkan . " Nomor " . $il_pkplh[$i]->nomor_surat . " tanggal " . date("d m Y", strtotime($il_pkplh[$i]->tgl_surat)) . " tentang " . $il_pkplh[$i]->perihal_surat . "</li>";
         }
 
+        $abjad = count($pkplh->provinsi) + count($pkplh->kabupaten_kota) + 0;
+
+        if ($pkplh->jenis_perubahan != 'perkep1'){
+            $pkplh_isi = "<li>mematuhi dan melaksanakan syarat-syarat teknis sesuai:<ol type='a'>";
+            $roman = 2;
+            for ($i = 0; $i < count($pkplh->pertek); $i++) {
+                if ($pkplh->pertek[$i] == "pertek1") {
+                    $pkplh_isi .= "<li>Lampiran ". integerToRoman($roman) ." Persetujuan Teknis Pemenuhan Baku Mutu Air Limbah;</li>";
+                }
+                if ($pkplh->pertek[$i] == "pertek2") {
+                    $pkplh_isi .= "<li>Lampiran ". integerToRoman($roman) ." Persetujuan Teknis Pemenuhan Baku Mutu Emisi;</li>";
+                }
+                if ($pkplh->pertek[$i] == "pertek3") {
+                    $pkplh_isi .= "<li>Lampiran ". integerToRoman($roman) ." Persetujuan Teknis Di Bidang Pengelolaan Limbah B3;</li>";
+                }
+                if ($pkplh->pertek[$i] == "pertek4") {
+                    $pkplh_isi .= "<li>Lampiran ". integerToRoman($roman) ." Persetujuan Teknis Andalalin;</li>";
+                }
+                if ($pkplh->pertek[$i] == "pertek5") {
+                    $pkplh_isi .= "<li>Lampiran ". integerToRoman($roman) ." Persetujuan Teknis Dokumen Rincian Teknis;</li>";
+                }
+                $roman++;
+            }
+            $pkplh_isi .= "</ol></li>";
+        } else {
+            $pkplh_isi = "";
+        }
+
         $headers = array(
 
             "Content-type" => "text/html",
@@ -352,19 +617,22 @@ class PkplhController extends Controller
                 vertical-align: top;
                 text-align: justify;
             }
+            ol > li.sub_list:before {
+                content : counters(item, ".") "";
+                counter-incerment:item
+            }
         </style>';
 
         $body .=
-        'LAMPIRAN ...
-        <br><br><br><br>
+        '<br><br><br><br>
         <table width="100%">
             <tr>
     <td colspan="3" width="100%">
         <center>KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN<br>REPUBLIK INDONESIA<br> 
             NOMOR .....<br><br>TENTANG<br><br>
             PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN<br>
-            HIDUP USAHA DAN/ATAU KEGIATAN' . \strtoupper($pkplh->nama_usaha_baru) .
-                ' DI ' . strtoupper($kabkota) . ' OLEH '. strtoupper($pkplh->pelaku_usaha_baru) . ' <br><br>
+            HIDUP KEGIATAN' . strtoupper($pkplh->nama_usaha_baru) .
+            ' OLEH '. strtoupper($pkplh->pelaku_usaha_baru) . ' <br><br>
             DENGAN RAHMAT TUHAN YANG MAHA ESA<br><br>MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA,
         <center>    
     </td>
@@ -373,23 +641,44 @@ class PkplhController extends Controller
     <td width="30%">
         Menimbang
     </td>
-    <td width="5%"> :</td>
-    <td width="65%">
+    <td width="2%"> :</td>
+    <td width="68%">
         <ol style="list-style-type: lower-alpha;">
             <li>bahwa berdasarkan ketentuan:</li>
-                <ol>
-                    <li class="list_kurung">Pasal 3 ayat (1): Persetujuan Lingkungan wajib dimiliki oleh setiap Usaha dan/atau Kegiatan yang memiliki Dampak Penting atau tidak penting terhadap lingkungan;</li>
-                    <li class="list_kurung">Pasal 3 ayat (2): Persetujuan Lingkungan diberikan kepada Pelaku Usaha atau Instansi Pemerintah;</li>
-                    <li class="list_kurung">Pasal 3 ayat (3): Persetujuan Lingkungan menjadi prasyarat penerbitan Perizinan Berusaha atau Persetujuan Pemerintah;</li>
-                    <li class="list_kurung">Pasal 3 ayat (4): Persetujuan Lingkungan dilakukan melalui penyusunan Amdal dan uji kelayakan Amdal;</li>
-                    <li class="list_kurung">Pasal 64 ayat (1) : Persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup merupakan: a. bentuk persetujuan Lingkungan Hidup; dan b. prasyarat penerbitan Perizinan Berusaha atau Persetujuan Pemerintah</li>
-                    <li class="list_kurung">Pasal 89 ayat (1) : Penanggungjawab Usaha dan/atau Kegiatan wajib melakukan perubahan Persetujuan Lingkungan apabila Usaha dan/atau Kegiatannya yang telah memperoleh surat Keputusan Kelayakan Lingkungan Hidup atau persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup direncanakan untuk dilakukan perubahan;</li>
-                    <li class="list_kurung">Pasal 89 ayat (2) : Perubahan Persetujuan Lingkungan dilakukan melalui: a. perubahan Persetujuan Lingkungan dengan kewajiban menyusun dokumen lingkungan hidup baru; atau b. perubahan Persetujuan Lingkungan tanpa disertai kewajiban menyusun dokumen lingkungan hidup baru;</li>
+                <ol type="a">
+                    <li>Peraturan Pemerintah Nomor 22 Tahun 2021 tentang Penyelenggaraan Perlindungan dan Pengelolaan Lingkungan Hidup, ditetapkan:</li>
+                        <ol>
+                            <li class="list_kurung"> Pasal 3:
+                                <ol>
+                                    <li class="list_kurung"> ayat (1): Persetujuan Lingkungan wajib dimiliki oleh setiap Usaha dan/atau Kegiatan yang memiliki Dampak Penting atau tidak penting terhadap lingkungan;</li>
+                                    <li class="list_kurung"> ayat (2): Persetujuan Lingkungan diberikan kepada Pelaku Usaha atau Instansi Pemerintah;</li>
+                                    <li class="list_kurung"> ayat (3): Persetujuan Lingkungan menjadi prasyarat penerbitan Perizinan Berusaha atau Persetujuan Pemerintah;</li>
+                                    <li class="list_kurung"> ayat (4): Persetujuan Lingkungan dilakukan melalui penyusunan Amdal dan uji kelayakan Amdal;</li>      
+                                </ol> 
+                            </li>
+                            <li class="list_kurung">Pasal 64 ayat (1) : Persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup merupakan: a. bentuk persetujuan Lingkungan Hidup; dan b. prasyarat penerbitan Perizinan Berusaha atau Persetujuan Pemerintah</li>
+                            <li class="list_kurung">Pasal 89 ayat (1) : Penanggungjawab Usaha dan/atau Kegiatan wajib melakukan perubahan Persetujuan Lingkungan apabila Usaha dan/atau Kegiatannya yang telah memperoleh surat Keputusan Kelayakan Lingkungan Hidup atau persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup direncanakan untuk dilakukan perubahan;</li>
+                            <li class="list_kurung">Pasal 89 ayat (2) : Perubahan Persetujuan Lingkungan dilakukan melalui: a. perubahan Persetujuan Lingkungan dengan kewajiban menyusun dokumen lingkungan hidup baru; atau b. perubahan Persetujuan Lingkungan tanpa disertai kewajiban menyusun dokumen lingkungan hidup baru;</li>
+                        </ol>
+                    <li>Pasal 5 ayat (1) Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 4 Tahun 2021 tentang Daftar Usaha dan/atau Kegiatan yang Wajib Memiliki Analisis Mengenai Dampak Lingkungan Hidup, Upaya Pengelolaan Lingkungan Hidup dan Upaya Pemantauan Lingkungan Hidup atau Surat Pernyataan Kesanggupan Pengelolaan dan Pemantauan Lingkungan Hidup, UKL-UPL wajib dimiliki bagi Usaha dan/atau Kegiatan yang tidak memiliki Dampak Penting terhadap lingkungan hidup;</li>
                 </ol>
-            <li>bahwa ' . $pkplh->jabatan . ' melalui surat Nomor: ' . $pkplh->nomor_pl . ' Tanggal ' . $pkplh->tgl_pl . ' perihal ' . $pkplh->perihal . ' mengajukan permohonan perubahan persetujuan lingkungan kepada Menteri Lingkungan Hidup dan Kehutanan;</li>
-            <li>bahwa terhadap permohonan sebagaimana dimaksud dalam huruf b, penanggung jawab usaha dan/atau kegiatan telah memiliki persetujuan lingkungan berdasarkan:<br>
-            <ol>' . $il_dkk . '</ol></li>
-            <li>berdasarkan pertimbangan sebagaimana dimaksud dalam huruf a sampai dengan huruf c, perlu menetapkan Keputusan Menteri Lingkungan Hidup dan Kehutanan Republik Indonesia Tentang Persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup Usaha dan/atau Kegiatan ' . $pkplh->nama_usaha_baru . ' di ' . ucwords(strtolower($kabkota)) . ' Provinsi ' . ucwords(strtolower($prov)) . ' oleh ' . $pkplh->pelaku_usaha_baru . '</li>
+            <li>bahwa kegiatan '. ucfirst($pkplh->nama_usaha_baru) .' oleh '. ucfirst($pkplh->pelaku_usaha_baru) .' telah memiliki dokumen lingkungan hidup yang telah disetujui berdasarkan:<br>
+                <ol>'. $il_dkk .'</ol>
+            </li>
+            <li>
+            ' . $perkep . '
+            </li>
+            <li>
+                bahwa '. ucfirst($pkplh->pelaku_usaha_baru) .' sesuai Nomor '. $pkplh->nomor_pl  .' 
+                tanggal '. $pkplh->tgl_pl .' perihal '. $pkplh->perihal_surat.' menyampaikan permohonan perubahan Persetujuan Lingkungan;
+            </li>
+            <li>
+                bahwa berdasarkan hasil verifikasi administrasi sesuai Nomor '. $pkplh->nomor_validasi .' tanggal '. $pkplh->tgl_validasi .',
+                permohonan sebagaimana dimaksud pada huduf d, dinyatakan lengkap secara administratif:
+            </li>
+            <li>
+                berdasarkan pertimbangan sebagaimana dimaksud dalam huruf a sampai dengan huruf e, perlu menetapkan Keputusan Menteri Lingkungan Hidup dan Kehutanan Republik Indonesia tentang Persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup Kegiatan '. $pkplh->nama_usaha_baru .' oleh '. $pkplh->pelaku_usaha_baru .' 
+            </li>
         </ol>
     </td>
     </tr>
@@ -397,8 +686,8 @@ class PkplhController extends Controller
     <td width="30%" >
 *       Mengingat
     </td>
-    <td width="5%"> :</td>
-    <td width="65%">
+    <td width="2%"> :</td>
+    <td width="68%">
     <ol>
         <li>Undang-Undang Nomor 32 Tahun 2009 tentang Perlindungan dan 
             Pengelolaan Lingkungan Hidup (Lembaran Negara Republik Indonesia Tahun 2009 Nomor 140, Tambahan Lembaran Negara Republik Indonesia Nomor 5059) sebagaimana telah diubah dengan Peraturan Pemerintah Pengganti Undang-Undang Nomor 2 Tahun 2022 Tentang Cipta Kerja (Lembaran Negara Republik Indonesia Tahun 2022 Nomor 238);</li>
@@ -429,8 +718,11 @@ class PkplhController extends Controller
     <td width="30%" >
         Memperhatikan
     </td>
-    <td width="5%"> :</td>
-    <td width="65%">Surat Nomor: ' . $pkplh->nomor_pl . ' Tanggal ' . $pkplh->tgl_pl . ' perihal ' . $pkplh->perihal . ' yang telah diterima PTSP KLHK pada tanggal ...
+    <td width="2%"> :</td>
+    <td width="68%">
+        Risalah Pengolahan Data (RPD) Penerbitan Persetujuan Pernyataan Kesanggupan 
+        Pengelolaan Lingkungan Hidup Kegiatan '. $pkplh->nama_usaha_baru .' oleh '. $pkplh->pelaku_usaha_baru .' 
+        Nomor: '. $pkplh->nomor_rpd .' tanggal '. $pkplh->tgl_rpd .'
     </td>
     </tr>   
     <tr>
@@ -440,17 +732,19 @@ class PkplhController extends Controller
     <td width="30%" >
         Menetapkan
     </td>
-    <td width="5%"> :</td>
-    <td width="65%">
-    KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA TENTANG PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN HIDUP USAHA DAN/ATAU KEGIATAN ' . strtoupper($pkplh->nama_usaha) . ' DI ' . strtoupper($kabkota) . ' PROVINSI ' . strtoupper($prov) . ' OLEH ' . strtoupper($pkplh->pelaku_usaha_baru) . '
+    <td width="2%"> :</td>
+    <td width="68%">
+        KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN TENTANG 
+        PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN 
+        HIDUP KEGIATAN '. strtoupper($pkplh->nama_usaha_baru) .' OLEH '. strtoupper($pkplh->pelaku_usaha_baru) .'.
     </td>
     </tr>   
     <tr>
     <td width="30%">
-*       KESATU
+        KESATU
     </td>
-    <td width="5%"> :</td>
-    <td width="65%">
+    <td width="2%"> :</td>
+    <td width="68%">
         Penanggung jawab Usaha dan/atau Kegiatan ini adalah:
         <table>
             <tr>
@@ -463,37 +757,38 @@ class PkplhController extends Controller
                 <td>2.</td>
                 <td style="text-align: left;">Nomor Induk Berusaha</td>
                 <td>:</td>
-                <td>' . ucfirst($pkplh->jenis_usaha) . '</td>
+                <td>' . ucfirst($pkplh->nib) . '</td>
             </tr>
             <tr>
                 <td>3.</td>
                 <td style="text-align: left;">Jenis Usaha dan/atau Kegiatan</td>
                 <td>:</td>
-                <td>' . ucfirst($pkplh->penanggung) . '</td>
+                <td><ul>' .$loopkbli.'
+                </ul></td>
             </tr>
             <tr>
                 <td>4.</td>
                 <td>Penanggung Jawab Usaha dan/atau Kegiatan</td>
                 <td>:</td>
-                <td>' . ucfirst($pkplh->nib) . '</td>
+                <td>' . ucfirst($pkplh->penanggung_baru) . '</td>
             </tr>
             <tr>
                 <td>5.</td>
                 <td>Jabatan</td>
                 <td>:</td>
-                <td>' . ucfirst($pkplh->knli) . '</td>
+                <td>' . ucfirst($pkplh->jabatan_baru) . '</td>
             </tr>
             <tr>
                 <td>6.</td>
                 <td>Alamat Kantor/ Kegiatan</td>
                 <td>:</td>
-                <td>' . ucfirst($pkplh->jabatan) . '</td>
+                <td>' . ucfirst($pkplh->alamat_baru) . '</td>
             </tr>
             <tr>
                 <td>7.</td>
                 <td>Lokasi Usaha dan/atau Kegiatan</td>
                 <td>:</td>
-                <td>' . ucfirst($pkplh->alamat) . '</td>
+                <td>' . ucfirst($pkplh->lokasi_baru) . '</td>
             </tr>
         <br>
         </table>
@@ -501,92 +796,138 @@ class PkplhController extends Controller
     </tr>
     <tr>
     <td width="30%">
-*       KEDUA
+        KEDUA
     </td>
-    <td width="5%"> :</td>
-    <td width="65%">Ruang lingkup dalam persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup ini, meliputi:
+    <td width="2%"> :</td>
+    <td width="68%">Ruang lingkup dalam persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup ini, meliputi:
         ' . ucfirst($pkplh->ruang_lingkup) . '.
     </td>
     </tr>
     <tr>
     <td width="30%">
-*       KETIGA
+        KETIGA
     </td>
-    <td width="5%"> :</td>
-    <td width="65%">
+    <td width="2%"> :</td>
+    <td width="68%">
         Penanggung Jawab Usaha dan/atau Kegiatan wajib memenuhi komitmen Persetujuan Teknis sebelum operasi terkait dengan lingkup Persetujuan Teknis.
     </td>
     </tr>
     <tr>
     <td width="30%">
-        KEEMPAT
+*       KEEMPAT
     </td>
-    <td width="5%"> :</td>
-    <td width="65%">
-        Izin Pembuangan Air Limbah yang telah dimiliki dan masih berlaku setelah 2 Februari 2021 serta tidak ada perubahan dipersamakan sebagai Persetujuan Teknis;
+    <td width="2%"> :</td>
+    <td width="68%">
+        Dalam melaksanakan kegiatan sebagaimana dimaksud dalam Diktum KEDUA, Penanggung Jawab Usaha dan/atau Kegiatan wajib:
+        <ol>
+            <li>
+                melakukan pengelolaan dan pemantauan dampak lingkungan hidup sebagaimana tercantum dalam Lampiran I Keputusan ini;
+            </li>
+                '. $pkplh_isi .'
+            <li>
+                mematuhi ketentuan peraturan perundang-undangan di bidang Perlindungan dan Pengelolaan Lingkungan Hidup;
+            </li>
+            <li>
+                melakukan koordinasi dengan instansi pusat maupun daerah, berkaitan dengan pelaksanaan kegiatan ini;
+            </li>
+            <li>
+                mengupayakan aplikasi Reduce, Reuse, dan Recycle (3R) terhadap limbah-limbah yang dihasilkan;
+            </li>
+                melakukan pengelolaan limbah non B3 sesuai rincian pengelolaan yang termuat dalam dokumen UKL-UPL;
+            </li>
+            <li>
+                melaksanakan ketentuan pelaksanaan kegiatan sesuai dengan Standard Operating Procedure (SOP);
+            </li>
+            <li>
+                melakukan perbaikan secara terus-menerus terhadap kehandalan teknologi yang digunakan dalam rangka meminimalisasi dampak yang diakibatkan dari rencana kegiatan ini
+            </li>
+            <li>
+                melakukan sosialisasi kegiatan kepada pemerintah daerah, tokoh masyarakat, dan masyarakat setempat sebelum kegiatan pengembangan dilakukan;
+            </li>
+            <li>
+                mendokumentasikan seluruh kegiatan pengelolaan lingkungan yang dilakukan terkait dengan kegiatan tersebut;
+            </li>
+            <li>
+                menyiapkan dana penjaminan untuk pemulihan fungsi Lingkungan Hidup sesuai dengan ketentuan peraturan perundang-undangan;
+            </li>
+            <li>
+                melakukan audit lingkungan pada tahapan pasca operasi untuk memastikan kewajiban telah dilaksanakan dalam rangka pengakhiran kewajiban pengelolaan dan pemantauan lingkungan hidup dan/atau kewajiban lain yang ditetapkan oleh Menteri, Gubernur, Bupati/Wali Kota sesuai dengan kewenangannya berdasarkan kepentingan perlindungan dan pengelolaan lingkungan hidup;
+            </li>
+            <li>
+                Menyusun laporan pelaksanaan kewajiban sebagaimana dimaksud pada angka 1 (satu) sampai dengan angka 9 (sembilan), paling sedikit 1 (satu) kali setiap 6 (enam) bulan selama Kegiatan '. $pkplh->nama_usaha_baru .' oleh '. $pkplh->pelaku_usaha_baru .' berlangsung dan menyampaikan kepada:
+                <ol type="a">
+                    <li>
+                        Menteri Lingkungan Hidup dan Kehutanan Republik Indonesia melalui Direktorat Jenderal Penegakan Hukum Lingkungan Hidup dan Kehutanan;
+                    </li> 
+                        ' . $loopprov2 .
+                            $loopkk2 .
+                '</ol>
+                    dengan tembusan kepada kepala instansi yang membidangi selain huruf a sampai huruf '. strtolower(num2alpha($abjad)) .' di atas, sebagaimana tercantum dalam kolom institusi pengelolaan lingkungan hidup atau institusi pemantauan lingkungan hidup.
+            </li>
+        </ol>
     </td>
     </tr>
     <tr>
     <td width="30%">
-*       KELIMA
+        KELIMA
     </td>
-    <td width="5%"> :</td>
-    <td width="65%">
+    <td width="2%"> :</td>
+    <td width="68%">
         Apabila dalam pelaksanaan usaha dan/atau kegiatan timbul dampak lingkungan hidup di luar dari dampak yang dikelola sebagaimana dimaksud dalam Lampiran Keputusan ini, Penanggung jawab Usaha dan/atau Kegiatan wajib melaporkan kepada instansi sebagaimana dimaksud dalam Diktum KEEMPAT angka 14 paling lama 30 (tiga puluh) hari kerja sejak diketahuinya timbulan dampak lingkungan hidup di luar dampak yang wajib dikelola.
     </td>
     </tr>
     <tr>
     <td width="30%">
-*       KEENAM
+        KEENAM
     </td>
-    <td width="5%"> :</td>
-    <td width="65%">
+    <td width="2%"> :</td>
+    <td width="68%">
         Dalam pelaksanaan Keputusan ini, Menteri menugaskan Pejabat Pengawas Lingkungan Hidup (PPLH) untuk melakukan pengawasan.
     </td>
     </tr>
     <tr>
     <td width="30%">
-*       KETUJUH
+        KETUJUH
     </td>
-    <td width="5%"> :</td>
-    <td width="65%">
+    <td width="2%"> :</td>
+    <td width="68%">
         Pengawasan sebagaimana dimaksud dalam Diktum KEENAM dilaksanakan sesuai dengan ketentuan peraturan perundang-undangan paling sedikit 2 (dua) kali dalam 1 (satu) tahun.
     </td>
     </tr>
     <tr>
     <td width="30%">
-*       KEDELAPAN
+        KEDELAPAN
     </td>
-    <td width="5%"> :</td>
-    <td width="65%">
+    <td width="2%"> :</td>
+    <td width="68%">
         Dalam hal berdasarkan hasil pengawasan sebagaimana dimaksud dalam Diktum KETUJUH ditemukan pelanggaran, Penanggung jawab Usaha dan/atau Kegiatan dikenakan sanksi sesuai dengan ketentuan peraturan perundang-undangan.
     </td>
     </tr>';
 
     $body .= '<tr>
     <td width="30%">
-*       KESEMBILAN
+        KESEMBILAN
     </td>
-    <td width="5%"> :</td>
-    <td width="65%">Penanggung jawab Usaha dan/atau Kegiatan wajib mengajukan 
+    <td width="2%"> :</td>
+    <td width="68%">Penanggung jawab Usaha dan/atau Kegiatan wajib mengajukan 
         permohonan perubahan Persetujuan Lingkungan apabila terjadi perubahan atas rencana usaha dan/atau kegiatannya dan/atau oleh sebab lain sesuai dengan kriteria perubahan yang tercantum dalam Pasal 89 Peraturan Pemerintah Nomor 22 Tahun 2021 tentang Penyelenggaraan Perlindungan dan Pengelolaan Lingkungan Hidup.
     </td>
     </tr>
     <tr>
     <td width="30%">
-*       KESEPULUH
+        KESEPULUH
     </td>
-    <td width="5%"> :</td>
-    <td width="65%">Persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan 
+    <td width="2%"> :</td>
+    <td width="68%">Persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan 
         Hidup ini merupakan Persetujuan Lingkungan dan prasyarat penerbitan Perizinan Berusaha atau Persetujuan Pemerintah.
     </td>
     </tr>
     <tr>
     <td width="30%">
-*       KESEBELAS
+        KESEBELAS
     </td>
-    <td width="5%"> :</td>
-    <td width="65%">
+    <td width="2%"> :</td>
+    <td width="68%">
         Dengan ditetapkannya keputusan ini, maka
         <ol>' . $il_dkk . '</ol>
         dinyatakan tetap berlaku sepanjang tidak diubah dan merupakan bagian yang tidak terpisahkan dari Keputusan ini.
@@ -594,10 +935,10 @@ class PkplhController extends Controller
     </tr>
     <tr>
     <td width="30%">
-*       KEDUA BELAS
+        KEDUA BELAS
     </td>
-    <td width="5%"> :</td>
-    <td width="65%">
+    <td width="2%"> :</td>
+    <td width="68%">
         Keputusan ini mulai berlaku pada tanggal ditetapkan dan berakhir bersamaan dengan berakhirnya Perizinan Berusaha atau Persetujuan Pemerintah.
     </td>
     </tr>
@@ -648,146 +989,164 @@ class PkplhController extends Controller
         return \Response::make($body, 200, $headers);
     }
 
-    public function download_pertek($id)
-		{
-            $pkplh = Pkplh::find($id);
-			$il_pkplh = il_pkplh::where('id_pkplh', $id)->get();
+    public function download_pertek(Request $request ,$id)
+	{
+		$pkplh = Pkplh::find($id);
+		$pertek = Pertek_pkplh::where('id_pkplh', $id)->get();
 
-			$headers = array(
-				"Content-type" => "text/html",
+		$data = array();
+		foreach ($pertek as $row) {
+			$data[] = $row->pertek;
+		}
 
-				"Content-Disposition" => "attachment; Filename=pertek_$pkplh->pelaku_usaha_baru.doc"
-			);
+		if ($request->pertek == "pertek1") {
+			$isi = "Persetujuan Teknis Pemenuhan Baku Mutu Air Limbah";
+			$index = array_search('pertek1', $data);
+			$roman = 2 + $index;
+		}
+		if ($request->pertek == "pertek2") {
+			$isi = "Persetujuan Teknis Pemenuhan Baku Mutu Emisi";
+			$index = array_search('pertek2', $data);
+			$roman = 2 + $index;
+		}
+		if ($request->pertek == "pertek3") {
+			$isi = "Persetujuan Teknis Di Bidang Pengelolaan Limbah B3";
+			$index = array_search('pertek3', $data);
+			$roman = 2 + $index;
+		}
+		if ($request->pertek == "pertek4") {
+			$isi = "Persetujuan Teknis Andalalin";
+			$index = array_search('pertek4', $data);
+			$roman = 2 + $index;
+		}
+		if ($request->pertek == "pertek5") {
+			$isi = "Persetujuan Teknis Dokumen Rincian Teknis";
+			$index = array_search('pertek5', $data);
+			$roman = 2 + $index;
+		}
 
-			$body = '
-			<style>
-				body {
-					font-family:"Bookman Old Style,serif";
-				}
-			</style>';
-			$body .='
-				<table>
-					<tr>
-						<td>
-							LAMPIRAN ...<br>
-							KEPUTUSAN MENTRI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
-							NOMOR <br>
-							TENTANG<br>
-                            PERSETUJUAN PERNYATAAN KESANGGUPAN  PENGELOLAAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($pkplh->nama_usaha_baru).' 
-							OLEH '. strtoupper($pkplh->pelaku_usaha_baru).'
-						</td>
-                    </tr>
-						<br><br><br>
-                    <tr>
-                        <td>
-                            ..... UNTUK '.strtoupper($pkplh->judul_pertek).'
-						</td>
-					</tr>
-                        <br><br>
-                    <tr>
-                        <td>
-                            Berdasarkan Surat '.ucfirst($pkplh->surat_pertek).'
-                            Nomor: '.strtoupper($pkplh->nomor_pertek).'
-                            tanggal '.strtoupper($pkplh->tgl_pertek).'
-                            tentang '.ucfirst($pkplh->perihal_pertek).';
-                        </td>
-                    </tr>';
-			$body .='
-				</table>';
-			$body .-'
-            <table width="100%">
-                <tr>
-                    <td width="50%">&nbsp;</td>
-                    <td width="50%">
-                        <table>
-                            <tr>
-                                <td>Ditetapkan di Jakarta</td>
-                            </tr>       
-                            <tr>
-                                <td>pada tanggal</td>
-                            </tr>       
-                            <tr>
-                                <td colspan="2">a.n. MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA<br>
-                                PLT. DIREKTORAT JENDRAL PLANOLOGI<br>
-                                KEHUTANAN DAN TATA LINGKUNGAN,
-                                <br><br><br><br><br><br>
-                                RUANDHA AGUNG SUGARDIMAN<br>
-                                NIP 19620301 198802 1 001
-                                </td>
-                            </tr>       
-                        </table>
-                    </td>
-                </tr>';
-			$body .='
-				</table>';
+		$headers = array(
+			"Content-type" => "text/html",
 
-				return \Response::make($body, 200, $headers);
-		} 
+			"Content-Disposition" => "attachment; Filename=Pertek_$pkplh->pelaku_usaha_baru.doc"
+		);
 
-        public function download_rintek($id)
-		{
-			$skkl = Skkl::find($id);
-			$il_skkl = il_skkl::where('id_skkl', $id)->get();
-
-			$headers = array(
-				"Content-type" => "text/html",
-
-				"Content-Disposition" => "attachment; Filename=Rintek_$skkl->pelaku_usaha_baru.doc"
-			);
-
-			$body = '
-			<style>
-				body {
-					font-family:"Bookman Old Style,serif";
-				}
-			</style>';
-			$body .='
-				<table>
-					<tr>
-						<td>
-							LAMPIRAN ... <br>
-							KEPUTUSAN MENTRI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
-							NOMOR <br>
-							TENTANG <br>
-                            PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($skkl->nama_usaha_baru).' 
-							OLEH '. strtoupper($skkl->pelaku_usaha_baru).'
-						</td>
-                    </tr>
-						<br><br><br>
-                    <tr>
-                        <td>
-                          <b>RINCIAN TEKNIS PENYIMPANAN LIMBAH B3</b>
-						</td>
-					</tr>
-                        <br><br>
-                    <tr>
-                        <td>
-                            <i>(silahkan copy isi Rincian dari file Doc yang di upload Pemrakarsa)</i>
-                        </td>
-                    </tr>';
-			$body .='
-				</table>';
-			$body .-'
-				<table>
+		$body = '
+		<style>
+			body {
+				font-family:"Bookman Old Style,serif";
+			}
+		</style>';
+		$body .='
+			<table>
 				<tr>
-					<td width="50%">&nbsp;</td>
-					<td width="50%">
-						<table>       
-                            <tr>
-                                <td colspan="2">a.n. MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA<br>
-                                    PLT. DIREKTORAT JENDRAL PLANOLOGI<br>
-                                    KEHUTANAN DAN TATA LINGKUNGAN,
-                                <br><br><br><br><br><br>
-                                    RUANDHA AGUNG SUGARDIMAN<br>
-                                    NIP 19620301 198802 1 001
-                                </td>
-                            </tr>       
-						</table>
+					<td>
+						LAMPIRAN '. integerToRoman($roman) .' <br>
+						KEPUTUSAN MENTRI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
+						NOMOR <br>
+						TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($pkplh->nama_usaha_baru).' 
+						OLEH '. strtoupper($pkplh->pelaku_usaha_baru).'
+					</td>
+				</tr>
+					<br><br><br>
+				<tr>
+					<td>
+						'. strtoupper($isi) .' UNTUK '.strtoupper($pertek[$index]->judul_pertek).'
+					</td>
+				</tr>
+					<br><br>
+				<tr>
+					<td>
+						Berdasarkan Surat '.ucfirst($pertek[$index]->surat_pertek).'
+						Nomor: '.strtoupper($pertek[$index]->nomor_pertek).'
+						tanggal '. tgl_indo($pertek[$index]->tgl_pertek).'
+						tentang '.ucfirst($pertek[$index]->perihal_pertek).';
 					</td>
 				</tr>';
-			$body .='
-				</table>';
+		$body .='
+			</table>';
+		$body .='
+			<table>
+			<tr>
+				<td width="50%">&nbsp;</td>
+				<td width="50%">
+					<table>       
+						<tr>
+							<td colspan="2">MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA,
+							<br><br><br><br><br><br>
+							SITI NURBAYA
+							</td>
+						</tr>       
+					</table>
+				</td>
+			</tr>';
+		$body .='
+			</table>';
 
-				return \Response::make($body, 200, $headers);
-		}
+			return \Response::make($body, 200, $headers);
+	}
+
+	public function download_rintek($id)
+	{
+		$pkplh = Pkplh::find($id);
+        $pertek = Pertek_pkplh::where('id_pkplh', $id)->get();
+        $roman = 2 + count($pertek);
+
+		$headers = array(
+			"Content-type" => "text/html",
+
+			"Content-Disposition" => "attachment; Filename=Rintek_$pkplh->pelaku_usaha_baru.doc"
+		);
+
+		$body = '
+		<style>
+			body {
+				font-family:"Bookman Old Style,serif";
+			}
+		</style>';
+		$body .='
+			<table>
+				<tr>
+					<td>
+						LAMPIRAN ' . integerToRoman($roman) .' <br>
+						KEPUTUSAN MENTRI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
+						NOMOR <br>
+						TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($pkplh->nama_usaha_baru).' 
+						OLEH '. strtoupper($pkplh->pelaku_usaha_baru).'
+					</td>
+				</tr>
+					<br><br><br>
+				<tr>
+					<td>
+						<b>RINCIAN TEKNIS PENYIMPANAN LIMBAH B3</b>
+					</td>
+				</tr>
+					<br><br>
+				<tr>
+					<td>
+						
+					</td>
+				</tr>';
+		$body .='
+			</table>';
+		$body .='
+			<table>
+			<tr>
+				<td width="50%">&nbsp;</td>
+				<td width="50%">
+					<table>       
+						<tr>
+							<td colspan="2">MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA,
+							<br><br><br><br><br><br>
+							SITI NURBAYA
+							</td>
+						</tr>       
+					</table>
+				</td>
+			</tr>';
+		$body .='
+			</table>';
+
+			return \Response::make($body, 200, $headers);
+	}
 }

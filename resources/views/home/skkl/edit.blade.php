@@ -296,6 +296,21 @@
                         </select>
                     </div>
                 </div>
+
+                <div class="form-group row">
+                    <label for="pic_pemohon" class="col-sm-2 col-form-label">Nama PIC</label>
+                    <div class="col-sm-8">
+                        <input type="text" style="width: 100%" class="form-control" id="pic_pemohon" name="pic_pemohon" value="{{ $skkl->pic_pemohon }}" placeholder="Nama Lengkap PIC" required>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="no_hp_pic" class="col-sm-2 col-form-label">Nomor PIC yang bisa dihubungi</label>
+                    <div class="col-sm-8">
+                        <input type="text" style="width: 100%" class="form-control" id="no_hp_pic" name="no_hp_pic" value="{{ $skkl->no_hp_pic }}" placeholder="Nomor Telepon PIC" required>
+                    </div>
+                </div>
+
             </div>
 
             <hr>
@@ -826,7 +841,7 @@
                             <label class="custom-file-label" for="rintek_upload">Choose file</label>
                         </div>
                     </div>
-                    <hr>
+                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 5 mb </small>
                 </div>
 
                 <div class="custom-control custom-checkbox">
@@ -835,7 +850,7 @@
                 </div>
 
                 <div class="mb-3" id="rintek_limbah" @if ($pertek6 == 0) style="display: none" @endif>
-                    <div class="input-group mb-3">
+                    <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="rintek_limbah_upload">Upload dokumen yang diperlukan</span>
                         </div>
@@ -844,7 +859,7 @@
                             <label class="custom-file-label" for="rintek_limbah_upload">Choose file</label>
                         </div>
                     </div>
-                    <hr>
+                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 5 mb </small>
                 </div>
                 <hr>
             </div>

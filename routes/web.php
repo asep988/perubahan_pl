@@ -61,6 +61,11 @@ Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {
     Route::get('/Pemrakarsa/rpl/ubah/{id}', 'RplController@ubah')->name('rpl.ubah');
     Route::post('/Pemrakarsa/rpl/update/{id}', 'RplController@update')->name('rpl.update');
     Route::post('/Pemrakarsa/rpl', 'RplController@store_rpl')->name('rpl.store_rpl');
+
+    //lampiran
+    Route::get('/pemrakarsa/lampiran/satu/{id}', 'SkklController@download_lampiranI')->name('pemrakarsa.download.lampiran1');
+    Route::get('/pemrakarsa/pertek/{id}', 'SkklController@download_pertek')->name('pemrakarsa.download.pertek');
+    Route::get('/pemrakarsa/rintek/{id}', 'SkklController@download_rintek')->name('pemrakarsa.download.rintek');
 });
 
 Route::group(['middleware' => ['auth', 'cekRole:Operator']], function() {
@@ -68,6 +73,7 @@ Route::group(['middleware' => ['auth', 'cekRole:Operator']], function() {
     Route::get('/Operator/search', 'OperatorController@search')->name('operator.search');
     Route::put('/Operator/skkl/periksa/{id}', 'OperatorController@periksa')->name('operator.skkl.periksa');
     Route::put('/Operator/skkl/rpd/{id}', 'OperatorController@rpd_skkl')->name('operator.skkl.rpd');
+    Route::put('/Operator/pkplh/rpd/{id}', 'OperatorController@rpd_pkplh')->name('operator.pkplh.rpd');
     Route::get('/Operator/download/{id}', 'OperatorController@download')->name('operator.download');
     Route::get('/Operator/preview/{id}', 'OperatorController@preview')->name('operator.preview');
     Route::put('/Operator/upload_file', 'OperatorController@upload_file')->name('operator.upload_file');
@@ -78,7 +84,7 @@ Route::group(['middleware' => ['auth', 'cekRole:Operator']], function() {
     Route::put('/Operator/pkplh/upload_file', 'PkplhController@uploadFile')->name('operator.pkplh.upload');
     Route::get('/Operator/pkplh/file/delete/{id}', 'PkplhController@destroyFile')->name('operator.pkplh.destroy');
     Route::get('/Operator/pkplh/download/{id}', 'PkplhController@download')->name('operator.pkplh.download');
-
+    
     //Print doc RKL RPL
     Route::get('/Operator/printrkl/download/{id}', 'PrintRklController@download')->name('printrkl.download');
     Route::get('/Operator/printrpl/download/{id}', 'PrintRplController@download')->name('printrpl.download');
@@ -88,13 +94,17 @@ Route::group(['middleware' => ['auth', 'cekRole:Operator']], function() {
     Route::get('/Operator/lampiran/satu/{id}', 'SkklController@download_lampiranI')->name('operator.download.lampiran1');
     Route::get('/Operator/pertek/{id}', 'SkklController@download_pertek')->name('operator.download.pertek');
     Route::get('/Operator/rintek/{id}', 'SkklController@download_rintek')->name('operator.download.rintek');
+    Route::get('/Operator/pkplh/pertek/{id}', 'PkplhController@download_pertek')->name('operator.pkplh.pertek');
+    Route::get('/Operator/pkplh/rintek/{id}', 'PkplhController@download_rintek')->name('operator.pkplh.rintek');
 });
 
 Route::group(['middleware' => ['auth', 'cekRole:Sekretariat']], function() {
-    Route::get('/Sekretariat', 'SekretariatController@index')->name('sekre.penugasan.index');
-    Route::put('/Sekretariat/penugasan/update/{id}', 'SekretariatController@assign')->name('sekre.penugasan.update');
+    Route::get('/Sekretariat', 'SekretariatController@index')->name('sekre.skkl.index');
+    Route::put('/Sekretariat/penugasan/update', 'SekretariatController@assign')->name('sekre.skkl.update');
+    Route::get('/Sekretariat/skkl/reject/{id}', 'SekretariatController@skklReject')->name('sekre.skkl.reject');
     Route::get('/Sekretariat/pkplh', 'SekretariatController@pkplhIndex')->name('sekre.pkplh.index');
-    Route::put('/Sekretariat/pkplh/update/{id}', 'SekretariatController@pkplhAssign')->name('sekre.pkplh.update');
+    Route::put('/Sekretariat/pkplh/update', 'SekretariatController@pkplhAssign')->name('sekre.pkplh.update');
+    Route::get('/Sekretariat/pkplh/reject/{id}', 'SekretariatController@pkplhReject')->name('sekre.pkplh.reject');
 });
 
 Route::group(['middleware' => ['auth']], function() {

@@ -45,51 +45,77 @@
             {{ session('message') }}
         </div>
     @endif
-    <table id="datatable" class="table table-bordered table-striped" style="table-layout: fixed;">
-        <thead>
-            <tr class="text-center">
-                <th width="70px">No</th>
-                <th>Nama Usaha/Kegiatan</th>
-                <th>Perihal Perubahan PL</th>
-                <th>NIB</th>
-                <th>Nama PJM</th>
-                <th width="120px">Penugasan</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($data_skkl as $skkl)
-            <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $skkl->nama_usaha_baru }}</td>
-                <td>{{ $skkl->perihal }}</td>
-                <td>{{ $skkl->nib }}</td>
-                <td>
-                    @if ($skkl->nama_operator != null)
-                        {{ $skkl->nama_operator }}
-                    @else
-                        -
-                    @endif
-                </td>
-                <td>
-                    <form action="{{ route('sekre.penugasan.update', $skkl->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')    
-                        <select class="operator-list" style="width: 100%" name="operator_name">
-                            <option value="-">Pilih</option>
-                            @foreach ($operators as $operator)
-                                <option value="{{ $operator->name }}">{{ $operator->name }}</option>
-                            @endforeach
-                        </select>
-                        <button type="submit" class="btn btn-sm btn-success btn-block" @if ($skkl->status != "Belum") disabled @endif>Tugaskan</button>
-                    </form>
-                    {{-- <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="{{ '#aksiModal'.$skkl->id }}">
-                        Tugaskan
-                    </button> --}}
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <form action="{{ route('sekre.skkl.update') }}" method="POST">
+        @csrf
+        @method('PUT')    
+        <table id="datatable" class="table table-bordered table-striped" style="table-layout: fixed;">
+            <thead>
+                <tr class="text-center">
+                    <th width="70px">No</th>
+                    <th>Nama Usaha/Kegiatan</th>
+                    <th>Perihal Perubahan PL</th>
+                    <th>NIB</th>
+                    <th>Nama PJM</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                    <th width="120px">Penugasan</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($data_skkl as $skkl)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $skkl->nama_usaha_baru }}</td>
+                        <td>{{ $skkl->perihal }}</td>
+                        <td>{{ $skkl->nib_baru }}</td>
+                        <td>
+                            @if ($skkl->nama_operator != null)
+                                {{ $skkl->nama_operator }}
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td>
+                            @if ($skkl->status == "Belum")
+                                <span class="badge badge-secondary">Belum diproses</span>
+                            @elseif ($skkl->status == "Proses")
+                                <span class="badge badge-warning">Proses Validasi</span>
+                            @elseif ($skkl->status == "Draft")
+                                <span class="badge badge-primary">Selesai Drafting</span>
+                            @elseif ($skkl->status == "Final")
+                                <span class="badge badge-success">Selesai</span>
+                            @else
+                                <span class="badge badge-danger">Ditolak</span>
+                            @endif
+                        </td>
+                        <td>
+                            <a href="{{ route('sekre.skkl.reject', $skkl->id) }}" class="btn btn-sm btn-danger @if ($skkl->status == 'Ditolak') disabled @endif" onclick="return confirm('Yakin ingin menolak pengajuan ini?')">Tolak</a>
+                        </td>
+                        <td>
+                            <select class="operator-list" style="width: 100%" name="operator_name[]">
+                                <option value="-">Pilih</option>
+                                @foreach ($operators as $operator)
+                                    <option value="{{ $operator->name }}">{{ $operator->name }}</option>
+                                @endforeach
+                            </select>
+                            <input type="text" name="id[]" value="{{ $skkl->id }}" hidden>
+                            {{-- <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="{{ '#aksiModal'.$skkl->id }}">
+                                Tugaskan
+                            </button> --}}
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="7"></th>
+                    <th>
+                        <button type="submit" class="btn btn-sm btn-success btn-block">Tugaskan</button>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
 </div>
 
 <!-- Modal -->
@@ -104,7 +130,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('sekre.penugasan.update', $skkl->id) }}" method="POST">
+                <form action="{{ route('sekre.skkl.update', $skkl->id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
@@ -126,7 +152,6 @@
 @endsection
 
 @push('scripts')
-
 <script>
     $(document).ready(function() {
         // $('#operator_name').select2({
@@ -139,15 +164,6 @@
                 [5,10,25,50,-1],
                 [5,10,25,50,'All']
             ],
-            responsive: true,
-            "columns": [
-                { "width": "1%" },
-                null,
-                null,
-                null,
-                null,
-                { "width": "25%" }
-            ]
         });
     });
 </script>

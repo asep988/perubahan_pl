@@ -62,55 +62,44 @@
         <form action="{{ route('pkplh.update', $pkplh->id) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <h5><b>Perubahan Data Penanggung Jawab Usaha atau Kegiatan</b></h5>
-            <table border="1" width="100%">
+            <h5><b>Perubahan Penanggung Jawab Usaha atau Kegiatan</b></h5>
+
+            <div class="btn-group btn-group-toggle mb-3 btn-block" data-toggle="buttons">
+                <label class="btn btn-success">
+                  <input type="radio" name="jenis_perubahan" id="jenis_perubahan1" value="perkep1" @if ($pkplh->jenis_perubahan == "perkep1") checked @endif> Perubahan Kepemilikkan
+                </label>
+                <label class="btn btn-success">
+                  <input type="radio" name="jenis_perubahan" id="jenis_perubahan2" value="perkep2" @if ($pkplh->jenis_perubahan == "perkep2") checked @endif> Perubahan Kepemilikkan dan Integrasi Pertek/Rintek
+                </label>
+                <label class="btn btn-success">
+                  <input type="radio" name="jenis_perubahan" id="jenis_perubahan3" value="perkep3" @if ($pkplh->jenis_perubahan == "perkep3") checked @endif> Integrasi Pertek/Rintek
+                </label>
+            </div>
+
+            <table border="1" width="100%" class="mb-3">
                 <tr>
                     <!-- dari -->
-                    <td style="padding: 20px;">
-                        <div class="user-detail">
+                    <td style="padding: 20px;" class="align-top" id="dari" @if ($pkplh->jenis_perubahan == "pertek3") style="display: none;" @endif>
+                        <div class="">
                             <span>Dari :</span>
                             <div class="input-box">
                                 <br>
                                 <label for="pelaku_usaha" class="form-label">Nama Pelaku Usaha/Kegiatan</label>
                                 <div>
-                                    <input type="text" class="form-control" name="pelaku_usaha" value="{{ $pkplh->pelaku_usaha }}" required>
-                                </div>
-                            </div>
-                            <div class="input-box">
-                                <label for="nama_usaha" class="form-label">Nama Usaha/Kegiatan</label>
-                                <div>
-                                    <input type="text" class="form-control" name="nama_usaha" value="{{ $pkplh->nama_usaha }}" required>
-                                </div>
-                            </div>
-                            <div class="input-box">
-                                <label for="jenis_usaha" class="form-label">Jenis Usaha/Kegiatan</label>
-                                <div>
-                                    <input type="text" class="form-control" name="jenis_usaha" value="{{ $pkplh->jenis_usaha }}" required>
+                                    <input type="text" class="form-control" name="pelaku_usaha" value="{{ $initiator[0]->name }}">
                                 </div>
                             </div>
                             <div class="input-box">
                                 <label for="penanggung" class="form-label">Penanggung Jawab Usaha/Kegiatan</label>
-                                <input type="text" class="form-control" name="penanggung" value="{{ $pkplh->penanggung }}" required>
-                            </div>
-                            <div class="input-box">
-                                <label for="nib" class="form-label">NIB</label>
-                                <input type="text" class="form-control" name="nib" value="{{ $pkplh->nib }}" required>
-                            </div>
-                            <div class="input-box">
-                                <label for="knli" class="form-label">KBLI</label>
-                                <input type="text" class="form-control" name="kbli" value="{{ $pkplh->kbli }}" required>
+                                <input type="text" class="form-control" name="penanggung" value="{{ $initiator[0]->pic }}">
                             </div>
                             <div class="input-box">
                                 <label for="jabatan" class="form-label">Jabatan</label>
-                                <input type="text" class="form-control" name="jabatan" value="{{ $pkplh->jabatan }}" required>
+                                <input type="text" class="form-control" name="jabatan" value="{{ $initiator[0]->pic_role }}">
                             </div>
                             <div class="input-box">
                                 <label for="alamat" class="form-label">Alamat Kantor/Kegiatan</label>
-                                <input type="text" class="form-control" name="alamat" value="{{ $pkplh->alamat }}" required>
-                            </div>
-                            <div class="input-box">
-                                <label for="lokasi" class="form-label">Lokasi Usaha/Kegiatan</label>
-                                <input type="text" class="form-control" name="lokasi" value="{{ $pkplh->lokasi }}" required>
+                                <textarea class="form-control" id="alamat" name="alamat" rows="3">{{ $initiator[0]->address }}</textarea>
                             </div>
                         </div>
                     </td>
@@ -122,19 +111,13 @@
                                 <br>
                                 <label for="pelaku_usaha_baru" class="form-label">Nama Pelaku Usaha/Kegiatan</label>
                                 <div>
-                                    <input type="text" class="form-control" name="pelaku_usaha_baru" value="{{ $pkplh->pelaku_usaha_baru }}" required>
+                                    <input type="text" class="form-control" name="pelaku_usaha_baru" value="{{ $pkplh->pelaku_usaha_baru }}"required>
                                 </div>
                             </div>
                             <div class="input-box">
                                 <label for="nama_usaha_baru" class="form-label">Nama Usaha/Kegiatan</label>
                                 <div>
-                                    <input type="text" class="form-control" name="nama_usaha_baru" value="{{ $pkplh->nama_usaha_baru }}" required>
-                                </div>
-                            </div>
-                            <div class="input-box">
-                                <label for="jenis_usaha_baru" class="form-label">Jenis Usaha/Kegiatan</label>
-                                <div>
-                                    <input type="text" class="form-control" name="jenis_usaha_baru" value="{{ $pkplh->jenis_usaha_baru }}" required>
+                                    <textarea class="form-control" id="nama_usaha_baru" name="nama_usaha_baru" rows="3" placeholder="Tuliskan judul nama usaha/kegiatan lengkap beserta alamat lokasi kegiatannya" required>{{ $pkplh->nama_usaha_baru }}</textarea>
                                 </div>
                             </div>
                             <div class="input-box">
@@ -146,165 +129,725 @@
                                 <input type="text" class="form-control" name="nib_baru" value="{{ $pkplh->nib_baru }}" required>
                             </div>
                             <div class="input-box">
-                                <label for="knli_baru" class="form-label">KBLI</label>
-                                <input type="text" class="form-control" name="kbli_baru" value="{{ $pkplh->kbli_baru }}" required>
-                            </div>
-                            <div class="input-box">
                                 <label for="jabatan_baru" class="form-label">Jabatan</label>
                                 <input type="text" class="form-control" name="jabatan_baru" value="{{ $pkplh->jabatan_baru }}" required>
                             </div>
                             <div class="input-box">
                                 <label for="alamat_baru" class="form-label">Alamat Kantor/Kegiatan</label>
-                                <input type="text" class="form-control" name="alamat_baru" value="{{ $pkplh->alamat_baru }}" required>
+                                <textarea class="form-control" id="alamat_baru" name="alamat_baru" rows="3" required>{{ $pkplh->alamat_baru }}</textarea>
                             </div>
                             <div class="input-box">
                                 <label for="lokasi_baru" class="form-label">Lokasi Usaha/Kegiatan</label>
-                                <input type="text" class="form-control" name="lokasi_baru" value="{{ $pkplh->lokasi_baru }}" required>
+                                <textarea class="form-control" id="lokasi_baru" name="lokasi_baru" rows="3" required>{{ $pkplh->lokasi_baru }}</textarea>
                             </div>
                         </div>
                     </td>
                 </tr>
             </table>
-            <br>
-            <div class="form-group row">
-                <label for="kabupaten_kota" class="col-sm-2 col-form-label">Kabupaten/Kota</label>
-                <div class="col-sm-8">
-                    <select class="form-control js-kabkota-multiple" multiple="multiple" style="width: 100%" style="width: 85%" name="kabupaten_kota[]" id="kabupaten_kota">
-                        <?php $true = 0;?>
-                        @foreach ($regencies as $regency)
-                            @foreach ($selected_kabupaten_kota as $selected_kab)
-                                @if ($regency->regency == $selected_kab)
-                                    <option value="{{ $regency->regency }}" selected>{{ $regency->regency }}</option>
-                                    <?php $true = $regency->regency ?>
+
+            <div class="mb-3"> <!-- Provinsi, Kabupaten & Kota, Bukti Perubahan -->
+                <div class="form-group row">
+                    <label for="nomor_pl" class="col-sm-2 col-form-label">Jenis Usaha/Kegiatan & KBLI</label>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <table border="1">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th>#</th>
+                                        <th>Jenis Usaha/Kegiatan</th>
+                                        <th>KBLI</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-kbli">
+                                    <?php $no = 1 ?>
+                                    @for ($i = 0; $i < count($pkplh->kbli_baru); $i++)
+                                        <tr id="{{ 'kbli-claster' . $no }}">
+                                            <td>{{ $no }}</td>
+                                            <td>
+                                                <input type="text" name="nama_kbli[]" class="form-control" value="{{ $pkplh->nama_kbli[$i] }}" placeholder="Ketik jenis usaha/kegiatan">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="nomor_kbli[]" class="form-control" value="{{ $pkplh->kbli_baru[$i] }}" placeholder="Ketik kode KBLI">
+                                            </td>
+                                        </tr>
+                                        <?php $no++ ?>
+                                    @endfor
+                                </tbody>
+                            </table>
+                            <div class="mt-1">
+                                <button type="button" id="remove" class="btn remove-kbli btn-sm btn-danger">
+                                    <i class="fas fa-minus fa-sm"></i>
+                                </button>
+                                <button type="button" id="add-kbli" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-plus fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="provinsi" class="col-sm-2 col-form-label">Provinsi</label>
+                    <div class="col-sm-8">
+                        <select class="js-provinsi-multiple" multiple="multiple" style="width: 100%" name="provinsi[]" id="provinsi" required>
+                            <?php $same = 0;?>
+                            @foreach ($provinces as $province)
+                                @foreach ($selected_provinces as $selected_province)
+                                    @if ($province->province == $selected_province)
+                                        <option value="{{ $province->province }}" selected>{{ $province->province }}</option>
+                                        <?php $same = $province->province?>
+                                    @endif
+                                @endforeach
+                                @if ($province->province != $same)
+                                    <option value="{{ $province->province }}">{{ $province->province }}</option>
                                 @endif
                             @endforeach
-                            @if ($regency->regency != $true)
-                                <option value="{{ $regency->regency }}">{{ $regency->regency }}</option>
-                            @endif
-                        @endforeach
-                    </select>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label for="provinsi" class="col-sm-2 col-form-label">Provinsi</label>
-                <div class="col-sm-8">
-                    <select class="js-provinsi-multiple" multiple="multiple" style="width: 100%" style="width: 85%" name="provinsi[]" id="provinsi">
-                        <?php $same = 0;?>
-                        @foreach ($provinces as $province)
-                            @foreach ($selected_provinces as $selected_province)
-                                @if ($province->province == $selected_province)
-                                    <option value="{{ $province->province }}" selected>{{ $province->province }}</option>
-                                    <?php $same = $province->province?>
+
+                <div class="form-group row">
+                    <label for="kabupaten_kota" class="col-sm-2 col-form-label">Kabupaten/Kota</label>
+                    <div class="col-sm-8">
+                        <select class="js-kabkota-multiple" multiple="multiple" style="width: 100%" name="kabupaten_kota[]" id="kabupaten_kota" required>
+                            <?php $true = 0;?>
+                            @foreach ($regencies as $regency)
+                                @foreach ($selected_kabupaten_kota as $selected_kab)
+                                    @if ($regency->regency == $selected_kab)
+                                        <option value="{{ $regency->regency }}" selected>{{ $regency->regency }}</option>
+                                        <?php $true = $regency->regency ?>
+                                    @endif
+                                @endforeach
+                                @if ($regency->regency != $true)
+                                    <option value="{{ $regency->regency }}">{{ $regency->regency }}</option>
                                 @endif
                             @endforeach
-                            @if ($province->province != $same)
-                                <option value="{{ $province->province }}">{{ $province->province }}</option>
-                            @endif
-                        @endforeach
-                    </select>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label for="link_drive" class="col-sm-2 col-form-label">Upload Lampiran Link Drive</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" id="link_drive" style="width: 100%" name="link_drive" value="{{ $pkplh->link_drive }}" placeholder="Pastikan Link Google Drive anda Bisa diakses Oleh Publik" required>
+                
+                <div class="form-group row">
+                    <label for="link_drive" class="col-sm-2 col-form-label">Upload Lampiran Bukti Perubahan</label>
+                    <div class="col-sm-8">
+                        <input type="text" style="width: 100%" class="form-control" id="link_drive" name="link_drive" placeholder="Link Google Drive" value="{{ $pkplh->link_drive }}" required>
+                        <small class="text-muted">Pastikan Link Google Drive anda Bisa diakses Oleh Publik</small>
+                    </div>
                 </div>
-            </div>
-            <br>
-            <label><b>Surat Permohonan Perubahan PL :</b></label>
-            <div class="form-group row">
-                <label for="nomor_pl" class="col-sm-1 col-form-label">Nomor</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" id="nomor_pl" name="nomor_pl" value="{{ $pkplh->nomor_pl }}" placeholder="Masukkan Nomor PL" required>
+
+                <div class="form-group row">
+                    <label for="region" class="col-sm-2 col-form-label">Region Lokasi Usaha/Kegiatan</label>
+                    <div class="col-sm-8">
+                        <select class="regional-multiple" multiple="multiple" style="width: 100%" name="region" id="region" required>
+                            <?php
+                                $region1 = 0;
+                                $region2 = 0;
+                                $region3 = 0;
+                                $region4 = 0;
+                                $region5 = 0;
+                                $region6 = 0;
+                                if (is_string($pkplh->region)) {
+                                    if ($pkplh->region == "Sumatera") {
+                                        $region1 = 1;
+                                    }
+                                    if ($pkplh->region == "Jawa") {
+                                        $region2 = 1;
+                                    }
+                                    if ($pkplh->region == "Kalimantan") {
+                                        $region3 = 1;
+                                    }
+                                    if ($pkplh->region == "Bali Nusa Tenggara") {
+                                        $region4 = 1;
+                                    }
+                                    if ($pkplh->region == "Sulawesi Maluku") {
+                                        $region5 = 1;
+                                    }
+                                    if ($pkplh->region == "Papua") {
+                                        $region6 = 1;
+                                    }
+                                } else {
+                                    foreach ($pkplh->region as $region) {
+                                        if ($region == "Sumatera") {
+                                            $region1 = 1;
+                                        }
+                                        if ($region == "Jawa") {
+                                            $region2 = 1;
+                                        }
+                                        if ($region == "Kalimantan") {
+                                            $region3 = 1;
+                                        }
+                                        if ($region == "Bali Nusa Tenggara") {
+                                            $region4 = 1;
+                                        }
+                                        if ($region == "Sulawesi Maluku") {
+                                            $region5 = 1;
+                                        }
+                                        if ($region == "Papua") {
+                                            $region6 = 1;
+                                        }
+                                    }    
+                                }
+                            ?>
+                            <option value="Sumatera" @if ($region1 == 1) selected @endif>Sumatera</option>
+                            <option value="Jawa" @if ($region2 == 1) selected @endif>Jawa</option>
+                            <option value="Kalimantan" @if ($region3 == 1) selected @endif>Kalimantan</option>
+                            <option value="Bali Nusa Tenggara" @if ($region4 == 1) selected @endif>Bali Nusa Tenggara</option>
+                            <option value="Sulawesi Maluku" @if ($region5 == 1) selected @endif>Sulawesi Maluku</option>
+                            <option value="Papua" @if ($region6 == 1) selected @endif>Papua</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label for="tgl_pl" class="col-sm-1 col-form-label">Tanggal</label>
-                <div class="col-sm-3">
-                    <input class="form-control" type="date" id="tgl_pl" name="tgl_pl" placeholder="yyyy/mm/dd" value="{{ $pkplh->tgl_pl }}" required>
+
+                <div class="form-group row">
+                    <label for="pic_pemohon" class="col-sm-2 col-form-label">Nama PIC</label>
+                    <div class="col-sm-8">
+                        <input type="text" style="width: 100%" class="form-control" id="pic_pemohon" name="pic_pemohon" value="{{ $pkplh->pic_pemohon }}" placeholder="Nama Lengkap PIC" required>
+                    </div>
                 </div>
+
+                <div class="form-group row">
+                    <label for="no_hp_pic" class="col-sm-2 col-form-label">Nomor PIC yang bisa dihubungi</label>
+                    <div class="col-sm-8">
+                        <input type="text" style="width: 100%" class="form-control" id="no_hp_pic" name="no_hp_pic" value="{{ $pkplh->no_hp_pic }}" placeholder="Nomor Telepon PIC" required>
+                    </div>
+                </div>
+
             </div>
-            <div class="form-group row">
-                <label for="perihal_surat" class="col-sm-1 col-form-label">Perihal</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" aria-label="perihal_surat" id="perihal_surat" name="perihal_surat" value="{{ $pkplh->perihal }}" required>
+
+            <hr>
+
+            <div class="mb-3"> <!-- Surat Permohonan Perubahan PL & Peraturan Pemerintah Daerah -->
+                <label><b>Surat Permohonan Perubahan PL :</b></label>
+
+                <div class="form-group row">
+                    <label for="nomor_pl" class="col-sm-2 col-form-label">Nomor</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="nomor_pl" name="nomor_pl" value="{{ $pkplh->nomor_pl }}" placeholder="Masukkan Nomor PL" required>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="tgl_pl" class="col-sm-2 col-form-label">Tanggal</label>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="date" id="tgl_pl" name="tgl_pl" {{ $pkplh->tgl_pl }} placeholder="yyyy/mm/dd">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="perihal_surat" class="col-sm-2 col-form-label">Perihal</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" aria-label="perihal_surat" id="perihal_surat" value="{{ $pkplh->perihal }}" name="perihal_surat">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="pejabat" class="col-sm-2 col-form-label">Pejabat yang menandatangani</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" aria-label="pejabat" id="pejabat" value="{{ $pkplh->pejabat_pl }}" name="pejabat_pl">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="nomor_validasi" class="col-sm-2 col-form-label">Nomor Bukti Validasi Administrasi PTSP</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" aria-label="nomor_validasi" id="nomor_validasi" value="{{ $pkplh->nomor_validasi }}" name="nomor_validasi">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="tgl_validasi" class="col-sm-2 col-form-label">Tanggal Validasi</label>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="date" id="tgl_validasi" name="tgl_validasi" value="{{ $pkplh->tgl_validasi }}" placeholder="yyyy/mm/dd">
+                    </div>
+                </div>
+
+                <div id="dasar_perubahan" @if ($pkplh->jenis_perubahan == "pertek3") style="display: none;" @endif>
+                    <hr>
+                    <span><b>Dasar Perubahan Kepemilikan</b></span><br>
+                    <label><b>Contoh : </b>
+                        <ol>
+                            <li>Jenis Dasar Perubahan : Surat/Akta Notaris/SK</li>
+                            <li>Pejabat Yang Mengesahkan : Gubernur Jawa Timur</li>
+                            <li>Nomor Surat: 40 Tahun 2021</li>
+                            <li>Perihal/Tentang : Penugasan Kepada PT Jatim Grha Utama sebagai Pengelola Pusat Pengelolaan Sampah dan Limbah Bahan Berbahaya dan Beracun Jawa Timur.</li>
+                        </ol>
+                    </label>
+
+                    <div class="form-group row">
+                        <table border="1" width="100%">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#</th>
+                                    <th>Jenis Dasar Perubahan</th>
+                                    <th>Pejabat yang mengesahkan</th>
+                                    <th>Nomor Surat</th>
+                                    <th>Perihal/Tentang</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-input1">
+                                <?php $no = 1 ?>
+                                @for ($i = 0; $i < count($pkplh->jenis_peraturan); $i++)
+                                    <tr id="{{ '1claster' . $no }}">
+                                        <td>{{ $no }}</td>
+                                        <td>
+                                            <input type="text" name="jenis_peraturan[]" class="form-control" value="{{ $pkplh->jenis_peraturan[$i] }}" placeholder="Surat/Akta Notaris/SK">
+                                        </td>
+                                        <td>
+                                            <input type="text" name="pejabat_daerah[]" value="{{ $pkplh->pejabat_daerah[$i] }}" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="text" name="nomor_peraturan[]" value="{{ $pkplh->nomor_peraturan[$i] }}" class="form-control">
+                                        </td>
+                                        <td>
+                                            <textarea class="form-control" name="perihal_peraturan[]" rows="2">{{ $pkplh->perihal_peraturan[$i] }}</textarea>
+                                        </td>
+                                    </tr>
+                                    <?php $no++ ?>
+                                @endfor
+                            </tbody>
+                        </table>
+                        <div class="mt-1">
+                            <button type="button" id="remove" class="btn remove-btn1 btn-sm btn-danger">
+                                <i class="fas fa-minus fa-sm"></i>
+                            </button>
+                            <button type="button" id="add1" class="btn btn-sm btn-primary">
+                                <i class="fas fa-plus fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <br>
-            <label><b>Sebutkan IL, pkplh, Persetujuan UKL-UPL, Persetujuan DELH, Persetujuan DPLH yang telah dimiliki</b></label>
-            <label><b>Contoh : </b><span>1). Surat/Keputusan/Ketetapan Kepala Dinas Pertambangan dan Lingkungan Hidup
-                    Kabupaten Sorong Nomor 660.1/113/2012 tanggal 16 Mei 2012 tentang UKL dan UPL
-                    Kegiatan Pemrduksian Sumur Walio Ext-1 (POP) di Blok Kepala Burung Kabupaten Sorong
-                    Provinsi Papua Barat.
-                </span></label>
-            <br>
-            <div class="form-group row">
-                <table border="1" width="100%">
-                    <thead>
-                        <tr class="text-center">
-                            <th>#</th>
-                            <th>Jenis Izin Persetujuan</th>
-                            <th>Pejabat yang mengesahkan</th>
-                            <th>Nomor SK</th>
-                            <th>Tanggal Surat</th>
-                            <th>Perihal/Tentang</th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-input">
-                        <?php $i = 1; ?>
-                        @foreach ($il_pkplh as $row)
-                            <tr id="{{ 'claster' . $i }}">
-                                <td>{{ $i }}</td>
-                                <td>
-                                    <input type="text" name="jenis_izin[]" class="form-control" value="{{ $row->jenis_sk }}" placeholder="Surat/Keputusan/Ketetapan">
-                                </td>
-                                <td>
-                                    <input type="text" name="pejabat[]" class="form-control" value="{{ $row->menerbitkan }}">
-                                </td>
-                                <td>
-                                    <input type="text" name="nomor_sk[]" class="form-control" value="{{ $row->nomor_surat }}">
-                                </td>
-                                <td>
-                                    <input type="date" name="tgl_surat[]" class="form-control" value="{{ $row->tgl_surat }}">
-                                </td>
-                                <td>
-                                    <input type="text" name="perihal[]" class="form-control" value="{{ $row->perihal_surat }}">
-                                </td>
+            <hr>
+
+            <div class="mb-3"> <!-- IL pkplh -->
+                <span><b>Sebutkan IL, pkplh, Persetujuan UKL-UPL, Persetujuan DELH, Persetujuan DPLH yang telah dimiliki</b></span><br>
+                <label><b>Contoh : </b>
+                    <ol>
+                        <li>Jenis Izin Persetujuan : Surat/Keputusan/Ketetapan</li>
+                        <li>Pejabat Yang Mengesahkan : Kepala Dinas Pertambangan dan Lingkungan Hidup Kabupaten Sorong</li>
+                        <li>Nomor SK : 660.1/113/2012</li>
+                        <li>Tanggal Surat : 16/05/2012</li>
+                        <li>Perihal/Tentang : UKL dan UPL Kegiatan Pemrduksian Sumur Walio Ext-1 (POP) di Blok Kepala Burung Kabupaten Sorong Provinsi Papua Barat.</li>
+                    </ol>
+                </label>
+                
+                <div class="form-group row">
+                    <table border="1" width="100%">
+                        <thead>
+                            <tr class="text-center">
+                                <th>#</th>
+                                <th>Jenis Izin Persetujuan</th>
+                                <th>Pejabat yang mengesahkan</th>
+                                <th>Nomor SK</th>
+                                <th>Tanggal Surat</th>
+                                <th>Perihal/Tentang</th>
                             </tr>
-                            <?php $i++; ?>
-                        @endforeach
-                    </tbody>
-                </table>
-                {{-- <div class="col-sm-8">
-                    <textarea class="form-control" id="mytextarea" aria-label="editor" name="il_dkk"></textarea>
-                </div> --}}
-                <div class="mt-1">
-                    <button type="button" id="remove" class="btn remove-btn btn-sm btn-danger">
-                        <i class="fas fa-minus fa-sm"></i>
-                    </button>
-                    <button type="button" id="add" class="btn btn-sm btn-primary">
-                        <i class="fas fa-plus fa-sm"></i>
-                    </button>
+                        </thead>
+                        <tbody class="table-input2">
+                            <?php $i = 1; ?>
+                            @foreach ($il_pkplh as $row)
+                                <tr id="{{ '2claster' . $i }}">
+                                    <td>{{ $i }}</td>
+                                    <td>
+                                        <input type="text" name="jenis_izin[]" class="form-control" value="{{ $row->jenis_sk }}" placeholder="Surat/Keputusan/Ketetapan">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="pejabat[]" value="{{ $row->menerbitkan }}" class="form-control">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="nomor_sk[]" value="{{ $row->nomor_surat }}" class="form-control">
+                                    </td>
+                                    <td>
+                                        <input type="date" name="tgl_surat[]" value="{{ $row->tgl_surat }}" class="form-control">
+                                    </td>
+                                    <td>
+                                        <textarea class="form-control" name="perihal[]" rows="2">{{ $row->perihal_surat }}</textarea>
+                                    </td>
+                                </tr>
+                                <?php $i++; ?>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <div class="mt-1">
+                        <button type="button" id="remove" class="btn remove-btn2 btn-sm btn-danger">
+                            <i class="fas fa-minus fa-sm"></i>
+                        </button>
+                        <button type="button" id="add2" class="btn btn-sm btn-primary">
+                            <i class="fas fa-plus fa-sm"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
-            
-            <br>
-            <label><b>Sebutkan Ruang Lingkup (sebutkan ruang lingkup usaha dan/kegiatan yang akan di muat di dalam SK).</b></label>
-            <br>
+
+            <hr>
+            <label><b>Sebutkan Ruang Lingkup (sebutkan ruang lingkup usaha dan/kegiatan yang akan di muat di dalam SK)</b></label>
             <div class="form-group row">
                 <div class="col-sm-8">
-                    <textarea class="form-control" id="mytextarea" aria-label="editor" name="ruang_lingkup">{!! htmlspecialchars($pkplh->ruang_lingkup) !!}</textarea>
+                    <textarea class="form-control" id="mytextarea" aria-label="editor" name="ruang_lingkup">{!! $pkplh->ruang_lingkup !!}</textarea>
                 </div>
             </div>
-            
+
+            <hr>
+
+            <div id="lampiran" @if ($pkplh->jenis_perubahan == "pertek1") style="display: none;" @endif> <!-- Lampiran Persetujuan Teknis -->
+                <label><b>Lampiran Persetujuan Teknis</b></label>
+                <?php 
+                    $pertek1 = 0;
+                    $pertek2 = 0;
+                    $pertek3 = 0;
+                    $pertek4 = 0;
+                    $pertek5 = 0;
+                    $pertek6 = 0;
+                    $surat_pertek1 = null;
+                    $surat_pertek2 = null;
+                    $surat_pertek3 = null;
+                    $surat_pertek4 = null;
+                    $surat_pertek5 = null;
+                    $nomor_pertek1 = null;
+                    $nomor_pertek2 = null;
+                    $nomor_pertek3 = null;
+                    $nomor_pertek4 = null;
+                    $nomor_pertek5 = null;
+                    $tgl_pertek1 = null;
+                    $tgl_pertek2 = null;
+                    $tgl_pertek3 = null;
+                    $tgl_pertek4 = null;
+                    $tgl_pertek5 = null;
+                    $perihal_pertek1 = null;
+                    $perihal_pertek2 = null;
+                    $perihal_pertek3 = null;
+                    $perihal_pertek4 = null;
+                    $perihal_pertek5 = null;
+                    $judul_pertek1 = null;
+                    $judul_pertek2 = null;
+                    $judul_pertek3 = null;
+                    $judul_pertek4 = null;
+                    $judul_pertek5 = null;
+                    if (is_string($pkplh->pertek)) {
+                        if ($pkplh->pertek == "pertek1") {
+                            $pertek1 = 1;
+                        }
+                        if ($pkplh->pertek == "pertek2") {
+                            $pertek2 = 1;
+                        }
+                        if ($pkplh->pertek == "pertek3") {
+                            $pertek3 = 1;
+                        }
+                        if ($pkplh->pertek == "pertek4") {
+                            $pertek4 = 1;
+                        }
+                        if ($pkplh->pertek == "pertek5") {
+                            $pertek5 = 1;
+                        }
+                        if ($pkplh->pertek == "pertek6") {
+                            $pertek6 = 1;
+                        }
+                    } else {
+                        foreach ($pkplh->pertek as $pertek) {
+                            if ($pertek == "pertek1") {
+                                $pertek1 = 1;
+                                $index = array_search('pertek1', $pkplh->pertek);
+                                $judul_pertek1 = $pertek_pkplh[$index]->judul_pertek;
+                                $surat_pertek1 = $pertek_pkplh[$index]->surat_pertek;
+                                $nomor_pertek1 = $pertek_pkplh[$index]->nomor_pertek;
+                                $tgl_pertek1 = $pertek_pkplh[$index]->tgl_pertek;
+                                $perihal_pertek1 = $pertek_pkplh[$index]->perihal_pertek;
+                            }
+                            if ($pertek == "pertek2") {
+                                $pertek2 = 1;
+                                $index = array_search('pertek2', $pkplh->pertek);
+                                $judul_pertek2 = $pertek_pkplh[$index]->judul_pertek;
+                                $surat_pertek2 = $pertek_pkplh[$index]->surat_pertek;
+                                $nomor_pertek2 = $pertek_pkplh[$index]->nomor_pertek;
+                                $tgl_pertek2 = $pertek_pkplh[$index]->tgl_pertek;
+                                $perihal_pertek2 = $pertek_pkplh[$index]->perihal_pertek;
+                            }
+                            if ($pertek == "pertek3") {
+                                $pertek3 = 1;
+                                $index = array_search('pertek3', $pkplh->pertek);
+                                $judul_pertek3 = $pertek_pkplh[$index]->judul_pertek;
+                                $surat_pertek3 = $pertek_pkplh[$index]->surat_pertek;
+                                $nomor_pertek3 = $pertek_pkplh[$index]->nomor_pertek;
+                                $tgl_pertek3 = $pertek_pkplh[$index]->tgl_pertek;
+                                $perihal_pertek3 = $pertek_pkplh[$index]->perihal_pertek;
+                            }
+                            if ($pertek == "pertek4") {
+                                $pertek4 = 1;
+                                $index = array_search('pertek4', $pkplh->pertek);
+                                $judul_pertek4 = $pertek_pkplh[$index]->judul_pertek;
+                                $surat_pertek4 = $pertek_pkplh[$index]->surat_pertek;
+                                $nomor_pertek4 = $pertek_pkplh[$index]->nomor_pertek;
+                                $tgl_pertek4 = $pertek_pkplh[$index]->tgl_pertek;
+                                $perihal_pertek4 = $pertek_pkplh[$index]->perihal_pertek;
+                            }
+                            if ($pertek == "pertek5") {
+                                $pertek5 = 1;
+                                $index = array_search('pertek5', $pkplh->pertek);
+                                $judul_pertek5 = $pertek_pkplh[$index]->judul_pertek;
+                                $surat_pertek5 = $pertek_pkplh[$index]->surat_pertek;
+                                $nomor_pertek5 = $pertek_pkplh[$index]->nomor_pertek;
+                                $tgl_pertek5 = $pertek_pkplh[$index]->tgl_pertek;
+                                $perihal_pertek5 = $pertek_pkplh[$index]->perihal_pertek;
+                            }
+                            if ($pertek == "pertek6") {
+                                $pertek6 = 1;
+                            }
+                        }    
+                    }
+                ?>
+
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek1" id="pertek1" @if ($pertek1 == 1) checked @endif>
+                    <label class="custom-control-label" for="pertek1">Air Limbah</label>
+                </div>
+
+                <div class="mb-3" id="air_limbah" @if ($pertek1 == 0) style="display: none" @endif>
+                    <div class="form-group row">
+                        <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek1" @if ($pertek1 == 1) name="judul_pertek[]" value="{{ $judul_pertek1 }}" @endif>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek1" @if ($pertek1 == 1) name="surat_pertek[]" value="{{ $surat_pertek1 }}" @endif>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek1" @if ($pertek1 == 1) name="nomor_pertek[]" value="{{ $nomor_pertek1 }}" @endif>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek1" @if ($pertek1 == 1) name="tgl_pertek[]" value="{{ $tgl_pertek1 }}" @endif>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek1" @if ($pertek1 == 1) name="perihal_pertek[]" value="{{ $perihal_pertek1 }}" @endif>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek2" id="pertek2" @if ($pertek2 == 1) checked @endif>
+                    <label class="custom-control-label" for="pertek2">Emisi</label>
+                </div>
+
+                <div class="mb-3" id="emisi" @if ($pertek2 == 0) style="display: none" @endif>
+                    <div class="form-group row">
+                        <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek2" @if ($pertek2 == 1) name="judul_pertek[]" value="{{ $judul_pertek2 }}" @endif>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek2" @if ($pertek2 == 1) name="surat_pertek[]" value="{{ $surat_pertek2 }}" @endif>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek2" @if ($pertek2 == 1) name="nomor_pertek[]" value="{{ $nomor_pertek2 }}" @endif>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek2" @if ($pertek2 == 1) name="tgl_pertek[]" value="{{ $tgl_pertek2 }}" @endif>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek2" @if ($pertek2 == 1) name="perihal_pertek[]" value="{{ $perihal_pertek2 }}" @endif>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek3" id="pertek3" @if ($pertek3 == 1) checked @endif>
+                    <label class="custom-control-label" for="pertek3">Pengelolaan Limbah B3</label>
+                </div>
+
+                <div class="mb-3" id="limbah_b3" @if ($pertek3 == 0) style="display: none" @endif>
+                    <div class="form-group row">
+                        <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek3" @if ($pertek3 == 1) name="judul_pertek[]" value="{{ $judul_pertek3 }}" @endif>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek3" @if ($pertek3 == 1) name="surat_pertek[]" value="{{ $surat_pertek3 }}" @endif>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek3" @if ($pertek3 == 1) name="nomor_pertek[]" value="{{ $nomor_pertek3 }}" @endif>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek3" @if ($pertek3 == 1) name="tgl_pertek[]" value="{{ $tgl_pertek3 }}" @endif>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek3" @if ($pertek3 == 1) name="perihal_pertek[]" value="{{ $perihal_pertek3 }}" @endif>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek4" id="pertek4" @if ($pertek4 == 1) checked @endif>
+                    <label class="custom-control-label" for="pertek4">Andalalin</label>
+                </div>
+
+                <div class="mb-3" id="andalalin" @if ($pertek4 == 0) style="display: none" @endif>
+                    <div class="form-group row">
+                        <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek4" @if ($pertek4 == 1) name="judul_pertek[]" value="{{ $judul_pertek4 }}" @endif>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek4" @if ($pertek4 == 1) name="surat_pertek[]" value="{{ $surat_pertek4 }}" @endif>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek4" @if ($pertek4 == 1) name="nomor_pertek[]" value="{{ $nomor_pertek4 }}" @endif>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek4" @if ($pertek4 == 1) name="tgl_pertek[]" value="{{ $tgl_pertek4 }}" @endif>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek4" @if ($pertek4 == 1) name="perihal_pertek[]" value="{{ $perihal_pertek4 }}" @endif>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek5" id="pertek5" @if ($pertek5 == 1) checked @endif>
+                    <label class="custom-control-label" for="pertek5">Dokumen Rincian Teknis</label>
+                </div>
+
+                <div class="mb-3" id="rintek" @if ($pertek5 == 0) style="display: none" @endif>
+                    <div class="form-group row">
+                        <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek5" @if ($pertek5 == 1) name="judul_pertek[]" value="{{ $judul_pertek5 }}" @endif>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek5" @if ($pertek5 == 1) name="surat_pertek[]" value="{{ $surat_pertek5 }}" @endif>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek5" @if ($pertek5 == 1) name="nomor_pertek[]" value="{{ $nomor_pertek5 }}" @endif>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek5" @if ($pertek5 == 1) name="tgl_pertek[]" value="{{ $tgl_pertek5 }}" @endif>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek5" @if ($pertek5 == 1) name="perihal_pertek[]" value="{{ $perihal_pertek5 }}" @endif>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="rintek_upload">Upload dokumen yang diperlukan</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="rintek_upload" name="rintek_upload" aria-describedby="rintek_upload">
+                            <label class="custom-file-label" for="rintek_upload">Choose file</label>
+                        </div>
+                    </div>
+                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 5 mb </small>
+                </div>
+
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek6" id="pertek6" @if ($pertek6 == 1) checked @endif>
+                    <label class="custom-control-label" for="pertek6">Rincian Teknis Penyimpanan Limbah B3</label>
+                </div>
+
+                <div class="mb-3" id="rintek_limbah" @if ($pertek6 == 0) style="display: none" @endif>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="rintek_limbah_upload">Upload dokumen yang diperlukan</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="rintek_limbah_upload" name="rintek_limbah_upload" aria-describedby="rintek_limbah_upload">
+                            <label class="custom-file-label" for="rintek_limbah_upload">Choose file</label>
+                        </div>
+                    </div>
+                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 5 mb </small>
+                </div>
+                <hr>
+            </div>
+
             <div>
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
         </form>
     </div>
 </div>
+
 <input type="text" value="{{ $jum }}" id="sum_il" hidden>
+<input type="text" value="{{ count($pkplh->kbli_baru) }}" id="sum_kbli" hidden>
+<input type="text" value="{{ count($pkplh->jenis_peraturan) }}" id="sum_perubahan" hidden>
+
 <script>
     $('.js-kabkota-multiple').select2({
         dropdownCssClass: "select2--small",
@@ -314,11 +857,185 @@
         dropdownCssClass: "select2--small",
     });
 
+    $('.regional-multiple').select2({
+        dropdownCssClass: "select2--small",
+    });
+
     $(document).ready(function() {
         var i = $('#sum_il').val();
-        $('#add').click(function() {
+        var j = $('#sum_perubahan').val();
+        var k = $('#sum_kbli').val();
+
+        $(document).on('change', '#jenis_perubahan1', function () {
+            if ($('#jenis_perubahan1').prop('checked', true)) {
+                $('#lampiran').hide();
+                $('#dari').show();
+                $('#dasar_perubahan').show();
+            }
+        });
+
+        $(document).on('change', '#jenis_perubahan2', function () {
+            if ($('#jenis_perubahan2').prop('checked', true)) {
+                $('#lampiran').show();
+                $('#dari').show();
+                $('#dasar_perubahan').show();
+            }
+        });
+
+        $(document).on('change', '#jenis_perubahan3', function () {
+            if ($('#jenis_perubahan3').prop('checked', true)) {
+                $('#dari').hide();
+                $('#dasar_perubahan').hide();
+                $('#lampiran').show();
+            }
+        });
+
+        $(document).on('change', '#pertek1', function() {
+            if ($('#pertek1').is(":checked")) {
+                $('#air_limbah').show();
+                $('#judul_pertek1').attr('name', 'judul_pertek[]')
+                $('#surat_pertek1').attr('name', 'surat_pertek[]')
+                $('#nomor_pertek1').attr('name', 'nomor_pertek[]')
+                $('#tgl_pertek1').attr('name', 'tgl_pertek[]')
+                $('#perihal_pertek1').attr('name', 'perihal_pertek[]')
+            } else {
+                $('#air_limbah').hide();
+                $('#judul_pertek1').removeAttr('name')
+                $('#surat_pertek1').removeAttr('name')
+                $('#nomor_pertek1').removeAttr('name')
+                $('#tgl_pertek1').removeAttr('name')
+                $('#perihal_pertek1').removeAttr('name')
+            }
+        });
+
+        $(document).on('change', '#pertek2', function() {
+            if ($('#pertek2').is(":checked")) {
+                $('#emisi').show();
+                $('#judul_pertek2').attr('name', 'judul_pertek[]')
+                $('#surat_pertek2').attr('name', 'surat_pertek[]')
+                $('#nomor_pertek2').attr('name', 'nomor_pertek[]')
+                $('#tgl_pertek2').attr('name', 'tgl_pertek[]')
+                $('#perihal_pertek2').attr('name', 'perihal_pertek[]')
+            } else {
+                $('#emisi').hide();
+                $('#judul_pertek2').removeAttr('name')
+                $('#surat_pertek2').removeAttr('name')
+                $('#nomor_pertek2').removeAttr('name')
+                $('#tgl_pertek2').removeAttr('name')
+                $('#perihal_pertek2').removeAttr('name')
+            }
+        });
+
+        $(document).on('change', '#pertek3', function() {
+            if ($('#pertek3').is(":checked")) {
+                $('#limbah_b3').show();
+                $('#judul_pertek3').attr('name', 'judul_pertek[]')
+                $('#surat_pertek3').attr('name', 'surat_pertek[]')
+                $('#nomor_pertek3').attr('name', 'nomor_pertek[]')
+                $('#tgl_pertek3').attr('name', 'tgl_pertek[]')
+                $('#perihal_pertek3').attr('name', 'perihal_pertek[]')
+            } else {
+                $('#limbah_b3').hide();
+                $('#judul_pertek3').removeAttr('name')
+                $('#surat_pertek3').removeAttr('name')
+                $('#nomor_pertek3').removeAttr('name')
+                $('#tgl_pertek3').removeAttr('name')
+                $('#perihal_pertek3').removeAttr('name')
+            }
+        });
+
+        $(document).on('change', '#pertek4', function() {
+            if ($('#pertek4').is(":checked")) {
+                $('#andalalin').show();
+                $('#judul_pertek4').attr('name', 'judul_pertek[]')
+                $('#surat_pertek4').attr('name', 'surat_pertek[]')
+                $('#nomor_pertek4').attr('name', 'nomor_pertek[]')
+                $('#tgl_pertek4').attr('name', 'tgl_pertek[]')
+                $('#perihal_pertek4').attr('name', 'perihal_pertek[]')
+            } else {
+                $('#andalalin').hide();
+                $('#judul_pertek4').removeAttr('name')
+                $('#surat_pertek4').removeAttr('name')
+                $('#nomor_pertek4').removeAttr('name')
+                $('#tgl_pertek4').removeAttr('name')
+                $('#perihal_pertek4').removeAttr('name')
+            }
+        });
+
+        $(document).on('change', '#pertek5', function() {
+            if ($('#pertek5').is(":checked")) {
+                $('#rintek').show();
+                $('#judul_pertek5').attr('name', 'judul_pertek[]')
+                $('#surat_pertek5').attr('name', 'surat_pertek[]')
+                $('#nomor_pertek5').attr('name', 'nomor_pertek[]')
+                $('#tgl_pertek5').attr('name', 'tgl_pertek[]')
+                $('#perihal_pertek5').attr('name', 'perihal_pertek[]')
+            } else {
+                $('#rintek').hide();
+                $('#judul_pertek5').removeAttr('name')
+                $('#surat_pertek5').removeAttr('name')
+                $('#nomor_pertek5').removeAttr('name')
+                $('#tgl_pertek5').removeAttr('name')
+                $('#perihal_pertek5').removeAttr('name')
+            }
+        });
+
+        $(document).on('change', '#pertek6', function() {
+            if ($('#pertek6').is(":checked")) {
+                $('#rintek_limbah').show();
+            } else {
+                $('#rintek_limbah').hide();
+            }
+        });
+        
+        $('#add-kbli').click(function() {
+            k++
+            $('.table-kbli').append(`<tr id="kbli-claster${k}">
+                                        <td>${k}</td>
+                                        <td>
+                                            <input type="text" name="nama_kbli[]" class="form-control" placeholder="Ketik jenis usaha/kegiatan">
+                                        </td>
+                                        <td>
+                                            <input type="text" name="nomor_kbli[]" class="form-control" placeholder="Nomor KBLI">
+                                        </td>
+                                    </tr>
+            `)
+        });
+
+        $(document).on('click', '.remove-kbli', function() {
+            var button_id = k;
+            $('#kbli-claster' + button_id + '').remove();
+            k--
+        });
+
+        $('#add1').click(function() {
+            j++
+            $('.table-input1').append(`<tr id="1Claster${j}">
+                            <td>${j}</td>
+                            <td>
+                                <input type="text" name="jenis_peraturan[]" class="form-control" placeholder="Surat/Akta Notaris/SK">
+                            </td>
+                            <td>
+                                <input type="text" name="pejabat_daerah[]" class="form-control">
+                            </td>
+                            <td>
+                                <input type="text" name="nomor_peraturan[]" class="form-control">
+                            </td>
+                            <td>
+                                <textarea class="form-control" name="perihal_peraturan[]" rows="2"></textarea>
+                            </td>
+                        </tr>`)
+        });
+
+        $(document).on('click', '.remove-btn1', function() {
+            var button_id = j;
+            $('#1Claster' + button_id + '').remove();
+            j--
+        });
+
+        $('#add2').click(function() {
             i++
-            $('.table-input').append(`<tr id="claster${i}">
+            $('.table-input2').append(`<tr id="2Claster${i}">
                             <td>${i}</td>
                             <td>
                                 <input type="text" name="jenis_izin[]" class="form-control" placeholder="Surat/Keputusan/Ketetapan">
@@ -333,15 +1050,14 @@
                                 <input type="date" name="tgl_surat[]" class="form-control">
                             </td>
                             <td>
-                                <input type="text" name="perihal[]" class="form-control">
+                                <textarea class="form-control" name="perihal[]" rows="2"></textarea>
                             </td>
                         </tr>`)
         });
 
-        $(document).on('click', '.remove-btn', function() {
-            // var button_id = $(this).attr("id");
+        $(document).on('click', '.remove-btn2', function() {
             var button_id = i;
-            $('#claster' + button_id + '').remove();
+            $('#2Claster' + button_id + '').remove();
             i--
         });
     });

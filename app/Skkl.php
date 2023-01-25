@@ -71,7 +71,10 @@ class Skkl extends Model
         'tgl_rpd',
         'pertek',
         'rintek_upload',
-        'rintek_limbah_upload'
+        'rintek_limbah_upload',
+        'tgl_update',
+        'pic_pemohon',
+        'no_hp_pic'
     ];
 
     public function il_skkl()

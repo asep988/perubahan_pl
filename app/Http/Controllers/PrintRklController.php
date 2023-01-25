@@ -80,22 +80,20 @@ class PrintRklController extends Controller
 
         $headers = array(
 
-            "Content-type" => "text/html",
-            'orientation' => 'landscape',
-            "Content-Disposition" => "attachment;Filename=RKL_$skkl->pelaku_usaha_baru.doc"
-
+            "Content-type" => "application/vnd.msword",
+            "Content-Disposition" => "attachment;Filename=RKL_$skkl->pelaku_usaha_baru.doc",
+            "Cache-Control"=> "no-cache;must-revalidate"
         );
 
         $body = '<html>
-                <head><meta charset="utf-8"></head>
-                <body>';
-
-        $body .= '<style>
+                <head>
+                <style>
+                    @page {
+                        size: A4 landscape;
+                        margin: 1.25cm 2cm 1.5cm 2cm;
+                    }
                     body {
                         font-family:"Bookman Old Style,serif";
-                        size:841.9pt 595.3pt;
-                        mso-page-orientation:landscape;
-                        margin: 0.7cm 0.7cm 0.7cm 0.7cm;
                     }
                     ol {
                     columns:2;
@@ -107,7 +105,8 @@ class PrintRklController extends Controller
                         vertical-align: top;
                         text-align: justify;
                     }
-                </style>';
+                </style>
+                </head>';
 
 
         $body .= '<body>

@@ -6,6 +6,7 @@ use App\Pkplh;
 use Illuminate\Http\Request;
 use App\Skkl;
 use App\User;
+use Carbon\Carbon;
 
 class SekretariatController extends Controller
 {
@@ -18,22 +19,47 @@ class SekretariatController extends Controller
 		->select('users.name')
 		->get();
 
-        return view('sekretariat.penugasan.index', compact('data_skkl', 'operators'));
+        return view('sekretariat.skkl.index', compact('data_skkl', 'operators'));
     }
 
-    public function assign(Request $request, $id)
+    public function assign(Request $request)
     {
         $request->validate([
             'operator_name' => 'required'
         ]);
 
-        Skkl::find($id)->update([
-            'nama_operator' => $request->operator_name
-        ]);
+        for ($i = 0; $i < count($request->id); $i++) {
+            $skkl = Skkl::find($request->id[$i]);
+    
+            if ($skkl->tgl_update) {
+                $time = $skkl->tgl_update;
+            } else {
+                $time = Carbon::now()->toDateString();
+            }
+    
+            if ($request->operator_name[$i] != '-') {
+                Skkl::find($request->id[$i])->update([
+                    'nama_operator' => $request->operator_name[$i],
+                    'status' => "Proses",
+                    'tgl_update' => $time
+                ]);
+            }
+        }
 
+        return redirect()->route('sekre.skkl.index')->with('message', 'Berhasil menugaskan PJM pada usaha/kegiatan yang dipilih');
+    }
+    
+    public function skklReject($id)
+    {
+        Skkl::find($id)->update([
+            'status' => "Ditolak",
+            'tgl_update' => Carbon::now()->toDateString(),
+            'nama_operator' => null
+        ]);
+        
         $skkl = Skkl::find($id);
 
-        return redirect()->route('sekre.penugasan.index')->with('message', $request->operator_name . ' berhasil ditugaskan pada usaha/kegiatan ' . $skkl->nama_usaha_baru);
+        return redirect()->route('sekre.skkl.index')->with('message', $skkl->nama_usaha_baru . ' berhasil ditolak!');
     }
 
     public function pkplhIndex()
@@ -48,18 +74,43 @@ class SekretariatController extends Controller
         return view('sekretariat.pkplh.index', compact('data_pkplh', 'operators'));
     }
 
-    public function pkplhAssign(Request $request, $id)
+    public function pkplhAssign(Request $request)
     {
         $request->validate([
             'operator_name' => 'required'
         ]);
 
-        Pkplh::find($id)->update([
-            'nama_operator' => $request->operator_name
-        ]);
+        for ($i = 0; $i < count($request->id); $i++) {
+            $pkplh = Pkplh::find($request->id[$i]);
+    
+            if ($pkplh->tgl_update) {
+                $time = $pkplh->tgl_update;
+            } else {
+                $time = Carbon::now()->toDateString();
+            }
+    
+            if ($request->operator_name[$i] != '-') {
+                Pkplh::find($request->id[$i])->update([
+                    'nama_operator' => $request->operator_name[$i],
+                    'status' => "Proses",
+                    'tgl_update' => $time
+                ]);
+            }
+        }
 
+        return redirect()->route('sekre.pkplh.index')->with('message', 'Berhasil menugaskan PJM pada usaha/kegiatan yang dipilih');
+    }
+
+    public function pkplhReject($id)
+    {
+        Pkplh::find($id)->update([
+            'status' => "Ditolak",
+            'tgl_update' => Carbon::now()->toDateString(),
+            'nama_operator' => null
+        ]);
+        
         $pkplh = Pkplh::find($id);
 
-        return redirect()->route('sekre.pkplh.index')->with('message', $request->operator_name . ' berhasil ditugaskan pada usaha/kegiatan ' . $pkplh->nama_usaha_baru);
+        return redirect()->route('sekre.pkplh.index')->with('message', 'Permohonan perubahan ' . $pkplh->pelaku_usaha_baru . ' berhasil ditolak!');
     }
 }

@@ -181,24 +181,26 @@
             <a class="btn btn-success btn-block" href="{{ route('printrkl.download', [$skkl->id]) }}">Unduh RKL</a></button>
             <a class="btn btn-success btn-block" href="{{ route('printrpl.download', [$skkl->id]) }}">Unduh RPL</a></button>
             @if ($skkl->rintek_upload)
-                <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/rintek/' . $skkl->rintek_upload) }}">Unduh Dokumen Rincian Teknis</a></button>
+                <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek_upload) }}">Unduh Dokumen Rincian Teknis</a></button>
             @endif
             @if ($skkl->rintek_limbah_upload)
-                <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/rintek/' . $skkl->rintek_limbah_upload) }}">Unduh Dokumen Rincian Teknis Penyimpanan Limbah B3</a></button>
+                <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek_limbah_upload) }}">Unduh Dokumen Rincian Teknis Penyimpanan Limbah B3</a></button>
             @endif
 
             <hr>
 
             <a class="btn btn-primary btn-block mb-2" href="{{ route('operator.download.lampiran1', $skkl->id) }}">Unduh lampiran I</a>
             <?php $i = 3; ?> 
-            @foreach ($skkl->pertek as $pertek)
-                <form @if ($pertek != "pertek6") action="{{ route('operator.download.pertek', $skkl->id) }}" @else action="{{ route('operator.download.rintek', $skkl->id) }}" @endif method="GET">
-                    @csrf
-                    <input type="text" name="pertek" value="{{ $pertek }}" hidden>
-                    <button type="submit" class="btn btn-primary btn-block mb-2">Unduh lampiran {{ integerToRoman($i) }}</button>
-                </form>
-                <?php $i++; ?>
-            @endforeach
+            @if ($skkl->jenis_perubahan != 'perkep1')
+                @foreach ($skkl->pertek as $pertek)
+                    <form @if ($pertek != "pertek6") action="{{ route('operator.download.pertek', $skkl->id) }}" @else action="{{ route('operator.download.rintek', $skkl->id) }}" @endif method="GET">
+                        @csrf
+                        <input type="text" name="pertek" value="{{ $pertek }}" hidden>
+                        <button type="submit" class="btn btn-primary btn-block mb-2">Unduh lampiran {{ integerToRoman($i) }}</button>
+                    </form>
+                    <?php $i++; ?>
+                @endforeach
+            @endif
 
             <hr>
             <a class="btn btn-warning btn-block" href="{{ route('operator.preview', [$skkl->id]) }}">Preview PL</a></button>

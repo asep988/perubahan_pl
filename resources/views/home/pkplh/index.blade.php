@@ -70,6 +70,9 @@
                     <th style="width: 50px;">No</th>
                     <th style="width: 250px;">Tanggal, Waktu Permohonan</th>
                     <th>Perihal Permohonan</th>
+                    <th>PIC</th>
+                    <th>No. PIC</th>
+                    <th>Tanggal proses</th>
                     <th style="width: 150px;">Status</th>
                     <th width="120px">Aksi</th>
                 </tr>
@@ -78,13 +81,28 @@
                 @foreach ($data_pkplh as $pkplh)
                 <tr>
                     <td class="text-center">{{ $loop->iteration }}</td>
-                    <td class="text-center">{{$pkplh->tgl_pl}}, {{ $pkplh->updated_at->format('H:i:s') }}</td>
-                    <td>{{$pkplh->perihal}}</td>
+                    <td>{{ $pkplh->created_at->format('d F Y')}}, {{ $pkplh->created_at->format('H:i:s') }}</td>
+                    <td>{{ $pkplh->perihal }}</td>
+                    <td>{{ $pkplh->pic_pemohon }}</td>
+                    <td>{{ $pkplh->no_hp_pic }}</td>
+                    <td>
+                        @if ($pkplh->tgl_update)
+                            {{ $pkplh->tgl_update }}
+                        @else
+                            -
+                        @endif
+                    </td>
                     <td class="text-center">
                         @if ($pkplh->status == "Belum")
+                            <span class="badge badge-secondary">Belum diproses</span>
+                        @elseif ($pkplh->status == "Proses")
                             <span class="badge badge-warning">Proses Validasi</span>
-                        @else
+                        @elseif ($pkplh->status == "Draft")
+                            <span class="badge badge-primary">Selesai Drafting</span>
+                        @elseif ($pkplh->status == "Final")
                             <span class="badge badge-success">Selesai</span>
+                        @else
+                            <span class="badge badge-danger">Ditolak</span>
                         @endif
                     </td>
                     <td class="text-center">
@@ -111,6 +129,12 @@
         </div>
         <div class="modal-body">
             <a class="btn btn-success btn-block" href="{{ route('uklupl.create', $pkplh->id) }}">Dokumen UKL-UPL</a>
+            @if ($pkplh->rintek_upload)
+                <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek_upload) }}">Unduh Dokumen Rincian Teknis</a></button>
+            @endif
+            @if ($pkplh->rintek_limbah_upload)
+                <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek_limbah_upload) }}">Unduh Dokumen Rincian Teknis Penyimpanan Limbah B3</a></button>
+            @endif
             <hr>
             <a class="btn btn-warning btn-block @if ($pkplh->status != "Belum") disabled @endif" href="{{ route('pkplh.edit', $pkplh->id) }}">Ubah Data PKPLH</a>
             <a class="btn btn-primary btn-block" href="{{ route('pkplh.review', $pkplh->id) }}">Preview Dokumen PKPLH</a>
