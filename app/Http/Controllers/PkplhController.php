@@ -195,7 +195,7 @@ class PkplhController extends Controller
 			$il_pkplh->save();
 		}
 		
-		if ($request->jenis_perubahan != "perkep1") {
+		if ($request->jenis_perubahan != "perkep1" && $request->judul_pertek != null) {
 			for ($i = 0; $i < count($request->judul_pertek); $i++) {
 				$pertek_pkplh = new Pertek_pkplh;
 				$pertek_pkplh->id_pkplh = $pkplh_id;
@@ -465,7 +465,7 @@ class PkplhController extends Controller
 			$il_pkplh->save();
 		}
 
-		if ($request->jenis_perubahan != 'perkep1') {
+		if ($request->jenis_perubahan != "perkep1" && $request->judul_pertek != null) {
 			Pertek_pkplh::where('id_pkplh', $id)->delete();
 			for ($i = 0; $i < count($request->judul_pertek); $i++) {
 				$pertek_pkplh = new Pertek_pkplh;

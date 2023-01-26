@@ -189,7 +189,7 @@ class SkklController extends Controller
 			$il_skkl->save();
 		}
 		
-		if ($request->jenis_perubahan != "perkep1") {
+		if ($request->jenis_perubahan != "perkep1" && $request->judul_pertek != null) {
 			for ($i = 0; $i < count($request->judul_pertek); $i++) {
 				$pertek_skkl = new Pertek_skkl;
 				$pertek_skkl->id_skkl = $skkl_id;
@@ -403,7 +403,7 @@ class SkklController extends Controller
 			$il_skkl->save();
 		}
 
-		if ($request->jenis_perubahan != 'perkep1') {
+		if ($request->jenis_perubahan != "perkep1" && $request->judul_pertek != null) {
 			Pertek_skkl::where('id_skkl', $id)->delete();
 			for ($i = 0; $i < count($request->judul_pertek); $i++) {
 				$pertek_skkl = new Pertek_skkl;
