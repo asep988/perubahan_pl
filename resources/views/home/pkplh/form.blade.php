@@ -713,6 +713,11 @@
                 $('#nomor_pertek1').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek1').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek1').attr('name', 'perihal_pertek[]')
+                $('#judul_pertek1').prop('required', true)
+                $('#surat_pertek1').prop('required', true)
+                $('#nomor_pertek1').prop('required', true)
+                $('#tgl_pertek1').prop('required', true)
+                $('#perihal_pertek1').prop('required', true)
             } else {
                 $('#air_limbah').hide();
                 $('#judul_pertek1').removeAttr('name')
@@ -720,6 +725,11 @@
                 $('#nomor_pertek1').removeAttr('name')
                 $('#tgl_pertek1').removeAttr('name')
                 $('#perihal_pertek1').removeAttr('name')
+                $('#judul_pertek1').removeprop('required', true)
+                $('#surat_pertek1').removeprop('required', true)
+                $('#nomor_pertek1').removeprop('required', true)
+                $('#tgl_pertek1').removeprop('required', true)
+                $('#perihal_pertek1').removeprop('required', true)
             }
         });
 
@@ -731,6 +741,11 @@
                 $('#nomor_pertek2').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek2').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek2').attr('name', 'perihal_pertek[]')
+                $('#judul_pertek2').prop('required', true)
+                $('#surat_pertek2').prop('required', true)
+                $('#nomor_pertek2').prop('required', true)
+                $('#tgl_pertek2').prop('required', true)
+                $('#perihal_pertek2').prop('required', true)
             } else {
                 $('#emisi').hide();
                 $('#judul_pertek2').removeAttr('name')
@@ -738,6 +753,11 @@
                 $('#nomor_pertek2').removeAttr('name')
                 $('#tgl_pertek2').removeAttr('name')
                 $('#perihal_pertek2').removeAttr('name')
+                $('#judul_pertek2').removeprop('required', true)
+                $('#surat_pertek2').removeprop('required', true)
+                $('#nomor_pertek2').removeprop('required', true)
+                $('#tgl_pertek2').removeprop('required', true)
+                $('#perihal_pertek2').removeprop('required', true)
             }
         });
 
@@ -749,6 +769,11 @@
                 $('#nomor_pertek3').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek3').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek3').attr('name', 'perihal_pertek[]')
+                $('#judul_pertek3').prop('required', true)
+                $('#surat_pertek3').prop('required', true)
+                $('#nomor_pertek3').prop('required', true)
+                $('#tgl_pertek3').prop('required', true)
+                $('#perihal_pertek3').prop('required', true)
             } else {
                 $('#limbah_b3').hide();
                 $('#judul_pertek3').removeAttr('name')
@@ -756,6 +781,11 @@
                 $('#nomor_pertek3').removeAttr('name')
                 $('#tgl_pertek3').removeAttr('name')
                 $('#perihal_pertek3').removeAttr('name')
+                $('#judul_pertek3').removeprop('required', true)
+                $('#surat_pertek3').removeprop('required', true)
+                $('#nomor_pertek3').removeprop('required', true)
+                $('#tgl_pertek3').removeprop('required', true)
+                $('#perihal_pertek3').removeprop('required', true)
             }
         });
 
@@ -767,6 +797,11 @@
                 $('#nomor_pertek4').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek4').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek4').attr('name', 'perihal_pertek[]')
+                $('#judul_pertek4').prop('required', true)
+                $('#surat_pertek4').prop('required', true)
+                $('#nomor_pertek4').prop('required', true)
+                $('#tgl_pertek4').prop('required', true)
+                $('#perihal_pertek4').prop('required', true)
             } else {
                 $('#andalalin').hide();
                 $('#judul_pertek4').removeAttr('name')
@@ -774,6 +809,11 @@
                 $('#nomor_pertek4').removeAttr('name')
                 $('#tgl_pertek4').removeAttr('name')
                 $('#perihal_pertek4').removeAttr('name')
+                $('#judul_pertek4').removeprop('required', true)
+                $('#surat_pertek4').removeprop('required', true)
+                $('#nomor_pertek4').removeprop('required', true)
+                $('#tgl_pertek4').removeprop('required', true)
+                $('#perihal_pertek4').removeprop('required', true)
             }
         });
 
@@ -785,6 +825,11 @@
                 $('#nomor_pertek5').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek5').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek5').attr('name', 'perihal_pertek[]')
+                $('#judul_pertek5').prop('required', true)
+                $('#surat_pertek5').prop('required', true)
+                $('#nomor_pertek5').prop('required', true)
+                $('#tgl_pertek5').prop('required', true)
+                $('#perihal_pertek5').prop('required', true)
             } else {
                 $('#rintek').hide();
                 $('#judul_pertek5').removeAttr('name')
@@ -792,6 +837,11 @@
                 $('#nomor_pertek5').removeAttr('name')
                 $('#tgl_pertek5').removeAttr('name')
                 $('#perihal_pertek5').removeAttr('name')
+                $('#judul_pertek5').removeprop('required', true)
+                $('#surat_pertek5').removeprop('required', true)
+                $('#nomor_pertek5').removeprop('required', true)
+                $('#tgl_pertek5').removeprop('required', true)
+                $('#perihal_pertek5').removeprop('required', true)
             }
         });
 

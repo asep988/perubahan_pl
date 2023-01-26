@@ -605,35 +605,35 @@
                     <div class="form-group row">
                         <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek1" @if ($pertek1 == 1) name="judul_pertek[]" value="{{ $judul_pertek1 }}" @endif>
+                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek1" @if ($pertek1 == 1) name="judul_pertek[]" required value="{{ $judul_pertek1 }}" @endif>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek1" @if ($pertek1 == 1) name="surat_pertek[]" value="{{ $surat_pertek1 }}" @endif>
+                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek1" @if ($pertek1 == 1) name="surat_pertek[]" required value="{{ $surat_pertek1 }}" @endif>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek1" @if ($pertek1 == 1) name="nomor_pertek[]" value="{{ $nomor_pertek1 }}" @endif>
+                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek1" @if ($pertek1 == 1) name="nomor_pertek[]" required value="{{ $nomor_pertek1 }}" @endif>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek1" @if ($pertek1 == 1) name="tgl_pertek[]" value="{{ $tgl_pertek1 }}" @endif>
+                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek1" @if ($pertek1 == 1) name="tgl_pertek[]" required value="{{ $tgl_pertek1 }}" @endif>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek1" @if ($pertek1 == 1) name="perihal_pertek[]" value="{{ $perihal_pertek1 }}" @endif>
+                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek1" @if ($pertek1 == 1) name="perihal_pertek[]" required value="{{ $perihal_pertek1 }}" @endif>
                         </div>
                     </div>
                 </div>
@@ -647,35 +647,35 @@
                     <div class="form-group row">
                         <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek2" @if ($pertek2 == 1) name="judul_pertek[]" value="{{ $judul_pertek2 }}" @endif>
+                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek2" @if ($pertek2 == 1) name="judul_pertek[]" required value="{{ $judul_pertek2 }}" @endif>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek2" @if ($pertek2 == 1) name="surat_pertek[]" value="{{ $surat_pertek2 }}" @endif>
+                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek2" @if ($pertek2 == 1) name="surat_pertek[]" required value="{{ $surat_pertek2 }}" @endif>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek2" @if ($pertek2 == 1) name="nomor_pertek[]" value="{{ $nomor_pertek2 }}" @endif>
+                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek2" @if ($pertek2 == 1) name="nomor_pertek[]" required value="{{ $nomor_pertek2 }}" @endif>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek2" @if ($pertek2 == 1) name="tgl_pertek[]" value="{{ $tgl_pertek2 }}" @endif>
+                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek2" @if ($pertek2 == 1) name="tgl_pertek[]" required value="{{ $tgl_pertek2 }}" @endif>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek2" @if ($pertek2 == 1) name="perihal_pertek[]" value="{{ $perihal_pertek2 }}" @endif>
+                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek2" @if ($pertek2 == 1) name="perihal_pertek[]" required value="{{ $perihal_pertek2 }}" @endif>
                         </div>
                     </div>
                 </div>
@@ -689,35 +689,35 @@
                     <div class="form-group row">
                         <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek3" @if ($pertek3 == 1) name="judul_pertek[]" value="{{ $judul_pertek3 }}" @endif>
+                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek3" @if ($pertek3 == 1) name="judul_pertek[]" required value="{{ $judul_pertek3 }}" @endif>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek3" @if ($pertek3 == 1) name="surat_pertek[]" value="{{ $surat_pertek3 }}" @endif>
+                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek3" @if ($pertek3 == 1) name="surat_pertek[]" required value="{{ $surat_pertek3 }}" @endif>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek3" @if ($pertek3 == 1) name="nomor_pertek[]" value="{{ $nomor_pertek3 }}" @endif>
+                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek3" @if ($pertek3 == 1) name="nomor_pertek[]" required value="{{ $nomor_pertek3 }}" @endif>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek3" @if ($pertek3 == 1) name="tgl_pertek[]" value="{{ $tgl_pertek3 }}" @endif>
+                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek3" @if ($pertek3 == 1) name="tgl_pertek[]" required value="{{ $tgl_pertek3 }}" @endif>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek3" @if ($pertek3 == 1) name="perihal_pertek[]" value="{{ $perihal_pertek3 }}" @endif>
+                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek3" @if ($pertek3 == 1) name="perihal_pertek[]" required value="{{ $perihal_pertek3 }}" @endif>
                         </div>
                     </div>
                 </div>
@@ -731,35 +731,35 @@
                     <div class="form-group row">
                         <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek4" @if ($pertek4 == 1) name="judul_pertek[]" value="{{ $judul_pertek4 }}" @endif>
+                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek4" @if ($pertek4 == 1) name="judul_pertek[]" required value="{{ $judul_pertek4 }}" @endif>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek4" @if ($pertek4 == 1) name="surat_pertek[]" value="{{ $surat_pertek4 }}" @endif>
+                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek4" @if ($pertek4 == 1) name="surat_pertek[]" required value="{{ $surat_pertek4 }}" @endif>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek4" @if ($pertek4 == 1) name="nomor_pertek[]" value="{{ $nomor_pertek4 }}" @endif>
+                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek4" @if ($pertek4 == 1) name="nomor_pertek[]" required value="{{ $nomor_pertek4 }}" @endif>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek4" @if ($pertek4 == 1) name="tgl_pertek[]" value="{{ $tgl_pertek4 }}" @endif>
+                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek4" @if ($pertek4 == 1) name="tgl_pertek[]" required value="{{ $tgl_pertek4 }}" @endif>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek4" @if ($pertek4 == 1) name="perihal_pertek[]" value="{{ $perihal_pertek4 }}" @endif>
+                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek4" @if ($pertek4 == 1) name="perihal_pertek[]" required value="{{ $perihal_pertek4 }}" @endif>
                         </div>
                     </div>
                 </div>
@@ -773,35 +773,35 @@
                     <div class="form-group row">
                         <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek5" @if ($pertek5 == 1) name="judul_pertek[]" value="{{ $judul_pertek5 }}" @endif>
+                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek5" @if ($pertek5 == 1) name="judul_pertek[]" required value="{{ $judul_pertek5 }}" @endif>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek5" @if ($pertek5 == 1) name="surat_pertek[]" value="{{ $surat_pertek5 }}" @endif>
+                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek5" @if ($pertek5 == 1) name="surat_pertek[]" required value="{{ $surat_pertek5 }}" @endif>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek5" @if ($pertek5 == 1) name="nomor_pertek[]" value="{{ $nomor_pertek5 }}" @endif>
+                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek5" @if ($pertek5 == 1) name="nomor_pertek[]" required value="{{ $nomor_pertek5 }}" @endif>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek5" @if ($pertek5 == 1) name="tgl_pertek[]" value="{{ $tgl_pertek5 }}" @endif>
+                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek5" @if ($pertek5 == 1) name="tgl_pertek[]" required value="{{ $tgl_pertek5 }}" @endif>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek5" @if ($pertek5 == 1) name="perihal_pertek[]" value="{{ $perihal_pertek5 }}" @endif>
+                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek5" @if ($pertek5 == 1) name="perihal_pertek[]" required value="{{ $perihal_pertek5 }}" @endif>
                         </div>
                     </div>
 
@@ -898,6 +898,11 @@
                 $('#nomor_pertek1').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek1').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek1').attr('name', 'perihal_pertek[]')
+                $('#judul_pertek1').prop('required', true)
+                $('#surat_pertek1').prop('required', true)
+                $('#nomor_pertek1').prop('required', true)
+                $('#tgl_pertek1').prop('required', true)
+                $('#perihal_pertek1').prop('required', true)
             } else {
                 $('#air_limbah').hide();
                 $('#judul_pertek1').removeAttr('name')
@@ -905,6 +910,11 @@
                 $('#nomor_pertek1').removeAttr('name')
                 $('#tgl_pertek1').removeAttr('name')
                 $('#perihal_pertek1').removeAttr('name')
+                $('#judul_pertek1').removeprop('required', true)
+                $('#surat_pertek1').removeprop('required', true)
+                $('#nomor_pertek1').removeprop('required', true)
+                $('#tgl_pertek1').removeprop('required', true)
+                $('#perihal_pertek1').removeprop('required', true)
             }
         });
 
@@ -916,6 +926,11 @@
                 $('#nomor_pertek2').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek2').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek2').attr('name', 'perihal_pertek[]')
+                $('#judul_pertek2').prop('required', true)
+                $('#surat_pertek2').prop('required', true)
+                $('#nomor_pertek2').prop('required', true)
+                $('#tgl_pertek2').prop('required', true)
+                $('#perihal_pertek2').prop('required', true)
             } else {
                 $('#emisi').hide();
                 $('#judul_pertek2').removeAttr('name')
@@ -923,6 +938,11 @@
                 $('#nomor_pertek2').removeAttr('name')
                 $('#tgl_pertek2').removeAttr('name')
                 $('#perihal_pertek2').removeAttr('name')
+                $('#judul_pertek2').removeprop('required', true)
+                $('#surat_pertek2').removeprop('required', true)
+                $('#nomor_pertek2').removeprop('required', true)
+                $('#tgl_pertek2').removeprop('required', true)
+                $('#perihal_pertek2').removeprop('required', true)
             }
         });
 
@@ -934,6 +954,11 @@
                 $('#nomor_pertek3').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek3').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek3').attr('name', 'perihal_pertek[]')
+                $('#judul_pertek3').prop('required', true)
+                $('#surat_pertek3').prop('required', true)
+                $('#nomor_pertek3').prop('required', true)
+                $('#tgl_pertek3').prop('required', true)
+                $('#perihal_pertek3').prop('required', true)
             } else {
                 $('#limbah_b3').hide();
                 $('#judul_pertek3').removeAttr('name')
@@ -941,6 +966,11 @@
                 $('#nomor_pertek3').removeAttr('name')
                 $('#tgl_pertek3').removeAttr('name')
                 $('#perihal_pertek3').removeAttr('name')
+                $('#judul_pertek3').removeprop('required', true)
+                $('#surat_pertek3').removeprop('required', true)
+                $('#nomor_pertek3').removeprop('required', true)
+                $('#tgl_pertek3').removeprop('required', true)
+                $('#perihal_pertek3').removeprop('required', true)
             }
         });
 
@@ -952,6 +982,11 @@
                 $('#nomor_pertek4').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek4').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek4').attr('name', 'perihal_pertek[]')
+                $('#judul_pertek4').prop('required', true)
+                $('#surat_pertek4').prop('required', true)
+                $('#nomor_pertek4').prop('required', true)
+                $('#tgl_pertek4').prop('required', true)
+                $('#perihal_pertek4').prop('required', true)
             } else {
                 $('#andalalin').hide();
                 $('#judul_pertek4').removeAttr('name')
@@ -959,6 +994,11 @@
                 $('#nomor_pertek4').removeAttr('name')
                 $('#tgl_pertek4').removeAttr('name')
                 $('#perihal_pertek4').removeAttr('name')
+                $('#judul_pertek4').removeprop('required', true)
+                $('#surat_pertek4').removeprop('required', true)
+                $('#nomor_pertek4').removeprop('required', true)
+                $('#tgl_pertek4').removeprop('required', true)
+                $('#perihal_pertek4').removeprop('required', true)
             }
         });
 
@@ -970,6 +1010,11 @@
                 $('#nomor_pertek5').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek5').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek5').attr('name', 'perihal_pertek[]')
+                $('#judul_pertek5').prop('required', true)
+                $('#surat_pertek5').prop('required', true)
+                $('#nomor_pertek5').prop('required', true)
+                $('#tgl_pertek5').prop('required', true)
+                $('#perihal_pertek5').prop('required', true)
             } else {
                 $('#rintek').hide();
                 $('#judul_pertek5').removeAttr('name')
@@ -977,6 +1022,11 @@
                 $('#nomor_pertek5').removeAttr('name')
                 $('#tgl_pertek5').removeAttr('name')
                 $('#perihal_pertek5').removeAttr('name')
+                $('#judul_pertek5').removeprop('required', true)
+                $('#surat_pertek5').removeprop('required', true)
+                $('#nomor_pertek5').removeprop('required', true)
+                $('#tgl_pertek5').removeprop('required', true)
+                $('#perihal_pertek5').removeprop('required', true)
             }
         });
 
