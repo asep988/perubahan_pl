@@ -64,6 +64,8 @@
                 <th>Perihal Perubahan PL</th>
                 <th>NIB</th>
                 <th>Nama PJM</th>
+                <th>PIC</th>
+                <th>No. PIC</th>
                 <th>Link Drive Kelengkapan Dokumen</th>
                 <th>RPD</th>
                 <th width="100px">PDF</th>
@@ -84,6 +86,8 @@
                         -
                     @endif
                 </td>
+                <td>{{ $pkplh->pic_pemohon }}</td>
+                <td>{{ $pkplh->no_hp_pic }}</td>
                 <td> <button class="btn btn-sm btn-info"><a style="color: white;" target="_blank" href="{{ url($pkplh->link_drive) }}">Open</a></button> </td>
                 <td>
                     <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="{{ '#rpdModal'.$pkplh->id }}">

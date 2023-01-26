@@ -79,7 +79,7 @@
             <table border="1" width="100%" class="mb-3">
                 <tr>
                     <!-- dari -->
-                    <td style="padding: 20px;" class="align-top" id="dari" @if ($skkl->jenis_perubahan == "pertek3") style="display: none;" @endif>
+                    <td style="padding: 20px;" class="align-top" id="dari" @if ($skkl->jenis_perubahan == "perkep3") style="display: none;" @endif>
                         <div class="">
                             <span>Dari :</span>
                             <div class="input-box">
@@ -360,7 +360,7 @@
                     </div>
                 </div>
 
-                <div id="dasar_perubahan" @if ($skkl->jenis_perubahan == "pertek3") style="display: none;" @endif>
+                <div id="dasar_perubahan" @if ($skkl->jenis_perubahan == "perkep3") style="display: none;" @endif>
                     <hr>
                     <span><b>Dasar Perubahan Kepemilikan</b></span><br>
                     <label><b>Contoh : </b>
@@ -516,7 +516,7 @@
             </div>
             <hr>
 
-            <div id="lampiran" @if ($skkl->jenis_perubahan == "pertek1") style="display: none;" @endif> <!-- Lampiran Persetujuan Teknis -->
+            <div id="lampiran" @if ($skkl->jenis_perubahan == "perkep1") style="display: none;" @endif> <!-- Lampiran Persetujuan Teknis -->
                 <label><b>Lampiran Persetujuan Teknis</b></label>
                 <?php 
                     $pertek1 = 0;

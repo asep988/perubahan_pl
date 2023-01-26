@@ -70,8 +70,6 @@
                     <th style="width: 50px;">No</th>
                     <th style="width: 250px;">Tanggal, Waktu Permohonan</th>
                     <th>Perihal Permohonan</th>
-                    <th>PIC</th>
-                    <th>No. PIC</th>
                     <th>Tanggal proses</th>
                     <th style="width: 150px;">Status</th>
                     <th width="120px">Aksi</th>
@@ -83,8 +81,6 @@
                     <td class="text-center">{{ $loop->iteration }}</td>
                     <td>{{ $skkl->created_at->format('d F Y')}}, {{ $skkl->created_at->format('H:i:s') }}</td>
                     <td>{{ $skkl->perihal }}</td>
-                    <td>{{ $skkl->pic_pemohon }}</td>
-                    <td>{{ $skkl->no_hp_pic }}</td>
                     <td>
                         @if ($skkl->tgl_update)
                             {{ $skkl->tgl_update }}
@@ -128,7 +124,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <a class="btn btn-warning btn-block @if ($skkl->status != "Belum") disabled @endif" href="{{ route('skkl.edit', $skkl->id) }}">Ubah Data SKKL</a>
+            <a class="btn btn-warning btn-block @if ($skkl->status == "Final") disabled @endif" href="{{ route('skkl.edit', $skkl->id) }}">Ubah Data SKKL</a>
             <hr>
             <a class="btn btn-success btn-block" href="{{ route('rkl.create', $skkl->id) }}">Dokumen RKL</a>
             <a class="btn btn-success btn-block" href="{{ route('rpl.create', $skkl->id) }}">Dokumen RPL</a>

@@ -56,6 +56,8 @@
                     <th>Perihal Perubahan PL</th>
                     <th>NIB</th>
                     <th>Nama PJM</th>
+                    <th>PIC</th>
+                    <th>No. PIC</th>
                     <th>Status</th>
                     <th>Aksi</th>
                     <th width="120px">Penugasan</th>
@@ -75,6 +77,8 @@
                                 -
                             @endif
                         </td>
+                        <td>{{ $pkplh->pic_pemohon }}</td>
+                        <td>{{ $pkplh->no_hp_pic }}</td>
                         <td>
                             @if ($pkplh->status == "Belum")
                                 <span class="badge badge-secondary">Belum diproses</span>
@@ -108,7 +112,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <th colspan="7"></th>
+                    <th colspan="9"></th>
                     <th>
                         <button type="submit" class="btn btn-sm btn-success btn-block">Tugaskan</button>
                     </th>

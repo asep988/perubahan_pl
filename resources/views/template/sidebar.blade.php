@@ -30,48 +30,48 @@
         </div>
         <div class="sidebar-brand-text mx-3">Amdalnet</div>
     </a>
-    <center><button class=" btn btn-sm btn-success" style=" width:100px;"><a style="color: white;" href="https://amdalnet-dev.menlhk.go.id/#/dashboard"> <i class="fas fa-home"></i> Back</a></button></center>
+    <center><button class=" btn btn-sm btn-success" style=" width:100px;"><a style="color: white;" href="https://amdalnet.menlhk.go.id/#/dashboard"> <i class="fas fa-home"></i> Back</a></button></center>
 
     @if ($role == 'Pemrakarsa')
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('pemrakarsa.index') }}">
                 <i class="fas fa-book"></i>
-                <span>Permohonan Perubahan PL</span>
+                <span>Perubahan SKKL</span>
             </a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('pkplh.index') }}" >
                 <i class="fas fa-book"></i>
-                <span>PKPLH</span>
+                <span>Perubahan PKPLH</span>
             </a>
         </li>
     @elseif ($role == 'Operator')
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('operator.index') }}">
                 <i class="fas fa-book"></i>
-                <span>Permohonan Perubahan PL</span>
+                <span>Perubahan SKKL</span>
             </a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('operator.pkplh.index') }}" >
                 <i class="fas fa-book"></i>
-                <span>PKPLH</span>
+                <span>Perubahan PKPLH</span>
             </a>
         </li>
     @elseif ($role == 'Sekretariat')
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('sekre.skkl.index') }}">
                 <i class="fas fa-book"></i>
-                <span>Permohonan Perubahan PL</span>
+                <span>Perubahan SKKL</span>
             </a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('sekre.pkplh.index') }}">
                 <i class="fas fa-book"></i>
-                <span>PKPLH</span>
+                <span>Perubahan PKPLH</span>
             </a>
         </li>
     @endif
