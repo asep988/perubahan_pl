@@ -750,11 +750,11 @@
                 $('#nomor_pertek1').removeAttr('name')
                 $('#tgl_pertek1').removeAttr('name')
                 $('#perihal_pertek1').removeAttr('name')
-                $('#judul_pertek1').removeprop('required', true)
-                $('#surat_pertek1').removeprop('required', true)
-                $('#nomor_pertek1').removeprop('required', true)
-                $('#tgl_pertek1').removeprop('required', true)
-                $('#perihal_pertek1').removeprop('required', true)
+                $('#judul_pertek1').prop('required', false)
+                $('#surat_pertek1').prop('required', false)
+                $('#nomor_pertek1').prop('required', false)
+                $('#tgl_pertek1').prop('required', false)
+                $('#perihal_pertek1').prop('required', false)
             }
         });
 
@@ -778,11 +778,11 @@
                 $('#nomor_pertek2').removeAttr('name')
                 $('#tgl_pertek2').removeAttr('name')
                 $('#perihal_pertek2').removeAttr('name')
-                $('#judul_pertek2').removeprop('required', true)
-                $('#surat_pertek2').removeprop('required', true)
-                $('#nomor_pertek2').removeprop('required', true)
-                $('#tgl_pertek2').removeprop('required', true)
-                $('#perihal_pertek2').removeprop('required', true)
+                $('#judul_pertek2').prop('required', false)
+                $('#surat_pertek2').prop('required', false)
+                $('#nomor_pertek2').prop('required', false)
+                $('#tgl_pertek2').prop('required', false)
+                $('#perihal_pertek2').prop('required', false)
             }
         });
 
@@ -806,11 +806,11 @@
                 $('#nomor_pertek3').removeAttr('name')
                 $('#tgl_pertek3').removeAttr('name')
                 $('#perihal_pertek3').removeAttr('name')
-                $('#judul_pertek3').removeprop('required', true)
-                $('#surat_pertek3').removeprop('required', true)
-                $('#nomor_pertek3').removeprop('required', true)
-                $('#tgl_pertek3').removeprop('required', true)
-                $('#perihal_pertek3').removeprop('required', true)
+                $('#judul_pertek3').prop('required', false)
+                $('#surat_pertek3').prop('required', false)
+                $('#nomor_pertek3').prop('required', false)
+                $('#tgl_pertek3').prop('required', false)
+                $('#perihal_pertek3').prop('required', false)
             }
         });
 
@@ -834,11 +834,11 @@
                 $('#nomor_pertek4').removeAttr('name')
                 $('#tgl_pertek4').removeAttr('name')
                 $('#perihal_pertek4').removeAttr('name')
-                $('#judul_pertek4').removeprop('required', true)
-                $('#surat_pertek4').removeprop('required', true)
-                $('#nomor_pertek4').removeprop('required', true)
-                $('#tgl_pertek4').removeprop('required', true)
-                $('#perihal_pertek4').removeprop('required', true)
+                $('#judul_pertek4').prop('required', false)
+                $('#surat_pertek4').prop('required', false)
+                $('#nomor_pertek4').prop('required', false)
+                $('#tgl_pertek4').prop('required', false)
+                $('#perihal_pertek4').prop('required', false)
             }
         });
 
@@ -862,11 +862,11 @@
                 $('#nomor_pertek5').removeAttr('name')
                 $('#tgl_pertek5').removeAttr('name')
                 $('#perihal_pertek5').removeAttr('name')
-                $('#judul_pertek5').removeprop('required', true)
-                $('#surat_pertek5').removeprop('required', true)
-                $('#nomor_pertek5').removeprop('required', true)
-                $('#tgl_pertek5').removeprop('required', true)
-                $('#perihal_pertek5').removeprop('required', true)
+                $('#judul_pertek5').prop('required', false)
+                $('#surat_pertek5').prop('required', false)
+                $('#nomor_pertek5').prop('required', false)
+                $('#tgl_pertek5').prop('required', false)
+                $('#perihal_pertek5').prop('required', false)
             }
         });
 
