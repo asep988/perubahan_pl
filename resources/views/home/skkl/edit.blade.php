@@ -645,6 +645,50 @@
 
                 <div class="mb-3" id="air_limbah" @if ($pertek1 == 0) style="display: none" @endif>
                     <div class="form-group row">
+                        <table border="1" width="100%">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#</th>
+                                    <th>Judul Persetujuan Teknis</th>
+                                    <th>Surat Persetujuan Teknis</th>
+                                    <th>Nomor Persetujuan Teknis</th>
+                                    <th>Tanggal Persetujuan Teknis</th>
+                                    <th>Perihal Persetujuan Teknis</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-pertek1">
+                                <tr id="prt1-1">
+                                    <input type="text" name="pertek[]" value="pertek1" hidden>
+                                    <td>1</td>
+                                    <td>
+                                        <input type="text" class="form-control" id="judul_pertek1" placeholder="Judul Persetujuan" @if ($pertek1 == 1) name="judul_pertek[]" required value="{{ $judul_pertek1 }}" @endif>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="surat_pertek1" placeholder="Surat Persetujuan">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="nomor_pertek1" placeholder="nomor Persetujuan">
+                                    </td>
+                                    <td>
+                                        <input type="date" class="form-control" id="tgl_pertek1" placeholder="Tanggal Persetujuan">
+                                    </td>
+                                    <td>
+                                        <textarea class="form-control" id="perihal_pertek1" rows="2"></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="mt-1">
+                            <button type="button" id="remove-pertek1" class="btn remove-pertek1 btn-sm btn-danger">
+                                <i class="fas fa-minus fa-sm"></i>
+                            </button>
+                            <button type="button" id="add-pertek1" class="btn btn-sm btn-primary">
+                                <i class="fas fa-plus fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
                         <div class="col-sm-5">
                             <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek1" @if ($pertek1 == 1) name="judul_pertek[]" required value="{{ $judul_pertek1 }}" @endif>
@@ -889,6 +933,32 @@
 <input type="text" value="{{ $jum }}" id="sum_il" hidden>
 <input type="text" value="{{ count($skkl->kbli_baru) }}" id="sum_kbli" hidden>
 <input type="text" value="{{ count($skkl->jenis_peraturan) }}" id="sum_perubahan" hidden>
+
+<?php
+    $prk1 = 0;
+    $prk2 = 0;
+    $prk3 = 0;
+    $prk4 = 0;
+    $prk5 = 0;
+    foreach ($pertek_skkl as $row) {
+        if ($row->pertek == "pertek1") {
+            $prk1++;
+        } elseif ($row->pertek == "pertek2") {
+            $prk2++;
+        } elseif ($row->pertek == "pertek3") {
+            $prk3++;
+        } elseif ($row->pertek == "pertek4") {
+            $prk4++;
+        } elseif ($row->pertek == "pertek5") {
+            $prk5++;
+        }
+    }
+?>
+<input type="text" value="{{ $prk1 }}" id="jum_prk1" hidden>
+<input type="text" value="{{ $prk2 }}" id="jum_prk2" hidden>
+<input type="text" value="{{ $prk3 }}" id="jum_prk3" hidden>
+<input type="text" value="{{ $prk4 }}" id="jum_prk4" hidden>
+<input type="text" value="{{ $prk5 }}" id="jum_prk5" hidden>
 
 <script>
     $('.js-kabkota-multiple').select2({
@@ -1156,6 +1226,169 @@
             $('#2Claster' + button_id + '').remove();
             i--
         });
+
+        var prt1 = $('#jum_prk1').val();
+
+            $('#add-pertek1').click(function() {
+                prt1++
+                $('.table-pertek1').append(`
+                    <tr id="prt1-${prt1}">
+                        <input type="text" name="pertek[]" value="pertek1" hidden>
+                        <td>${prt1}</td>
+                        <td>
+                            <input type="text" class="form-control" id="judul_pertek1" name="judul_pertek[]" required placeholder="Judul Persetujuan">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" id="surat_pertek1" name="surat_pertek[]" required placeholder="Surat Persetujuan">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" id="nomor_pertek1" name="nomor_pertek[]" required placeholder="nomor Persetujuan">
+                        </td>
+                        <td>
+                            <input type="date" class="form-control" id="tgl_pertek1" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan">
+                        </td>
+                        <td>
+                            <textarea class="form-control" id="perihal_pertek1" rows="2"></textarea>
+                        </td>
+                    </tr>`)
+            });
+
+            $(document).on('click', '#remove-pertek1', function() {
+                var button_id = prt1;
+                $('#prt1-' + button_id + '').remove();
+                prt1--
+            });
+
+            // jquery pertek 2
+            var prt2 = $('#jum_prk2').val();
+
+            $('#add-pertek2').click(function() {
+                prt2++
+                $('.table-pertek2').append(`
+                    <tr id="prt2-${prt2}">
+                        <input type="text" name="pertek[]" value="pertek2" hidden>
+                        <td>${prt2}</td>
+                        <td>
+                            <input type="text" class="form-control" id="judul_pertek2" name="judul_pertek[]" required placeholder="Judul Persetujuan">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" id="surat_pertek2" name="surat_pertek[]" required placeholder="Surat Persetujuan">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" id="nomor_pertek2" name="nomor_pertek[]" required placeholder="nomor Persetujuan">
+                        </td>
+                        <td>
+                            <input type="date" class="form-control" id="tgl_pertek2" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan">
+                        </td>
+                        <td>
+                            <textarea class="form-control" id="perihal_pertek2" rows="2"></textarea>
+                        </td>
+                    </tr>`)
+            });
+
+            $(document).on('click', '#remove-pertek2', function() {
+                var button_id = prt2;
+                $('#prt2-' + button_id + '').remove();
+                prt2--
+            });
+
+            // jquery pertek 3
+            var prt3 = $('#jum_prk3').val();
+
+            $('#add-pertek3').click(function() {
+                prt3++
+                $('.table-pertek3').append(`
+                    <tr id="prt3-${prt3}">
+                        <input type="text" name="pertek[]" value="pertek3" hidden>
+                        <td>${prt3}</td>
+                        <td>
+                            <input type="text" class="form-control" id="judul_pertek3" name="judul_pertek[]" required placeholder="Judul Persetujuan">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" id="surat_pertek3" name="surat_pertek[]" required placeholder="Surat Persetujuan">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" id="nomor_pertek3" name="nomor_pertek[]" required placeholder="nomor Persetujuan">
+                        </td>
+                        <td>
+                            <input type="date" class="form-control" id="tgl_pertek3" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan">
+                        </td>
+                        <td>
+                            <textarea class="form-control" id="perihal_pertek3" rows="2"></textarea>
+                        </td>
+                    </tr>`)
+            });
+
+            $(document).on('click', '#remove-pertek3', function() {
+                var button_id = prt3;
+                $('#prt3-' + button_id + '').remove();
+                prt3--
+            });
+            // jquery pertek 4
+            var prt4 = $('#jum_prk4').val();
+
+            $('#add-pertek4').click(function() {
+                prt4++
+                $('.table-pertek4').append(`
+                    <tr id="prt4-${prt4}">
+                        <input type="text" name="pertek[]" value="pertek4" hidden>
+                        <td>${prt4}</td>
+                        <td>
+                            <input type="text" class="form-control" id="judul_pertek4" name="judul_pertek[]" required placeholder="Judul Persetujuan">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" id="surat_pertek4" name="surat_pertek[]" required placeholder="Surat Persetujuan">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" id="nomor_pertek4" name="nomor_pertek[]" required placeholder="nomor Persetujuan">
+                        </td>
+                        <td>
+                            <input type="date" class="form-control" id="tgl_pertek4" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan">
+                        </td>
+                        <td>
+                            <textarea class="form-control" id="perihal_pertek4" rows="2"></textarea>
+                        </td>
+                    </tr>`)
+            });
+
+            $(document).on('click', '#remove-pertek4', function() {
+                var button_id = prt4;
+                $('#prt4-' + button_id + '').remove();
+                prt4--
+            });
+
+            // jquery pertek 5
+            var prt5 = $('#jum_prk5').val();
+
+            $('#add-pertek5').click(function() {
+                prt5++
+                $('.table-pertek5').append(`
+                    <tr id="prt5-${prt5}">
+                        <input type="text" name="pertek[]" value="pertek5" hidden>
+                        <td>${prt5}</td>
+                        <td>
+                            <input type="text" class="form-control" id="judul_pertek5" name="judul_pertek[]" required placeholder="Judul Persetujuan">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" id="surat_pertek5" name="surat_pertek[]" required placeholder="Surat Persetujuan">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" id="nomor_pertek5" name="nomor_pertek[]" required placeholder="nomor Persetujuan">
+                        </td>
+                        <td>
+                            <input type="date" class="form-control" id="tgl_pertek5" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan">
+                        </td>
+                        <td>
+                            <textarea class="form-control" id="perihal_pertek5" rows="2"></textarea>
+                        </td>
+                    </tr>`)
+            });
+
+            $(document).on('click', '#remove-pertek5', function() {
+                var button_id = prt5;
+                $('#prt5-' + button_id + '').remove();
+                prt5--
+            });
     });
 </script>
 @endsection

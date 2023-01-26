@@ -149,7 +149,7 @@ class SkklController extends Controller
 		$skkl->rintek_upload		=	$fileName1;
 		$skkl->rintek_limbah_upload	=	$fileName2;
 
-		$skkl->provinsi				=	$provinsi; 
+		$skkl->provinsi				=	$provinsi;
 		$skkl->kabupaten_kota		=	$kabkota;
 		$skkl->region				=	$region;
 		$skkl->link_drive			=	$request->link_drive;
@@ -177,7 +177,7 @@ class SkklController extends Controller
 		foreach ($late as $latest) {
 			$skkl_id = $latest->id;
 		}
-		
+
 		for ($i = 0; $i < count($request->jenis_izin); $i++) {
 			$il_skkl = new il_skkl;
 			$il_skkl->id_skkl = $skkl_id;
@@ -188,7 +188,7 @@ class SkklController extends Controller
 			$il_skkl->perihal_surat = $request->perihal[$i];
 			$il_skkl->save();
 		}
-		
+
 		if ($request->jenis_perubahan != "perkep1" && $request->judul_pertek != null) {
 			for ($i = 0; $i < count($request->judul_pertek); $i++) {
 				$pertek_skkl = new Pertek_skkl;
@@ -232,6 +232,8 @@ class SkklController extends Controller
 		$selected_provinces = $skkl->provinsi;
 		$selected_kabupaten_kota = $skkl->kabupaten_kota;
 		$jum = count($il_skkl);
+
+		return $pertek_skkl[0]->pertek;
 
 		return view('home.skkl.edit', compact('provinces', 'regencies', 'skkl', 'jum', 'il_skkl', 'initiator', 'selected_provinces', 'selected_kabupaten_kota', 'pertek_skkl'));
 	}
@@ -347,7 +349,7 @@ class SkklController extends Controller
 		$skkl = Skkl::find($id);
 		$skkl->user_id 				=   $id_user;
 		$skkl->jenis_perubahan 		=   $request->jenis_perubahan;
-		
+
 		if ($request->jenis_perubahan != "perkep3") {
 			$skkl->pelaku_usaha 	=   $request->pelaku_usaha;
 			$skkl->penanggung		=	$request->penanggung;
@@ -367,7 +369,7 @@ class SkklController extends Controller
 		$skkl->rintek_upload		=	$fileName1;
 		$skkl->rintek_limbah_upload	=	$fileName2;
 
-		$skkl->provinsi				=	$provinsi; 
+		$skkl->provinsi				=	$provinsi;
 		$skkl->kabupaten_kota		=	$kabkota;
 		$skkl->region				=	$region;
 		$skkl->link_drive			=	$request->link_drive;
@@ -447,7 +449,7 @@ class SkklController extends Controller
 						KEPUTUSAN MENTRI LINGKUNGAN HIDUP <br>
 						DAN KEHUTANAN REPUBLIK INDONESIA <br>
 						NOMOR <br>
-						TENTANG KELAYAKAN LINGKUNGAN HIDUP LEGIATAN '. strtoupper($skkl->nama_usaha_baru).' 
+						TENTANG KELAYAKAN LINGKUNGAN HIDUP LEGIATAN '. strtoupper($skkl->nama_usaha_baru).'
 						OLEH '.strtoupper($skkl->pelaku_usaha_baru).'
 					</td>
 					<br><br>
@@ -475,13 +477,13 @@ class SkklController extends Controller
 			<tr>
 				<td width="50%">&nbsp;</td>
 				<td width="50%">
-					<table>       
+					<table>
 						<tr>
 							<td colspan="2">MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA,
 							<br><br><br><br><br><br>
 							SITI NURBAYA
 							</td>
-						</tr>       
+						</tr>
 					</table>
 				</td>
 			</tr>';
@@ -546,7 +548,7 @@ class SkklController extends Controller
 						LAMPIRAN '. integerToRoman($roman) .' <br>
 						KEPUTUSAN MENTRI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
 						NOMOR <br>
-						TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($skkl->nama_usaha_baru).' 
+						TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($skkl->nama_usaha_baru).'
 						OLEH '. strtoupper($skkl->pelaku_usaha_baru).'
 					</td>
 				</tr>
@@ -572,13 +574,13 @@ class SkklController extends Controller
 			<tr>
 				<td width="50%">&nbsp;</td>
 				<td width="50%">
-					<table>       
+					<table>
 						<tr>
 							<td colspan="2">MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA,
 							<br><br><br><br><br><br>
 							SITI NURBAYA
 							</td>
-						</tr>       
+						</tr>
 					</table>
 				</td>
 			</tr>';
@@ -593,7 +595,7 @@ class SkklController extends Controller
 		$skkl = Skkl::find($id);
 		$il_skkl = il_skkl::where('id_skkl', $id)->get();
 		$pertek = Pertek_skkl::where('id_skkl', $id)->get();
-		$roman = 2 + count($pertek);
+		$roman = 2 + count($skkl->pertek);
 
 		$headers = array(
 			"Content-type" => "text/html",
@@ -614,7 +616,7 @@ class SkklController extends Controller
 						LAMPIRAN ' . integerToRoman($roman) . ' <br>
 						KEPUTUSAN MENTRI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
 						NOMOR <br>
-						TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($skkl->nama_usaha_baru).' 
+						TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($skkl->nama_usaha_baru).'
 						OLEH '. strtoupper($skkl->pelaku_usaha_baru).'
 					</td>
 				</tr>
@@ -627,7 +629,7 @@ class SkklController extends Controller
 					<br><br>
 				<tr>
 					<td>
-						
+
 					</td>
 				</tr>';
 		$body .='
@@ -637,13 +639,13 @@ class SkklController extends Controller
 			<tr>
 				<td width="50%">&nbsp;</td>
 				<td width="50%">
-					<table>       
+					<table>
 						<tr>
 							<td colspan="2">MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA,
 							<br><br><br><br><br><br>
 							SITI NURBAYA
 							</td>
-						</tr>       
+						</tr>
 					</table>
 				</td>
 			</tr>';
