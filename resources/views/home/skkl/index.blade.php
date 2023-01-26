@@ -44,17 +44,7 @@
                         </form>
                     </div>
                 </li>
-                {{-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                      Dropdown
-                    </a>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li> --}}
+
                 @endguest
             </ul>
         </div>
@@ -139,7 +129,7 @@
             <hr>
 
             <a class="btn btn-primary btn-block mb-2" href="{{ route('pemrakarsa.download.lampiran1', $skkl->id) }}">Preview lampiran I</a>
-            <?php $i = 3; ?> 
+            <?php $i = 3; ?>
             @if ($skkl->jenis_perubahan != 'perkep1')
                 @foreach ($skkl->pertek as $pertek)
                     <form @if ($pertek != "pertek6") action="{{ route('pemrakarsa.download.pertek', $skkl->id) }}" @else action="{{ route('pemrakarsa.download.rintek', $skkl->id) }}" @endif method="GET">
@@ -170,3 +160,4 @@
     });
 </script>
 @endpush
+

@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<?php 
+<?php
     for ($i = 0; $i < count($pemrakarsa_role); $i++) {
         if (Auth::user()->email == $pemrakarsa_role[$i]->email) {
             $role = 'Pemrakarsa';
@@ -20,15 +20,15 @@
 ?>
 
 <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #033022;">
-    <img src="{{ asset('img/logo-amdal.png') }}" style="margin-left:25px; margin-right:25px; 
+    <img src="{{ asset('img/logo-amdal.png') }}" style="margin-left:25px; margin-right:25px;
     padding-top: 20px;">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/operator">
-        <div class="sidebar-brand-icon rotate-n-15">
+        {{-- <div class="sidebar-brand-icon rotate-n-15"> --}}
             <!-- <i class="fas fa-laugh-wink"></i> -->
-        </div>
-        <div class="sidebar-brand-text mx-3">Amdalnet</div>
+        {{-- </div> --}}
+        {{-- <div class="sidebar-brand-text mx-3">Amdalnet</div> --}}
     </a>
     <center><button class=" btn btn-sm btn-success" style=" width:100px;"><a style="color: white;" href="https://amdalnet.menlhk.go.id/#/dashboard"> <i class="fas fa-home"></i> Back</a></button></center>
 
@@ -75,7 +75,7 @@
             </a>
         </li>
     @endif
-    
+
 
     <!-- Divider -->
     <hr class="sidebar-divider">

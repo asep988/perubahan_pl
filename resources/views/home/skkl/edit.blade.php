@@ -225,12 +225,27 @@
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="form-group row">
                     <label for="link_drive" class="col-sm-2 col-form-label">Upload Lampiran Bukti Perubahan</label>
                     <div class="col-sm-8">
+                        <div style="display: none;" class="alert alert-warning" role="alert" id="detail">
+                            <span>Lampiran Dokumen yang diupload dalam Google Drive:</span>
+                            <span><br> 1. Izin Lingkungan, SKKL, PKPLH, Persetujuan DELH, Persetujuan DELH</span>
+                            <span><br> 2. Dokumen Amdal, UKL-UPL, DELH, atau DPLH yang dimiliki</span>
+                            <span><br> 3. Berita Acara Validasi dari PTSP</span>
+                            <span><br> 4. NIB (KBLI dan lokasi usaha kegiatan sesuai dengan usaha/kegiatan yg diajukan perubahan PL-nya harus termuat di dalam dokumen NIB)</span>
+                            <span><br> 5. Akta Notaris Perubahan Kepemikan</span>
+                            <span><br> 6. RKL-RPL dalam Bentuk Word</span>
+                            <span><br> 7. Izin PPLH atau Persetujuan Teknis (Pembuangan Air Limbah, Emisi, Persetujuan Andalalin) yang telah dimiliki</span>
+                            <span><br> 8. Rincian Teknis Penyimpanan Limbah B3 dalam bentuk Word</span>
+                            <span><br> 9. Rincian Teknis Penyimpanan Limbah Non B3 (optional bila melakukan penyimpanan limbah non B3)</span>
+                            <span><br> 10. Pastikan Link Google Drive anda Bisa diakses Oleh Publik</span>
+                        </div>
                         <input type="text" style="width: 100%" class="form-control" id="link_drive" name="link_drive" placeholder="Link Google Drive" value="{{ $skkl->link_drive }}" required>
-                        <small class="text-muted">Pastikan Link Google Drive anda Bisa diakses Oleh Publik</small>
+                    </div>
+                    <div class="col-sm-2 ml-0">
+                        <button type="button" class="btn btn-warning" id="btn-detail"><i class="fa fa-info fa-sm"></i>&nbsp; Detail</button>
                     </div>
                 </div>
 
@@ -284,7 +299,7 @@
                                         if ($region == "Papua") {
                                             $region6 = 1;
                                         }
-                                    }    
+                                    }
                                 }
                             ?>
                             <option value="Sumatera" @if ($region1 == 1) selected @endif>Sumatera</option>
@@ -430,7 +445,7 @@
                         <li>Perihal/Tentang : UKL dan UPL Kegiatan Pemrduksian Sumur Walio Ext-1 (POP) di Blok Kepala Burung Kabupaten Sorong Provinsi Papua Barat.</li>
                     </ol>
                 </label>
-                
+
                 <div class="form-group row">
                     <table border="1" width="100%">
                         <thead>
@@ -518,7 +533,7 @@
 
             <div id="lampiran" @if ($skkl->jenis_perubahan == "perkep1") style="display: none;" @endif> <!-- Lampiran Persetujuan Teknis -->
                 <label><b>Lampiran Persetujuan Teknis</b></label>
-                <?php 
+                <?php
                     $pertek1 = 0;
                     $pertek2 = 0;
                     $pertek3 = 0;
@@ -619,7 +634,7 @@
                             if ($pertek == "pertek6") {
                                 $pertek6 = 1;
                             }
-                        }    
+                        }
                     }
                 ?>
 
@@ -893,6 +908,10 @@
         var j = $('#sum_perubahan').val();
         var k = $('#sum_kbli').val();
 
+        $("#btn-detail").click(function() {
+            $("#detail").fadeToggle("slow");
+        });
+
         $(document).on('change', '#jenis_perubahan1', function () {
             if ($('#jenis_perubahan1').prop('checked', true)) {
                 $('#lampiran').hide();
@@ -1064,7 +1083,7 @@
                 $('#rintek_limbah').hide();
             }
         });
-        
+
         $('#add-kbli').click(function() {
             k++
             $('.table-kbli').append(`<tr id="kbli-claster${k}">
