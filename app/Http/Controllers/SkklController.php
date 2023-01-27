@@ -448,7 +448,7 @@ class SkklController extends Controller
 						KEPUTUSAN MENTRI LINGKUNGAN HIDUP <br>
 						DAN KEHUTANAN REPUBLIK INDONESIA <br>
 						NOMOR <br>
-						TENTANG KELAYAKAN LINGKUNGAN HIDUP LEGIATAN '. strtoupper($skkl->nama_usaha_baru).'
+						TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN '. strtoupper($skkl->nama_usaha_baru).'
 						OLEH '.strtoupper($skkl->pelaku_usaha_baru).'
 					</td>
 					<br><br>
