@@ -82,7 +82,7 @@ class PkplhController extends Controller
 		}
 
 		if (is_array($request->pertek)) {
-			$pertek = $request->pertek;
+			$pertek = array_values(array_unique($request->pertek));
 		} else {
 			$pertek = array();
 			$pertek[] = $request->pertek;
@@ -195,12 +195,12 @@ class PkplhController extends Controller
 			$il_pkplh->save();
 		}
 		
-		if ($request->jenis_perubahan != "perkep1" && $request->judul_pertek != null) {
-			for ($i = 0; $i < count($request->judul_pertek); $i++) {
+		if ($request->jenis_perubahan != "perkep1" && $request->surat_pertek != null) {
+			for ($i = 0; $i < count($request->surat_pertek); $i++) {
 				$pertek_pkplh = new Pertek_pkplh;
 				$pertek_pkplh->id_pkplh = $pkplh_id;
 				$pertek_pkplh->pertek = $request->pertek[$i];
-				$pertek_pkplh->judul_pertek = $request->judul_pertek[$i];
+				// $pertek_pkplh->judul_pertek = $request->judul_pertek[$i];
 				$pertek_pkplh->surat_pertek = $request->surat_pertek[$i];
 				$pertek_pkplh->nomor_pertek = $request->nomor_pertek[$i];
 				$pertek_pkplh->tgl_pertek = $request->tgl_pertek[$i];
@@ -229,7 +229,12 @@ class PkplhController extends Controller
         ->where('nama_operator', Auth::user()->name)
         ->get();
 
-		return view('operator.pkplh.index', compact('data_pkplh'));
+        $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
+        ->where('initiators.user_type', 'Pemrakarsa')
+        ->select('users.id', 'users.name', 'users.email')
+        ->get();
+
+		return view('operator.pkplh.index', compact('data_pkplh', 'pemrakarsa'));
 	}
 
 	public function uploadFile(Request $request)
@@ -303,6 +308,7 @@ class PkplhController extends Controller
 
 	public function update(Request $request, $id) //Pemrakarsa
 	{
+        // return $request->all();
 		$id_user = Auth::user()->id;
 		$request->validate([
 			'rintek_upload' => 'nullable|max:5120',
@@ -344,7 +350,7 @@ class PkplhController extends Controller
 		}
 
 		if (is_array($request->pertek)) {
-			$pertek = $request->pertek;
+			$pertek = array_values(array_unique($request->pertek));
 		} else {
 			$pertek = array();
 			$pertek[] = $request->pertek;
@@ -465,13 +471,13 @@ class PkplhController extends Controller
 			$il_pkplh->save();
 		}
 
-		if ($request->jenis_perubahan != "perkep1" && $request->judul_pertek != null) {
+		if ($request->jenis_perubahan != "perkep1" && $request->surat_pertek != null) {
 			Pertek_pkplh::where('id_pkplh', $id)->delete();
-			for ($i = 0; $i < count($request->judul_pertek); $i++) {
+			for ($i = 0; $i < count($request->surat_pertek); $i++) {
 				$pertek_pkplh = new Pertek_pkplh;
 				$pertek_pkplh->id_pkplh = $id;
 				$pertek_pkplh->pertek = $request->pertek[$i];
-				$pertek_pkplh->judul_pertek = $request->judul_pertek[$i];
+				// $pertek_pkplh->judul_pertek = $request->judul_pertek[$i];
 				$pertek_pkplh->surat_pertek = $request->surat_pertek[$i];
 				$pertek_pkplh->nomor_pertek = $request->nomor_pertek[$i];
 				$pertek_pkplh->tgl_pertek = $request->tgl_pertek[$i];
@@ -488,8 +494,9 @@ class PkplhController extends Controller
 	{
 		$data_pkplh = Pkplh::find($id);
 		$il_pkplh = il_pkplh::where('id_pkplh', $id)->get();
+        $pertek_pkplh = Pertek_pkplh::where('id_pkpl', $id)->get();
 
-		return view('operator.pkplh.preview', compact('data_pkplh', 'il_pkplh'));
+		return view('operator.pkplh.preview', compact('data_pkplh', 'il_pkplh', 'pertek_pkplh'));
 	}
 
 	public function download($id)
@@ -505,19 +512,19 @@ class PkplhController extends Controller
         $pertek = "";
         for ($i = 0; $i < count($pkplh->pertek); $i++) {
             if ($pkplh->pertek[$i] == "pertek1") {
-                $pertek .= "<li>Persetujuan Teknis Pemenuhan Baku Mutu Air Limbah untuk Kegiatan " . $pertek_pkplh[$i]->judul_pertek . " yang merupakan pengelolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
+                $pertek .= "<li>Persetujuan Teknis Pemenuhan Baku Mutu Air Limbah yang merupakan pengelolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
             }
             if ($pkplh->pertek[$i] == "pertek2") {
-                $pertek .= "<li>Persetujuan Teknis Pemenuhan Baku Mutu Emisi untuk Kegiatan " . $pertek_pkplh[$i]->judul_pertek . " yang merupakan pengelolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
+                $pertek .= "<li>Persetujuan Teknis Pemenuhan Baku Mutu Emisi yang merupakan pengelolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
             }
             if ($pkplh->pertek[$i] == "pertek3") {
-                $pertek .= "<li>Persetujuan Teknis Di Bidang Pengelolaan Limbah B3 untuk Kegiatan " . $pertek_pkplh[$i]->judul_pertek . " yang merupakan penglolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
+                $pertek .= "<li>Persetujuan Teknis Di Bidang Pengelolaan Limbah B3 yang merupakan penglolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
             }
             if ($pkplh->pertek[$i] == "pertek4") {
-                $pertek .= "<li>Persetujuan Teknis Andalalin untuk Kegiatan " . $pertek_pkplh[$i]->judul_pertek . " yang merupakan penglolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
+                $pertek .= "<li>Persetujuan Teknis Andalalin yang merupakan penglolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
             }
             if ($pkplh->pertek[$i] == "pertek5") {
-                $pertek .= "<li>Persetujuan Teknis Dokumen Rincian Teknis untuk Kegiatan " . $pertek_pkplh[$i]->judul_pertek . " yang merupakan penglolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
+                $pertek .= "<li>Persetujuan Teknis Dokumen Rincian Teknis yang merupakan penglolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
             }
         }
 
@@ -528,9 +535,9 @@ class PkplhController extends Controller
 
         $perkep = "";
         if ($pkplh->jenis_perubahan == "perkep1") {
-            $perkep .= "bahwa terdapat perubahan kepemilikan " . $pkplh->nama_usaha_baru ." oleh " . $pkplh->pelaku_usaha_baru . " Berdasarkan <ol>" . $dasper .  "</ol>";
+            $perkep .= "bahwa terdapat perubahan kepemilikan " . $pkplh->nama_usaha_baru ." oleh " . $pkplh->pelaku_usaha_baru . " berdasarkan <ol start='1'>" . $dasper .  "</ol>";
         } elseif ($pkplh->jenis_perubahan == "perkep2") {
-            $perkep .= "bahwa terdapat perubahan kepemilikan " . $pkplh->nama_usaha_baru ." oleh " . $pkplh->pelaku_usaha_baru . " Berdasarkan <ol>" . $dasper .  "</ol> <br>
+            $perkep .= "bahwa terdapat perubahan kepemilikan " . $pkplh->nama_usaha_baru ." oleh " . $pkplh->pelaku_usaha_baru . " berdasarkan <ol>" . $dasper .  "</ol> <br>
             dan perubahan pengelolaan dan pemantauan oleh " . $pkplh->pelaku_usaha_baru . " akan mengintegrasikan: <ol start='1'>" . $pertek . "</ol>";
         } else {
             $perkep .= "bahwa terdapat perubahan pengelolaan dan pemantauan " . $pkplh->pelaku_usaha_baru . " akan mengintegrasikan: <ol>" . $pertek . "</ol>";
@@ -563,7 +570,7 @@ class PkplhController extends Controller
 
         $il_dkk = "";
         for ($i = 0; $i < count($il_pkplh); $i++) {
-            $il_dkk .= "<li>" . $il_pkplh[$i]->jenis_sk . " " . $il_pkplh[$i]->menerbitkan . " Nomor " . $il_pkplh[$i]->nomor_surat . " tanggal " . date("d m Y", strtotime($il_pkplh[$i]->tgl_surat)) . " tentang " . $il_pkplh[$i]->perihal_surat . "</li>";
+            $il_dkk .= "<li>" . $il_pkplh[$i]->jenis_sk . " " . $il_pkplh[$i]->menerbitkan . " Nomor " . $il_pkplh[$i]->nomor_surat . " tanggal " . tgl_indo($il_pkplh[$i]->tgl_surat) . " tentang " . $il_pkplh[$i]->perihal_surat . "</li>";
         }
 
         $abjad = count($pkplh->provinsi) + count($pkplh->kabupaten_kota) + 0;
@@ -631,7 +638,7 @@ class PkplhController extends Controller
         <center>KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN<br>REPUBLIK INDONESIA<br> 
             NOMOR .....<br><br>TENTANG<br><br>
             PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN<br>
-            HIDUP KEGIATAN' . strtoupper($pkplh->nama_usaha_baru) .
+            HIDUP KEGIATAN ' . strtoupper($pkplh->nama_usaha_baru) .
             ' OLEH '. strtoupper($pkplh->pelaku_usaha_baru) . ' <br><br>
             DENGAN RAHMAT TUHAN YANG MAHA ESA<br><br>MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA,
         <center>    
@@ -670,10 +677,10 @@ class PkplhController extends Controller
             </li>
             <li>
                 bahwa '. ucfirst($pkplh->pelaku_usaha_baru) .' sesuai Nomor '. $pkplh->nomor_pl  .' 
-                tanggal '. $pkplh->tgl_pl .' perihal '. $pkplh->perihal_surat.' menyampaikan permohonan perubahan Persetujuan Lingkungan;
+                tanggal '. tgl_indo($pkplh->tgl_pl) .' perihal '. $pkplh->perihal.' menyampaikan permohonan perubahan Persetujuan Lingkungan;
             </li>
             <li>
-                bahwa berdasarkan hasil verifikasi administrasi sesuai Nomor '. $pkplh->nomor_validasi .' tanggal '. $pkplh->tgl_validasi .',
+                bahwa berdasarkan hasil verifikasi administrasi sesuai Nomor '. $pkplh->nomor_validasi .' tanggal '. tgl_indo($pkplh->tgl_validasi) .',
                 permohonan sebagaimana dimaksud pada huduf d, dinyatakan lengkap secara administratif:
             </li>
             <li>
@@ -684,7 +691,7 @@ class PkplhController extends Controller
     </tr>
     <tr>
     <td width="30%" >
-*       Mengingat
+        Mengingat
     </td>
     <td width="2%"> :</td>
     <td width="68%">
@@ -722,7 +729,7 @@ class PkplhController extends Controller
     <td width="68%">
         Risalah Pengolahan Data (RPD) Penerbitan Persetujuan Pernyataan Kesanggupan 
         Pengelolaan Lingkungan Hidup Kegiatan '. $pkplh->nama_usaha_baru .' oleh '. $pkplh->pelaku_usaha_baru .' 
-        Nomor: '. $pkplh->nomor_rpd .' tanggal '. $pkplh->tgl_rpd .'
+        Nomor: '. $pkplh->nomor_rpd .' tanggal '. tgl_indo($pkplh->tgl_rpd) .'
     </td>
     </tr>   
     <tr>
@@ -751,13 +758,13 @@ class PkplhController extends Controller
                 <td width="20px">1.</td>
                 <td width="40%" style="text-align: left;">Nama Usaha dan/atau Kegiatan</td>
                 <td>:</td>
-                <td width= "50%">' . ucfirst($pkplh->pelaku_usaha) . '</td>
+                <td width= "50%">' . ucfirst($pkplh->nama_usaha_baru) . '</td>
             </tr>
             <tr>
                 <td>2.</td>
                 <td style="text-align: left;">Nomor Induk Berusaha</td>
                 <td>:</td>
-                <td>' . ucfirst($pkplh->nib) . '</td>
+                <td>' . ucfirst($pkplh->nib_baru) . '</td>
             </tr>
             <tr>
                 <td>3.</td>
@@ -814,7 +821,7 @@ class PkplhController extends Controller
     </tr>
     <tr>
     <td width="30%">
-*       KEEMPAT
+        KEEMPAT
     </td>
     <td width="2%"> :</td>
     <td width="68%">
@@ -999,30 +1006,20 @@ class PkplhController extends Controller
 			$data[] = $row->pertek;
 		}
 
-		if ($request->pertek == "pertek1") {
-			$isi = "Persetujuan Teknis Pemenuhan Baku Mutu Air Limbah";
-			$index = array_search('pertek1', $data);
-			$roman = 2 + $index;
-		}
-		if ($request->pertek == "pertek2") {
-			$isi = "Persetujuan Teknis Pemenuhan Baku Mutu Emisi";
-			$index = array_search('pertek2', $data);
-			$roman = 2 + $index;
-		}
-		if ($request->pertek == "pertek3") {
-			$isi = "Persetujuan Teknis Di Bidang Pengelolaan Limbah B3";
-			$index = array_search('pertek3', $data);
-			$roman = 2 + $index;
-		}
-		if ($request->pertek == "pertek4") {
-			$isi = "Persetujuan Teknis Andalalin";
-			$index = array_search('pertek4', $data);
-			$roman = 2 + $index;
-		}
-		if ($request->pertek == "pertek5") {
-			$isi = "Persetujuan Teknis Dokumen Rincian Teknis";
-			$index = array_search('pertek5', $data);
-			$roman = 2 + $index;
+		$data = array_values(array_unique($data));
+
+        $pertek_isi = "";
+        $roman = 0;
+		for ($i = 0; $i < count($pertek); $i++) {
+			if ($request->pertek == $pertek[$i]->pertek) {
+				$isi = "Persetujuan Teknis Pemenuhan Baku Mutu Air Limbah";
+				$index = array_search('pertek1', $data);
+				$roman = 2 + $index;
+				$pertek_isi .= '<li>Surat/Izin/Keputusan '.ucfirst($pertek[$i]->surat_pertek).'
+				Nomor: '.strtoupper($pertek[$i]->nomor_pertek).'
+				tanggal '. tgl_indo($pertek[$i]->tgl_pertek).'
+				tentang '.ucfirst($pertek[$i]->perihal_pertek).';</li>';
+			}
 		}
 
 		$headers = array(
@@ -1044,23 +1041,27 @@ class PkplhController extends Controller
 						LAMPIRAN '. integerToRoman($roman) .' <br>
 						KEPUTUSAN MENTRI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
 						NOMOR <br>
-						TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($pkplh->nama_usaha_baru).' 
+						TENTANG PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($pkplh->nama_usaha_baru).' 
 						OLEH '. strtoupper($pkplh->pelaku_usaha_baru).'
 					</td>
 				</tr>
 					<br><br><br>
-				<tr>
+                <tr>
 					<td>
-						'. strtoupper($isi) .' UNTUK '.strtoupper($pertek[$index]->judul_pertek).'
+						'. strtoupper($isi) .'
 					</td>
 				</tr>
 					<br><br>
 				<tr>
 					<td>
-						Berdasarkan Surat '.ucfirst($pertek[$index]->surat_pertek).'
-						Nomor: '.strtoupper($pertek[$index]->nomor_pertek).'
-						tanggal '. tgl_indo($pertek[$index]->tgl_pertek).'
-						tentang '.ucfirst($pertek[$index]->perihal_pertek).';
+						Berdasarkan: <br>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<ol>
+							'. $pertek_isi .'
+						</ol>
 					</td>
 				</tr>';
 		$body .='
@@ -1068,14 +1069,17 @@ class PkplhController extends Controller
 		$body .='
 			<table>
 			<tr>
-				<td width="50%">&nbsp;</td>
-				<td width="50%">
+				<td width="40%">&nbsp;</td>
+				<td width="60%">
 					<table>       
 						<tr>
-							<td colspan="2">MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA,
-							<br><br><br><br><br><br>
-							SITI NURBAYA
-							</td>
+                        <td colspan="2">a.n. MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA<br>
+                        PLT. DIREKTORAT JENDRAL PLANOLOGI<br>
+                        KEHUTANAN DAN TATA LINGKUNGAN,
+                        <br><br><br><br><br><br>
+                        RUANDHA AGUNG SUGARDIMAN<br>
+                        NIP 19620301 198802 1 001
+                        </td>
 						</tr>       
 					</table>
 				</td>
@@ -1111,7 +1115,7 @@ class PkplhController extends Controller
 						LAMPIRAN ' . integerToRoman($roman) .' <br>
 						KEPUTUSAN MENTRI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
 						NOMOR <br>
-						TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($pkplh->nama_usaha_baru).' 
+						TENTANG PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($pkplh->nama_usaha_baru).' 
 						OLEH '. strtoupper($pkplh->pelaku_usaha_baru).'
 					</td>
 				</tr>
@@ -1132,14 +1136,17 @@ class PkplhController extends Controller
 		$body .='
 			<table>
 			<tr>
-				<td width="50%">&nbsp;</td>
-				<td width="50%">
+				<td width="40%">&nbsp;</td>
+				<td width="60%">
 					<table>       
 						<tr>
-							<td colspan="2">MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA,
-							<br><br><br><br><br><br>
-							SITI NURBAYA
-							</td>
+                        <td colspan="2">a.n. MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA<br>
+                        PLT. DIREKTORAT JENDRAL PLANOLOGI<br>
+                        KEHUTANAN DAN TATA LINGKUNGAN,
+                        <br><br><br><br><br><br>
+                        RUANDHA AGUNG SUGARDIMAN<br>
+                        NIP 19620301 198802 1 001
+                        </td>
 						</tr>       
 					</table>
 				</td>

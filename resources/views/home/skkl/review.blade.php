@@ -218,7 +218,7 @@
                                 <ol>
                                     @foreach ($il_skkl as $data)
                                         <li>{{ $data->jenis_sk }} {{ $data->menerbitkan }} Nomor
-                                            {{ $data->nomor_surat }} tanggal {{ $data->tgl_surat }} tentang
+                                            {{ $data->nomor_surat }} tanggal {{ tgl_indo($data->tgl_surat) }} tentang
                                             {{ $data->perihal_surat }}</li>
                                     @endforeach
                                 </ol>
@@ -228,8 +228,7 @@
                         @if ($data_skkl->jenis_perubahan == 'perkep1')
                             <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>bahwa terdapat
                                     perubahan kepemilikan kegiatan {{ $data_skkl->nama_usaha_baru }} oleh
-                                    {{ $data_skkl->pelaku_usaha_baru }} Berdasarkan:
-                                    <i> (surat/akta notaris/SK)</i>
+                                    {{ $data_skkl->pelaku_usaha_baru }} berdasarkan:
                                 </span>
                                 <ol type="1" style="margin-right:0pt; margin-left:0pt; padding-left:0pt">
                                     @for ($i = 0; $i < count($data_skkl->jenis_peraturan); $i++)
@@ -384,13 +383,13 @@
                         <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
                             <span>Bahwa {{ $data_skkl->pejabat_pl }}
                                 {{ $data_skkl->pelaku_usaha_baru }} melalui surat nomor
-                                {{ $data_skkl->nomor_pl }},tanggal {{ $data_skkl->tgl_pl }}
+                                {{ $data_skkl->nomor_pl }},tanggal {{ tgl_indo($data_skkl->tgl_pl) }}
                                 , perihal {{ $data_skkl->perihal }} ; </span>
                         </li>
                         <!-- e -->
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>bahwa berdasarkan hasil
                                 verifikasi administrasi sesuai Nomor {{ $data_skkl->nomor_validasi }} tanggal
-                                {{ $data_skkl->tgl_validasi }}, permohonan
+                                {{ tgl_indo($data_skkl->tgl_validasi) }}, permohonan
                                 sebagaimana
                                 dimaksud pada huruf d, dinyatakan lengkap secara administrasi; </span></li>
                         <!-- f -->
@@ -434,7 +433,7 @@
                                 Republik indonesia Nomor 6634); </span></li>
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Presiden
                                 Nomor
-                                68 Tahun 2019 tentang Organisasi Kementerian Negara , (Lembaran Negara Republik
+                                68 Tahun 2019 tentang Organisasi Kementerian Negara, (Lembaran Negara Republik
                                 Indonesia Tahun 2019 Nomor 203), sebagaimana telah diubah dengan Peraturan Presiden
                                 Nomor 32 Tahun 2021 tentang Perubahan atas Peraturan Presiden Nomor 68 Tahun 2019
                                 (Lembaran Negara Republik Indonesia Tahun 2021 Nomor 106); </span></li>
@@ -536,7 +535,7 @@
                             </td>
                             <td style="width:50%; padding:0.75pt; vertical-align:top">
                                 <p style="text-align:justify; font-size:12pt">
-                                    <span>{{ ucfirst($data_skkl->pelaku_usaha_baru) }}</span>
+                                    <span>{{ ucfirst($data_skkl->nama_usaha_baru) }}</span>
                                 </p>
                             </td>
                         </tr>
@@ -570,7 +569,7 @@
                                 <ul type="disc" style="margin:0pt; padding-left:0pt">
                                     @for ($i = 0; $i < count($data_skkl->nama_kbli); $i++)
                                         <li
-                                            style="margin-left:36pt; text-align:justify; font-family:serif; font-size:12pt; -aw-font-family:'Symbol'; -aw-font-weight:normal; -aw-number-format:''">
+                                            style="margin-left:10pt; text-align:justify; -aw-font-family:'Symbol'; -aw-font-weight:normal; -aw-number-format:''">
                                             {{ $data_skkl->nama_kbli[$i] }} (kode KBLI:
                                             {{ $data_skkl->kbli_baru[$i] }})
                                         </li>
@@ -968,10 +967,10 @@
                 <td style="width:65%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>Dengan ditetapkannya keputusan ini, maka
                         </span></p>
-                    <ol type="1" style="margin:0pt; padding-left:50px">
+                    <ol type="1" style="margin:0pt; padding-left:50px;text-align:justify;">
                         @foreach ($il_skkl as $data)
                             <li>{{ $data->jenis_sk }} {{ $data->menerbitkan }} Nomor {{ $data->nomor_surat }} tanggal
-                                {{ $data->tgl_surat }} tentang {{ $data->perihal_surat }}
+                                {{ tgl_indo($data->tgl_surat) }} tentang {{ $data->perihal_surat }}
                             </li>
                         @endforeach
                     </ol>
@@ -1034,7 +1033,7 @@
                     <p style="text-align:justify; font-size:12pt"><span>Tembusan Yth.: </span></p>
                     <ol type="1" style="margin:0pt; padding-left:0pt">
                         @foreach ($data_skkl->provinsi as $prov)
-                            <li style="margin-top:12pt; margin-left:36pt; text-align:justify; font-size:12pt">
+                            <li style="margin-left:36pt; text-align:justify; font-size:12pt">
                                 <span>Gubernur {{ ucwords(strtolower($prov)) }}</span>
                             </li>
                         @endforeach

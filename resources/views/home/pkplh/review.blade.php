@@ -233,10 +233,10 @@
                                 {{ ucfirst($data_pkplh->pelaku_usaha_baru) }} telah memiliki dokumen lingkungan hidup
                                 yang telah disetujui
                                 berdasarkan: </span>
-                            <ol type="1" style="margin-right:0pt; margin-left:0pt; padding-left:0pt">
+                            <ol type="1" style="margin-right:0pt; margin-left:35pt; padding-left:0pt">
                                 @foreach ($il_pkplh as $data)
                                     <li>{{ $data->jenis_sk }} {{ $data->menerbitkan }} Nomor
-                                        {{ $data->nomor_surat }} tanggal {{ $data->tgl_surat }} tentang
+                                        {{ $data->nomor_surat }} tanggal {{ tgl_indo($data->tgl_surat) }} tentang
                                         {{ $data->perihal_surat }}</li>
                                 @endforeach
                             </ol>
@@ -264,8 +264,7 @@
                         @elseif ($data_pkplh->jenis_perubahan = 'perkep2')
                             <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>bahwa terdapat
                                     perubahan kepemilikan kegiatan {{ $data_pkplh->nama_usaha_baru }} oleh
-                                    {{ $data_pkplh->pelaku_usaha_baru }} Berdasarkan:
-                                    <i> (surat/akta notaris/SK)</i>
+                                    {{ $data_pkplh->pelaku_usaha_baru }} berdasarkan:
                                 </span>
                                 <ol type="1" style="margin-right:0pt; margin-left:0pt; padding-left:0pt">
                                     @for ($i = 0; $i < count($data_pkplh->jenis_peraturan); $i++)
@@ -402,13 +401,12 @@
                         <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
                             <span>Bahwa {{ $data_pkplh->pejabat_pl }}
                                 {{ $data_pkplh->pelaku_usaha_baru }} melalui surat nomor
-                                {{ $data_pkplh->nomor_pl }},tanggal {{ $data_pkplh->tgl_pl }}
-                                , perihal {{ $data_pkplh->perihal }} ; </span>
+                                {{ $data_pkplh->nomor_pl }}, tanggal {{ tgl_indo($data_pkplh->tgl_pl) }}, perihal {{ $data_pkplh->perihal }}; </span>
                         </li>
                         <!-- e -->
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>bahwa berdasarkan hasil
                                 verifikasi administrasi sesuai Nomor {{ $data_pkplh->nomor_validasi }} tanggal
-                                {{ $data_pkplh->tgl_validasi }}, permohonan
+                                {{ tgl_indo($data_pkplh->tgl_validasi) }}, permohonan
                                 sebagaimana
                                 dimaksud pada huruf d, dinyatakan lengkap secara administrasi; </span></li>
                         <!-- f -->
@@ -498,7 +496,7 @@
                             Persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup Kegiatan
                             {{ $data_pkplh->nama_usaha_baru }} oleh
                             {{ $data_pkplh->pelaku_usaha_baru }} Nomor: {{ $data_pkplh->nomor_rpd }}
-                            tanggal: {{ $data_pkplh->tgl_rpd }} </span></p>
+                            tanggal: {{ tgl_indo($data_pkplh->tgl_rpd) }} </span></p>
                 </td>
             </tr>
             <tr>
@@ -547,7 +545,7 @@
                             </td>
                             <td style="width:50%; padding:0.75pt; vertical-align:top">
                                 <p style="text-align:justify; font-size:12pt">
-                                    <span>{{ $data_pkplh->pelaku_usaha_baru }}</span>
+                                    <span>{{ $data_pkplh->nama_usaha_baru }}</span>
                                 </p>
                             </td>
                         </tr>
@@ -563,7 +561,7 @@
                             </td>
                             <td style="padding:0.75pt; vertical-align:top">
                                 <p style="text-align:justify; font-size:12pt"><span
-                                        style="-aw-import:ignore">{{ $data_pkplh->nib }}</span></p>
+                                        style="-aw-import:ignore">{{ $data_pkplh->nib_baru }}</span></p>
                             </td>
                         </tr>
                         <tr>
@@ -580,7 +578,7 @@
                                 <ul type="disc" style="margin:0pt; padding-left:0pt">
                                     @for ($i = 0; $i < count($data_pkplh->nama_kbli); $i++)
                                         <li
-                                            style="margin-left:36pt; text-align:justify; font-family:serif; font-size:12pt; -aw-font-family:'Symbol'; -aw-font-weight:normal; -aw-number-format:''">
+                                            style="margin-left:10pt; text-align:justify; -aw-font-family:'Symbol'; -aw-font-weight:normal; -aw-number-format:''">
                                             {{ $data_pkplh->nama_kbli[$i] }} (kode KBLI:
                                             {{ $data_pkplh->kbli_baru[$i] }})
                                         </li>
@@ -713,7 +711,7 @@
                                     <ol type="a">
                                         @for ($i = 0; $i < count($pertek_pkplh); $i++)
                                             @if ($pertek_pkplh[$i]->pertek == 'pertek1')
-                                                <li style="margin-left:50pt; text-align:justify; font-size:12pt">
+                                                <li style="margin-left:30pt; text-align:justify; font-size:12pt">
                                                     <span>
                                                         Lampiran {{ integerToRoman($roman) }} Persetujuan Teknis Air
                                                         Limbah;
@@ -814,12 +812,12 @@
                                     <li style="margin-left:35.98pt; padding-left:0.02pt"><span>Gubernur
                                             {{ ucwords(strtolower($prov)) }} melalui
                                             Kepala Dinas Lingkungan Hidup Provinsi
-                                            {{ ucwords(strtolower($prov)) }}</span></li>
+                                            {{ ucwords(strtolower($prov)) }};</span></li>
                                 @endforeach
                                 @foreach ($data_pkplh->kabupaten_kota as $kabkota)
                                     <li style="margin-left:35.98pt; padding-left:0.02pt"><span>Bupati/Walikota
                                             {{ ucwords(strtolower($kabkota)) }} melalui Kepala Dinas Lingkungan Hidup
-                                            Kabupaten/Kota {{ ucwords(strtolower($kabkota)) }}</span></li>
+                                            Kabupaten/Kota {{ ucwords(strtolower($kabkota)) }};</span></li>
                                 @endforeach
                             </ol>
                         </li>
@@ -925,10 +923,10 @@
                 <td style="width:68%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>Dengan ditetapkannya keputusan ini, maka
                         </span></p>
-                    <ol type="1" style="margin:0pt; padding-left:50px">
+                    <ol type="1" style="margin:0pt; padding-left:50px;text-align:justify">
                         @foreach ($il_pkplh as $data)
                             <li>{{ $data->jenis_sk }} {{ $data->menerbitkan }} Nomor {{ $data->nomor_surat }} tanggal
-                                {{ $data->tgl_surat }} tentang {{ $data->perihal_surat }}
+                                {{ tgl_indo($data->tgl_surat) }} tentang {{ $data->perihal_surat }}
                             </li>
                         @endforeach
                     </ol>
@@ -998,7 +996,7 @@
                     <p style="text-align:justify; font-size:12pt"><span>Tembusan Yth.: </span></p>
                     <ol type="1" style="margin:0pt; padding-left:0pt">
                         @foreach ($data_pkplh->provinsi as $prov)
-                            <li style="margin-top:12pt; margin-left:36pt; text-align:justify; font-size:12pt">
+                            <li style="margin-left:36pt; text-align:justify; font-size:12pt">
                                 <span>Gubernur {{ ucwords(strtolower($prov)) }}</span>
                             </li>
                         @endforeach

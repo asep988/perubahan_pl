@@ -234,7 +234,7 @@
                             <span><br> 1. Izin Lingkungan, SKKL, PKPLH, Persetujuan DELH, Persetujuan DELH</span>
                             <span><br> 2. Dokumen Amdal, UKL-UPL, DELH, atau DPLH yang dimiliki</span>
                             <span><br> 3. Berita Acara Validasi dari PTSP</span>
-                            <span><br> 4. NIB (KBLI dan lokasi usaha kegiatan sesuai dengan usaha/kegiatan yg diajukan perubahan PL-nya harus termuat di dalam dokumen NIB)</span>
+                            <span><br> 4. NIB beserta lampirannya (KBLI dan lokasi usaha kegiatan sesuai dengan usaha/kegiatan yg diajukan perubahan PL-nya harus termuat di dalam dokumen NIB)</span>
                             <span><br> 5. Akta Notaris Perubahan Kepemikan</span>
                             <span><br> 6. RKL-RPL dalam Bentuk Word</span>
                             <span><br> 7. Izin PPLH atau Persetujuan Teknis (Pembuangan Air Limbah, Emisi, Persetujuan Andalalin) yang telah dimiliki</span>
@@ -343,7 +343,7 @@
                 <div class="form-group row">
                     <label for="tgl_pl" class="col-sm-2 col-form-label">Tanggal</label>
                     <div class="col-sm-3">
-                        <input class="form-control" type="date" id="tgl_pl" name="tgl_pl" {{ $skkl->tgl_pl }} placeholder="yyyy/mm/dd">
+                        <input class="form-control" type="date" id="tgl_pl" name="tgl_pl" value="{{ $skkl->tgl_pl }}" placeholder="yyyy/mm/dd" required>
                     </div>
                 </div>
 
@@ -560,78 +560,33 @@
                     $perihal_pertek3 = null;
                     $perihal_pertek4 = null;
                     $perihal_pertek5 = null;
-                    $judul_pertek1 = null;
-                    $judul_pertek2 = null;
-                    $judul_pertek3 = null;
-                    $judul_pertek4 = null;
-                    $judul_pertek5 = null;
                     if (is_string($skkl->pertek)) {
                         if ($skkl->pertek == "pertek1") {
                             $pertek1 = 1;
-                        }
-                        if ($skkl->pertek == "pertek2") {
+                        } elseif ($skkl->pertek == "pertek2") {
                             $pertek2 = 1;
-                        }
-                        if ($skkl->pertek == "pertek3") {
+                        } elseif ($skkl->pertek == "pertek3") {
                             $pertek3 = 1;
-                        }
-                        if ($skkl->pertek == "pertek4") {
+                        } elseif ($skkl->pertek == "pertek4") {
                             $pertek4 = 1;
-                        }
-                        if ($skkl->pertek == "pertek5") {
+                        } elseif ($skkl->pertek == "pertek5") {
                             $pertek5 = 1;
-                        }
-                        if ($skkl->pertek == "pertek6") {
+                        } elseif ($skkl->pertek == "pertek6") {
                             $pertek6 = 1;
                         }
                     } else {
                         foreach ($skkl->pertek as $pertek) {
                             if ($pertek == "pertek1") {
                                 $pertek1 = 1;
-                                $index = array_search('pertek1', $skkl->pertek);
-                                $judul_pertek1 = $pertek_skkl[$index]->judul_pertek;
-                                $surat_pertek1 = $pertek_skkl[$index]->surat_pertek;
-                                $nomor_pertek1 = $pertek_skkl[$index]->nomor_pertek;
-                                $tgl_pertek1 = $pertek_skkl[$index]->tgl_pertek;
-                                $perihal_pertek1 = $pertek_skkl[$index]->perihal_pertek;
-                            }
-                            if ($pertek == "pertek2") {
+                            } elseif ($pertek == "pertek2") {
                                 $pertek2 = 1;
-                                $index = array_search('pertek2', $skkl->pertek);
-                                $judul_pertek2 = $pertek_skkl[$index]->judul_pertek;
-                                $surat_pertek2 = $pertek_skkl[$index]->surat_pertek;
-                                $nomor_pertek2 = $pertek_skkl[$index]->nomor_pertek;
-                                $tgl_pertek2 = $pertek_skkl[$index]->tgl_pertek;
-                                $perihal_pertek2 = $pertek_skkl[$index]->perihal_pertek;
-                            }
-                            if ($pertek == "pertek3") {
+                            } elseif ($pertek == "pertek3") {
                                 $pertek3 = 1;
-                                $index = array_search('pertek3', $skkl->pertek);
-                                $judul_pertek3 = $pertek_skkl[$index]->judul_pertek;
-                                $surat_pertek3 = $pertek_skkl[$index]->surat_pertek;
-                                $nomor_pertek3 = $pertek_skkl[$index]->nomor_pertek;
-                                $tgl_pertek3 = $pertek_skkl[$index]->tgl_pertek;
-                                $perihal_pertek3 = $pertek_skkl[$index]->perihal_pertek;
-                            }
-                            if ($pertek == "pertek4") {
+                            } elseif ($pertek == "pertek4") {
                                 $pertek4 = 1;
-                                $index = array_search('pertek4', $skkl->pertek);
-                                $judul_pertek4 = $pertek_skkl[$index]->judul_pertek;
-                                $surat_pertek4 = $pertek_skkl[$index]->surat_pertek;
-                                $nomor_pertek4 = $pertek_skkl[$index]->nomor_pertek;
-                                $tgl_pertek4 = $pertek_skkl[$index]->tgl_pertek;
-                                $perihal_pertek4 = $pertek_skkl[$index]->perihal_pertek;
-                            }
-                            if ($pertek == "pertek5") {
+                            } elseif ($pertek == "pertek5") {
                                 $pertek5 = 1;
-                                $index = array_search('pertek5', $skkl->pertek);
-                                $judul_pertek5 = $pertek_skkl[$index]->judul_pertek;
-                                $surat_pertek5 = $pertek_skkl[$index]->surat_pertek;
-                                $nomor_pertek5 = $pertek_skkl[$index]->nomor_pertek;
-                                $tgl_pertek5 = $pertek_skkl[$index]->tgl_pertek;
-                                $perihal_pertek5 = $pertek_skkl[$index]->perihal_pertek;
-                            }
-                            if ($pertek == "pertek6") {
+                            } elseif ($pertek == "pertek6") {
                                 $pertek6 = 1;
                             }
                         }
@@ -639,7 +594,7 @@
                 ?>
 
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek1" id="pertek1" @if ($pertek1 == 1) checked @endif>
+                    <input type="checkbox" class="custom-control-input" id="pertek1" @if ($pertek1 == 1) checked @endif>
                     <label class="custom-control-label" for="pertek1">Air Limbah</label>
                 </div>
 
@@ -649,7 +604,6 @@
                             <thead>
                                 <tr class="text-center">
                                     <th>#</th>
-                                    <th>Judul Persetujuan Teknis</th>
                                     <th>Surat Persetujuan Teknis</th>
                                     <th>Nomor Persetujuan Teknis</th>
                                     <th>Tanggal Persetujuan Teknis</th>
@@ -657,25 +611,48 @@
                                 </tr>
                             </thead>
                             <tbody class="table-pertek1">
-                                <tr id="prt1-1">
-                                    <input type="text" name="pertek[]" value="pertek1" hidden>
-                                    <td>1</td>
-                                    <td>
-                                        <input type="text" class="form-control" id="judul_pertek1" placeholder="Judul Persetujuan" @if ($pertek1 == 1) name="judul_pertek[]" required value="{{ $judul_pertek1 }}" @endif>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control" id="surat_pertek1" placeholder="Surat Persetujuan">
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control" id="nomor_pertek1" placeholder="nomor Persetujuan">
-                                    </td>
-                                    <td>
-                                        <input type="date" class="form-control" id="tgl_pertek1" placeholder="Tanggal Persetujuan">
-                                    </td>
-                                    <td>
-                                        <textarea class="form-control" id="perihal_pertek1" rows="2"></textarea>
-                                    </td>
-                                </tr>
+                                <?php $prtk1 = 1 ?>
+                                @foreach ($pertek_skkl as $pertek)
+                                    @if ($pertek->pertek == "pertek1")
+                                        <tr id="{{ 'prt1-' . $prtk1 }}">
+                                            <td>{{ $prtk1 }}
+                                                <input type="text" name="pertek[]" id="name_pertek1" value="pertek1" hidden>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" id="surat_pertek1" placeholder="Surat Persetujuan Teknis" @if ($pertek->surat_pertek) name="surat_pertek[]" value="{{ $pertek->surat_pertek }}" required @endif>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" id="nomor_pertek1" placeholder="Nomor Persetujuan Teknis" @if ($pertek->nomor_pertek) name="nomor_pertek[]" value="{{ $pertek->nomor_pertek }}" required @endif>
+                                            </td>
+                                            <td>
+                                                <input type="date" class="form-control" id="tgl_pertek1" placeholder="Tanggal Persetujuan Teknis" @if ($pertek->tgl_pertek) name="tgl_pertek[]" value="{{ $pertek->tgl_pertek }}" required @endif>
+                                            </td>
+                                            <td>
+                                                <textarea class="form-control" id="perihal_pertek1" rows="2" @if ($pertek->perihal_pertek) name="perihal_pertek[]" required @endif>{!! $pertek->perihal_pertek !!}</textarea>
+                                            </td>
+                                        </tr>
+                                        <?php $prtk1++ ?>
+                                    @endif
+                                @endforeach
+                                @if ($pertek1 == 0)
+                                    <tr id="prt1-1">
+                                        <td>1
+                                            <input type="text" id="name_pertek1" value="pertek1" hidden>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="surat_pertek1" placeholder="Surat Persetujuan Teknis">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="nomor_pertek1" placeholder="Nomor Persetujuan Teknis">
+                                        </td>
+                                        <td>
+                                            <input type="date" class="form-control" id="tgl_pertek1" placeholder="Tanggal Persetujuan Teknis">
+                                        </td>
+                                        <td>
+                                            <textarea class="form-control" id="perihal_pertek1" rows="2"></textarea>
+                                        </td>
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
                         <div class="mt-1">
@@ -687,211 +664,301 @@
                             </button>
                         </div>
                     </div>
-
-                    <div class="form-group row">
-                        <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek1" @if ($pertek1 == 1) name="judul_pertek[]" required value="{{ $judul_pertek1 }}" @endif>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek1" @if ($pertek1 == 1) name="surat_pertek[]" required value="{{ $surat_pertek1 }}" @endif>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek1" @if ($pertek1 == 1) name="nomor_pertek[]" required value="{{ $nomor_pertek1 }}" @endif>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek1" @if ($pertek1 == 1) name="tgl_pertek[]" required value="{{ $tgl_pertek1 }}" @endif>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek1" @if ($pertek1 == 1) name="perihal_pertek[]" required value="{{ $perihal_pertek1 }}" @endif>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek2" id="pertek2" @if ($pertek2 == 1) checked @endif>
+                    <input type="checkbox" class="custom-control-input" id="pertek2" @if ($pertek2 == 1) checked @endif>
                     <label class="custom-control-label" for="pertek2">Emisi</label>
                 </div>
 
                 <div class="mb-3" id="emisi" @if ($pertek2 == 0) style="display: none" @endif>
                     <div class="form-group row">
-                        <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek2" @if ($pertek2 == 1) name="judul_pertek[]" required value="{{ $judul_pertek2 }}" @endif>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek2" @if ($pertek2 == 1) name="surat_pertek[]" required value="{{ $surat_pertek2 }}" @endif>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek2" @if ($pertek2 == 1) name="nomor_pertek[]" required value="{{ $nomor_pertek2 }}" @endif>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek2" @if ($pertek2 == 1) name="tgl_pertek[]" required value="{{ $tgl_pertek2 }}" @endif>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek2" @if ($pertek2 == 1) name="perihal_pertek[]" required value="{{ $perihal_pertek2 }}" @endif>
+                        <table border="1" width="100%">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#</th>
+                                    <th>Surat Persetujuan Teknis</th>
+                                    <th>Nomor Persetujuan Teknis</th>
+                                    <th>Tanggal Persetujuan Teknis</th>
+                                    <th>Perihal Persetujuan Teknis</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-pertek2">
+                                <?php $prtk2 = 1 ?>
+                                @foreach ($pertek_skkl as $pertek)
+                                    @if ($pertek->pertek == "pertek2")
+                                        <tr id="{{ 'prt2-' . $prtk2 }}">
+                                            <td>{{ $prtk2 }}
+                                                <input type="text" name="pertek[]" id="name_pertek2" value="pertek2" hidden>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" id="surat_pertek2" placeholder="Surat Persetujuan Teknis" @if ($pertek->surat_pertek) name="surat_pertek[]" value="{{ $pertek->surat_pertek }}" required @endif>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" id="nomor_pertek2" placeholder="Nomor Persetujuan Teknis" @if ($pertek->nomor_pertek) name="nomor_pertek[]" value="{{ $pertek->nomor_pertek }}" required @endif>
+                                            </td>
+                                            <td>
+                                                <input type="date" class="form-control" id="tgl_pertek2" placeholder="Tanggal Persetujuan Teknis" @if ($pertek->tgl_pertek) name="tgl_pertek[]" value="{{ $pertek->tgl_pertek }}" required @endif>
+                                            </td>
+                                            <td>
+                                                <textarea class="form-control" id="perihal_pertek2" rows="2" @if ($pertek->perihal_pertek) name="perihal_pertek[]" required @endif>{!! $pertek->perihal_pertek !!}</textarea>
+                                            </td>
+                                        </tr>
+                                        <?php $prtk2++ ?>
+                                    @endif
+                                @endforeach
+                                @if ($pertek2 == 0)
+                                    <tr id="prt2-1">
+                                        <td>1
+                                            <input type="text" id="name_pertek2" value="pertek2" hidden>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="surat_pertek2" placeholder="Surat Persetujuan Teknis">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="nomor_pertek2" placeholder="Nomor Persetujuan Teknis">
+                                        </td>
+                                        <td>
+                                            <input type="date" class="form-control" id="tgl_pertek2" placeholder="Tanggal Persetujuan Teknis">
+                                        </td>
+                                        <td>
+                                            <textarea class="form-control" id="perihal_pertek2" rows="2"></textarea>
+                                        </td>
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                        <div class="mt-1">
+                            <button type="button" id="remove-pertek2" class="btn remove-pertek2 btn-sm btn-danger">
+                                <i class="fas fa-minus fa-sm"></i>
+                            </button>
+                            <button type="button" id="add-pertek2" class="btn btn-sm btn-primary">
+                                <i class="fas fa-plus fa-sm"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
 
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek3" id="pertek3" @if ($pertek3 == 1) checked @endif>
+                    <input type="checkbox" class="custom-control-input" id="pertek3" @if ($pertek3 == 1) checked @endif>
                     <label class="custom-control-label" for="pertek3">Pengelolaan Limbah B3</label>
                 </div>
 
                 <div class="mb-3" id="limbah_b3" @if ($pertek3 == 0) style="display: none" @endif>
                     <div class="form-group row">
-                        <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek3" @if ($pertek3 == 1) name="judul_pertek[]" required value="{{ $judul_pertek3 }}" @endif>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek3" @if ($pertek3 == 1) name="surat_pertek[]" required value="{{ $surat_pertek3 }}" @endif>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek3" @if ($pertek3 == 1) name="nomor_pertek[]" required value="{{ $nomor_pertek3 }}" @endif>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek3" @if ($pertek3 == 1) name="tgl_pertek[]" required value="{{ $tgl_pertek3 }}" @endif>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek3" @if ($pertek3 == 1) name="perihal_pertek[]" required value="{{ $perihal_pertek3 }}" @endif>
+                        <table border="1" width="100%">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#</th>
+                                    <th>Surat Persetujuan Teknis</th>
+                                    <th>Nomor Persetujuan Teknis</th>
+                                    <th>Tanggal Persetujuan Teknis</th>
+                                    <th>Perihal Persetujuan Teknis</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-pertek3">
+                                <?php $prtk3 = 1 ?>
+                                @foreach ($pertek_skkl as $pertek)
+                                    @if ($pertek->pertek == "pertek3")
+                                        <tr id="{{ 'prt3-' . $prtk3 }}">
+                                            <td>{{ $prtk3 }}
+                                                <input type="text" id="name_pertek3" name="pertek[]" value="pertek3" hidden>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" id="surat_pertek3" placeholder="Surat Persetujuan Teknis" @if ($pertek->surat_pertek) name="surat_pertek[]" value="{{ $pertek->surat_pertek }}" required @endif>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" id="nomor_pertek3" placeholder="Nomor Persetujuan Teknis" @if ($pertek->nomor_pertek) name="nomor_pertek[]" value="{{ $pertek->nomor_pertek }}" required @endif>
+                                            </td>
+                                            <td>
+                                                <input type="date" class="form-control" id="tgl_pertek3" placeholder="Tanggal Persetujuan Teknis" @if ($pertek->tgl_pertek) name="tgl_pertek[]" value="{{ $pertek->tgl_pertek }}" required @endif>
+                                            </td>
+                                            <td>
+                                                <textarea class="form-control" id="perihal_pertek3" rows="2" @if ($pertek->perihal_pertek) name="perihal_pertek[]" required @endif>{!! $pertek->perihal_pertek !!}</textarea>
+                                            </td>
+                                        </tr>
+                                        <?php $prtk3++ ?>
+                                    @endif
+                                @endforeach
+                                @if ($pertek3 == 0)
+                                    <tr id="prt3-1">
+                                        <td>1
+                                            <input type="text" id="name_pertek3" value="pertek3" hidden>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="surat_pertek3" placeholder="Surat Persetujuan Teknis">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="nomor_pertek3" placeholder="Nomor Persetujuan Teknis">
+                                        </td>
+                                        <td>
+                                            <input type="date" class="form-control" id="tgl_pertek3" placeholder="Tanggal Persetujuan Teknis">
+                                        </td>
+                                        <td>
+                                            <textarea class="form-control" id="perihal_pertek3" rows="2"></textarea>
+                                        </td>
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                        <div class="mt-1">
+                            <button type="button" id="remove-pertek3" class="btn remove-pertek3 btn-sm btn-danger">
+                                <i class="fas fa-minus fa-sm"></i>
+                            </button>
+                            <button type="button" id="add-pertek3" class="btn btn-sm btn-primary">
+                                <i class="fas fa-plus fa-sm"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
 
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek4" id="pertek4" @if ($pertek4 == 1) checked @endif>
+                    <input type="checkbox" class="custom-control-input" id="pertek4" @if ($pertek4 == 1) checked @endif>
                     <label class="custom-control-label" for="pertek4">Andalalin</label>
                 </div>
 
                 <div class="mb-3" id="andalalin" @if ($pertek4 == 0) style="display: none" @endif>
                     <div class="form-group row">
-                        <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek4" @if ($pertek4 == 1) name="judul_pertek[]" required value="{{ $judul_pertek4 }}" @endif>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek4" @if ($pertek4 == 1) name="surat_pertek[]" required value="{{ $surat_pertek4 }}" @endif>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek4" @if ($pertek4 == 1) name="nomor_pertek[]" required value="{{ $nomor_pertek4 }}" @endif>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek4" @if ($pertek4 == 1) name="tgl_pertek[]" required value="{{ $tgl_pertek4 }}" @endif>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek4" @if ($pertek4 == 1) name="perihal_pertek[]" required value="{{ $perihal_pertek4 }}" @endif>
+                        <table border="1" width="100%">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#</th>
+                                    <th>Surat Persetujuan Teknis</th>
+                                    <th>Nomor Persetujuan Teknis</th>
+                                    <th>Tanggal Persetujuan Teknis</th>
+                                    <th>Perihal Persetujuan Teknis</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-pertek4">
+                                <?php $prtk4 = 1 ?>
+                                @foreach ($pertek_skkl as $pertek)
+                                    @if ($pertek->pertek == "pertek4")
+                                        <tr id="{{ 'prt4-' . $prtk4 }}">
+                                            <td>{{ $prtk4 }}
+                                                <input type="text" name="pertek[]" id="name_pertek4" value="pertek4" hidden>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" id="surat_pertek4" placeholder="Surat Persetujuan Teknis" @if ($pertek->surat_pertek) name="surat_pertek[]" value="{{ $pertek->surat_pertek }}" required @endif>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" id="nomor_pertek4" placeholder="Nomor Persetujuan Teknis" @if ($pertek->nomor_pertek) name="nomor_pertek[]" value="{{ $pertek->nomor_pertek }}" required @endif>
+                                            </td>
+                                            <td>
+                                                <input type="date" class="form-control" id="tgl_pertek4" placeholder="Tanggal Persetujuan Teknis" @if ($pertek->tgl_pertek) name="tgl_pertek[]" value="{{ $pertek->tgl_pertek }}" required @endif>
+                                            </td>
+                                            <td>
+                                                <textarea class="form-control" id="perihal_pertek4" rows="2" @if ($pertek->perihal_pertek) name="perihal_pertek[]" required @endif>{!! $pertek->perihal_pertek !!}</textarea>
+                                            </td>
+                                        </tr>
+                                        <?php $prtk4++ ?>
+                                    @endif
+                                @endforeach
+                                @if ($pertek4 == 0)
+                                    <tr id="prt4-1">
+                                        <td>1
+                                            <input type="text" id="name_pertek4" value="pertek4" hidden>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="surat_pertek4" placeholder="Surat Persetujuan Teknis">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="nomor_pertek4" placeholder="Nomor Persetujuan Teknis">
+                                        </td>
+                                        <td>
+                                            <input type="date" class="form-control" id="tgl_pertek4" placeholder="Tanggal Persetujuan Teknis">
+                                        </td>
+                                        <td>
+                                            <textarea class="form-control" id="perihal_pertek4" rows="2"></textarea>
+                                        </td>
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                        <div class="mt-1">
+                            <button type="button" id="remove-pertek4" class="btn remove-pertek4 btn-sm btn-danger">
+                                <i class="fas fa-minus fa-sm"></i>
+                            </button>
+                            <button type="button" id="add-pertek4" class="btn btn-sm btn-primary">
+                                <i class="fas fa-plus fa-sm"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
 
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek5" id="pertek5" @if ($pertek5 == 1) checked @endif>
+                    <input type="checkbox" class="custom-control-input" id="pertek5" @if ($pertek5 == 1) checked @endif>
                     <label class="custom-control-label" for="pertek5">Dokumen Rincian Teknis</label>
                 </div>
 
                 <div class="mb-3" id="rintek" @if ($pertek5 == 0) style="display: none" @endif>
                     <div class="form-group row">
-                        <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek5" @if ($pertek5 == 1) name="judul_pertek[]" required value="{{ $judul_pertek5 }}" @endif>
+                        <table border="1" width="100%">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#</th>
+                                    <th>Surat Persetujuan Teknis</th>
+                                    <th>Nomor Persetujuan Teknis</th>
+                                    <th>Tanggal Persetujuan Teknis</th>
+                                    <th>Perihal Persetujuan Teknis</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-pertek5">
+                                <?php $prtk5 = 1 ?>
+                                @foreach ($pertek_skkl as $pertek)
+                                    @if ($pertek->pertek == "pertek5")
+                                        <tr id="{{ 'prt5-' . $prtk5 }}">
+                                            <td>{{ $prtk5 }}
+                                                <input type="text" name="pertek[]" id="name_pertek5" value="pertek5" hidden>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" id="surat_pertek5" placeholder="Surat Persetujuan Teknis" @if ($pertek->surat_pertek) name="surat_pertek[]" value="{{ $pertek->surat_pertek }}" required @endif>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" id="nomor_pertek5" placeholder="Nomor Persetujuan Teknis" @if ($pertek->nomor_pertek) name="nomor_pertek[]" value="{{ $pertek->nomor_pertek }}" required @endif>
+                                            </td>
+                                            <td>
+                                                <input type="date" class="form-control" id="tgl_pertek5" placeholder="Tanggal Persetujuan Teknis" @if ($pertek->tgl_pertek) name="tgl_pertek[]" value="{{ $pertek->tgl_pertek }}" required @endif>
+                                            </td>
+                                            <td>
+                                                <textarea class="form-control" id="perihal_pertek5" rows="2" @if ($pertek->perihal_pertek) name="perihal_pertek[]" required @endif>{!! $pertek->perihal_pertek !!}</textarea>
+                                            </td>
+                                        </tr>
+                                        <?php $prtk5++ ?>
+                                    @endif
+                                @endforeach
+                                @if ($pertek5 == 0)
+                                    <tr id="prt5-1">
+                                        <td>
+                                            1
+                                            <input type="text" id="name_pertek5" value="pertek5" hidden>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="surat_pertek5" placeholder="Surat Persetujuan Teknis">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="nomor_pertek5" placeholder="Nomor Persetujuan Teknis">
+                                        </td>
+                                        <td>
+                                            <input type="date" class="form-control" id="tgl_pertek5" placeholder="Tanggal Persetujuan Teknis">
+                                        </td>
+                                        <td>
+                                            <textarea class="form-control" id="perihal_pertek5" rows="2"></textarea>
+                                        </td>
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                        <div class="mt-1">
+                            <button type="button" id="remove-pertek5" class="btn remove-pertek5 btn-sm btn-danger">
+                                <i class="fas fa-minus fa-sm"></i>
+                            </button>
+                            <button type="button" id="add-pertek5" class="btn btn-sm btn-primary">
+                                <i class="fas fa-plus fa-sm"></i>
+                            </button>
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek5" @if ($pertek5 == 1) name="surat_pertek[]" required value="{{ $surat_pertek5 }}" @endif>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek5" @if ($pertek5 == 1) name="nomor_pertek[]" required value="{{ $nomor_pertek5 }}" @endif>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek5" @if ($pertek5 == 1) name="tgl_pertek[]" required value="{{ $tgl_pertek5 }}" @endif>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek5" @if ($pertek5 == 1) name="perihal_pertek[]" required value="{{ $perihal_pertek5 }}" @endif>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
+                    <div class="input-group mt-1">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="rintek_upload">Upload dokumen yang diperlukan</span>
                         </div>
@@ -909,7 +976,7 @@
                 </div>
 
                 <div class="mb-3" id="rintek_limbah" @if ($pertek6 == 0) style="display: none" @endif>
-                    <div class="input-group">
+                    <div class="input-group mt-1">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="rintek_limbah_upload">Upload dokumen yang diperlukan</span>
                         </div>
@@ -954,11 +1021,11 @@
         }
     }
 ?>
-<input type="text" value="{{ $prk1 }}" id="jum_prk1" hidden>
-<input type="text" value="{{ $prk2 }}" id="jum_prk2" hidden>
-<input type="text" value="{{ $prk3 }}" id="jum_prk3" hidden>
-<input type="text" value="{{ $prk4 }}" id="jum_prk4" hidden>
-<input type="text" value="{{ $prk5 }}" id="jum_prk5" hidden>
+<input type="text" @if ($pertek1 == 0) value="1" @else value="{{ $prk1 }}" @endif id="jum_prk1" hidden>
+<input type="text" @if ($pertek2 == 0) value="1" @else value="{{ $prk2 }}" @endif id="jum_prk2" hidden>
+<input type="text" @if ($pertek3 == 0) value="1" @else value="{{ $prk3 }}" @endif id="jum_prk3" hidden>
+<input type="text" @if ($pertek4 == 0) value="1" @else value="{{ $prk4 }}" @endif id="jum_prk4" hidden>
+<input type="text" @if ($pertek5 == 0) value="1" @else value="{{ $prk5 }}" @endif id="jum_prk5" hidden>
 
 <script>
     $('.js-kabkota-multiple').select2({
@@ -1008,25 +1075,23 @@
 
         $(document).on('change', '#pertek1', function() {
             if ($('#pertek1').is(":checked")) {
-                $('#air_limbah').show();
-                $('#judul_pertek1').attr('name', 'judul_pertek[]')
+                $('#air_limbah').show()
+                $('#name_pertek1').attr('name', 'pertek[]')
                 $('#surat_pertek1').attr('name', 'surat_pertek[]')
                 $('#nomor_pertek1').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek1').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek1').attr('name', 'perihal_pertek[]')
-                $('#judul_pertek1').prop('required', true)
                 $('#surat_pertek1').prop('required', true)
                 $('#nomor_pertek1').prop('required', true)
                 $('#tgl_pertek1').prop('required', true)
                 $('#perihal_pertek1').prop('required', true)
             } else {
-                $('#air_limbah').hide();
-                $('#judul_pertek1').removeAttr('name')
+                $('#air_limbah').hide()
+                $('#name_pertek1').removeAttr('name')
                 $('#surat_pertek1').removeAttr('name')
                 $('#nomor_pertek1').removeAttr('name')
                 $('#tgl_pertek1').removeAttr('name')
                 $('#perihal_pertek1').removeAttr('name')
-                $('#judul_pertek1').prop('required', false)
                 $('#surat_pertek1').prop('required', false)
                 $('#nomor_pertek1').prop('required', false)
                 $('#tgl_pertek1').prop('required', false)
@@ -1036,25 +1101,23 @@
 
         $(document).on('change', '#pertek2', function() {
             if ($('#pertek2').is(":checked")) {
-                $('#emisi').show();
-                $('#judul_pertek2').attr('name', 'judul_pertek[]')
+                $('#emisi').show()
+                $('#name_pertek2').attr('name', 'pertek[]')
                 $('#surat_pertek2').attr('name', 'surat_pertek[]')
                 $('#nomor_pertek2').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek2').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek2').attr('name', 'perihal_pertek[]')
-                $('#judul_pertek2').prop('required', true)
                 $('#surat_pertek2').prop('required', true)
                 $('#nomor_pertek2').prop('required', true)
                 $('#tgl_pertek2').prop('required', true)
                 $('#perihal_pertek2').prop('required', true)
             } else {
-                $('#emisi').hide();
-                $('#judul_pertek2').removeAttr('name')
+                $('#emisi').hide()
+                $('#name_pertek2').removeAttr('name')
                 $('#surat_pertek2').removeAttr('name')
                 $('#nomor_pertek2').removeAttr('name')
                 $('#tgl_pertek2').removeAttr('name')
                 $('#perihal_pertek2').removeAttr('name')
-                $('#judul_pertek2').prop('required', false)
                 $('#surat_pertek2').prop('required', false)
                 $('#nomor_pertek2').prop('required', false)
                 $('#tgl_pertek2').prop('required', false)
@@ -1064,25 +1127,23 @@
 
         $(document).on('change', '#pertek3', function() {
             if ($('#pertek3').is(":checked")) {
-                $('#limbah_b3').show();
-                $('#judul_pertek3').attr('name', 'judul_pertek[]')
+                $('#limbah_b3').show()
+                $('#name_pertek3').attr('name', 'pertek[]')
                 $('#surat_pertek3').attr('name', 'surat_pertek[]')
                 $('#nomor_pertek3').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek3').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek3').attr('name', 'perihal_pertek[]')
-                $('#judul_pertek3').prop('required', true)
                 $('#surat_pertek3').prop('required', true)
                 $('#nomor_pertek3').prop('required', true)
                 $('#tgl_pertek3').prop('required', true)
                 $('#perihal_pertek3').prop('required', true)
             } else {
-                $('#limbah_b3').hide();
-                $('#judul_pertek3').removeAttr('name')
+                $('#limbah_b3').hide()
+                $('#name_pertek3').removeAttr('name')
                 $('#surat_pertek3').removeAttr('name')
                 $('#nomor_pertek3').removeAttr('name')
                 $('#tgl_pertek3').removeAttr('name')
                 $('#perihal_pertek3').removeAttr('name')
-                $('#judul_pertek3').prop('required', false)
                 $('#surat_pertek3').prop('required', false)
                 $('#nomor_pertek3').prop('required', false)
                 $('#tgl_pertek3').prop('required', false)
@@ -1092,25 +1153,23 @@
 
         $(document).on('change', '#pertek4', function() {
             if ($('#pertek4').is(":checked")) {
-                $('#andalalin').show();
-                $('#judul_pertek4').attr('name', 'judul_pertek[]')
+                $('#andalalin').show()
+                $('#name_pertek4').attr('name', 'pertek[]')
                 $('#surat_pertek4').attr('name', 'surat_pertek[]')
                 $('#nomor_pertek4').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek4').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek4').attr('name', 'perihal_pertek[]')
-                $('#judul_pertek4').prop('required', true)
                 $('#surat_pertek4').prop('required', true)
                 $('#nomor_pertek4').prop('required', true)
                 $('#tgl_pertek4').prop('required', true)
                 $('#perihal_pertek4').prop('required', true)
             } else {
-                $('#andalalin').hide();
-                $('#judul_pertek4').removeAttr('name')
+                $('#andalalin').hide()
+                $('#name_pertek4').removeAttr('name')
                 $('#surat_pertek4').removeAttr('name')
                 $('#nomor_pertek4').removeAttr('name')
                 $('#tgl_pertek4').removeAttr('name')
                 $('#perihal_pertek4').removeAttr('name')
-                $('#judul_pertek4').prop('required', false)
                 $('#surat_pertek4').prop('required', false)
                 $('#nomor_pertek4').prop('required', false)
                 $('#tgl_pertek4').prop('required', false)
@@ -1120,25 +1179,23 @@
 
         $(document).on('change', '#pertek5', function() {
             if ($('#pertek5').is(":checked")) {
-                $('#rintek').show();
-                $('#judul_pertek5').attr('name', 'judul_pertek[]')
+                $('#rintek').show()
+                $('#name_pertek5').attr('name', 'pertek[]')
                 $('#surat_pertek5').attr('name', 'surat_pertek[]')
                 $('#nomor_pertek5').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek5').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek5').attr('name', 'perihal_pertek[]')
-                $('#judul_pertek5').prop('required', true)
                 $('#surat_pertek5').prop('required', true)
                 $('#nomor_pertek5').prop('required', true)
                 $('#tgl_pertek5').prop('required', true)
                 $('#perihal_pertek5').prop('required', true)
             } else {
-                $('#rintek').hide();
-                $('#judul_pertek5').removeAttr('name')
+                $('#rintek').hide()
+                $('#name_pertek5').removeAttr('name')
                 $('#surat_pertek5').removeAttr('name')
                 $('#nomor_pertek5').removeAttr('name')
                 $('#tgl_pertek5').removeAttr('name')
                 $('#perihal_pertek5').removeAttr('name')
-                $('#judul_pertek5').prop('required', false)
                 $('#surat_pertek5').prop('required', false)
                 $('#nomor_pertek5').prop('required', false)
                 $('#tgl_pertek5').prop('required', false)
@@ -1233,22 +1290,20 @@
                 prt1++
                 $('.table-pertek1').append(`
                     <tr id="prt1-${prt1}">
-                        <input type="text" name="pertek[]" value="pertek1" hidden>
-                        <td>${prt1}</td>
-                        <td>
-                            <input type="text" class="form-control" id="judul_pertek1" name="judul_pertek[]" required placeholder="Judul Persetujuan">
+                        <td>${prt1}
+                            <input type="text" name="pertek[]" id="name_pertek1" value="pertek1" hidden>
                         </td>
                         <td>
-                            <input type="text" class="form-control" id="surat_pertek1" name="surat_pertek[]" required placeholder="Surat Persetujuan">
+                            <input type="text" class="form-control" id="surat_pertek1" name="surat_pertek[]" required placeholder="Surat Persetujuan Teknis">
                         </td>
                         <td>
-                            <input type="text" class="form-control" id="nomor_pertek1" name="nomor_pertek[]" required placeholder="nomor Persetujuan">
+                            <input type="text" class="form-control" id="nomor_pertek1" name="nomor_pertek[]" required placeholder="Nomor Persetujuan Teknis">
                         </td>
                         <td>
-                            <input type="date" class="form-control" id="tgl_pertek1" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan">
+                            <input type="date" class="form-control" id="tgl_pertek1" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan Teknis">
                         </td>
                         <td>
-                            <textarea class="form-control" id="perihal_pertek1" rows="2"></textarea>
+                            <textarea class="form-control" name="perihal_pertek[]" id="perihal_pertek1" rows="2"></textarea>
                         </td>
                     </tr>`)
             });
@@ -1266,22 +1321,20 @@
                 prt2++
                 $('.table-pertek2').append(`
                     <tr id="prt2-${prt2}">
-                        <input type="text" name="pertek[]" value="pertek2" hidden>
-                        <td>${prt2}</td>
-                        <td>
-                            <input type="text" class="form-control" id="judul_pertek2" name="judul_pertek[]" required placeholder="Judul Persetujuan">
+                        <td>${prt2}
+                            <input type="text" name="pertek[]" id="name_pertek2" value="pertek2" hidden>
                         </td>
                         <td>
-                            <input type="text" class="form-control" id="surat_pertek2" name="surat_pertek[]" required placeholder="Surat Persetujuan">
+                            <input type="text" class="form-control" id="surat_pertek2" name="surat_pertek[]" required placeholder="Surat Persetujuan Teknis">
                         </td>
                         <td>
-                            <input type="text" class="form-control" id="nomor_pertek2" name="nomor_pertek[]" required placeholder="nomor Persetujuan">
+                            <input type="text" class="form-control" id="nomor_pertek2" name="nomor_pertek[]" required placeholder="Nomor Persetujuan Teknis">
                         </td>
                         <td>
-                            <input type="date" class="form-control" id="tgl_pertek2" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan">
+                            <input type="date" class="form-control" id="tgl_pertek2" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan Teknis">
                         </td>
                         <td>
-                            <textarea class="form-control" id="perihal_pertek2" rows="2"></textarea>
+                            <textarea class="form-control" name="perihal_pertek[]" id="perihal_pertek2" rows="2"></textarea>
                         </td>
                     </tr>`)
             });
@@ -1299,22 +1352,20 @@
                 prt3++
                 $('.table-pertek3').append(`
                     <tr id="prt3-${prt3}">
-                        <input type="text" name="pertek[]" value="pertek3" hidden>
-                        <td>${prt3}</td>
-                        <td>
-                            <input type="text" class="form-control" id="judul_pertek3" name="judul_pertek[]" required placeholder="Judul Persetujuan">
+                        <td>${prt3}
+                            <input type="text" name="pertek[]" id="name_pertek3" value="pertek3" hidden>
                         </td>
                         <td>
-                            <input type="text" class="form-control" id="surat_pertek3" name="surat_pertek[]" required placeholder="Surat Persetujuan">
+                            <input type="text" class="form-control" id="surat_pertek3" name="surat_pertek[]" required placeholder="Surat Persetujuan Teknisssss">
                         </td>
                         <td>
-                            <input type="text" class="form-control" id="nomor_pertek3" name="nomor_pertek[]" required placeholder="nomor Persetujuan">
+                            <input type="text" class="form-control" id="nomor_pertek3" name="nomor_pertek[]" required placeholder="Nomor Persetujuan Teknis">
                         </td>
                         <td>
-                            <input type="date" class="form-control" id="tgl_pertek3" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan">
+                            <input type="date" class="form-control" id="tgl_pertek3" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan Teknis">
                         </td>
                         <td>
-                            <textarea class="form-control" id="perihal_pertek3" rows="2"></textarea>
+                            <textarea class="form-control" name="perihal_pertek[]" id="perihal_pertek3" rows="2"></textarea>
                         </td>
                     </tr>`)
             });
@@ -1331,22 +1382,20 @@
                 prt4++
                 $('.table-pertek4').append(`
                     <tr id="prt4-${prt4}">
-                        <input type="text" name="pertek[]" value="pertek4" hidden>
-                        <td>${prt4}</td>
-                        <td>
-                            <input type="text" class="form-control" id="judul_pertek4" name="judul_pertek[]" required placeholder="Judul Persetujuan">
+                        <td>${prt4}
+                            <input type="text" name="pertek[]" id="name_pertek4" value="pertek4" hidden>
                         </td>
                         <td>
-                            <input type="text" class="form-control" id="surat_pertek4" name="surat_pertek[]" required placeholder="Surat Persetujuan">
+                            <input type="text" class="form-control" id="surat_pertek4" name="surat_pertek[]" required placeholder="Surat Persetujuan Teknis">
                         </td>
                         <td>
-                            <input type="text" class="form-control" id="nomor_pertek4" name="nomor_pertek[]" required placeholder="nomor Persetujuan">
+                            <input type="text" class="form-control" id="nomor_pertek4" name="nomor_pertek[]" required placeholder="Nomor Persetujuan Teknis">
                         </td>
                         <td>
-                            <input type="date" class="form-control" id="tgl_pertek4" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan">
+                            <input type="date" class="form-control" id="tgl_pertek4" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan Teknis">
                         </td>
                         <td>
-                            <textarea class="form-control" id="perihal_pertek4" rows="2"></textarea>
+                            <textarea class="form-control" name="perihal_pertek[]" id="perihal_pertek4" rows="2"></textarea>
                         </td>
                     </tr>`)
             });
@@ -1364,22 +1413,20 @@
                 prt5++
                 $('.table-pertek5').append(`
                     <tr id="prt5-${prt5}">
-                        <input type="text" name="pertek[]" value="pertek5" hidden>
-                        <td>${prt5}</td>
-                        <td>
-                            <input type="text" class="form-control" id="judul_pertek5" name="judul_pertek[]" required placeholder="Judul Persetujuan">
+                        <td>${prt5}
+                            <input type="text" name="pertek[]" id="name_pertek5" value="pertek5" hidden>
                         </td>
                         <td>
-                            <input type="text" class="form-control" id="surat_pertek5" name="surat_pertek[]" required placeholder="Surat Persetujuan">
+                            <input type="text" class="form-control" id="surat_pertek5" name="surat_pertek[]" required placeholder="Surat Persetujuan Teknis">
                         </td>
                         <td>
-                            <input type="text" class="form-control" id="nomor_pertek5" name="nomor_pertek[]" required placeholder="nomor Persetujuan">
+                            <input type="text" class="form-control" id="nomor_pertek5" name="nomor_pertek[]" required placeholder="Nomor Persetujuan Teknis">
                         </td>
                         <td>
-                            <input type="date" class="form-control" id="tgl_pertek5" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan">
+                            <input type="date" class="form-control" id="tgl_pertek5" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan Teknis">
                         </td>
                         <td>
-                            <textarea class="form-control" id="perihal_pertek5" rows="2"></textarea>
+                            <textarea class="form-control" name="perihal_pertek[]" id="perihal_pertek5" rows="2"></textarea>
                         </td>
                     </tr>`)
             });

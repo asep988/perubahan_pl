@@ -19,7 +19,7 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
                     <li>
-                        <h4><b>Form Input Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup (PKPLH) </b></h4>
+                        <h4><b>Form Input Perubahan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup (PKPLH) </b></h4>
                     </li>
                 </ul>
 
@@ -64,7 +64,7 @@
         @endif
         <form action="{{ route('pkplh.store') }}" method="post" enctype="multipart/form-data">
             @csrf
-            <h5><b>Perubahan Penanggung Jawab Usaha atau Kegiatan</b></h5>
+            <h5><b>Pilih Jenis Perubahan:</b></h5>
 
             <div class="btn-group btn-group-toggle mb-3 btn-block" data-toggle="buttons">
                 <label class="btn btn-success">
@@ -214,7 +214,7 @@
                             <span><br> 1. Izin Lingkungan, SKKL, PKPLH, Persetujuan DELH, Persetujuan DELH</span>
                             <span><br> 2. Dokumen Amdal, UKL-UPL, DELH, atau DPLH yang dimiliki</span>
                             <span><br> 3. Berita Acara Validasi dari PTSP</span>
-                            <span><br> 4. NIB (KBLI dan lokasi usaha kegiatan sesuai dengan usaha/kegiatan yg diajukan perubahan PL-nya harus termuat di dalam dokumen NIB)</span>
+                            <span><br> 4. NIB beserta lampirannya (KBLI dan lokasi usaha kegiatan sesuai dengan usaha/kegiatan yg diajukan perubahan PL-nya harus termuat di dalam dokumen NIB)</span>
                             <span><br> 5. Akta Notaris Perubahan Kepemikan</span>
                             <span><br> 6. RKL-RPL dalam Bentuk Word</span>
                             <span><br> 7. Izin PPLH atau Persetujuan Teknis (Pembuangan Air Limbah, Emisi, Persetujuan Andalalin) yang telah dimiliki</span>
@@ -274,7 +274,7 @@
                 <div class="form-group row">
                     <label for="tgl_pl" class="col-sm-2 col-form-label">Tanggal</label>
                     <div class="col-sm-3">
-                        <input class="form-control" type="date" id="tgl_pl" name="tgl_pl" placeholder="yyyy/mm/dd">
+                        <input class="form-control" type="date" id="tgl_pl" name="tgl_pl" placeholder="yyyy/mm/dd" required>
                     </div>
                 </div>
 
@@ -427,242 +427,275 @@
 
             <hr>
 
-            <div id="lampiran"> <!-- Lampiran Persetujuan Teknis -->
+            <div id="lampiran">
+                <!-- Lampiran Persetujuan Teknis -->
                 <label><b>Lampiran Persetujuan Teknis</b></label>
-
+                {{-- pertek 1 --}}
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek1" id="pertek1">
+                    <input type="checkbox" class="custom-control-input" id="pertek1">
                     <label class="custom-control-label" for="pertek1">Air Limbah</label>
                 </div>
 
                 <div class="mb-3" id="air_limbah" style="display: none">
                     <div class="form-group row">
-                        <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek1">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek1">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek1">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek1">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek1">
+                        <table border="1" width="100%">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#</th>
+                                    <th>Surat Persetujuan Teknis</th>
+                                    <th>Nomor Persetujuan Teknis</th>
+                                    <th>Tanggal Persetujuan Teknis</th>
+                                    <th>Perihal Persetujuan Teknis</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-pertek1">
+                                <tr id="prt1-1">
+                                    <td>1
+                                        <input type="text" id="name_pertek1" value="pertek1" hidden>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="surat_pertek1" placeholder="Surat Persetujuan Teknis">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="nomor_pertek1" placeholder="Nomor Persetujuan Teknis">
+                                    </td>
+                                    <td>
+                                        <input type="date" class="form-control" id="tgl_pertek1" placeholder="Tanggal Persetujuan Teknis">
+                                    </td>
+                                    <td>
+                                        <textarea class="form-control" id="perihal_pertek1" rows="2"></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="mt-1">
+                            <button type="button" id="remove-pertek1" class="btn remove-pertek1 btn-sm btn-danger">
+                                <i class="fas fa-minus fa-sm"></i>
+                            </button>
+                            <button type="button" id="add-pertek1" class="btn btn-sm btn-primary">
+                                <i class="fas fa-plus fa-sm"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
-
+                {{-- pertek 2 --}}
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek2" id="pertek2">
+                    <input type="checkbox" class="custom-control-input" id="pertek2">
                     <label class="custom-control-label" for="pertek2">Emisi</label>
                 </div>
 
                 <div class="mb-3" id="emisi" style="display: none">
                     <div class="form-group row">
-                        <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek2">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek2">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek2">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek2">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek2">
+                        <table border="1" width="100%">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#</th>
+                                    <th>Surat Persetujuan Teknis</th>
+                                    <th>Nomor Persetujuan Teknis</th>
+                                    <th>Tanggal Persetujuan Teknis</th>
+                                    <th>Perihal Persetujuan Teknis</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-pertek2">
+                                <tr id="prt2-1">
+                                    <td>1
+                                        <input type="text" id="name_pertek2" value="pertek2" hidden>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="surat_pertek2" placeholder="Surat Persetujuan Teknis">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="nomor_pertek2" placeholder="Nomor Persetujuan Teknis">
+                                    </td>
+                                    <td>
+                                        <input type="date" class="form-control" id="tgl_pertek2" placeholder="Tanggal Persetujuan Teknis">
+                                    </td>
+                                    <td>
+                                        <textarea class="form-control" id="perihal_pertek2" rows="2"></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="mt-1">
+                            <button type="button" id="remove-pertek2" class="btn remove-pertek2 btn-sm btn-danger">
+                                <i class="fas fa-minus fa-sm"></i>
+                            </button>
+                            <button type="button" id="add-pertek2" class="btn btn-sm btn-primary">
+                                <i class="fas fa-plus fa-sm"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
-
+                {{-- pertek 3 --}}
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek3" id="pertek3">
+                    <input type="checkbox" class="custom-control-input" id="pertek3">
                     <label class="custom-control-label" for="pertek3">Pengelolaan Limbah B3</label>
                 </div>
 
                 <div class="mb-3" id="limbah_b3" style="display: none">
                     <div class="form-group row">
-                        <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek3">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek3">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek3">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek3">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek3">
+                        <table border="1" width="100%">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#</th>
+                                    <th>Surat Persetujuan Teknis</th>
+                                    <th>Nomor Persetujuan Teknis</th>
+                                    <th>Tanggal Persetujuan Teknis</th>
+                                    <th>Perihal Persetujuan Teknis</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-pertek3">
+                                <tr id="prt3-1">
+                                    <td>1
+                                        <input type="text" id="name_pertek3" value="pertek3" hidden>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="surat_pertek3" placeholder="Surat Persetujuan Teknis">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="nomor_pertek3" placeholder="Nomor Persetujuan Teknis">
+                                    </td>
+                                    <td>
+                                        <input type="date" class="form-control" id="tgl_pertek3" placeholder="Tanggal Persetujuan Teknis">
+                                    </td>
+                                    <td>
+                                        <textarea class="form-control" id="perihal_pertek3" rows="2"></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="mt-1">
+                            <button type="button" id="remove-pertek3" class="btn remove-pertek3 btn-sm btn-danger">
+                                <i class="fas fa-minus fa-sm"></i>
+                            </button>
+                            <button type="button" id="add-pertek3" class="btn btn-sm btn-primary">
+                                <i class="fas fa-plus fa-sm"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
-
+                {{-- pertek 4 --}}
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek4" id="pertek4">
+                    <input type="checkbox" class="custom-control-input" id="pertek4">
                     <label class="custom-control-label" for="pertek4">Andalalin</label>
                 </div>
 
                 <div class="mb-3" id="andalalin" style="display: none">
                     <div class="form-group row">
-                        <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek4">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek4">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek4">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek4">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek4">
+                        <table border="1" width="100%">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#</th>
+                                    <th>Surat Persetujuan Teknis</th>
+                                    <th>Nomor Persetujuan Teknis</th>
+                                    <th>Tanggal Persetujuan Teknis</th>
+                                    <th>Perihal Persetujuan Teknis</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-pertek4">
+                                <tr id="prt4-1">
+                                    <td>1
+                                        <input type="text" id="name_pertek4" value="pertek4" hidden>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="surat_pertek4" placeholder="Surat Persetujuan Teknis">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="nomor_pertek4" placeholder="Nomor Persetujuan Teknis">
+                                    </td>
+                                    <td>
+                                        <input type="date" class="form-control" id="tgl_pertek4" placeholder="Tanggal Persetujuan Teknis">
+                                    </td>
+                                    <td>
+                                        <textarea class="form-control" id="perihal_pertek4" rows="2"></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="mt-1">
+                            <button type="button" id="remove-pertek4" class="btn remove-pertek4 btn-sm btn-danger">
+                                <i class="fas fa-minus fa-sm"></i>
+                            </button>
+                            <button type="button" id="add-pertek4" class="btn btn-sm btn-primary">
+                                <i class="fas fa-plus fa-sm"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
-
+                {{-- pertek 5 --}}
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek5" id="pertek5">
+                    <input type="checkbox" class="custom-control-input" id="pertek5">
                     <label class="custom-control-label" for="pertek5">Dokumen Rincian Teknis</label>
                 </div>
 
                 <div class="mb-3" id="rintek" style="display: none">
                     <div class="form-group row">
-                        <label for="judul_pertek" class="col-sm-2 col-form-label">Judul Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="judul_pertek" id="judul_pertek5">
+                        <table border="1" width="100%">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#</th>
+                                    <th>Surat Persetujuan Teknis</th>
+                                    <th>Nomor Persetujuan Teknis</th>
+                                    <th>Tanggal Persetujuan Teknis</th>
+                                    <th>Perihal Persetujuan Teknis</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-pertek5">
+                                <tr id="prt5-1">
+                                    <td>1
+                                        <input type="text" id="name_pertek5" value="pertek5" hidden>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="surat_pertek5" placeholder="Surat Persetujuan Teknis">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="nomor_pertek5" placeholder="Nomor Persetujuan Teknis">
+                                    </td>
+                                    <td>
+                                        <input type="date" class="form-control" id="tgl_pertek5" placeholder="Tanggal Persetujuan Teknis">
+                                    </td>
+                                    <td>
+                                        <textarea class="form-control" id="perihal_pertek5" rows="2"></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="mt-1">
+                            <button type="button" id="remove-pertek5" class="btn remove-pertek5 btn-sm btn-danger">
+                                <i class="fas fa-minus fa-sm"></i>
+                            </button>
+                            <button type="button" id="add-pertek5" class="btn btn-sm btn-primary">
+                                <i class="fas fa-plus fa-sm"></i>
+                            </button>
                         </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="surat_pertek" class="col-sm-2 col-form-label">Surat Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="surat_pertek" id="surat_pertek5">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="nomor_pertek" class="col-sm-2 col-form-label">Nomor Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="nomor_pertek" id="nomor_pertek5">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="tgl_pertek" class="col-sm-2 col-form-label">Tanggal Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="date" class="form-control" aria-label="tgl_pertek" id="tgl_pertek5">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="perihal_pertek" class="col-sm-2 col-form-label">Perihal Persetujuan Teknis</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="perihal_pertek" id="perihal_pertek5">
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="rintek_upload">Upload dokumen yang diperlukan</span>
-                        </div>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="rintek_upload" name="rintek_upload" aria-describedby="rintek_upload">
-                            <label class="custom-file-label" for="rintek_upload">Choose file</label>
+                        <div class="input-group mt-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="rintek_upload">Upload dokumen yang diperlukan</span>
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="rintek_upload" name="rintek_upload" aria-describedby="rintek_upload">
+                                <label class="custom-file-label" for="rintek_upload">Choose file</label>
+                            </div>
                         </div>
                     </div>
                     <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 5 mb </small>
                 </div>
 
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek6" id="pertek6">
+                    <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek6"
+                        id="pertek6">
                     <label class="custom-control-label" for="pertek6">Rincian Teknis Penyimpanan Limbah B3</label>
                 </div>
 
                 <div class="mb-3" id="rintek_limbah" style="display: none">
-                    <div class="input-group">
+                    <div class="input-group mt-1">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="rintek_limbah_upload">Upload dokumen yang diperlukan</span>
+                            <span class="input-group-text" id="rintek_limbah_upload">Upload dokumen yang
+                                diperlukan</span>
                         </div>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="rintek_limbah_upload" name="rintek_limbah_upload" aria-describedby="rintek_limbah_upload">
+                            <input type="file" class="custom-file-input" id="rintek_limbah_upload"
+                                name="rintek_limbah_upload" aria-describedby="rintek_limbah_upload">
                             <label class="custom-file-label" for="rintek_limbah_upload">Choose file</label>
                         </div>
                     </div>
@@ -700,7 +733,7 @@
             $("#detail").fadeToggle("slow");
         });
 
-        $(document).on('change', '#jenis_perubahan1', function () {
+        $(document).on('change', '#jenis_perubahan1', function() {
             if ($('#jenis_perubahan1').prop('checked', true)) {
                 $('#lampiran').hide();
                 $('#dari').show();
@@ -708,7 +741,7 @@
             }
         });
 
-        $(document).on('change', '#jenis_perubahan2', function () {
+        $(document).on('change', '#jenis_perubahan2', function() {
             if ($('#jenis_perubahan2').prop('checked', true)) {
                 $('#lampiran').show();
                 $('#dari').show();
@@ -716,7 +749,7 @@
             }
         });
 
-        $(document).on('change', '#jenis_perubahan3', function () {
+        $(document).on('change', '#jenis_perubahan3', function() {
             if ($('#jenis_perubahan3').prop('checked', true)) {
                 $('#dari').hide();
                 $('#dasar_perubahan').hide();
@@ -727,24 +760,22 @@
         $(document).on('change', '#pertek1', function() {
             if ($('#pertek1').is(":checked")) {
                 $('#air_limbah').show();
-                $('#judul_pertek1').attr('name', 'judul_pertek[]')
+                $('#name_pertek1').attr('name', 'pertek[]')
                 $('#surat_pertek1').attr('name', 'surat_pertek[]')
                 $('#nomor_pertek1').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek1').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek1').attr('name', 'perihal_pertek[]')
-                $('#judul_pertek1').prop('required', true)
                 $('#surat_pertek1').prop('required', true)
                 $('#nomor_pertek1').prop('required', true)
                 $('#tgl_pertek1').prop('required', true)
                 $('#perihal_pertek1').prop('required', true)
             } else {
                 $('#air_limbah').hide();
-                $('#judul_pertek1').removeAttr('name')
+                $('#name_pertek1').removeAttr('name')
                 $('#surat_pertek1').removeAttr('name')
                 $('#nomor_pertek1').removeAttr('name')
                 $('#tgl_pertek1').removeAttr('name')
                 $('#perihal_pertek1').removeAttr('name')
-                $('#judul_pertek1').prop('required', false)
                 $('#surat_pertek1').prop('required', false)
                 $('#nomor_pertek1').prop('required', false)
                 $('#tgl_pertek1').prop('required', false)
@@ -755,24 +786,22 @@
         $(document).on('change', '#pertek2', function() {
             if ($('#pertek2').is(":checked")) {
                 $('#emisi').show();
-                $('#judul_pertek2').attr('name', 'judul_pertek[]')
+                $('#name_pertek2').attr('name', 'pertek[]')
                 $('#surat_pertek2').attr('name', 'surat_pertek[]')
                 $('#nomor_pertek2').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek2').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek2').attr('name', 'perihal_pertek[]')
-                $('#judul_pertek2').prop('required', true)
                 $('#surat_pertek2').prop('required', true)
                 $('#nomor_pertek2').prop('required', true)
                 $('#tgl_pertek2').prop('required', true)
                 $('#perihal_pertek2').prop('required', true)
             } else {
                 $('#emisi').hide();
-                $('#judul_pertek2').removeAttr('name')
+                $('#name_pertek2').removeAttr('name')
                 $('#surat_pertek2').removeAttr('name')
                 $('#nomor_pertek2').removeAttr('name')
                 $('#tgl_pertek2').removeAttr('name')
                 $('#perihal_pertek2').removeAttr('name')
-                $('#judul_pertek2').prop('required', false)
                 $('#surat_pertek2').prop('required', false)
                 $('#nomor_pertek2').prop('required', false)
                 $('#tgl_pertek2').prop('required', false)
@@ -783,24 +812,22 @@
         $(document).on('change', '#pertek3', function() {
             if ($('#pertek3').is(":checked")) {
                 $('#limbah_b3').show();
-                $('#judul_pertek3').attr('name', 'judul_pertek[]')
+                $('#name_pertek3').attr('name', 'pertek[]')
                 $('#surat_pertek3').attr('name', 'surat_pertek[]')
                 $('#nomor_pertek3').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek3').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek3').attr('name', 'perihal_pertek[]')
-                $('#judul_pertek3').prop('required', true)
                 $('#surat_pertek3').prop('required', true)
                 $('#nomor_pertek3').prop('required', true)
                 $('#tgl_pertek3').prop('required', true)
                 $('#perihal_pertek3').prop('required', true)
             } else {
                 $('#limbah_b3').hide();
-                $('#judul_pertek3').removeAttr('name')
+                $('#name_pertek3').removeAttr('name')
                 $('#surat_pertek3').removeAttr('name')
                 $('#nomor_pertek3').removeAttr('name')
                 $('#tgl_pertek3').removeAttr('name')
                 $('#perihal_pertek3').removeAttr('name')
-                $('#judul_pertek3').prop('required', false)
                 $('#surat_pertek3').prop('required', false)
                 $('#nomor_pertek3').prop('required', false)
                 $('#tgl_pertek3').prop('required', false)
@@ -811,24 +838,22 @@
         $(document).on('change', '#pertek4', function() {
             if ($('#pertek4').is(":checked")) {
                 $('#andalalin').show();
-                $('#judul_pertek4').attr('name', 'judul_pertek[]')
+                $('#name_pertek4').attr('name', 'pertek[]')
                 $('#surat_pertek4').attr('name', 'surat_pertek[]')
                 $('#nomor_pertek4').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek4').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek4').attr('name', 'perihal_pertek[]')
-                $('#judul_pertek4').prop('required', true)
                 $('#surat_pertek4').prop('required', true)
                 $('#nomor_pertek4').prop('required', true)
                 $('#tgl_pertek4').prop('required', true)
                 $('#perihal_pertek4').prop('required', true)
             } else {
                 $('#andalalin').hide();
-                $('#judul_pertek4').removeAttr('name')
+                $('#name_pertek4').removeAttr('name')
                 $('#surat_pertek4').removeAttr('name')
                 $('#nomor_pertek4').removeAttr('name')
                 $('#tgl_pertek4').removeAttr('name')
                 $('#perihal_pertek4').removeAttr('name')
-                $('#judul_pertek4').prop('required', false)
                 $('#surat_pertek4').prop('required', false)
                 $('#nomor_pertek4').prop('required', false)
                 $('#tgl_pertek4').prop('required', false)
@@ -839,24 +864,22 @@
         $(document).on('change', '#pertek5', function() {
             if ($('#pertek5').is(":checked")) {
                 $('#rintek').show();
-                $('#judul_pertek5').attr('name', 'judul_pertek[]')
+                $('#name_pertek5').attr('name', 'pertek[]')
                 $('#surat_pertek5').attr('name', 'surat_pertek[]')
                 $('#nomor_pertek5').attr('name', 'nomor_pertek[]')
                 $('#tgl_pertek5').attr('name', 'tgl_pertek[]')
                 $('#perihal_pertek5').attr('name', 'perihal_pertek[]')
-                $('#judul_pertek5').prop('required', true)
                 $('#surat_pertek5').prop('required', true)
                 $('#nomor_pertek5').prop('required', true)
                 $('#tgl_pertek5').prop('required', true)
                 $('#perihal_pertek5').prop('required', true)
             } else {
                 $('#rintek').hide();
-                $('#judul_pertek5').removeAttr('name')
+                $('#name_pertek5').removeAttr('name')
                 $('#surat_pertek5').removeAttr('name')
                 $('#nomor_pertek5').removeAttr('name')
                 $('#tgl_pertek5').removeAttr('name')
                 $('#perihal_pertek5').removeAttr('name')
-                $('#judul_pertek5').prop('required', false)
                 $('#surat_pertek5').prop('required', false)
                 $('#nomor_pertek5').prop('required', false)
                 $('#tgl_pertek5').prop('required', false)
@@ -875,15 +898,15 @@
         $('#add-kbli').click(function() {
             k++
             $('.table-kbli').append(`<tr id="kbli-claster${k}">
-                                        <td>${k}</td>
-                                        <td>
-                                            <input type="text" name="nama_kbli[]" class="form-control" placeholder="Ketik jenis usaha/kegiatan">
-                                        </td>
-                                        <td>
-                                            <input type="text" name="nomor_kbli[]" class="form-control" placeholder="Nomor KBLI">
-                                        </td>
-                                    </tr>
-            `)
+                                    <td>${k}</td>
+                                    <td>
+                                        <input type="text" name="nama_kbli[]" class="form-control" placeholder="Ketik jenis usaha/kegiatan">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="nomor_kbli[]" class="form-control" placeholder="Nomor KBLI">
+                                    </td>
+                                </tr>
+        `)
         });
 
         $(document).on('click', '.remove-kbli', function() {
@@ -895,54 +918,207 @@
         $('#add1').click(function() {
             j++
             $('.table-input1').append(`<tr id="1Claster${j}">
-                            <td>${j}</td>
-                            <td>
-                                <input type="text" name="jenis_peraturan[]" class="form-control" placeholder="Surat/Akta Notaris/SK">
-                            </td>
-                            <td>
-                                <input type="text" name="pejabat_daerah[]" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" name="nomor_peraturan[]" class="form-control">
-                            </td>
-                            <td>
-                                <textarea class="form-control" name="perihal_peraturan[]" rows="2"></textarea>
-                            </td>
-                        </tr>`)
+                        <td>${j}</td>
+                        <td>
+                            <input type="text" name="jenis_peraturan[]" class="form-control" placeholder="Surat/Akta Notaris/SK">
+                        </td>
+                        <td>
+                            <input type="text" name="pejabat_daerah[]" class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" name="nomor_peraturan[]" class="form-control">
+                        </td>
+                        <td>
+                            <textarea class="form-control" name="perihal_peraturan[]" rows="2"></textarea>
+                        </td>
+                    </tr>`)
         });
 
         $(document).on('click', '.remove-btn1', function() {
             var button_id = j;
-            $('#1Claster' + button_id + '').remove();
+            $('#1Claster$' + button_id + '').remove();
             j--
         });
 
         $('#add2').click(function() {
             i++
             $('.table-input2').append(`<tr id="2Claster${i}">
-                            <td>${i}</td>
-                            <td>
-                                <input type="text" name="jenis_izin[]" class="form-control" placeholder="Surat/Keputusan/Ketetapan">
-                            </td>
-                            <td>
-                                <input type="text" name="pejabat[]" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" name="nomor_sk[]" class="form-control">
-                            </td>
-                            <td>
-                                <input type="date" name="tgl_surat[]" class="form-control">
-                            </td>
-                            <td>
-                                <textarea class="form-control" name="perihal[]" rows="2"></textarea>
-                            </td>
-                        </tr>`)
+                        <td>${i}</td>
+                        <td>
+                            <input type="text" name="jenis_izin[]" class="form-control" placeholder="Surat/Keputusan/Ketetapan">
+                        </td>
+                        <td>
+                            <input type="text" name="pejabat[]" class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" name="nomor_sk[]" class="form-control">
+                        </td>
+                        <td>
+                            <input type="date" name="tgl_surat[]" class="form-control">
+                        </td>
+                        <td>
+                            <textarea class="form-control" name="perihal[]" rows="2"></textarea>
+                        </td>
+                    </tr>`)
         });
 
         $(document).on('click', '.remove-btn2', function() {
             var button_id = i;
             $('#2Claster' + button_id + '').remove();
             i--
+        });
+        // jquery pertek 1
+        var prt1 = 1;
+
+        $('#add-pertek1').click(function() {
+            prt1++
+            $('.table-pertek1').append(`
+                <tr id="prt1-${prt1}">
+                    <td>${prt1}
+                        <input type="text" name="pertek[]" id="name_pertek1" value="pertek1" hidden>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="surat_pertek1" name="surat_pertek[]" required placeholder="Surat Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="nomor_pertek1" name="nomor_pertek[]" required placeholder="Nomor Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <input type="date" class="form-control" id="tgl_pertek1" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <textarea class="form-control" name="perihal_pertek[]" id="perihal_pertek1" rows="2"></textarea>
+                    </td>
+                </tr>`)
+        });
+
+        $(document).on('click', '#remove-pertek1', function() {
+            var button_id = prt1;
+            $('#prt1-' + button_id + '').remove();
+            prt1--
+        });
+
+        // jquery pertek 2
+        var prt2 = 1;
+
+        $('#add-pertek2').click(function() {
+            prt2++
+            $('.table-pertek2').append(`
+                <tr id="prt2-${prt2}">
+                    <td>${prt2}
+                        <input type="text" name="pertek[]" id="name_pertek2" value="pertek2" hidden>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="surat_pertek2" name="surat_pertek[]" required placeholder="Surat Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="nomor_pertek2" name="nomor_pertek[]" required placeholder="Nomor Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <input type="date" class="form-control" id="tgl_pertek2" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <textarea class="form-control" name="perihal_pertek[]" id="perihal_pertek2" rows="2"></textarea>
+                    </td>
+                </tr>`)
+        });
+
+        $(document).on('click', '#remove-pertek2', function() {
+            var button_id = prt2;
+            $('#prt2-' + button_id + '').remove();
+            prt2--
+        });
+
+        // jquery pertek 3
+        var prt3 = 1;
+
+        $('#add-pertek3').click(function() {
+            prt3++
+            $('.table-pertek3').append(`
+                <tr id="prt3-${prt3}">
+                    <td>${prt3}
+                        <input type="text" name="pertek[]" id="name_pertek3" value="pertek3" hidden>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="surat_pertek3" name="surat_pertek[]" required placeholder="Surat Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="nomor_pertek3" name="nomor_pertek[]" required placeholder="Nomor Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <input type="date" class="form-control" id="tgl_pertek3" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <textarea class="form-control" name="perihal_pertek[]" id="perihal_pertek3" rows="2"></textarea>
+                    </td>
+                </tr>`)
+        });
+
+        $(document).on('click', '#remove-pertek3', function() {
+            var button_id = prt3;
+            $('#prt3-' + button_id + '').remove();
+            prt3--
+        });
+        // jquery pertek 4
+        var prt4 = 1;
+
+        $('#add-pertek4').click(function() {
+            prt4++
+            $('.table-pertek4').append(`
+                <tr id="prt4-${prt4}">
+                    <td>${prt4}
+                        <input type="text" name="pertek[]" id="name_pertek4" value="pertek4" hidden>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="surat_pertek4" name="surat_pertek[]" required placeholder="Surat Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="nomor_pertek4" name="nomor_pertek[]" required placeholder="Nomor Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <input type="date" class="form-control" id="tgl_pertek4" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <textarea class="form-control" name="perihal_pertek[]" id="perihal_pertek4" rows="2"></textarea>
+                    </td>
+                </tr>`)
+        });
+
+        $(document).on('click', '#remove-pertek4', function() {
+            var button_id = prt4;
+            $('#prt4-' + button_id + '').remove();
+            prt4--
+        });
+
+        // jquery pertek 5
+        var prt5 = 1;
+
+        $('#add-pertek5').click(function() {
+            prt5++
+            $('.table-pertek5').append(`
+                <tr id="prt5-${prt5}">
+                    <td>${prt5}
+                        <input type="text" name="pertek[]" id="name_pertek5" value="pertek5" hidden>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="surat_pertek5" name="surat_pertek[]" required placeholder="Surat Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="nomor_pertek5" name="nomor_pertek[]" required placeholder="Nomor Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <input type="date" class="form-control" id="tgl_pertek5" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <textarea class="form-control" name="perihal_pertek[]" id="perihal_pertek5" rows="2"></textarea>
+                    </td>
+                </tr>`)
+        });
+
+        $(document).on('click', '#remove-pertek5', function() {
+            var button_id = prt5;
+            $('#prt5-' + button_id + '').remove();
+            prt5--
         });
     });
 </script>

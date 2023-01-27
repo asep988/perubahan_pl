@@ -99,7 +99,16 @@ class PrintUkluplController extends Controller
 
 
         $body .='<body>
-                <center>MATRIKS UJI KELAYAKAN LINGKUNGAN HIDUP (UKL-UPL)</center>';
+
+        LAMPIRAN I<br>
+						KEPUTUSAN MENTRI LINGKUNGAN HIDUP <br>
+						DAN KEHUTANAN REPUBLIK INDONESIA <br>
+						NOMOR <br>
+						TENTANG PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN HIDUP '. strtoupper($pkplh->nama_usaha_baru).'
+						OLEH '.strtoupper($pkplh->pelaku_usaha_baru).'
+                    <br><br><br>
+
+                <center> MATRIKS UPAYA PENGELOLAAN DAN PEMANTAUAN LINGKUNGAN HIDUP (UKL-UPL)</center>';
 
         $body .='<table width="100%" border="1" rules="all" cellpadding="5" cellspacing="0" style="font-size: 6pt;">
 		    <thead>

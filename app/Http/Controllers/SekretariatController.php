@@ -12,14 +12,19 @@ class SekretariatController extends Controller
 {
     public function index()
     {
-        $data_skkl = Skkl::orderBy('updated_at', 'DESC')->get();
+        $data_skkl = Skkl::orderBy('tgl_validasi', 'ASC')->get();
         $operators = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
 		->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
 		->where('feasibility_test_teams.authority', 'Pusat')
 		->select('users.name')
 		->get();
 
-        return view('sekretariat.skkl.index', compact('data_skkl', 'operators'));
+        $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
+        ->where('initiators.user_type', 'Pemrakarsa')
+        ->select('users.id', 'users.name', 'users.email')
+        ->get();
+
+        return view('sekretariat.skkl.index', compact('data_skkl', 'operators', 'pemrakarsa'));
     }
 
     public function assign(Request $request)
@@ -71,7 +76,12 @@ class SekretariatController extends Controller
 		->select('users.name')
 		->get();
 
-        return view('sekretariat.pkplh.index', compact('data_pkplh', 'operators'));
+        $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
+        ->where('initiators.user_type', 'Pemrakarsa')
+        ->select('users.id', 'users.name', 'users.email')
+        ->get();
+
+        return view('sekretariat.pkplh.index', compact('data_pkplh', 'operators', 'pemrakarsa'));
     }
 
     public function pkplhAssign(Request $request)

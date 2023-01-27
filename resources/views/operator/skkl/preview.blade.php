@@ -150,7 +150,7 @@
     </style>
 </head>
 
-<button><a href="{{ route('operator.index') }}">kembali</a></button>
+<button><a href="{{ route('pemrakarsa.index') }}">kembali</a></button>
 
 <body>
     <div class="page">
@@ -218,7 +218,7 @@
                                 <ol>
                                     @foreach ($il_skkl as $data)
                                         <li>{{ $data->jenis_sk }} {{ $data->menerbitkan }} Nomor
-                                            {{ $data->nomor_surat }} tanggal {{ $data->tgl_surat }} tentang
+                                            {{ $data->nomor_surat }} tanggal {{ tgl_indo($data->tgl_surat) }} tentang
                                             {{ $data->perihal_surat }}</li>
                                     @endforeach
                                 </ol>
@@ -228,8 +228,7 @@
                         @if ($data_skkl->jenis_perubahan == 'perkep1')
                             <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>bahwa terdapat
                                     perubahan kepemilikan kegiatan {{ $data_skkl->nama_usaha_baru }} oleh
-                                    {{ $data_skkl->pelaku_usaha_baru }} Berdasarkan:
-                                    <i> (surat/akta notaris/SK)</i>
+                                    {{ $data_skkl->pelaku_usaha_baru }} berdasarkan:
                                 </span>
                                 <ol type="1" style="margin-right:0pt; margin-left:0pt; padding-left:0pt">
                                     @for ($i = 0; $i < count($data_skkl->jenis_peraturan); $i++)
@@ -384,13 +383,13 @@
                         <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
                             <span>Bahwa {{ $data_skkl->pejabat_pl }}
                                 {{ $data_skkl->pelaku_usaha_baru }} melalui surat nomor
-                                {{ $data_skkl->nomor_pl }},tanggal {{ $data_skkl->tgl_pl }}
+                                {{ $data_skkl->nomor_pl }},tanggal {{ tgl_indo($data_skkl->tgl_pl) }}
                                 , perihal {{ $data_skkl->perihal }} ; </span>
                         </li>
                         <!-- e -->
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>bahwa berdasarkan hasil
                                 verifikasi administrasi sesuai Nomor {{ $data_skkl->nomor_validasi }} tanggal
-                                {{ $data_skkl->tgl_validasi }}, permohonan
+                                {{ tgl_indo($data_skkl->tgl_validasi) }}, permohonan
                                 sebagaimana
                                 dimaksud pada huruf d, dinyatakan lengkap secara administrasi; </span></li>
                         <!-- f -->
@@ -434,7 +433,7 @@
                                 Republik indonesia Nomor 6634); </span></li>
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Presiden
                                 Nomor
-                                68 Tahun 2019 tentang Organisasi Kementerian Negara , (Lembaran Negara Republik
+                                68 Tahun 2019 tentang Organisasi Kementerian Negara, (Lembaran Negara Republik
                                 Indonesia Tahun 2019 Nomor 203), sebagaimana telah diubah dengan Peraturan Presiden
                                 Nomor 32 Tahun 2021 tentang Perubahan atas Peraturan Presiden Nomor 68 Tahun 2019
                                 (Lembaran Negara Republik Indonesia Tahun 2021 Nomor 106); </span></li>
@@ -536,7 +535,7 @@
                             </td>
                             <td style="width:50%; padding:0.75pt; vertical-align:top">
                                 <p style="text-align:justify; font-size:12pt">
-                                    <span>{{ ucfirst($data_skkl->pelaku_usaha_baru) }}</span>
+                                    <span>{{ ucfirst($data_skkl->nama_usaha_baru) }}</span>
                                 </p>
                             </td>
                         </tr>
@@ -570,7 +569,7 @@
                                 <ul type="disc" style="margin:0pt; padding-left:0pt">
                                     @for ($i = 0; $i < count($data_skkl->nama_kbli); $i++)
                                         <li
-                                            style="margin-left:36pt; text-align:justify; font-family:serif; font-size:12pt; -aw-font-family:'Symbol'; -aw-font-weight:normal; -aw-number-format:''">
+                                            style="margin-left:10pt; text-align:justify; -aw-font-family:'Symbol'; -aw-font-weight:normal; -aw-number-format:''">
                                             {{ $data_skkl->nama_kbli[$i] }} (kode KBLI:
                                             {{ $data_skkl->kbli_baru[$i] }})
                                         </li>
@@ -607,7 +606,8 @@
                             </td>
                             <td style="padding:0.75pt; vertical-align:top">
                                 <p style="text-align:justify; font-size:12pt">
-                                    <span>{{ $data_skkl->jabatan_baru }}</span></p>
+                                    <span>{{ $data_skkl->jabatan_baru }}</span>
+                                </p>
                             </td>
                         </tr>
                         <tr>
@@ -637,7 +637,9 @@
                             <td style="padding:0.75pt; vertical-align:top">
                                 <p style="text-align:justify; font-size:12pt"><span>:</span></p>
                             </td>
-                            <td style="padding:0.75pt; vertical-align:top"><p><span>{{ $data_skkl->lokasi_baru }}</span></p></td>
+                            <td style="padding:0.75pt; vertical-align:top">
+                                <p><span>{{ $data_skkl->lokasi_baru }}</span></p>
+                            </td>
                         </tr>
                     </table>
                     <p style="font-size:12pt"></p>
@@ -683,11 +685,12 @@
                     <p style="text-align:justify; font-size:12pt"><span>Dalam melaksanakan kegiatan sebagaimana
                             dimaksud dalam Diktum KEDUA, Penanggung Jawab Usaha dan/atau Kegiatan wajib: </span></p>
                     <ol type="1" style="margin:0pt; padding-left:0pt">
+                        <!-- 1 -->
                         <li style="margin-top:12pt; margin-left:36pt; text-align:justify; font-size:12pt">
                             <span>melakukan pengelolaan dan pemantauan dampak lingkungan hidup sebagaimana tercantum
                                 dalam Lampiran I dan II Keputusan ini; </span>
                         </li>
-                        @if ($data_skkl->jenis_perubahan != "perkep1")
+                        @if ($data_skkl->jenis_perubahan != 'perkep1')
                             <li style="margin-left:36pt; text-al"gn:just"fy; font-size:12pt">
                                 <span>
                                     mematuhi dan melaksanakan syarat-syarat teknis sesuai:
@@ -697,15 +700,17 @@
                                             @if ($pertek_skkl[$i]->pertek == 'pertek1')
                                                 <li style="margin-left:50pt; text-align:justify; font-size:12pt">
                                                     <span>
-                                                        Lampiran {{ integerToRoman($roman) }} Persetujuan Teknis Air Limbah;
+                                                        Lampiran {{ integerToRoman($roman) }} Persetujuan Teknis Air
+                                                        Limbah;
                                                     </span>
-                                                </li>                                               
+                                                </li>
                                             @endif
 
                                             @if ($pertek_skkl[$i]->pertek == 'pertek2')
                                                 <li style="margin-left:50pt; text-align:justify; font-size:12pt">
                                                     <span>
-                                                        Lampiran {{ integerToRoman($roman) }} Persetujuan Teknis Pemenuhan Baku Mutu Emisi;
+                                                        Lampiran {{ integerToRoman($roman) }} Persetujuan Teknis
+                                                        Pemenuhan Baku Mutu Emisi;
                                                     </span>
                                                 </li>
                                             @endif
@@ -713,7 +718,8 @@
                                             @if ($pertek_skkl[$i]->pertek == 'pertek3')
                                                 <li style="margin-left:50pt; text-align:justify; font-size:12pt">
                                                     <span>
-                                                        Lampiran {{ integerToRoman($roman) }}Persetujuan Teknis Di Bidang Pengelolaan Limbah B3;
+                                                        Lampiran {{ integerToRoman($roman) }}Persetujuan Teknis Di
+                                                        Bidang Pengelolaan Limbah B3;
                                                     </span>
                                                 </li>
                                             @endif
@@ -721,7 +727,8 @@
                                             @if ($pertek_skkl[$i]->pertek == 'pertek4')
                                                 <li style="margin-left:50pt; text-align:justify; font-size:12pt">
                                                     <span>
-                                                        Lampiran {{ integerToRoman($roman) }} Persetujuan Teknis Andalalin;
+                                                        Lampiran {{ integerToRoman($roman) }} Persetujuan Teknis
+                                                        Andalalin;
                                                     </span>
                                                 </li>
                                             @endif
@@ -729,17 +736,18 @@
                                             @if ($pertek_skkl[$i]->pertek == 'pertek5')
                                                 <li style="margin-left:50pt; text-align:justify; font-size:12pt">
                                                     <span>
-                                                        Lampiran {{ integerToRoman($roman) }} Persetujuan Teknis Dokumen Rincian Teknis;
+                                                        Lampiran {{ integerToRoman($roman) }} Persetujuan Teknis
+                                                        Dokumen Rincian Teknis;
                                                     </span>
                                                 </li>
                                             @endif
-                                            <?php $roman++ ;?>
+                                            <?php $roman++; ?>
                                         @endfor
                                     </ol>
                                 </span>
                             </li>
                         @endif
-                        <br>
+                        <!-- 3 -->
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>mematuhi ketentuan
                                 peraturan perundang-undangan di bidang Perlindungan dan Pengelolaan Lingkungan
                                 Hidup;
@@ -783,29 +791,35 @@
                                 sesuai dengan kewenangannya berdasarkan kepentingan perlindungan dan pengelolaan
                                 lingkungan hidup; </span>
                         </li>
-                        <!-- 13 -->
+                        <!-- 12 -->
                         <li style="margin-left:35.99pt; text-align:justify; padding-left:0.01pt; font-size:12pt">
                             <span>menyusun laporan pelaksanaan kewajiban sebagaimana dimaksud pada angka 1 (satu)
                                 sampai dengan angka 9 (sembilan), paling sedikit 1 (satu) kali setiap 6 (enam) bulan
-                                selama Kegiatan {{ $data_skkl->nama_usaha_baru }} oleh {{ $data_skkl->pelaku_usaha_baru }}
+                                selama Kegiatan {{ $data_skkl->nama_usaha_baru }} oleh
+                                {{ $data_skkl->pelaku_usaha_baru }}
                                 berlangsung dan menyampaikan kepada: </span>
                             <ol type="a" style="margin-right:0pt; margin-left:0pt; padding-left:0pt">
                                 <li style="margin-left:35.98pt; padding-left:0.02pt"><span>Menteri Lingkungan Hidup dan
                                         Kehutanan Republik Indonesia melalui Direktorat Jenderal Penegakan Hukum
                                         Lingkungan Hidup dan Kehutanan; </span></li>
                                 @foreach ($data_skkl->provinsi as $prov)
-                                    <li style="margin-left:35.98pt; padding-left:0.02pt"><span>Gubernur {{ ucwords(strtolower($prov)) }} melalui
-                                            Kepala Dinas Lingkungan Hidup Provinsi {{ ucwords(strtolower($prov)) }}</span></li>
+                                    <li style="margin-left:35.98pt; padding-left:0.02pt"><span>Gubernur
+                                            {{ ucwords(strtolower($prov)) }} melalui
+                                            Kepala Dinas Lingkungan Hidup Provinsi
+                                            {{ ucwords(strtolower($prov)) }}</span></li>
                                 @endforeach
                                 @foreach ($data_skkl->kabupaten_kota as $kabkota)
-                                    <li style="margin-left:35.98pt; padding-left:0.02pt"><span>Bupati/Walikota {{ ucwords(strtolower($kabkota)) }} melalui Kepala Dinas Lingkungan Hidup Kabupaten/Kota {{ ucwords(strtolower($kabkota)) }}</span></li>
+                                    <li style="margin-left:35.98pt; padding-left:0.02pt"><span>Bupati/Walikota
+                                            {{ ucwords(strtolower($kabkota)) }} melalui Kepala Dinas Lingkungan Hidup
+                                            Kabupaten/Kota {{ ucwords(strtolower($kabkota)) }}</span></li>
                                 @endforeach
                             </ol>
                         </li>
                     </ol>
                     <?php $abjad = count($data_skkl->provinsi) + count($data_skkl->kabupaten_kota) + 0; ?>
                     <p style="margin-left:36pt; margin-bottom:12pt; text-align:justify; font-size:12pt"><span>dengan
-                            tembusan kepada kepala instansi yang membidangi selain huruf a sampai huruf {{strtolower(num2alpha($abjad)) }} di atas,
+                            tembusan kepada kepala instansi yang membidangi selain huruf a sampai huruf
+                            {{ strtolower(num2alpha($abjad)) }} di atas,
                             sebagaimana tercantum dalam kolom institusi pengelolaan lingkungan hidup atau institusi
                             pemantauan lingkungan hidup. </span></p>
                 </td>
@@ -820,11 +834,11 @@
                 </td>
                 <td style="width:65%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>Apabila dalam pelaksanaan usaha dan/atau
-                        td kegiatan timbul dampak lingkungan hidup di luar dari dampak yang dikelola sebagaimana
-                        yledimaksud dalam Lampiran Keputusan Menteri ini, penanggung jawab usaha dan/atau kegiatan
-                        wajib melaporkan kepada instansi sebagaimana dimaksud dalam Diktum KEEMPAT angka 12 (dua
-                        belas) paling lama 30 (tiga puluh) hari kerja sejak diketahuinya timbulan dampak
-                        lingkungan hidup di luar dampak yang wajib dikelola. 
+                            td kegiatan timbul dampak lingkungan hidup di luar dari dampak yang dikelola sebagaimana
+                            yledimaksud dalam Lampiran Keputusan Menteri ini, penanggung jawab usaha dan/atau kegiatan
+                            wajib melaporkan kepada instansi sebagaimana dimaksud dalam Diktum KEEMPAT angka 12 (dua
+                            belas) paling lama 30 (tiga puluh) hari kerja sejak diketahuinya timbulan dampak
+                            lingkungan hidup di luar dampak yang wajib dikelola.
                         </span></p>
                 </td>
             </tr>
@@ -914,15 +928,19 @@
                                         Kehutanan melalui Direktur Jenderal Penegakan Hukum Lingkungan Hidup dan
                                         Kehutanan;</span></li>
                                 @foreach ($data_skkl->provinsi as $prov)
-                                    <li style="margin-left:35.98pt; padding-left:0.02pt"><span>Gubernur {{ ucwords(strtolower($prov)) }}melalui
-                                            Kepala Dinas Lingkungan Hidup Provinsi {{ ucwords(strtolower($prov)) }}</span></li>
+                                    <li style="margin-left:35.98pt; padding-left:0.02pt"><span>Gubernur
+                                            {{ ucwords(strtolower($prov)) }}melalui
+                                            Kepala Dinas Lingkungan Hidup Provinsi
+                                            {{ ucwords(strtolower($prov)) }}</span></li>
                                 @endforeach
                                 @foreach ($data_skkl->kabupaten_kota as $kabkot)
-                                <li style="margin-left:35.98pt; padding-left:0.02pt"><span>Bupati/Walikota {{ ucwords(strtolower($kabkot)) }} melalui Kepala Dinas Lingkungan Hidup Kabupaten/Kota {{ ucwords(strtolower($kabkot)) }}</span></li>
+                                    <li style="margin-left:35.98pt; padding-left:0.02pt"><span>Bupati/Walikota
+                                            {{ ucwords(strtolower($kabkot)) }} melalui Kepala Dinas Lingkungan Hidup
+                                            Kabupaten/Kota {{ ucwords(strtolower($kabkot)) }}</span></li>
                                 @endforeach
-                                </li>
-                            </ol>
                         </li>
+                    </ol>
+                    </li>
                     </ol>
                 </td>
             </tr>
@@ -949,10 +967,10 @@
                 <td style="width:65%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>Dengan ditetapkannya keputusan ini, maka
                         </span></p>
-                    <ol type="1" style="margin:0pt; padding-left:50px">
+                    <ol type="1" style="margin:0pt; padding-left:50px;text-align:justify;">
                         @foreach ($il_skkl as $data)
                             <li>{{ $data->jenis_sk }} {{ $data->menerbitkan }} Nomor {{ $data->nomor_surat }} tanggal
-                                {{ $data->tgl_surat }} tentang {{ $data->perihal_surat }}
+                                {{ tgl_indo($data->tgl_surat) }} tentang {{ $data->perihal_surat }}
                             </li>
                         @endforeach
                     </ol>
@@ -1009,12 +1027,13 @@
                     <p style="font-size:12pt"></p>
                 </td>
             </tr>
+            <!-- tembusan -->
             <tr>
                 <td colspan="2" style="padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>Tembusan Yth.: </span></p>
                     <ol type="1" style="margin:0pt; padding-left:0pt">
                         @foreach ($data_skkl->provinsi as $prov)
-                            <li style="margin-top:12pt; margin-left:36pt; text-align:justify; font-size:12pt">
+                            <li style="margin-left:36pt; text-align:justify; font-size:12pt">
                                 <span>Gubernur {{ ucwords(strtolower($prov)) }}</span>
                             </li>
                         @endforeach
@@ -1026,7 +1045,7 @@
                                 Penegakan Hukum Lingkungan Hidup dan Kehutanan;</span></li>
                         @foreach ($data_skkl->kabupaten_kota as $kabkot)
                             <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Bupati/Walikota
-                                {{ ucwords(strtolower($kabkot)) }}</span></li>
+                                    {{ ucwords(strtolower($kabkot)) }}</span></li>
                         @endforeach
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Kepala Dinas Lingkungan
                                 Hidup Provinsi Dki Jakarta; </span></li>
@@ -1037,13 +1056,15 @@
                         @endforeach
                         @foreach ($data_skkl->kabupaten_kota as $kabkota)
                             <li style="margin-left:35.99pt; text-align:justify; padding-left:0.01pt; font-size:12pt">
-                                <span>Kepala Dinas Lingkungan Hidup Kabupaten/Kota {{ ucwords(strtolower($kabkota)) }}</span>
+                                <span>Kepala Dinas Lingkungan Hidup Kabupaten/Kota
+                                    {{ ucwords(strtolower($kabkota)) }}</span>
                             </li>
                         @endforeach
 
                         @foreach ($data_skkl->region as $region)
                             <li style="margin-left:35.99pt; text-align:justify; padding-left:0.01pt; font-size:12pt">
-                                <span>Kepala Pusat Pengendalian Pembangunan Ekoregion {{ $region }}, Kementerian Lingkungan Hidup dan Kehutanan;</span>
+                                <span>Kepala Pusat Pengendalian Pembangunan Ekoregion {{ $region }}, Kementerian
+                                    Lingkungan Hidup dan Kehutanan;</span>
                             </li>
                         @endforeach
 

@@ -142,14 +142,17 @@
 @endsection
 
 @push('scripts')
-<script>
-    $(document).ready(function() {
-        $("#datatable").DataTable({
-            lengthmenu: [
-                [5,10,25,50,-1],
-                [5,10,25,50,'All']
-            ]
+    <script>
+        $(document).ready(function() {
+            $("#datatable").DataTable({
+                "responsive": true,
+                "lengthchange": true,
+                "autowidth": false,
+                "lengthmenu": [
+                    [5, 10, 25, 50, -1],
+                    [5, 10, 25, 50, 'All']
+                ]
+            });
         });
-    });
-</script>
+    </script>
 @endpush

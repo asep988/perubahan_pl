@@ -122,6 +122,14 @@ class PrintRplController extends Controller
 
 
         $body .='<body class="A4 landscape">
+        LAMPIRAN II<br>
+        KEPUTUSAN MENTRI LINGKUNGAN HIDUP <br>
+        DAN KEHUTANAN REPUBLIK INDONESIA <br>
+        NOMOR <br>
+        TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN '. strtoupper($skkl->nama_usaha_baru).'
+        OLEH '.strtoupper($skkl->pelaku_usaha_baru).'
+    
+    <br><br><br>
                 <center>MATRIKS RENCANA PENGELOLAAN LINGKUNGAN HIDUP<center>';
 
         $body .='<table width="100%" border="1" rules="all" cellpadding="5" cellspacing="0" style="font-size: 6pt;">

@@ -24,11 +24,16 @@ class OperatorController extends Controller
      */
     public function index()
     {
-        $data_skkl = Skkl::orderBy('created_at', 'DESC')
-        ->where('nama_operator', Auth::user()->name)
+        $data_skkl = Skkl::orderBy('skkl.created_at', 'DESC')
+        ->where('skkl.nama_operator', Auth::user()->name)
         ->get();
 
-        return view('operator.skkl.index', compact('data_skkl'));
+        $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
+        ->where('initiators.user_type', 'Pemrakarsa')
+        ->select('users.id', 'users.name', 'users.email')
+        ->get();
+
+        return view('operator.skkl.index', compact('data_skkl', 'pemrakarsa'));
     }
 
     /**
@@ -194,19 +199,19 @@ class OperatorController extends Controller
         $pertek = "";
         for ($i = 0; $i < count($skkl->pertek); $i++) {
             if ($skkl->pertek[$i] == "pertek1") {
-                $pertek .= "<li>Persetujuan Teknis Pemenuhan Baku Mutu Air Limbah untuk Kegiatan " . $pertek_skkl[$i]->judul_pertek . " yang merupakan pengelolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
+                $pertek .= "<li>Persetujuan Teknis Pemenuhan Baku Mutu Air Limbah yang merupakan pengelolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
             }
             if ($skkl->pertek[$i] == "pertek2") {
-                $pertek .= "<li>Persetujuan Teknis Pemenuhan Baku Mutu Emisi untuk Kegiatan " . $pertek_skkl[$i]->judul_pertek . " yang merupakan pengelolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
+                $pertek .= "<li>Persetujuan Teknis Pemenuhan Baku Mutu Emisi yang merupakan pengelolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
             }
             if ($skkl->pertek[$i] == "pertek3") {
-                $pertek .= "<li>Persetujuan Teknis Di Bidang Pengelolaan Limbah B3 untuk Kegiatan " . $pertek_skkl[$i]->judul_pertek . " yang merupakan penglolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
+                $pertek .= "<li>Persetujuan Teknis Di Bidang Pengelolaan Limbah B3 yang merupakan pengelolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
             }
             if ($skkl->pertek[$i] == "pertek4") {
-                $pertek .= "<li>Persetujuan Teknis Andalalin untuk Kegiatan " . $pertek_skkl[$i]->judul_pertek . " yang merupakan penglolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
+                $pertek .= "<li>Persetujuan Teknis Andalalin yang merupakan pengelolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
             }
             if ($skkl->pertek[$i] == "pertek5") {
-                $pertek .= "<li>Persetujuan Teknis Dokumen Rincian Teknis untuk Kegiatan " . $pertek_skkl[$i]->judul_pertek . " yang merupakan penglolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
+                $pertek .= "<li>Persetujuan Teknis Dokumen Rincian Teknis yang merupakan pengelolaan dan pemantauan lingkungan hidup ke dalam Persetujuan Lingkungan;</li>";
             }
         }
 
@@ -217,9 +222,9 @@ class OperatorController extends Controller
 
         $perkep = "";
         if ($skkl->jenis_perubahan == "perkep1") {
-            $perkep .= "bahwa terdapat perubahan kepemilikan " . $skkl->nama_usaha_baru ." oleh " . $skkl->pelaku_usaha_baru . " Berdasarkan <ol>" . $dasper .  "</ol>";
+            $perkep .= "bahwa terdapat perubahan kepemilikan " . $skkl->nama_usaha_baru ." oleh " . $skkl->pelaku_usaha_baru . " berdasarkan <ol>" . $dasper .  "</ol>";
         } elseif ($skkl->jenis_perubahan == "perkep2") {
-            $perkep .= "bahwa terdapat perubahan kepemilikan " . $skkl->nama_usaha_baru ." oleh " . $skkl->pelaku_usaha_baru . " Berdasarkan <ol id='pertama'>" . $dasper .  "</ol> <br>
+            $perkep .= "bahwa terdapat perubahan kepemilikan " . $skkl->nama_usaha_baru ." oleh " . $skkl->pelaku_usaha_baru . " berdasarkan <ol id='pertama'>" . $dasper .  "</ol> <br>
             dan perubahan pengelolaan dan pemantauan oleh " . $skkl->pelaku_usaha_baru . " akan mengintegrasikan: <ol start='1'>" . $pertek . "</ol>";
         } else {
             $perkep .= "bahwa terdapat perubahan pengelolaan dan pemantauan " . $skkl->pelaku_usaha_baru . " akan mengintegrasikan: <ol>" . $pertek . "</ol>";
@@ -262,7 +267,7 @@ class OperatorController extends Controller
 
         $il_dkk = "";
         for ($i = 0; $i < count($il_skkl); $i++) {
-            $il_dkk .= "<li>" . $il_skkl[$i]->jenis_sk . " " . $il_skkl[$i]->menerbitkan . " Nomor " . $il_skkl[$i]->nomor_surat . " tanggal " . date("d m Y", strtotime($il_skkl[$i]->tgl_surat)) . " tentang " . $il_skkl[$i]->perihal_surat . "</li>";
+            $il_dkk .= "<li>" . $il_skkl[$i]->jenis_sk . " " . $il_skkl[$i]->menerbitkan . " Nomor " . $il_skkl[$i]->nomor_surat . " tanggal " . tgl_indo($il_skkl[$i]->tgl_surat) . " tentang " . $il_skkl[$i]->perihal_surat . "</li>";
         }
 
         $abjad = count($skkl->provinsi) + count($skkl->kabupaten_kota) + 0;
@@ -329,7 +334,7 @@ class OperatorController extends Controller
 <table width="100%">
         <tr>
             <td colspan="3" width="100%">
-                <center>KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN<br>REPUBLIK INDONESIA<br> 
+                <center>KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN<br>REPUBLIK INDONESIA<br>
                     NOMOR .....<br><br>TENTANG<br><br>
                     KELAYAKAN LINGKUNGAN HIDUP KEGIATAN ' . strtoupper($skkl->nama_usaha_baru)  .
             ' OLEH ' . strtoupper($skkl->pelaku_usaha_baru) . ' <br><br>
@@ -365,7 +370,7 @@ class OperatorController extends Controller
                             </li>
                         </ol>
                     </li>
-                    <li>bahwa kegiatan' . $skkl->nama_usaha_baru . ' Oleh ' . ucwords(strtolower($skkl->pelaku_usaha_baru)) . ' telah memiliki dokumen    
+                    <li>bahwa kegiatan ' . $skkl->nama_usaha_baru . ' Oleh ' . ucwords(strtolower($skkl->pelaku_usaha_baru)) . ' telah memiliki dokumen    
                         lingkungan yang telah disetujui berdasarkan:<br>
                         <ol> ' . $il_dkk . ' </ol>
                     </li>
@@ -373,7 +378,7 @@ class OperatorController extends Controller
                       ' . $perkep . '                  
                     </li>
                     <li>
-                        Bahwa ' . ucfirst($skkl->pejabat_pl) . ucfirst($skkl->pelaku_usaha_baru) . ' melalui surat nomor ' . strtoupper($skkl->nomor_pl) . ',tanggal ' . $skkl->tgl_pl . ', perihal ' . ucfirst($skkl->perihal_surat) . ';
+                        Bahwa ' . ucfirst($skkl->pejabat_pl) .' '. ucfirst($skkl->pelaku_usaha_baru) . ' melalui surat nomor ' . strtoupper($skkl->nomor_pl) . ',tanggal ' . tgl_indo($skkl->tgl_pl) . ', perihal ' . ucfirst($skkl->perihal_surat) . ';
                     </li>
                     <li>bahwa berdasarkan hasil verifikasi administrasi sesuai 
                         Nomor' . strtoupper($skkl->nomor_validasi) . ' tanggal ' . $skkl->tgl_validasi . ', permohonan sebagaimana dimaksud pada huruf d, dinyatakan lengkap secara administrasi;
@@ -381,7 +386,7 @@ class OperatorController extends Controller
                     <li>berdasarkan pertimbangan sebagaimana 
                         dimaksud dalam huruf a sampai dengan e, perlu menetapkan Keputusan 
                         Mentri Lingkungan Hidup dan Kehutanan Republik Indonesia tentang Kelayakan Lingkungan 
-                        Hidup Kegiatan' . ucwords(strtolower($skkl->nama_usaha_baru)) . ' oleh ' . ucwords($skkl->pelaku_usaha_baru) . ';
+                        Hidup Kegiatan ' . ucwords(strtolower($skkl->nama_usaha_baru)) . ' oleh ' . ucwords($skkl->pelaku_usaha_baru) . ';
                     </li>
                 </ol>
             </td>
@@ -435,7 +440,7 @@ class OperatorController extends Controller
                 Penelaahan Surat Keputusan Kelayakan Lingkungan Hidup Kegiatan ' . ucfirst($skkl->nama_usaha_baru) . ' oleh ' 
                 . ucfirst($skkl->pelaku_usaha_baru) . '.<br>
                 Nomor: ' . $skkl->nomor_rpd . '<br>
-                tanggal ' . $skkl->tgl_rpd . '
+                tanggal ' . tgl_indo($skkl->tgl_rpd) . '
             </td>
         </tr>   
         <tr>
@@ -462,7 +467,7 @@ class OperatorController extends Controller
                         <td width="20px">1.</td>
                         <td width="40%" style="text-align: left;">Nama Usaha dan/ atau kegiatan </td>
                         <td>:</td>
-                        <td width= "50%">' . ucfirst($skkl->pelaku_usaha_baru) . '</td>
+                        <td width= "50%">' . ucfirst($skkl->nama_usaha_baru) . '</td>
                     </tr>
                     <tr>
                         <td>2.</td>
@@ -716,7 +721,7 @@ class OperatorController extends Controller
             . $gubernur1
             . $loopkk3
             . $ekoregion .
-            '<li>'. $skkl->jabatan_baru . $skkl->pelaku_usaha_baru . ';</li>
+            '<li>'. $skkl->jabatan_baru .' ' . $skkl->pelaku_usaha_baru . ';</li>
                 </ol>
             </td>
         </tr>';

@@ -105,6 +105,20 @@ Route::group(['middleware' => ['auth', 'cekRole:Sekretariat']], function() {
     Route::get('/Sekretariat/pkplh', 'SekretariatController@pkplhIndex')->name('sekre.pkplh.index');
     Route::put('/Sekretariat/pkplh/update', 'SekretariatController@pkplhAssign')->name('sekre.pkplh.update');
     Route::get('/Sekretariat/pkplh/reject/{id}', 'SekretariatController@pkplhReject')->name('sekre.pkplh.reject');
+    // buton aksi pkplh
+    Route::get('/Sekretariat/pkplh/preview/{id}', 'PkplhController@operatorPreview')->name('sekretariat.pkplh.preview');
+    Route::get('/Sekretariat/uklupl/download/{id}', 'PrintUkluplController@download')->name('sekretariat.printuklupl.download');
+    Route::get('/Sekretariat/pkplh/pertek/{id}', 'PkplhController@download_pertek')->name('sekretariat.pkplh.pertek');
+    Route::get('/Sekretariat/pkplh/rintek/{id}', 'PkplhController@download_rintek')->name('sekretariat.pkplh.rintek');
+    Route::get('/Sekretariat/pkplh/download/{id}', 'PkplhController@download')->name('sekretariat.pkplh.download');
+    // buton aksi skkl
+    Route::get('/Sekretariat/skkl/preview/{id}', 'OperatorController@preview')->name('sekretariat.skkl.preview');
+    Route::get('/Sekretariat/skkl/download/{id}', 'OperatorController@download')->name('sekretariat.skkl.download');
+    Route::get('/Sekretariat/printrkl/download/{id}', 'PrintRklController@download')->name('sekretariat.printrkl.download');
+    Route::get('/Sekretariat/printrpl/download/{id}', 'PrintRplController@download')->name('sekretariat.printrpl.download');
+    Route::get('/Sekretariat/lampiran/satu/{id}', 'SkklController@download_lampiranI')->name('sekretariat.download.lampiran1');
+    Route::get('/Sekretariat/pertek/{id}', 'SkklController@download_pertek')->name('sekretariat.download.pertek');
+    Route::get('/Sekretariat/rintek/{id}', 'SkklController@download_rintek')->name('sekretariat.download.rintek');
 });
 
 Route::group(['middleware' => ['auth']], function() {

@@ -73,7 +73,7 @@ class SkklController extends Controller
 		}
 
 		if (is_array($request->pertek)) {
-			$pertek = $request->pertek;
+			$pertek = array_values(array_unique($request->pertek));
 		} else {
 			$pertek = array();
 			$pertek[] = $request->pertek;
@@ -189,12 +189,12 @@ class SkklController extends Controller
 			$il_skkl->save();
 		}
 
-		if ($request->jenis_perubahan != "perkep1" && $request->judul_pertek != null) {
-			for ($i = 0; $i < count($request->judul_pertek); $i++) {
+		if ($request->jenis_perubahan != "perkep1" && $request->surat_pertek != null) {
+			for ($i = 0; $i < count($request->surat_pertek); $i++) {
 				$pertek_skkl = new Pertek_skkl;
 				$pertek_skkl->id_skkl = $skkl_id;
 				$pertek_skkl->pertek = $request->pertek[$i];
-				$pertek_skkl->judul_pertek = $request->judul_pertek[$i];
+				// $pertek_skkl->judul_pertek = $request->judul_pertek[$i];
 				$pertek_skkl->surat_pertek = $request->surat_pertek[$i];
 				$pertek_skkl->nomor_pertek = $request->nomor_pertek[$i];
 				$pertek_skkl->tgl_pertek = $request->tgl_pertek[$i];
@@ -233,13 +233,12 @@ class SkklController extends Controller
 		$selected_kabupaten_kota = $skkl->kabupaten_kota;
 		$jum = count($il_skkl);
 
-		return $pertek_skkl[0]->pertek;
-
 		return view('home.skkl.edit', compact('provinces', 'regencies', 'skkl', 'jum', 'il_skkl', 'initiator', 'selected_provinces', 'selected_kabupaten_kota', 'pertek_skkl'));
 	}
 
 	public function update(Request $request, $id) //Pemrakarsa
 	{
+		// return $request->all();
 		$id_user = Auth::user()->id;
 		$request->validate([
 			'rintek_upload' => 'nullable|max:5120',
@@ -281,7 +280,7 @@ class SkklController extends Controller
 		}
 
 		if (is_array($request->pertek)) {
-			$pertek = $request->pertek;
+			$pertek = array_values(array_unique($request->pertek));
 		} else {
 			$pertek = array();
 			$pertek[] = $request->pertek;
@@ -405,13 +404,13 @@ class SkklController extends Controller
 			$il_skkl->save();
 		}
 
-		if ($request->jenis_perubahan != "perkep1" && $request->judul_pertek != null) {
+		if ($request->jenis_perubahan != "perkep1" && $request->surat_pertek != null) {
 			Pertek_skkl::where('id_skkl', $id)->delete();
-			for ($i = 0; $i < count($request->judul_pertek); $i++) {
+			for ($i = 0; $i < count($request->surat_pertek); $i++) {
 				$pertek_skkl = new Pertek_skkl;
 				$pertek_skkl->id_skkl = $id;
 				$pertek_skkl->pertek = $request->pertek[$i];
-				$pertek_skkl->judul_pertek = $request->judul_pertek[$i];
+				// $pertek_skkl->judul_pertek = $request->judul_pertek[$i];
 				$pertek_skkl->surat_pertek = $request->surat_pertek[$i];
 				$pertek_skkl->nomor_pertek = $request->nomor_pertek[$i];
 				$pertek_skkl->tgl_pertek = $request->tgl_pertek[$i];
@@ -497,36 +496,25 @@ class SkklController extends Controller
 	{
 		$skkl = Skkl::find($id);
 		$pertek = Pertek_skkl::where('id_skkl', $id)->get();
+		$pertek_isi = "";
 
 		$data = array();
 		foreach ($pertek as $row) {
 			$data[] = $row->pertek;
 		}
 
-		if ($request->pertek == "pertek1") {
-			$isi = "Persetujuan Teknis Pemenuhan Baku Mutu Air Limbah";
-			$index = array_search('pertek1', $data);
-			$roman = 3 + $index;
-		}
-		if ($request->pertek == "pertek2") {
-			$isi = "Persetujuan Teknis Pemenuhan Baku Mutu Emisi";
-			$index = array_search('pertek2', $data);
-			$roman = 3 + $index;
-		}
-		if ($request->pertek == "pertek3") {
-			$isi = "Persetujuan Teknis Di Bidang Pengelolaan Limbah B3";
-			$index = array_search('pertek3', $data);
-			$roman = 3 + $index;
-		}
-		if ($request->pertek == "pertek4") {
-			$isi = "Persetujuan Teknis Andalalin";
-			$index = array_search('pertek4', $data);
-			$roman = 3 + $index;
-		}
-		if ($request->pertek == "pertek5") {
-			$isi = "Persetujuan Teknis Dokumen Rincian Teknis";
-			$index = array_search('pertek5', $data);
-			$roman = 3 + $index;
+		$data = array_values(array_unique($data));
+
+		for ($i = 0; $i < count($pertek); $i++) {
+			if ($request->pertek == $pertek[$i]->pertek) {
+				$isi = "Persetujuan Teknis Pemenuhan Baku Mutu Air Limbah";
+				$index = array_search('pertek1', $data);
+				$roman = 3 + $index;
+				$pertek_isi .= '<li>Surat/Izin/Keputusan '.ucfirst($pertek[$i]->surat_pertek).'
+				Nomor: '.strtoupper($pertek[$i]->nomor_pertek).'
+				tanggal '. tgl_indo($pertek[$i]->tgl_pertek).'
+				tentang '.ucfirst($pertek[$i]->perihal_pertek).';</li>';
+			}
 		}
 
 		$headers = array(
@@ -555,16 +543,20 @@ class SkklController extends Controller
 					<br><br><br>
 				<tr>
 					<td>
-						'. strtoupper($isi) .' UNTUK '.strtoupper($pertek[$index]->judul_pertek).'
+						'. strtoupper($isi) .'
 					</td>
 				</tr>
 					<br><br>
 				<tr>
 					<td>
-						Berdasarkan Surat '.ucfirst($pertek[$index]->surat_pertek).'
-						Nomor: '.strtoupper($pertek[$index]->nomor_pertek).'
-						tanggal '. tgl_indo($pertek[$index]->tgl_pertek).'
-						tentang '.ucfirst($pertek[$index]->perihal_pertek).';
+						Berdasarkan: <br>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<ol>
+							'. $pertek_isi .'
+						</ol>
 					</td>
 				</tr>';
 		$body .='
