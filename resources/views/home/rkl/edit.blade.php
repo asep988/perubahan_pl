@@ -63,8 +63,10 @@
                             </div>
                             <div class="input-box">
                                 <label for="indikator" class="form-label">Indikator Keberhasilan Pengelolaan LH</label>
-                                <div>
-                                    <input type="text" class="form-control" name="indikator" value="{{$rkl->indikator}}" required>
+                                <div class="form-group row">
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" id="mytextarea" aria-label="editor" name="indikator">{!! ($rkl->indikator) !!}</textarea>
+                                    </div>
                                 </div>
                             </div>
                             <div class="input-box">
@@ -89,7 +91,11 @@
                             </div>
                             <div class="input-box">
                                 <label for="institusi" class="form-label">Institusi Pengelolaan LH</label>
-                                <input type="text" class="form-control" name="institusi" value="{{$rkl->institusi}}" required>
+                                <div class="form-group row">
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" id="mytextarea" aria-label="editor" name="institusi">{!! ($rkl->institusi) !!}</textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </td>

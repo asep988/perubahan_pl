@@ -729,7 +729,7 @@ class PkplhController extends Controller
     <td width="68%">
         Risalah Pengolahan Data (RPD) Penerbitan Persetujuan Pernyataan Kesanggupan 
         Pengelolaan Lingkungan Hidup Kegiatan '. $pkplh->nama_usaha_baru .' oleh '. $pkplh->pelaku_usaha_baru .' 
-        Nomor: '. $pkplh->nomor_rpd .' tanggal '. tgl_indo($pkplh->tgl_rpd) .'
+        Nomor: '. $pkplh->nomor_rpd .' tanggal '. $pkplh->tgl_rpd .'
     </td>
     </tr>   
     <tr>

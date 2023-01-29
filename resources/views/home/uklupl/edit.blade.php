@@ -61,7 +61,7 @@
                                 <label for="besaran_dampak" class="form-label">Besaran Dampak</label>
                                 <div class="form-group row">
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" name="besaran_dampak" value="{{$uklupl->besaran_dampak}}" required>
+                                        <textarea class="form-control" id="mytextarea" aria-label="editor" name="besaran_dampak">{!!$uklupl->besaran_dampak!!}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -124,7 +124,7 @@
                                 <label for="institusi" class="form-label">Institusi Pengelola dan Pemantau</label>
                                 <div class="form-group row">
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" name="institusi" value="{{$uklupl->institusi}}" required>
+                                        <textarea class="form-control" id="mytextarea" aria-label="editor" name="institusi">{!!$uklupl->institusi!!}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +133,7 @@
                                 <label for="keterangan" class="form-label">Keterangan</label>
                                 <div class="form-group row">
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" name="keterangan" value="{{$uklupl->keterangan}}" required>
+                                        <textarea class="form-control" id="mytextarea" aria-label="editor" name="keterangan">{!!$uklupl->keterangan!!}</textarea>
                                     </div>
                                 </div>
                             </div>

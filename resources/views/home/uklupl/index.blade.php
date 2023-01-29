@@ -91,15 +91,15 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $uklupl->sumber_dampak }}</td>
                         <td>{{ $uklupl->jenis_dampak }}</td>
-                        <td>{{ $uklupl->besaran_dampak }}</td>
+                        <td>{!! $uklupl->besaran_dampak !!}</td>
                         <td>{!! $uklupl->bentuk_pengelolaan !!}</td>
                         <td>{!! $uklupl->lokasi_pengelolaan !!}</td>
                         <td>{{ $uklupl->periode_pengelolaan }}</td>
                         <td>{!! $uklupl->bentuk_pemantauan !!}</td>
                         <td>{!! $uklupl->lokasi_pemantauan !!}</td>
                         <td>{{ $uklupl->periode_pemantauan }}</td>
-                        <td>{{ $uklupl->institusi }}</td>
-                        <td>{{ $uklupl->keterangan }}</td>
+                        <td>{!! $uklupl->institusi !!}</td>
+                        <td>{!! $uklupl->keterangan !!}</td>
                         <td>
                             <form action="{{ route('uklupl.delete', $uklupl->id) }}" method="post">@csrf
                                 <a class="btn btn-sm btn-warning" href="{{ route('uklupl.ubah', $uklupl->id) }}">
@@ -159,7 +159,7 @@
                             <label for="besaran_dampak" class="form-label">Besaran Dampak</label>
                             <div class="form-group row">
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="besaran_dampak" required>
+                                    <textarea class="form-control" id="mytextarea" aria-label="editor" name="besaran_dampak"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -222,7 +222,7 @@
                             <label for="institusi" class="form-label">Institusi Pengelola dan Pemantau</label>
                             <div class="form-group row">
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="institusi" required>
+                                    <textarea class="form-control" id="mytextarea" aria-label="editor" name="institusi"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -231,7 +231,7 @@
                             <label for="keterangan" class="form-label">Keterangan</label>
                             <div class="form-group row">
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="keterangan" required>
+                                    <textarea class="form-control" id="mytextarea" aria-label="editor" name="keterangan"></textarea>
                                 </div>
                             </div>
                         </div>

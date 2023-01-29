@@ -85,11 +85,11 @@
                         <td>{{ $rkl -> jenis_dph }}</td>
                         <td>{{ $rkl -> dampak_dikelola }}</td>
                         <td>{{ $rkl -> sumber_dampak }}</td>
-                        <td>{{ $rkl -> indikator }}</td>
+                        <td>{!! $rkl -> indikator !!}</td>
                         <td>{!! $rkl -> bentuk_pengelolaan !!}</td>
                         <td>{!! $rkl -> lokasi !!}</td>
                         <td>{{ $rkl -> periode }}</td>
-                        <td>{{ $rkl -> institusi }}</td>
+                        <td>{!! $rkl -> institusi !!}</td>
                         <td>
                             <form action="{{route('rkl.delete', $rkl->id)}}" method="post">
                                 @csrf
@@ -149,7 +149,7 @@
                             <div class="input-box">
                                 <label for="indikator" class="form-label">Indikator Keberhasilan Pengelolaan LH</label>
                                 <div>
-                                    <input type="text" class="form-control" name="indikator" required>
+                                    <textarea class="form-control" id="mytextarea" aria-label="editor" name="indikator"></textarea>
                                 </div>
                             </div>
                             <div class="input-box">
@@ -174,7 +174,7 @@
                             </div>
                             <div class="input-box">
                                 <label for="institusi" class="form-label">Institusi Pengelolaan LH</label>
-                                <input type="text" class="form-control" name="institusi" required>
+                                <textarea class="form-control" id="mytextarea" aria-label="editor" name="institusi"></textarea>
                             </div>
                         </div>
                     </td>

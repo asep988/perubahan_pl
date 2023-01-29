@@ -74,17 +74,27 @@
                             <div class="input-box">
                                 <br>
                                 <label for="pelaksana" class="form-label">Pelaksana</label>
-                                <div>
-                                    <input type="text" class="form-control" name="pelaksana" value="{{ $rpl->pelaksana }}" required>
+                                <div class="form-group row">
+                                    <div class="col-sm-8">
+                                        <textarea class="mce-notification" id="mytextarea" aria-label="editor" name="pelaksana">{!! ($rpl->pelaksana) !!}</textarea>
+                                    </div>
                                 </div>
                             </div>
                             <div class="input-box">
                                 <label for="pengawas" class="form-label">Pengawas</label>
-                                <input type="text" class="form-control" name="pengawas" value="{{ $rpl->pengawas }}" required>
+                                <div class="form-group row">
+                                    <div class="col-sm-8">
+                                        <textarea class="mce-notification" id="mytextarea" aria-label="editor" name="pengawas">{!! ($rpl->pengawas) !!}</textarea>
+                                    </div>
+                                </div>
                             </div>
                             <div class="input-box">
                                 <label for="penerima" class="form-label">Penerima</label>
-                                <input type="text" class="form-control" name="penerima" value="{{ $rpl->penerima }}" required>
+                                <div class="form-group row">
+                                    <div class="col-sm-8">
+                                        <textarea class="mce-notification" id="mytextarea" aria-label="editor" name="penerima">{!! ($rpl->penerima) !!}</textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </td>

@@ -329,8 +329,7 @@ class OperatorController extends Controller
         </style>';
 
         $body .=
-            'LAMPIRAN II
-        <br><br><br><br>
+            '<br><br><br><br>
 <table width="100%">
         <tr>
             <td colspan="3" width="100%">
@@ -440,7 +439,7 @@ class OperatorController extends Controller
                 Penelaahan Surat Keputusan Kelayakan Lingkungan Hidup Kegiatan ' . ucfirst($skkl->nama_usaha_baru) . ' oleh ' 
                 . ucfirst($skkl->pelaku_usaha_baru) . '.<br>
                 Nomor: ' . $skkl->nomor_rpd . '<br>
-                tanggal ' . tgl_indo($skkl->tgl_rpd) . '
+                tanggal ' . $skkl->tgl_rpd . '
             </td>
         </tr>   
         <tr>

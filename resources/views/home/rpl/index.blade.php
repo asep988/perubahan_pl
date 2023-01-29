@@ -96,9 +96,9 @@
                         <td>{!! $rpl -> metode !!}</td>
                         <td>{!! $rpl -> lokasi !!}</td>
                         <td>{{  $rpl -> waktu  }}</td>
-                        <td>{{  $rpl -> pelaksana  }}</td>
-                        <td>{{ $rpl -> pengawas }}</td>
-                        <td>{{ $rpl -> penerima }}</td>
+                        <td>{!!  $rpl -> pelaksana !!}</td>
+                        <td>{!! $rpl -> pengawas !!}</td>
+                        <td>{!! $rpl -> penerima !!}</td>
                         <td>
                             <form action="{{route('rpl.delete', $rpl->id)}}" method="post">@csrf
                                 <a class="btn btn-sm btn-warning" href="{{route('rpl.ubah', $rpl->id)}}">
@@ -193,16 +193,16 @@
                                 <br>
                                 <label for="pelaksana" class="form-label">Pelaksana</label>
                                 <div>
-                                    <input type="text" class="form-control" name="pelaksana" required>
+                                    <textarea class="form-control" id="mytextarea" aria-label="editor" name="pelaksana"></textarea>
                                 </div>
                             </div>
                             <div class="input-box">
                                 <label for="pengawas" class="form-label">Pengawas</label>
-                                <input type="text" class="form-control" name="pengawas" required>
+                                <textarea class="form-control" id="mytextarea" aria-label="editor" name="pengawas"></textarea>
                             </div>
                             <div class="input-box">
                                 <label for="penerima" class="form-label">Penerima</label>
-                                <input type="text" class="form-control" name="penerima" required>
+                                <textarea class="form-control" id="mytextarea" aria-label="editor" name="penerima"></textarea>
                             </div>
                         </div>
                     </td>

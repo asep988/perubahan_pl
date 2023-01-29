@@ -497,7 +497,7 @@
                             Persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup Kegiatan
                             {{ $data_pkplh->nama_usaha_baru }} oleh
                             {{ $data_pkplh->pelaku_usaha_baru }} Nomor: {{ $data_pkplh->nomor_rpd }}
-                            tanggal: {{ tgl_indo($data_pkplh->tgl_rpd) }} </span></p>
+                            tanggal: {{ $data_pkplh->tgl_rpd }} </span></p>
                 </td>
             </tr>
             <tr>
