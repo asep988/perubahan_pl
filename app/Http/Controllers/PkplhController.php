@@ -158,7 +158,7 @@ class PkplhController extends Controller
 		$pkplh->rintek_upload		    =	$fileName1;
 		$pkplh->rintek_limbah_upload	=	$fileName2;
 
-		$pkplh->provinsi				=	$provinsi; 
+		$pkplh->provinsi				=	$provinsi;
 		$pkplh->kabupaten_kota	    	=	$kabkota;
 		$pkplh->region			    	=	$region;
 		$pkplh->link_drive		    	=	$request->link_drive;
@@ -183,7 +183,7 @@ class PkplhController extends Controller
 		foreach ($late as $latest) {
 			$pkplh_id = $latest->id;
 		}
-		
+
 		for ($i = 0; $i < count($request->jenis_izin); $i++) {
 			$il_pkplh = new il_pkplh;
 			$il_pkplh->id_pkplh = $pkplh_id;
@@ -194,7 +194,7 @@ class PkplhController extends Controller
 			$il_pkplh->perihal_surat = $request->perihal[$i];
 			$il_pkplh->save();
 		}
-		
+
 		if ($request->jenis_perubahan != "perkep1" && $request->surat_pertek != null) {
 			for ($i = 0; $i < count($request->surat_pertek); $i++) {
 				$pertek_pkplh = new Pertek_pkplh;
@@ -418,7 +418,7 @@ class PkplhController extends Controller
 		$pkplh = Pkplh::find($id);
 		$pkplh->user_id 				=   $id_user;
 		$pkplh->jenis_perubahan 		=   $request->jenis_perubahan;
-		
+
 		if ($request->jenis_perubahan != "perkep3") {
 			$pkplh->pelaku_usaha 	=   $request->pelaku_usaha;
 			$pkplh->penanggung		=	$request->penanggung;
@@ -438,7 +438,7 @@ class PkplhController extends Controller
 		$pkplh->rintek_upload		=	$fileName1;
 		$pkplh->rintek_limbah_upload=	$fileName2;
 
-		$pkplh->provinsi			=	$provinsi; 
+		$pkplh->provinsi			=	$provinsi;
 		$pkplh->kabupaten_kota		=	$kabkota;
 		$pkplh->region				=	$region;
 		$pkplh->link_drive			=	$request->link_drive;
@@ -505,7 +505,7 @@ class PkplhController extends Controller
 
         $pkplh = Pkplh::find($id);
         $il_pkplh = il_pkplh::where('id_pkplh', $id)->get();
-        $pertek_pkplh = Pertek_pkplh::where('id_pkplh', $id)->get(); 
+        $pertek_pkplh = Pertek_pkplh::where('id_pkplh', $id)->get();
         $kabkota = implode(", ", $pkplh->kabupaten_kota);
         $prov = implode(", ", $pkplh->provinsi);
 
@@ -612,7 +612,7 @@ class PkplhController extends Controller
         $body = '
         <style>
             body {
-                font-family:"Bookman Old Style,serif";
+                font-family:"Bookman Old Style";
             }
             ol {
             columns:2;
@@ -635,13 +635,13 @@ class PkplhController extends Controller
         <table width="100%">
             <tr>
     <td colspan="3" width="100%">
-        <center>KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN<br>REPUBLIK INDONESIA<br> 
+        <center>KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN<br>REPUBLIK INDONESIA<br>
             NOMOR .....<br><br>TENTANG<br><br>
             PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN<br>
             HIDUP KEGIATAN ' . strtoupper($pkplh->nama_usaha_baru) .
             ' OLEH '. strtoupper($pkplh->pelaku_usaha_baru) . ' <br><br>
             DENGAN RAHMAT TUHAN YANG MAHA ESA<br><br>MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA,
-        <center>    
+        <center>
     </td>
     </tr>
     <tr>
@@ -660,8 +660,8 @@ class PkplhController extends Controller
                                     <li class="list_kurung"> ayat (1): Persetujuan Lingkungan wajib dimiliki oleh setiap Usaha dan/atau Kegiatan yang memiliki Dampak Penting atau tidak penting terhadap lingkungan;</li>
                                     <li class="list_kurung"> ayat (2): Persetujuan Lingkungan diberikan kepada Pelaku Usaha atau Instansi Pemerintah;</li>
                                     <li class="list_kurung"> ayat (3): Persetujuan Lingkungan menjadi prasyarat penerbitan Perizinan Berusaha atau Persetujuan Pemerintah;</li>
-                                    <li class="list_kurung"> ayat (4): Persetujuan Lingkungan dilakukan melalui penyusunan Amdal dan uji kelayakan Amdal;</li>      
-                                </ol> 
+                                    <li class="list_kurung"> ayat (4): Persetujuan Lingkungan dilakukan melalui penyusunan Amdal dan uji kelayakan Amdal;</li>
+                                </ol>
                             </li>
                             <li class="list_kurung">Pasal 64 ayat (1) : Persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup merupakan: a. bentuk persetujuan Lingkungan Hidup; dan b. prasyarat penerbitan Perizinan Berusaha atau Persetujuan Pemerintah</li>
                             <li class="list_kurung">Pasal 89 ayat (1) : Penanggungjawab Usaha dan/atau Kegiatan wajib melakukan perubahan Persetujuan Lingkungan apabila Usaha dan/atau Kegiatannya yang telah memperoleh surat Keputusan Kelayakan Lingkungan Hidup atau persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup direncanakan untuk dilakukan perubahan;</li>
@@ -676,7 +676,7 @@ class PkplhController extends Controller
             ' . $perkep . '
             </li>
             <li>
-                bahwa '. ucfirst($pkplh->pelaku_usaha_baru) .' sesuai Nomor '. $pkplh->nomor_pl  .' 
+                bahwa '. ucfirst($pkplh->pelaku_usaha_baru) .' sesuai Nomor '. $pkplh->nomor_pl  .'
                 tanggal '. tgl_indo($pkplh->tgl_pl) .' perihal '. $pkplh->perihal.' menyampaikan permohonan perubahan Persetujuan Lingkungan;
             </li>
             <li>
@@ -684,7 +684,7 @@ class PkplhController extends Controller
                 permohonan sebagaimana dimaksud pada huduf d, dinyatakan lengkap secara administratif:
             </li>
             <li>
-                berdasarkan pertimbangan sebagaimana dimaksud dalam huruf a sampai dengan huruf e, perlu menetapkan Keputusan Menteri Lingkungan Hidup dan Kehutanan Republik Indonesia tentang Persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup Kegiatan '. $pkplh->nama_usaha_baru .' oleh '. $pkplh->pelaku_usaha_baru .' 
+                berdasarkan pertimbangan sebagaimana dimaksud dalam huruf a sampai dengan huruf e, perlu menetapkan Keputusan Menteri Lingkungan Hidup dan Kehutanan Republik Indonesia tentang Persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup Kegiatan '. $pkplh->nama_usaha_baru .' oleh '. $pkplh->pelaku_usaha_baru .'
             </li>
         </ol>
     </td>
@@ -696,25 +696,25 @@ class PkplhController extends Controller
     <td width="2%"> :</td>
     <td width="68%">
     <ol>
-        <li>Undang-Undang Nomor 32 Tahun 2009 tentang Perlindungan dan 
+        <li>Undang-Undang Nomor 32 Tahun 2009 tentang Perlindungan dan
             Pengelolaan Lingkungan Hidup (Lembaran Negara Republik Indonesia Tahun 2009 Nomor 140, Tambahan Lembaran Negara Republik Indonesia Nomor 5059) sebagaimana telah diubah dengan Peraturan Pemerintah Pengganti Undang-Undang Nomor 2 Tahun 2022 Tentang Cipta Kerja (Lembaran Negara Republik Indonesia Tahun 2022 Nomor 238);</li>
-        <li>Peraturan Pemerintah Nomor 5 Tahun 2021 tentang Penyelenggaraan 
+        <li>Peraturan Pemerintah Nomor 5 Tahun 2021 tentang Penyelenggaraan
             Perizinan Berusaha Berbasis Risiko (Lembaran Negara Republik Indonesia Tahun 2021 Nomor 15, Tambahan Lembaran Negara Republik Indonesia Nomor 6617);</li>
-        <li>Peraturan Pemerintah Nomor 22 Tahun 2021 tentang Perlindungan 
+        <li>Peraturan Pemerintah Nomor 22 Tahun 2021 tentang Perlindungan
             Pengelolaan Lingkungan Hidup (Lembaran Negara Republik Indonesia Tahun 2021 Nomor 32, Tambahan Lembaran Negara Republik Indonesia Nomor 6634);</li>
-        <li>Peraturan Presiden Nomor 68 Tahun 2019 tentang Organisasi 
+        <li>Peraturan Presiden Nomor 68 Tahun 2019 tentang Organisasi
             Kementerian Negara (Lembaran Negara Republik Indonesia Tahun 2019 Nomor 203), sebagaimana telah diubah dengan Peraturan Presiden Nomor 32 Tahun 2021 tentang Perubahan atas Peraturan Presiden Nomor 68 Tahun 2019 (Lembaran Negara Republik Indonesia Nomor 106);</li>
-        <li>Peraturan Presiden Nomor 92 Tahun 2020 tentang Kementerian 
+        <li>Peraturan Presiden Nomor 92 Tahun 2020 tentang Kementerian
             Lingkungan Hidup dan Kehutanan (Lembaran Negara Republik Indonesia Tahun 2020 Nomor 209);</li>
-        <li>Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 4 Tahun 
+        <li>Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 4 Tahun
             2021 tentang Daftar Usaha dan/atau Kegiatan yang Wajib Memiliki AMDAL, UKL-UPL atau SPPL (Berita Negara Republik Indonesia Tahun 2021 Nomor 267);</li>
-        <li>Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 5 Tahun 
+        <li>Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 5 Tahun
             2021 tentang Tata Cara Penerbitan Persetujuan Teknis dan Surat Kelayakan Operasional Bidang Pengendalian Pencemaran Lingkungan (Berita Negara Republik Indonesia Tahun 2021 Nomor 268);</li>
-        <li>Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 6 Tahun 
+        <li>Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 6 Tahun
             2021 tentang Tata Cara Persyaratan Pengelolaan Limbah Berbahaya dan Beracun (Berita Negara Republik Indonesia Tahun 2021 Nomor 294);</li>
-        <li>Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 15 Tahun 
+        <li>Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 15 Tahun
             2021 tentang Organisasi dan Tata Kerja Kementerian Lingkungan Hidup dan Kehutanan (Berita Negara Republik Indonesia Tahun 2021 Nomor 756);</li>
-        <li>Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 19 Tahun 
+        <li>Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 19 Tahun
             2021 tentang Tata Cara Pengelolaan Limbah Non Bahan Berbahaya dan Beracun (Berita Negara Republik Indonesia Tahun 2021 Nomor 1214);</li>
         <li>Keputusan Menteri Lingkungan Hidup dan Kehutanan Nomor: SK.1206/
             Menlhk/Setjen/Kum.1/12/2021 tentang Penunjukan Pejabat Penerbit Persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup kepada Direktur Jenderal Planologi Kehutanan dan Tata Lingkungan.</li>
@@ -727,11 +727,11 @@ class PkplhController extends Controller
     </td>
     <td width="2%"> :</td>
     <td width="68%">
-        Risalah Pengolahan Data (RPD) Penerbitan Persetujuan Pernyataan Kesanggupan 
-        Pengelolaan Lingkungan Hidup Kegiatan '. $pkplh->nama_usaha_baru .' oleh '. $pkplh->pelaku_usaha_baru .' 
+        Risalah Pengolahan Data (RPD) Penerbitan Persetujuan Pernyataan Kesanggupan
+        Pengelolaan Lingkungan Hidup Kegiatan '. $pkplh->nama_usaha_baru .' oleh '. $pkplh->pelaku_usaha_baru .'
         Nomor: '. $pkplh->nomor_rpd .' tanggal '. $pkplh->tgl_rpd .'
     </td>
-    </tr>   
+    </tr>
     <tr>
     <td colspan="3"><br><center>MEMUTUSKAN:</center><br></td>
     </tr>
@@ -741,11 +741,11 @@ class PkplhController extends Controller
     </td>
     <td width="2%"> :</td>
     <td width="68%">
-        KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN TENTANG 
-        PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN 
+        KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN TENTANG
+        PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN
         HIDUP KEGIATAN '. strtoupper($pkplh->nama_usaha_baru) .' OLEH '. strtoupper($pkplh->pelaku_usaha_baru) .'.
     </td>
-    </tr>   
+    </tr>
     <tr>
     <td width="30%">
         KESATU
@@ -838,12 +838,13 @@ class PkplhController extends Controller
                 melakukan koordinasi dengan instansi pusat maupun daerah, berkaitan dengan pelaksanaan kegiatan ini;
             </li>
             <li>
-                mengupayakan aplikasi Reduce, Reuse, dan Recycle (3R) terhadap limbah-limbah yang dihasilkan;
+            	mengupayakan pengurangan, penggunaan kembali, dan daur ulang terhadap limbah-limbah yang dihasilkan;
             </li>
+            <li>
                 melakukan pengelolaan limbah non B3 sesuai rincian pengelolaan yang termuat dalam dokumen UKL-UPL;
             </li>
             <li>
-                melaksanakan ketentuan pelaksanaan kegiatan sesuai dengan Standard Operating Procedure (SOP);
+                melaksanakan ketentuan pelaksanaan kegiatan sesuai dengan <i>Standard Operating Procedure</i> (SOP);
             </li>
             <li>
                 melakukan perbaikan secara terus-menerus terhadap kehandalan teknologi yang digunakan dalam rangka meminimalisasi dampak yang diakibatkan dari rencana kegiatan ini
@@ -855,17 +856,20 @@ class PkplhController extends Controller
                 mendokumentasikan seluruh kegiatan pengelolaan lingkungan yang dilakukan terkait dengan kegiatan tersebut;
             </li>
             <li>
+                memenuhi kewajiban pada Persetujuan Teknis pasca verifikasi pemenuhan baku mutu Lingkungan Hidup, Pengelolaan Limbah B3, dan/atau Analisis Mengenai Dampak Lalu Lintas;
+            </li>
+            <li>
                 menyiapkan dana penjaminan untuk pemulihan fungsi Lingkungan Hidup sesuai dengan ketentuan peraturan perundang-undangan;
             </li>
             <li>
                 melakukan audit lingkungan pada tahapan pasca operasi untuk memastikan kewajiban telah dilaksanakan dalam rangka pengakhiran kewajiban pengelolaan dan pemantauan lingkungan hidup dan/atau kewajiban lain yang ditetapkan oleh Menteri, Gubernur, Bupati/Wali Kota sesuai dengan kewenangannya berdasarkan kepentingan perlindungan dan pengelolaan lingkungan hidup;
             </li>
             <li>
-                Menyusun laporan pelaksanaan kewajiban sebagaimana dimaksud pada angka 1 (satu) sampai dengan angka 9 (sembilan), paling sedikit 1 (satu) kali setiap 6 (enam) bulan selama Kegiatan '. $pkplh->nama_usaha_baru .' oleh '. $pkplh->pelaku_usaha_baru .' berlangsung dan menyampaikan kepada:
+                menyusun laporan pelaksanaan kewajiban sebagaimana dimaksud pada angka 1 (satu) sampai dengan angka 10 (sepuluh), paling sedikit 1 (satu) kali setiap 6 (enam) bulan selama usaha atau kegiatan berlangsung dan menyampaikan kepada:
                 <ol type="a">
                     <li>
                         Menteri Lingkungan Hidup dan Kehutanan Republik Indonesia melalui Direktorat Jenderal Penegakan Hukum Lingkungan Hidup dan Kehutanan;
-                    </li> 
+                    </li>
                         ' . $loopprov2 .
                             $loopkk2 .
                 '</ol>
@@ -880,7 +884,7 @@ class PkplhController extends Controller
     </td>
     <td width="2%"> :</td>
     <td width="68%">
-        Apabila dalam pelaksanaan usaha dan/atau kegiatan timbul dampak lingkungan hidup di luar dari dampak yang dikelola sebagaimana dimaksud dalam Lampiran Keputusan ini, Penanggung jawab Usaha dan/atau Kegiatan wajib melaporkan kepada instansi sebagaimana dimaksud dalam Diktum KEEMPAT angka 14 paling lama 30 (tiga puluh) hari kerja sejak diketahuinya timbulan dampak lingkungan hidup di luar dampak yang wajib dikelola.
+        Terhadap izin-izin PPLH atau Persetujuan Teknis atau Rincian Teknis sebagaimana tersebut Diktum KEEMPAT angka 2 yang terdapat perubahan di dalamnya, wajib melakukan pembaruan Persetujuan Teknis dan/atau Rincian Teknis, dan melakukan perubahan Persetujuan Lingkungan sesuai dengan ketentuan peraturan perundang-undangan
     </td>
     </tr>
     <tr>
@@ -916,8 +920,8 @@ class PkplhController extends Controller
         KESEMBILAN
     </td>
     <td width="2%"> :</td>
-    <td width="68%">Penanggung jawab Usaha dan/atau Kegiatan wajib mengajukan 
-        permohonan perubahan Persetujuan Lingkungan apabila terjadi perubahan atas rencana usaha dan/atau kegiatannya dan/atau oleh sebab lain sesuai dengan kriteria perubahan yang tercantum dalam Pasal 89 Peraturan Pemerintah Nomor 22 Tahun 2021 tentang Penyelenggaraan Perlindungan dan Pengelolaan Lingkungan Hidup.
+    <td width="68%">
+        Penanggung Jawab Usaha dan/atau Kegiatan wajib mengajukan permohonan perubahan Persetujuan Lingkungan apabila terjadi perubahan atas rencana Usaha dan/atau Kegiatannya dan/atau oleh sebab lain sesuai dengan kriteria perubahan yang tercantum dalam Pasal 89 Peraturan Pemerintah Nomor 22 Tahun 2021 tentang Penyelenggaraan Perlindungan dan Pengelolaan Lingkungan Hidup.
     </td>
     </tr>
     <tr>
@@ -925,8 +929,8 @@ class PkplhController extends Controller
         KESEPULUH
     </td>
     <td width="2%"> :</td>
-    <td width="68%">Persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan 
-        Hidup ini merupakan Persetujuan Lingkungan dan prasyarat penerbitan Perizinan Berusaha atau Persetujuan Pemerintah.
+    <td width="68%">
+        Segala data dan informasi sebagaimana dimaksud dalam keputusan ini menjadi tanggungjawab penanggungjawab usaha dan/atau kegiatan.
     </td>
     </tr>
     <tr>
@@ -935,9 +939,7 @@ class PkplhController extends Controller
     </td>
     <td width="2%"> :</td>
     <td width="68%">
-        Dengan ditetapkannya keputusan ini, maka
-        <ol>' . $il_dkk . '</ol>
-        dinyatakan tetap berlaku sepanjang tidak diubah dan merupakan bagian yang tidak terpisahkan dari Keputusan ini.
+        Dalam hal berdasarkan hasil pengawasan, ditemukan ketidaksesuaian data dan informasi sebagaimana dimaksud dalam Diktum KESEBELAS, penanggungjawab usaha dan/atau kegiatan dikenakan sanksi sesuai peraturan perundang-undangan.
     </td>
     </tr>
     <tr>
@@ -946,10 +948,29 @@ class PkplhController extends Controller
     </td>
     <td width="2%"> :</td>
     <td width="68%">
-        Keputusan ini mulai berlaku pada tanggal ditetapkan dan berakhir bersamaan dengan berakhirnya Perizinan Berusaha atau Persetujuan Pemerintah.
+        Persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup ini merupakan Persetujuan Lingkungan dan prasyarat penerbitan Perizinan Berusaha atau Persetujuan Pemerintah.
     </td>
     </tr>
     <tr>
+    <td width="30%">
+        KETIGA BELAS
+    </td>
+    <td width="2%"> :</td>
+    <td width="68%">
+        Dengan ditetapkannya Keputusan ini, maka:
+        <ol>'. $il_dkk .'</ol>
+        dinyatakan tetap berlaku sepanjang tidak diubah dengan keputusan ini dan merupakan bagian yang tidak terpisahkan dari keputusan ini.
+    </td>
+    </tr>
+    <tr>
+    <td width="30%">
+        KEEMPAT BELAS
+    </td>
+    <td width="2%"> :</td>
+    <td width="68%">
+        Keputusan ini mulai berlaku pada tanggal ditetapkan dan berakhir bersamaan dengan berakhirnya Perizinan Berusaha atau Persetujuan Pemerintah.
+    </td>
+    </tr>
     </table>';
 
     $body .= '<table width="100%">
@@ -959,10 +980,10 @@ class PkplhController extends Controller
         <table>
             <tr>
                 <td>Ditetapkan di Jakarta</td>
-            </tr>       
+            </tr>
             <tr>
                 <td>pada tanggal</td>
-            </tr>       
+            </tr>
             <tr>
                 <td colspan="2">a.n. MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA<br>
                 PLT. DIREKTORAT JENDRAL PLANOLOGI<br>
@@ -971,7 +992,7 @@ class PkplhController extends Controller
                 RUANDHA AGUNG SUGARDIMAN<br>
                 NIP 19620301 198802 1 001
                 </td>
-            </tr>       
+            </tr>
         </table>
     </td>
     </tr>';
@@ -1041,7 +1062,7 @@ class PkplhController extends Controller
 						LAMPIRAN '. integerToRoman($roman) .' <br>
 						KEPUTUSAN MENTRI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
 						NOMOR <br>
-						TENTANG PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($pkplh->nama_usaha_baru).' 
+						TENTANG PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($pkplh->nama_usaha_baru).'
 						OLEH '. strtoupper($pkplh->pelaku_usaha_baru).'
 					</td>
 				</tr>
@@ -1071,7 +1092,7 @@ class PkplhController extends Controller
 			<tr>
 				<td width="40%">&nbsp;</td>
 				<td width="60%">
-					<table>       
+					<table>
 						<tr>
                         <td colspan="2">a.n. MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA<br>
                         PLT. DIREKTORAT JENDRAL PLANOLOGI<br>
@@ -1080,7 +1101,7 @@ class PkplhController extends Controller
                         RUANDHA AGUNG SUGARDIMAN<br>
                         NIP 19620301 198802 1 001
                         </td>
-						</tr>       
+						</tr>
 					</table>
 				</td>
 			</tr>';
@@ -1115,7 +1136,7 @@ class PkplhController extends Controller
 						LAMPIRAN ' . integerToRoman($roman) .' <br>
 						KEPUTUSAN MENTRI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
 						NOMOR <br>
-						TENTANG PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($pkplh->nama_usaha_baru).' 
+						TENTANG PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($pkplh->nama_usaha_baru).'
 						OLEH '. strtoupper($pkplh->pelaku_usaha_baru).'
 					</td>
 				</tr>
@@ -1128,7 +1149,7 @@ class PkplhController extends Controller
 					<br><br>
 				<tr>
 					<td>
-						
+
 					</td>
 				</tr>';
 		$body .='
@@ -1138,7 +1159,7 @@ class PkplhController extends Controller
 			<tr>
 				<td width="40%">&nbsp;</td>
 				<td width="60%">
-					<table>       
+					<table>
 						<tr>
                         <td colspan="2">a.n. MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA<br>
                         PLT. DIREKTORAT JENDRAL PLANOLOGI<br>
@@ -1147,7 +1168,7 @@ class PkplhController extends Controller
                         RUANDHA AGUNG SUGARDIMAN<br>
                         NIP 19620301 198802 1 001
                         </td>
-						</tr>       
+						</tr>
 					</table>
 				</td>
 			</tr>';

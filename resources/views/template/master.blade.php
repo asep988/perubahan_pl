@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Scripts (Disini)--> 
+    <!-- Scripts (Disini)-->
     {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
 
     <!-- Fonts -->
@@ -20,7 +20,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
-    
+
     <title>SKKL & PKPLH</title>
 
     <!-- link bootstrap&datapicker -->
@@ -36,7 +36,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.css') }}">
-    
+
     <!-- jquery&datapicker -->
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
