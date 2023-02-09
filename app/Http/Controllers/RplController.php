@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\Rpl as ImportsRpl;
 use Illuminate\Http\Request;
 use App\rpl;
 use App\Skkl;
@@ -33,7 +34,7 @@ class RplController extends Controller
 		$rpl->pengawas				=	$request->pengawas;
 		$rpl->penerima				=	$request->penerima;
 		$rpl->save();
-		
+
         return back()->with('pesan', 'Data berhasil diinput');
 	}
 
@@ -67,4 +68,11 @@ class RplController extends Controller
 
         return redirect()->route('rpl.create')->with('pesan', 'Data RPL Berhasil di Update');
 	}
+
+	public function import(Request $request, $id)
+    {
+        Excel::import(new ImportsRpl($id), $request->file);
+
+        return back()->with('pesan', 'Import Success');
+    }
 }

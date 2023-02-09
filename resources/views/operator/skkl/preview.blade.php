@@ -759,24 +759,34 @@
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>mengupayakan
                                 aplikasi
                                 Reduce, Reuse dan Recycle (3R) terhadap limbah-limbah yang dihasilkan; </span></li>
+                        {{-- 6--}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>melakukan
                                 pengelolaan
                                 limbah non B3 sesuai rincian pengelolaan yang termuat dalam dokumen RKL-RPL; </span>
                         </li>
+                        {{-- 7 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>melaksanakan
                                 ketentuan
-                                pelaksanaan kegiatan sesuai dengan Standard Operating Procedure (SOP); </span></li>
+                                pelaksanaan kegiatan sesuai dengan <i> Standard Operating Procedure</i> (SOP); </span></li>
+                        {{-- 8 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>melakukan perbaikan
                                 secara terus-menerus terhadap keandalan teknologi yang digunakan dalam rangka
                                 meminimalisasi dampak yang diakibatkan dari rencana kegiatan ini; </span></li>
+                        {{-- 9 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>melakukan
                                 sosialisasi
                                 kegiatan kepada pemerintah daerah, tokoh masyarakat, dan masyarakat setempat sebelum
                                 kegiatan pengembangan dilakukan; </span></li>
+                        {{-- 10 --}}
                         <li style="margin-left:35.99pt; text-align:justify; padding-left:0.01pt; font-size:12pt">
                             <span>mendokumentasikan seluruh kegiatan pengelolaan lingkungan yang dilakukan terkait
                                 dengan kegiatan tersebut; </span>
                         </li>
+                        {{-- 11 --}}
+                        <li style="margin-left:35.99pt; text-align:justify; padding-left:0.01pt; font-size:12pt">
+                            <span>Memenuhi kewajiban pada Persetujuan Teknis pasca Verifikasi pemenuhan baku mutu Lingkungan Hidup, Pengelolaan Limbah B3, dan/atau Analisis Mengenai Dampak Lalu Lintas; </span>
+                        </li>
+                        {{-- 12 --}}
                         <li style="margin-left:35.99pt; text-align:justify; padding-left:0.01pt; font-size:12pt">
                             <span>menyiapkan dana penjaminan untuk pemulihan fungsi Lingkungan Hidup sesuai dengan
                                 ketentuan peraturan perundang-undangan; </span>

@@ -401,7 +401,8 @@
                         <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
                             <span>Bahwa {{ $data_pkplh->pejabat_pl }}
                                 {{ $data_pkplh->pelaku_usaha_baru }} melalui surat nomor
-                                {{ $data_pkplh->nomor_pl }}, tanggal {{ tgl_indo($data_pkplh->tgl_pl) }}, perihal {{ $data_pkplh->perihal }}; </span>
+                                {{ $data_pkplh->nomor_pl }}, tanggal {{ tgl_indo($data_pkplh->tgl_pl) }}, perihal
+                                {{ $data_pkplh->perihal }}; </span>
                         </li>
                         <!-- e -->
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>bahwa berdasarkan hasil
@@ -769,41 +770,59 @@
                                 dengan instansi pusat maupun daerah, berkaitan dengan pelaksanaan kegiatan ini; </span>
                         </li>
                         <!-- 5 -->
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>mengupayakan aplikasi
-                                Reduce, Reuse, dan Recycle (3R) terhadap limbah-limbah yang dihasilkan; </span></li>
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>mengupayakan
+                                pengurangan, penggunaan kembali, dan daur ulang terhadap limbah-limbah yang dihasilkan;
+                            </span></li>
                     </ol>
-                    <p style="margin-left:36pt; text-align:justify; font-size:12pt"><span>melakukan pengelolaan limbah
-                            non B3 sesuai rincian pengelolaan yang termuat dalam dokumen UKL-UPL; </span></p>
                     <ol start="6" type="1" style="margin:0pt; padding-left:0pt">
+                        {{-- 6 --}}
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>melakukan pengelolaan
+                                limbah non B3 sesuai rincian pengelolaan yang termuat dalam matriks UKL-UPL; </span>
+                        </li>
+                        {{-- 7 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>melaksanakan ketentuan
-                                pelaksanaan kegiatan sesuai dengan Standard Operating Procedure (SOP); </span></li>
+                                pelaksanaan kegiatan sesuai dengan Standard Operating Procedure (SOP);</span></li>
+                        {{-- 8 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>melakukan perbaikan
                                 secara terus-menerus terhadap kehandalan teknologi yang digunakan dalam rangka
                                 meminimalisasi dampak yang diakibatkan dari rencana kegiatan ini </span></li>
+                        {{-- 9 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>melakukan sosialisasi
                                 kegiatan kepada pemerintah daerah, tokoh masyarakat, dan masyarakat setempat sebelum
-                                kegiatan pengembangan dilakukan; </span></li>
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>mendokumentasikan
-                                seluruh kegiatan pengelolaan lingkungan yang dilakukan terkait dengan kegiatan tersebut;
+                                kegiatan pengembangan dilakukan;
                             </span></li>
+                        {{-- 10 --}}
+                        <li style="margin-left:35.99pt; text-align:justify; padding-left:0.01pt; font-size:12pt">
+                            <span>mendokumentasikan seluruh kegiatan pengelolaan lingkungan yang dilakukan terkait
+                                dengan kegiatan tersebut; </span>
+                        </li>
+                        {{-- 11 --}}
+                        <li style="margin-left:35.99pt; text-align:justify; padding-left:0.01pt; font-size:12pt">
+                            <span>memenuhi kewajiban pada Persetujuan Teknis pasca verifikasi pemenuhan baku mutu
+                                Lingkungan Hidup, Pengelolaan Limbah B3, dan/atau Analisis Mengenai Dampak Lalu Lintas;
+                            </span>
+                        </li>
+                        {{-- 12 --}}
                         <li style="margin-left:35.99pt; text-align:justify; padding-left:0.01pt; font-size:12pt">
                             <span>menyiapkan dana penjaminan untuk pemulihan fungsi Lingkungan Hidup sesuai dengan
-                                ketentuan peraturan perundang-undangan; </span>
+                                ketentuan peraturan perundang-undangan;
+                            </span>
                         </li>
+                        {{-- 13 --}}
                         <li style="margin-left:35.99pt; text-align:justify; padding-left:0.01pt; font-size:12pt">
-                            <span>melakukan audit lingkungan pada tahapan pasca operasi untuk memastikan kewajiban telah
-                                dilaksanakan dalam rangka pengakhiran kewajiban pengelolaan dan pemantauan lingkungan
-                                hidup dan/atau kewajiban lain yang ditetapkan oleh Menteri, Gubernur, Bupati/Wali Kota
-                                sesuai dengan kewenangannya berdasarkan kepentingan perlindungan dan pengelolaan
-                                lingkungan hidup; </span>
+                            <span>melakukan audit lingkungan pada tahapan pasca operasi untuk memastikan kewajiban
+                                telah dilaksanakan dalam rangka pengakhiran kewajiban pengelolaan dan pemantauan
+                                lingkungan hidup dan/atau kewajiban lain yang ditetapkan oleh Menteri, Gubernur,
+                                Bupati/Walikota sesuai dengan kewenangannya berdasarkan kepentingan perlindungan dan
+                                pengelolaan lingkungan hidup;
+                            </span>
                         </li>
-                        <!-- 12 -->
+                        {{-- 14 --}}
                         <li style="margin-left:35.99pt; text-align:justify; padding-left:0.01pt; font-size:12pt">
                             <span>Menyusun laporan pelaksanaan kewajiban sebagaimana dimaksud pada angka 1 (satu) sampai
-                                dengan angka 9 (sembilan), paling sedikit 1 (satu) kali setiap 6 (enam) bulan selama
-                                Kegiatan {{ $data_pkplh->nama_kegiatan_baru }} oleh
-                                {{ $data_pkplh->pelaku_usaha_baru }}
-                                Edumind.id berlangsung dan menyampaikan kepada: </span>
+                                dengan angka 10 (sepuluh), paling sedikit 1 (satu) kali setiap 6 (enam) bulan selama
+                                usaha
+                                atau Kegiatan berlangsung dan menyampaikan kepada: </span>
                             <ol type="a" style="margin-right:0pt; margin-left:0pt; padding-left:0pt">
                                 <li style="margin-left:35.98pt; padding-left:0.02pt"><span>Menteri Lingkungan Hidup dan
                                         Kehutanan Republik Indonesia melalui Direktorat Jenderal Penegakan Hukum
@@ -828,7 +847,7 @@
                             pemantauan lingkungan hidup. </span></p>
                 </td>
             </tr>
-            <!-- Kelima -->
+            {{-- KELIMA --}}
             <tr>
                 <td style="width:30%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>KELIMA </span></p>
@@ -837,14 +856,14 @@
                     <p style="text-align:justify; font-size:12pt"><span>:</span></p>
                 </td>
                 <td style="width:68%; padding:0.75pt; vertical-align:top">
-                    <p style="text-align:justify; font-size:12pt"><span>Apabila dalam pelaksanaan usaha dan/atau
-                            kegiatan timbul dampak lingkungan hidup di luar dari dampak yang dikelola sebagaimana
-                            dimaksud dalam Lampiran Keputusan ini, Penanggung jawab Usaha dan/atau Kegiatan wajib
-                            melaporkan kepada instansi sebagaimana dimaksud dalam Diktum KEEMPAT angka 14 paling lama 30
-                            (tiga puluh) hari kerja sejak diketahuinya timbulan dampak lingkungan hidup di luar dampak
-                            yang wajib dikelola. </span></p>
+                    <p style="text-align:justify; font-size:12pt"><span>Terhadap izin-izin PPLH atau Persetujuan Teknis
+                            atau Rincian Teknis sebagaimana tersebut Diktum KEEMPAT angka 2 yang terdapat perubahan di
+                            dalamnya, wajib melakukan pembaruan Persetujuan Teknis dan/atau Rincian Teknis, dan
+                            melakukan perubahan Persetujuan Lingkungan sesuai dengan ketentuan peraturan
+                            perundang-undangan </span></p>
                 </td>
             </tr>
+            {{-- KEENAM --}}
             <tr>
                 <td style="width:30%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>KEENAM </span></p>
@@ -857,6 +876,7 @@
                             menugaskan Pejabat Pengawas Lingkungan Hidup (PPLH) untuk melakukan pengawasan. </span></p>
                 </td>
             </tr>
+            {{-- KETUJUH --}}
             <tr>
                 <td style="width:30%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>KETUJUH </span></p>
@@ -870,6 +890,7 @@
                             (dua) kali dalam 1 (satu) tahun. </span></p>
                 </td>
             </tr>
+            {{-- KEDELAPAN --}}
             <tr>
                 <td style="width:30%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>KEDELAPAN </span></p>
@@ -884,24 +905,56 @@
                         </span></p>
                 </td>
             </tr>
+            {{-- KESEMBILAN --}}
             <tr>
                 <td style="width:30%; padding:0.75pt; vertical-align:top">
-                    <p style="text-align:justify; font-size:12pt"><span>KESEMBILAN </span></p>
+                    <p style="text-align:justify; font-size:12pt"><span>KESEMBILAN</span></p>
                 </td>
                 <td style="width:2%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>:</span></p>
                 </td>
                 <td style="width:68%; padding:0.75pt; vertical-align:top">
-                    <p style="text-align:justify; font-size:12pt"><span>Penanggung jawab Usaha dan/atau Kegiatan wajib
+                    <p style="text-align:justify; font-size:12pt"><span>Penanggung Jawab Usaha dan/atau Kegiatan wajib
                             mengajukan permohonan perubahan Persetujuan Lingkungan apabila terjadi perubahan atas
-                            rencana usaha dan/atau kegiatannya dan/atau oleh sebab lain sesuai dengan kriteria perubahan
+                            rencana Usaha dan/atau Kegiatannya dan/atau oleh sebab lain sesuai dengan kriteria perubahan
                             yang tercantum dalam Pasal 89 Peraturan Pemerintah Nomor 22 Tahun 2021 tentang
-                            Penyelenggaraan Perlindungan dan Pengelolaan Lingkungan Hidup. </span></p>
+                            Penyelenggaraan Perlindungan dan Pengelolaan Lingkungan Hidup.
+                        </span></p>
                 </td>
             </tr>
+            {{-- KESEPULUH --}}
             <tr>
                 <td style="width:30%; padding:0.75pt; vertical-align:top">
-                    <p style="text-align:justify; font-size:12pt"><span>KESEPULUH </span></p>
+                    <p style="text-align:justify; font-size:12pt"><span>KESEPULUH</span></p>
+                </td>
+                <td style="width:2%; padding:0.75pt; vertical-align:top">
+                    <p style="text-align:justify; font-size:12pt"><span>:</span></p>
+                </td>
+                <td style="width:68%; padding:0.75pt; vertical-align:top">
+                    <p style="text-align:justify; font-size:12pt"><span>Segala data dan informasi sebagaimana dimaksud
+                            dalam keputusan ini menjadi tanggungjawab penanggungjawab usaha dan/atau kegiatan.
+                        </span></p>
+                </td>
+            </tr>
+            {{-- KESEBELAS --}}
+            <tr>
+                <td style="width:30%; padding:0.75pt; vertical-align:top">
+                    <p style="text-align:justify; font-size:12pt"><span>KESEBELAS</span></p>
+                </td>
+                <td style="width:2%; padding:0.75pt; vertical-align:top">
+                    <p style="text-align:justify; font-size:12pt"><span>:</span></p>
+                </td>
+                <td style="width:68%; padding:0.75pt; vertical-align:top">
+                    <p style="text-align:justify; font-size:12pt"><span>Dalam hal berdasarkan hasil pengawasan,
+                            ditemukan ketidaksesuaian data dan informasi sebagaimana dimaksud dalam Amar KESEBELAS,
+                            penanggungjawab
+                        </span></p>
+                </td>
+            </tr>
+            {{-- KEDUABELAS --}}
+            <tr>
+                <td style="width:30%; padding:0.75pt; vertical-align:top">
+                    <p style="text-align:justify; font-size:12pt"><span>KEDUABELAS</span></p>
                 </td>
                 <td style="width:2%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>:</span></p>
@@ -909,21 +962,22 @@
                 <td style="width:68%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>Persetujuan Pernyataan Kesanggupan Pengelolaan
                             Lingkungan Hidup ini merupakan Persetujuan Lingkungan dan prasyarat penerbitan Perizinan
-                            Berusaha atau Persetujuan Pemerintah. </span></p>
+                            Berusaha atau Persetujuan Pemerintah.
+                        </span></p>
                 </td>
             </tr>
-            <!-- kesebelas -->
+            {{-- KETIGABELAS --}}
             <tr>
                 <td style="width:30%; padding:0.75pt; vertical-align:top">
-                    <p style="text-align:justify; font-size:12pt"><span>KESEBELAS </span></p>
+                    <p style="text-align:justify; font-size:12pt"><span>KETIGA BELAS</span></p>
                 </td>
                 <td style="width:2%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>:</span></p>
                 </td>
                 <td style="width:68%; padding:0.75pt; vertical-align:top">
-                    <p style="text-align:justify; font-size:12pt"><span>Dengan ditetapkannya keputusan ini, maka
+                    <p style="text-align:justify; font-size:12pt"><span>Dengan ditetapkannya keputusan ini, maka:
                         </span></p>
-                    <ol type="1" style="margin:0pt; padding-left:50px;text-align:justify">
+                    <ol type="a" style="margin:0pt; padding-left:50px;text-align:justify">
                         @foreach ($il_pkplh as $data)
                             <li>{{ $data->jenis_sk }} {{ $data->menerbitkan }} Nomor {{ $data->nomor_surat }} tanggal
                                 {{ tgl_indo($data->tgl_surat) }} tentang {{ $data->perihal_surat }}
@@ -931,12 +985,14 @@
                         @endforeach
                     </ol>
                     <p style="text-align:justify; font-size:12pt"><span>dinyatakan tetap berlaku sepanjang tidak diubah
-                            dan merupakan bagian yang tidak terpisahkan dari Keputusan ini. </span></p>
+                            dengan keputusan ini dan merupakan bagian yang tidak terpisahkan dari keputusan ini.</span>
+                    </p>
                 </td>
             </tr>
+            {{-- KEEMPAT BELAS --}}
             <tr>
                 <td style="width:30%; padding:0.75pt; vertical-align:top">
-                    <p style="text-align:justify; font-size:12pt"><span>KEDUA BELAS </span></p>
+                    <p style="text-align:justify; font-size:12pt"><span>KEEMPAT BELAS</span></p>
                 </td>
                 <td style="width:2%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>:</span></p>

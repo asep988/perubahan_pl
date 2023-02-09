@@ -197,8 +197,9 @@
                                                         menjadi prasyarat penerbitan Perizinan Berusaha atau Persetujuan
                                                         Pemerintah;</span></li>
                                                 <li style="margin-left:36pt"><span>ayat (4): Persetujuan Lingkungan
-                                                        dilakukan melalui penyusunan Amdal dan uji kelayakan
-                                                        Amdal;</span></li>
+                                                        dilakukan melalui a. penyusunan Amdal dan uji kelayakan Amdal;
+                                                        atau b. penyusunan Formulir UKL-UPL dan pemeriksaan Formulir
+                                                        UKL-UPL;</span></li>
                                             </ol>
                                         </li>
                                         <li style="margin-left:36pt"><span>Pasal 64 ayat (1) : Persetujuan Pernyataan
@@ -218,6 +219,7 @@
                                                 lingkungan hidup baru;</span></li>
                                     </ol>
                                 </li>
+                                {{-- a.2. --}}
                                 <li style="margin-left:35.98pt; padding-left:0.02pt"><span>Pasal 5 ayat (1) Peraturan
                                         Menteri Lingkungan Hidup dan Kehutanan Nomor 4 Tahun 2021 tentang Daftar Usaha
                                         dan/atau Kegiatan yang Wajib Memiliki Analisis Mengenai Dampak Lingkungan Hidup,
@@ -228,11 +230,15 @@
                             </ol>
                         </li>
                         <!-- point b -->
+                        <?php
+                        $data_kabkota = implode(", ", $data_pkplh->kabupaten_kota);
+                        $data_prov = implode(", ", $data_pkplh->provinsi);
+                        ?>
                         <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
-                            <span>bahwa kegiatan {{ ucfirst($data_pkplh->nama_usaha_baru) }} oleh
-                                {{ ucfirst($data_pkplh->pelaku_usaha_baru) }} telah memiliki dokumen lingkungan hidup
-                                yang telah disetujui
-                                berdasarkan: </span>
+                            <span>bahwa kegiatan {{ ucfirst($data_pkplh->nama_usaha_baru) }} di
+                                {{ ucfirst($data_pkplh->lokasi_baru) }} , Kota/Kabupaten {{ ucfirst($data_pkplh->data_kabkota) }},
+                                Provinsi {{ ucfirst($data_pkplh->data_prov) }} berdasarkan dokumen lingkungan yang telah disetujui yaitu:
+                                 </span>
                             <ol type="1" style="margin-right:0pt; margin-left:35pt; padding-left:0pt">
                                 @foreach ($il_pkplh as $data)
                                     <li>{{ $data->jenis_sk }} {{ $data->menerbitkan }} Nomor
@@ -402,7 +408,8 @@
                         <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
                             <span>Bahwa {{ $data_pkplh->pejabat_pl }}
                                 {{ $data_pkplh->pelaku_usaha_baru }} melalui surat nomor
-                                {{ $data_pkplh->nomor_pl }}, tanggal {{ tgl_indo($data_pkplh->tgl_pl) }}, perihal {{ $data_pkplh->perihal }}; </span>
+                                {{ $data_pkplh->nomor_pl }}, tanggal {{ tgl_indo($data_pkplh->tgl_pl) }}, perihal
+                                {{ $data_pkplh->perihal }}; </span>
                         </li>
                         <!-- e -->
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>bahwa berdasarkan hasil

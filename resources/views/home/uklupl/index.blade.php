@@ -114,9 +114,17 @@
             </table>
         </div>
 
-        <h5><b>Tambah Data UKL/UPL</b></h5>
         <form action="{{ route('uklupl.store') }}" method="post">
             @csrf
+            <div class="d-flex mt-5">
+                <h5>
+                    <b>Tambah Data UKL/UPL</b>
+                </h5>
+                <button type="button" class="btn btn-primary ml-auto mb-1" data-toggle="modal"
+                    data-target="#importModal">
+                    Import
+                </button>
+            </div>
             <input type="hidden" name="id_pkplh" value="{{ $id_pkplh }}">
             <table border="1" width="100%" class="mb-3">
                 <tr>
@@ -245,6 +253,40 @@
             </div>
         </form>
 
+    </div>
+</div>
+
+<div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Upload</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <span><b>Download Template</b></span>
+                <div class="input-group mb-3">
+                    <a type="button" class="btn btn-sm btn-success mr-1" target="_blank"
+                        href="{{ asset('template/UKL-UPL Template.xlsx') }}">Download</a>
+                </div>
+
+                <span><b>Pilih file:</b></span>
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input @error('file') is-invalid @enderror"
+                            name="file" id="file" aria-describedby="inputGroupFileAddon01">
+                        <label class="custom-file-label" for="file">Choose file</label>
+                    </div>
+                </div>
+                <small class="text-muted mb-3">Max file size: 5mb | Format file: Excel only</small>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Tutup</button>
+                <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

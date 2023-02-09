@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Pkplh;
 use App\Uklupl;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UkluplController extends Controller
 {
     public function create($id)
-    {   
+    {
         $id_pkplh = $id;
 		$data_uklupl = Uklupl::where('id_pkplh', $id)->orderBy('id', 'desc')->get();
 
@@ -33,10 +34,10 @@ class UkluplController extends Controller
 		$uklupl->institusi		    	=	$request->institusi;
 		$uklupl->keterangan		    	=	$request->keterangan;
 		$uklupl->save();
-		
-        return back()->with('pesan', 'Data berhasil diinput'); 
+
+        return back()->with('pesan', 'Data berhasil diinput');
     }
-	
+
 	public function delete($id) //Pemrakarsa
 	{
 		$uklupl = Uklupl::find($id);
@@ -72,5 +73,8 @@ class UkluplController extends Controller
         return redirect()->route('uklupl.create', $uklupl->id_pkplh)->with('pesan', 'Data berhasil diperbarui!');
     }
 
-    
+    // public function import(Request $request, $id)
+    // {
+    //     Excel::import()
+    // }
 }

@@ -47,6 +47,7 @@ Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {
     Route::get('/Pemrakarsa/rkl/ubah/{id}', 'RklController@ubah')->name('rkl.ubah');
     Route::post('/Pemrakarsa/rkl/update/{id}', 'RklController@update')->name('rkl.update');
     Route::post('/Pemrakarsa/rkl', 'RklController@store_rkl')->name('rkl.store_rkl');
+    Route::post('/Pemrakarsa/rkl/import/{id}', 'RklController@import')->name('rkl.import');
 
     //ukl_upl
     Route::get('/Pemrakarsa/uklupl/create/{id}', 'UkluplController@create')->name('uklupl.create');
@@ -61,6 +62,7 @@ Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {
     Route::get('/Pemrakarsa/rpl/ubah/{id}', 'RplController@ubah')->name('rpl.ubah');
     Route::post('/Pemrakarsa/rpl/update/{id}', 'RplController@update')->name('rpl.update');
     Route::post('/Pemrakarsa/rpl', 'RplController@store_rpl')->name('rpl.store_rpl');
+    Route::post('/Pemrakarsa/rpl/import/{id}', 'RplController@import')->name('rpl.import');
 
     //lampiran
     Route::get('/pemrakarsa/lampiran/satu/{id}', 'SkklController@download_lampiranI')->name('pemrakarsa.download.lampiran1');
@@ -77,14 +79,14 @@ Route::group(['middleware' => ['auth', 'cekRole:Operator']], function() {
     Route::get('/Operator/download/{id}', 'OperatorController@download')->name('operator.download');
     Route::get('/Operator/preview/{id}', 'OperatorController@preview')->name('operator.preview');
     Route::put('/Operator/upload_file', 'OperatorController@upload_file')->name('operator.upload_file');
-    Route::get('/Operator/file/delete/{id}', 'OperatorController@destroyFile')->name('operator.destroy.file'); 
-    
+    Route::get('/Operator/file/delete/{id}', 'OperatorController@destroyFile')->name('operator.destroy.file');
+
     Route::get('/Operator/pkplh', 'PkplhController@operatorIndex')->name('operator.pkplh.index');
     Route::get('/Operator/pkplh/preview/{id}', 'PkplhController@operatorPreview')->name('operator.pkplh.preview');
     Route::put('/Operator/pkplh/upload_file', 'PkplhController@uploadFile')->name('operator.pkplh.upload');
     Route::get('/Operator/pkplh/file/delete/{id}', 'PkplhController@destroyFile')->name('operator.pkplh.destroy');
     Route::get('/Operator/pkplh/download/{id}', 'PkplhController@download')->name('operator.pkplh.download');
-    
+
     //Print doc RKL RPL
     Route::get('/Operator/printrkl/download/{id}', 'PrintRklController@download')->name('printrkl.download');
     Route::get('/Operator/printrpl/download/{id}', 'PrintRplController@download')->name('printrpl.download');

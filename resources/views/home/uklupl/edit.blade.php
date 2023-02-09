@@ -1,4 +1,5 @@
 @extends('template.master')
+
 @section('content')
 <form action="{{ route('uklupl.update', $uklupl->id) }}" method="post" enctype="multipart/form-data">
     @csrf
@@ -32,10 +33,10 @@
                                 <div class="form-group row">
                                     <div class="col-sm-8">
                                         <select name="tahap_kegiatan" id="tahap_kegiatan" class="form-control">
-                                            <option value="Pra Konstruksi">Pra Konstruksi</option>
-                                            <option value="Konstruksi">Konstruksi</option>
-                                            <option value="Operasi">Operasi</option>
-                                            <option value="Pasca Operasi">Pasca Operasi</option>
+                                            <option value="Pra Konstruksi" @if ($uklupl->tahap_kegiatan == "Pra Konstruksi") selected @endif>Pra Konstruksi</option>
+                                            <option value="Konstruksi" @if ($uklupl->tahap_kegiatan == "Konstuksi") selected @endif>Konstruksi</option>
+                                            <option value="Operasi" @if ($uklupl->tahap_kegiatan == "Operasi") selected @endif>Operasi</option>
+                                            <option value="Pasca Operasi" @if ($uklupl->tahap_kegiatan == "Pasca Operasi") selected @endif>Pasca Operasi</option>
                                         </select>
                                     </div>
                                 </div>

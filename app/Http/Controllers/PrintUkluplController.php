@@ -56,7 +56,7 @@ class PrintUkluplController extends Controller
                     '.$data->keterangan.'
                 </td>
             </tr>';
-        }     
+        }
         return $body;
     }
 
@@ -83,7 +83,7 @@ class PrintUkluplController extends Controller
 
         $body .= '<style>
                     body {
-                        font-family:"Bookman Old Style,serif";
+                        font-family:"Bookman Old Style";
                     }
                     ol {
                     columns:2;
@@ -133,7 +133,7 @@ class PrintUkluplController extends Controller
                 </tr>
             </thead>
 		<tbody>';
-	
+
         $no = 0;
         $body .= $this->showdata($uklupl_prakons, $no, 'Pra Konstruksi');
         $no += count($uklupl_prakons);
@@ -143,10 +143,10 @@ class PrintUkluplController extends Controller
 
         $body .= $this->showdata($uklupl_operasi, $no, 'Operasi');
         $no += count($uklupl_operasi);
-        
+
         $body .= $this->showdata($uklupl_pasca, $no, 'Pasca Operasi');
         $no += count($uklupl_pasca);
-       
+
         $body .= '</tbody></table>
             </body>
             </html>';

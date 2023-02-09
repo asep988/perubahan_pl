@@ -62,7 +62,7 @@ class PrintRplController extends Controller
                     '.$data->penerima.'
                 </td>
             </tr>';
-        }     
+        }
         return $body;
     }
 
@@ -96,7 +96,7 @@ class PrintRplController extends Controller
 
         $body .= '<style>
                     body {
-                        font-family:"Bookman Old Style,serif";
+                        font-family:"Bookman Old Style";
                         transform: rotate(-90deg);
                         display: flex;
                     }
@@ -128,7 +128,7 @@ class PrintRplController extends Controller
         NOMOR <br>
         TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN '. strtoupper($skkl->nama_usaha_baru).'
         OLEH '.strtoupper($skkl->pelaku_usaha_baru).'
-    
+
     <br><br><br>
                 <center>MATRIKS RENCANA PENGELOLAAN LINGKUNGAN HIDUP<center>';
 
@@ -166,11 +166,11 @@ class PrintRplController extends Controller
 
         $body .= $this->showdata($rpl_penting_operasi, $no, 'Operasi');
         $no += count($rpl_penting_operasi);
-        
+
         $body .= $this->showdata($rpl_penting_pasca, $no, 'Pasca Operasi');
         $no += count($rpl_penting_pasca);
-        
-        
+
+
         //========= DAMPAK LAINNYA =============
         $body .= '<tr id="dampaklainnya">
             <td colspan="10"><b>DAMPAK LAINNYA YANG DIKELOLA</b></td>
@@ -185,11 +185,11 @@ class PrintRplController extends Controller
 
         $body .= $this->showdata($rpl_lainnya_operasi, $no, 'Operasi');
         $no += count($rpl_lainnya_operasi);
-        
+
         $body .= $this->showdata($rpl_lainnya_pasca, $no, 'Pasca Operasi');
         $no += count($rpl_lainnya_pasca);
 
-       
+
         $body .= '</tbody></table>
             </body>
             </html>';

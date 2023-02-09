@@ -93,7 +93,7 @@ class PrintRklController extends Controller
                         margin: 1.25cm 2cm 1.5cm 2cm;
                     }
                     body {
-                        font-family:"Bookman Old Style,serif";
+                        font-family:"Bookman Old Style";
                     }
                     ol {
                     columns:2;
@@ -110,17 +110,17 @@ class PrintRklController extends Controller
 
 
         $body .= '<body>
-        
+
 						LAMPIRAN II<br>
 						KEPUTUSAN MENTRI LINGKUNGAN HIDUP <br>
 						DAN KEHUTANAN REPUBLIK INDONESIA <br>
 						NOMOR <br>
 						TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN '. strtoupper($skkl->nama_usaha_baru).'
 						OLEH '.strtoupper($skkl->pelaku_usaha_baru).'
-					
+
                     <br><br><br>
-				
-        
+
+
                 <center>MATRIKS RENCANA PENGELOLAAN LINGKUNGAN HIDUP<center>';
 
         $body .= '<table width="100%" border="1" rules="all" cellpadding="5" cellspacing="0" style="font-size: 6pt;">

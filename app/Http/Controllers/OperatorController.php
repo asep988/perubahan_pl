@@ -218,7 +218,7 @@ class OperatorController extends Controller
 
         $dasper = "";
         for ($i = 0; $i < count($skkl->jenis_peraturan); $i++) {
-            $dasper = '<li>'. $skkl->jenis_peraturan[$i] . ' ' . $skkl->pejabat_daerah[$i] . ' Nomor ' . $skkl->nomor_peraturan[$i] . ' tentang ' . $skkl->perihal_peraturan[$i] . '</li>';
+            $dasper .= '<li>' . $skkl->jenis_peraturan[$i] . ' ' . $skkl->pejabat_daerah[$i] . ' Nomor ' . $skkl->nomor_peraturan[$i] . ' tentang ' . $skkl->perihal_peraturan[$i] . '</li>';
         }
 
         $perkep = "";
