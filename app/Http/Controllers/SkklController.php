@@ -27,16 +27,20 @@ class SkklController extends Controller
 		$email = Auth::user()->email;
 		$initiator = initiator::where('email', $email)->get();
 
+		$data = array("Test", "Testing");
+
+		if (in_array("Test", $data)) {
+			$cek = 1; 
+		} else {
+			$cek = 0;
+		}
+
 		return view('home.skkl.form', compact('regencies', 'provinces', 'initiator'));
 	}
 
 	public function store(Request $request) //Pemrakarsa
 	{
 		$id_user = Auth::user()->id;
-		$request->validate([
-			'rintek_upload' => 'nullable|max:5120',
-			'rintek_limbah_upload' => 'nullable|max:5120'
-		]);
 
 		if (is_array($request->kabupaten_kota)) {
 			$kabkota = $request->kabupaten_kota;
@@ -77,6 +81,16 @@ class SkklController extends Controller
 		} else {
 			$pertek = array();
 			$pertek[] = $request->pertek;
+		}
+
+		if (in_array("pertek5", $pertek)) {
+			$request->validate([
+				'rintek_upload' => 'required|max:5120',
+			]);
+		} else if (in_array("pertek6", $pertek)) {
+			$request->validate([
+				'rintek_limbah_upload' => 'required|max:5120'
+			]);
 		}
 
 		if (is_array($request->jenis_peraturan)) {
@@ -284,6 +298,16 @@ class SkklController extends Controller
 		} else {
 			$pertek = array();
 			$pertek[] = $request->pertek;
+		}
+
+		if (in_array("pertek5", $pertek)) {
+			$request->validate([
+				'rintek_upload' => 'required|max:5120',
+			]);
+		} else if (in_array("pertek6", $pertek)) {
+			$request->validate([
+				'rintek_limbah_upload' => 'required|max:5120'
+			]);
 		}
 
 		if (is_array($request->jenis_peraturan)) {

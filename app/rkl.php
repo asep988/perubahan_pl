@@ -18,7 +18,11 @@ class rkl extends Model
         'sumber_dampak',
         'indikator',
         'bentuk_pengelolaan',
-        'lokasi'
+        'lokasi',
+        'periode',
+        'institusi',
+        'jenis_dph',
+        'tahap_kegiatan'
     ];
 
     public function il_skkl()

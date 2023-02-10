@@ -151,6 +151,10 @@
 </head>
 
 <body>
+<?php
+    $data_kabkota = implode(', ', $data_pkplh->kabupaten_kota);
+    $data_prov = implode(', ', $data_pkplh->provinsi);
+    ?>
     <div class="page">
         <p><br /><br /><br /><span style="-aw-import:ignore">&#xa0;</span></p>
         <table cellspacing="2" cellpadding="0" style="width:100%; border-spacing:1.5pt">
@@ -229,20 +233,30 @@
                         </li>
                         <!-- point b -->
                         <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
-                            <span>bahwa kegiatan {{ ucfirst($data_pkplh->nama_usaha_baru) }} oleh
-                                {{ ucfirst($data_pkplh->pelaku_usaha_baru) }} telah memiliki dokumen lingkungan hidup
-                                yang telah disetujui
-                                berdasarkan: </span>
-                            <ol type="1" style="margin-right:0pt; margin-left:35pt; padding-left:0pt">
-                                @foreach ($il_pkplh as $data)
-                                    <li>{{ $data->jenis_sk }} {{ $data->menerbitkan }} Nomor
-                                        {{ $data->nomor_surat }} tanggal {{ tgl_indo($data->tgl_surat) }} tentang
-                                        {{ $data->perihal_surat }}</li>
-                                @endforeach
-                            </ol>
+                            <span>bahwa usaha dan/atau kegiatan {{ $data_pkplh->nama_usaha_baru }} di Kabupaten/Kota {{ ucwords(strtolower($data_kabkota)) }}
+                                Provinsi {{ ucwords(strtolower($data_prov)) }} oleh {{ $data_pkplh->pelaku_usaha_baru }}
+                                berdasarkan dokumen lingkungan yang telah disetujui yaitu:
+                                <ol type="1" style="margin-right:0pt; margin-left:0pt; padding-left:0pt">
+                                    <ol>
+                                        @foreach ($il_pkplh as $data)
+                                            <li>{{ $data->jenis_sk }} {{ $data->menerbitkan }} Nomor
+                                                {{ $data->nomor_surat }} tanggal {{ tgl_indo($data->tgl_surat) }}
+                                                tentang
+                                                {{ $data->perihal_surat }}</li>
+                                        @endforeach
+                                    </ol>
+                                </ol>
+                            </span>
                         </li>
-                        <!-- point c -->
-                        @if ($data_pkplh->jenis_perubahan == 'perkep1')
+                        <!-- point c baru-->
+                        <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
+                            <span>
+                                bahwa {{ $data_pkplh->jabatan_baru }} melalui surat Nomor: {{ $data_pkplh->nomor_pl }}, Tanggal {{ tgl_indo($data_pkplh->tgl_pl) }}, perihal {{ $data_pkplh->perihal }},
+                                mengajukan permohonan perubahan persetujuan lingkungan kepada Menteri Lingkungan Hidup; 
+                            </span>
+                        </li>
+                        <!-- point c lama -->
+                        {{-- @if ($data_pkplh->jenis_perubahan == 'perkep1')
                             <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>bahwa terdapat
                                     perubahan kepemilikan kegiatan {{ $data_pkplh->nama_usaha_baru }} oleh
                                     {{ $data_pkplh->pelaku_usaha_baru }} Berdasarkan:
@@ -279,130 +293,130 @@
                                     @endfor
                                 </ol>
                             </li>
-                    </ol>
-                    <p style="margin-left:36pt; text-align:justify; font-size:12pt"><br /><span>dan perubahan
-                            pengelolaan dan pemantauan oleh {{ $data_pkplh->pelaku_usaha_baru }} akan mengintegrasikan:
-                        </span></p>
-                    <ol type="1" style="margin:0pt; padding-left:0pt">
-                        @for ($i = 0; $i < count($pertek_pkplh); $i++)
-                            @if ($pertek_pkplh[$i]->pertek == 'pertek1')
-                                <li style="margin-left:72pt; text-align:justify; font-size:12pt">
-                                    <span>
-                                        Persetujuan Teknis Air Limbah untuk Kegiatan
-                                        {{ $pertek_pkplh[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
-                                        lingkungan hidup ke dalam Persetujuan Lingkungan;
-                                    </span>
-                                </li>
-                            @endif
+                            </ol>
+                            <p style="margin-left:36pt; text-align:justify; font-size:12pt"><br /><span>dan perubahan
+                                    pengelolaan dan pemantauan oleh {{ $data_pkplh->pelaku_usaha_baru }} akan mengintegrasikan:
+                                </span></p>
+                            <ol type="1" style="margin:0pt; padding-left:0pt">
+                                @for ($i = 0; $i < count($pertek_pkplh); $i++)
+                                    @if ($pertek_pkplh[$i]->pertek == 'pertek1')
+                                        <li style="margin-left:72pt; text-align:justify; font-size:12pt">
+                                            <span>
+                                                Persetujuan Teknis Air Limbah untuk Kegiatan
+                                                {{ $pertek_pkplh[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
+                                                lingkungan hidup ke dalam Persetujuan Lingkungan;
+                                            </span>
+                                        </li>
+                                    @endif
 
-                            @if ($pertek_pkplh[$i]->pertek == 'pertek2')
-                                <li style="margin-left:72pt; text-align:justify; font-size:12pt">
-                                    <span>
-                                        Persetujuan Teknis Pemenuhan Baku Mutu Emisi untuk Kegiatan
-                                        {{ $pertek_pkplh[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
-                                        lingkungan hidup ke dalam Persetujuan Lingkungan;
-                                    </span>
-                                </li>
-                            @endif
+                                    @if ($pertek_pkplh[$i]->pertek == 'pertek2')
+                                        <li style="margin-left:72pt; text-align:justify; font-size:12pt">
+                                            <span>
+                                                Persetujuan Teknis Pemenuhan Baku Mutu Emisi untuk Kegiatan
+                                                {{ $pertek_pkplh[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
+                                                lingkungan hidup ke dalam Persetujuan Lingkungan;
+                                            </span>
+                                        </li>
+                                    @endif
 
-                            @if ($pertek_pkplh[$i]->pertek == 'pertek3')
-                                <li style="margin-left:72pt; text-align:justify; font-size:12pt">
-                                    <span>
-                                        Persetujuan Teknis Di Bidang Pengelolaan Limbah B3 untuk Kegiatan
-                                        {{ $pertek_pkplh[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
-                                        lingkungan hidup ke dalam Persetujuan Lingkungan;
-                                    </span>
-                                </li>
-                            @endif
+                                    @if ($pertek_pkplh[$i]->pertek == 'pertek3')
+                                        <li style="margin-left:72pt; text-align:justify; font-size:12pt">
+                                            <span>
+                                                Persetujuan Teknis Di Bidang Pengelolaan Limbah B3 untuk Kegiatan
+                                                {{ $pertek_pkplh[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
+                                                lingkungan hidup ke dalam Persetujuan Lingkungan;
+                                            </span>
+                                        </li>
+                                    @endif
 
-                            @if ($pertek_pkplh[$i]->pertek == 'pertek4')
-                                <li style="margin-left:72pt; text-align:justify; font-size:12pt">
-                                    <span>
-                                        Persetujuan Teknis Andalalin untuk Kegiatan
-                                        {{ $pertek_pkplh[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
-                                        lingkungan hidup ke dalam Persetujuan Lingkungan;
-                                    </span>
-                                </li>
-                            @endif
+                                    @if ($pertek_pkplh[$i]->pertek == 'pertek4')
+                                        <li style="margin-left:72pt; text-align:justify; font-size:12pt">
+                                            <span>
+                                                Persetujuan Teknis Andalalin untuk Kegiatan
+                                                {{ $pertek_pkplh[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
+                                                lingkungan hidup ke dalam Persetujuan Lingkungan;
+                                            </span>
+                                        </li>
+                                    @endif
 
-                            @if ($pertek_pkplh[$i]->pertek == 'pertek5')
-                                <li style="margin-left:72pt; text-align:justify; font-size:12pt">
-                                    <span>
-                                        Persetujuan Teknis Dokumen Rincian Teknis untuk Kegiatan
-                                        {{ $pertek_pkplh[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
-                                        lingkungan hidup ke dalam Persetujuan Lingkungan;
-                                    </span>
-                                </li>
-                            @endif
-                        @endfor
-                    </ol>
-                @else
-                    </ol>
-                    <p style="margin-left:36pt; text-align:justify; font-size:12pt"><br /><span>bahwa terdapat perubahan
-                            pengelolaan dan pemantauan oleh {{ $data_pkplh->pelaku_usaha_baru }} akan mengintegrasikan:
-                        </span></p>
-                    <ol type="1" style="margin:0pt; padding-left:0pt">
-                        @for ($i = 0; $i < count($pertek_pkplh); $i++)
-                            @if ($pertek_pkplh[$i]->pertek == 'pertek1')
-                                <li style="margin-left:72pt; text-align:justify; font-size:12pt">
-                                    <span>
-                                        Persetujuan Teknis Air Limbah untuk Kegiatan
-                                        {{ $pertek_pkplh[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
-                                        lingkungan hidup ke dalam Persetujuan Lingkungan;
-                                    </span>
-                                </li>
-                            @endif
+                                    @if ($pertek_pkplh[$i]->pertek == 'pertek5')
+                                        <li style="margin-left:72pt; text-align:justify; font-size:12pt">
+                                            <span>
+                                                Persetujuan Teknis Dokumen Rincian Teknis untuk Kegiatan
+                                                {{ $pertek_pkplh[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
+                                                lingkungan hidup ke dalam Persetujuan Lingkungan;
+                                            </span>
+                                        </li>
+                                    @endif
+                                @endfor
+                            </ol>
+                        @else
+                            </ol>
+                            <p style="margin-left:36pt; text-align:justify; font-size:12pt"><br /><span>bahwa terdapat perubahan
+                                    pengelolaan dan pemantauan oleh {{ $data_pkplh->pelaku_usaha_baru }} akan mengintegrasikan:
+                                </span></p>
+                            <ol type="1" style="margin:0pt; padding-left:0pt">
+                                @for ($i = 0; $i < count($pertek_pkplh); $i++)
+                                    @if ($pertek_pkplh[$i]->pertek == 'pertek1')
+                                        <li style="margin-left:72pt; text-align:justify; font-size:12pt">
+                                            <span>
+                                                Persetujuan Teknis Air Limbah untuk Kegiatan
+                                                {{ $pertek_pkplh[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
+                                                lingkungan hidup ke dalam Persetujuan Lingkungan;
+                                            </span>
+                                        </li>
+                                    @endif
 
-                            @if ($pertek_pkplh[$i]->pertek == 'pertek2')
-                                <li style="margin-left:72pt; text-align:justify; font-size:12pt">
-                                    <span>
-                                        Persetujuan Teknis Pemenuhan Baku Mutu Emisi untuk Kegiatan
-                                        {{ $pertek_pkplh[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
-                                        lingkungan hidup ke dalam Persetujuan Lingkungan;
-                                    </span>
-                                </li>
-                            @endif
+                                    @if ($pertek_pkplh[$i]->pertek == 'pertek2')
+                                        <li style="margin-left:72pt; text-align:justify; font-size:12pt">
+                                            <span>
+                                                Persetujuan Teknis Pemenuhan Baku Mutu Emisi untuk Kegiatan
+                                                {{ $pertek_pkplh[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
+                                                lingkungan hidup ke dalam Persetujuan Lingkungan;
+                                            </span>
+                                        </li>
+                                    @endif
 
-                            @if ($pertek_pkplh[$i]->pertek == 'pertek3')
-                                <li style="margin-left:72pt; text-align:justify; font-size:12pt">
-                                    <span>
-                                        Persetujuan Teknis Di Bidang Pengelolaan Limbah B3 untuk Kegiatan
-                                        {{ $pertek_pkplh[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
-                                        lingkungan hidup ke dalam Persetujuan Lingkungan;
-                                    </span>
-                                </li>
-                            @endif
+                                    @if ($pertek_pkplh[$i]->pertek == 'pertek3')
+                                        <li style="margin-left:72pt; text-align:justify; font-size:12pt">
+                                            <span>
+                                                Persetujuan Teknis Di Bidang Pengelolaan Limbah B3 untuk Kegiatan
+                                                {{ $pertek_pkplh[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
+                                                lingkungan hidup ke dalam Persetujuan Lingkungan;
+                                            </span>
+                                        </li>
+                                    @endif
 
-                            @if ($pertek_pkplh[$i]->pertek == 'pertek4')
-                                <li style="margin-left:72pt; text-align:justify; font-size:12pt">
-                                    <span>
-                                        Persetujuan Teknis Andalalin untuk Kegiatan
-                                        {{ $pertek_pkplh[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
-                                        lingkungan hidup ke dalam Persetujuan Lingkungan;
-                                    </span>
-                                </li>
-                            @endif
+                                    @if ($pertek_pkplh[$i]->pertek == 'pertek4')
+                                        <li style="margin-left:72pt; text-align:justify; font-size:12pt">
+                                            <span>
+                                                Persetujuan Teknis Andalalin untuk Kegiatan
+                                                {{ $pertek_pkplh[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
+                                                lingkungan hidup ke dalam Persetujuan Lingkungan;
+                                            </span>
+                                        </li>
+                                    @endif
 
-                            @if ($pertek_pkplh[$i]->pertek == 'pertek5')
-                                <li style="margin-left:72pt; text-align:justify; font-size:12pt">
-                                    <span>
-                                        Persetujuan Teknis Dokumen Rincian Teknis untuk Kegiatan
-                                        {{ $pertek_pkplh[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
-                                        lingkungan hidup ke dalam Persetujuan Lingkungan;
-                                    </span>
-                                </li>
-                            @endif
-                        @endfor
-                    </ol>
-                    @endif
+                                    @if ($pertek_pkplh[$i]->pertek == 'pertek5')
+                                        <li style="margin-left:72pt; text-align:justify; font-size:12pt">
+                                            <span>
+                                                Persetujuan Teknis Dokumen Rincian Teknis untuk Kegiatan
+                                                {{ $pertek_pkplh[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
+                                                lingkungan hidup ke dalam Persetujuan Lingkungan;
+                                            </span>
+                                        </li>
+                                    @endif
+                                @endfor
+                            </ol>
+                        @endif --}}
 
                     <ol start="4" type="a" style="margin:0pt; padding-left:0pt">
                         <!-- point d -->
                         <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
-                            <span>Bahwa {{ $data_pkplh->pejabat_pl }}
-                                {{ $data_pkplh->pelaku_usaha_baru }} melalui surat nomor
-                                {{ $data_pkplh->nomor_pl }}, tanggal {{ tgl_indo($data_pkplh->tgl_pl) }}, perihal
-                                {{ $data_pkplh->perihal }}; </span>
+                            <span>d. bahwa telah diterbitkan Keputusan Menteri Lingkungan Hidup dan Kehutanan Nomor:
+                                SK.1206/Menlhk/Setjen/Kum.1/12/2021 tentang Penunjukan Pejabat Penerbit Persetujuan
+                                Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup kepada Direktur Jenderal Planologi
+                                Kehutanan dan Tata Lingkungan; </span>
                         </li>
                         <!-- e -->
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>bahwa berdasarkan hasil
@@ -416,7 +430,8 @@
                             <span>berdasarkan pertimbangan sebagaimana dimaksud dalam huruf a sampai dengan e, perlu
                                 menetapkan Keputusan Mentri Lingkungan Hidup dan Kehutanan Republik Indonesia
                                 tentang
-                                Kelayakan Lingkungan Hidup Kegiatan {{ $data_pkplh->nama_usaha_baru }}; </span>
+                                Kelayakan Lingkungan Hidup Kegiatan {{ $data_pkplh->nama_usaha_baru }} di Kota/Kabupaten {{ucwords(strtolower($data_kabkota))}} 
+                                Provinsi {{ucwords(strtolower($data_prov)) }}; </span>
                         </li>
                     </ol>
                 </td>
@@ -431,55 +446,52 @@
                 </td>
                 <td style="width:68%; padding:0.75pt; vertical-align:top">
                     <ol type="1" style="margin:0pt; padding-left:0pt">
+                        {{-- 1 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Undang-Undang Nomor 32
                                 Tahun 2009 tentang Perlindungan dan Pengelolaan Lingkungan Hidup (Lembaran Negara
                                 Republik Indonesia Tahun 2009 Nomor 140, Tambahan Lembaran Negara Republik Indonesia
                                 Nomor 5059) sebagaimana telah diubah dengan Peraturan Pemerintah Pengganti Undang-Undang
-                                Nomor 2 Tahun 2022 Tentang Cipta Kerja (Lembaran Negara Republik Indonesia Tahun 2022
-                                Nomor 238);</span></li>
+                                Nomor 2 Tahun 2022 Tentang Cipta Kerja;</span></li>
+                        {{-- 2 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Pemerintah
-                                Nomor 5 Tahun 2021 tentang Penyelenggaraan Perizinan Berusaha Berbasis Risiko (Lembaran
-                                Negara Republik Indonesia Tahun 2021 Nomor 15, Tambahan Lembaran Negara Republik
-                                Indonesia Nomor 6617);</span></li>
+                                Nomor 5 Tahun 2021 tentang Penyelenggaraan Perizinan Berusaha Berbasis Risiko;</span>
+                        </li>
+                        {{-- 3 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Pemerintah
-                                Nomor 22 Tahun 2021 tentang Perlindungan Pengelolaan Lingkungan Hidup (Lembaran Negara
-                                Republik Indonesia Tahun 2021 Nomor 32, Tambahan Lembaran Negara Republik Indonesia
-                                Nomor 6634);</span></li>
+                                Nomor 22 Tahun 2021 tentang Perlindungan Pengelolaan Lingkungan Hidup;</span>
+                        </li>
+                        {{-- 4 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Presiden Nomor
-                                68 Tahun 2019 tentang Organisasi Kementerian Negara (Lembaran Negara Republik Indonesia
-                                Tahun 2019 Nomor 203), sebagaimana telah diubah dengan Peraturan Presiden Nomor 32 Tahun
-                                2021 tentang Perubahan atas Peraturan Presiden Nomor 68 Tahun 2019 (Lembaran Negara
-                                Republik Indonesia Nomor 106);</span></li>
+                                68 Tahun 2019 tentang Organisasi Kementerian Negara , sebagaimana telah diubah dengan
+                                Peraturan Presiden Nomor 32 Tahun
+                                2021;</span>
+                        </li>
+                        {{-- 5 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Presiden Nomor
-                                92 Tahun 2020 tentang Kementerian Lingkungan Hidup dan Kehutanan (Lembaran Negara
-                                Republik Indonesia Tahun 2020 Nomor 209);</span></li>
+                                92 Tahun 2020 tentang Kementerian Lingkungan Hidup dan Kehutanan;</span>
+                        </li>
+                        {{-- 6 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Menteri
                                 Lingkungan Hidup dan Kehutanan Nomor 4 Tahun 2021 tentang Daftar Usaha dan/atau Kegiatan
-                                yang Wajib Memiliki AMDAL, UKL-UPL atau SPPL (Berita Negara Republik Indonesia Tahun
-                                2021 Nomor 267);</span></li>
+                                yang Wajib Memiliki AMDAL, UKL-UPL atau SPPL;</span>
+                        </li>
+                        {{-- 7 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Menteri
                                 Lingkungan Hidup dan Kehutanan Nomor 5 Tahun 2021 tentang Tata Cara Penerbitan
                                 Persetujuan Teknis dan Surat Kelayakan Operasional Bidang Pengendalian Pencemaran
-                                Lingkungan (Berita Negara Republik Indonesia Tahun 2021 Nomor 268);</span></li>
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Menteri
-                                Lingkungan Hidup dan Kehutanan Nomor 6 Tahun 2021 tentang Tata Cara Persyaratan
-                                Pengelolaan Limbah Berbahaya dan Beracun (Berita Negara Republik Indonesia Tahun 2021
-                                Nomor 294);</span></li>
+                                Lingkungan;</span>
+                        </li>
+                        {{-- 8 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Menteri
                                 Lingkungan Hidup dan Kehutanan Nomor 15 Tahun 2021 tentang Organisasi dan Tata Kerja
-                                Kementerian Lingkungan Hidup dan Kehutanan (Berita Negara Republik Indonesia Tahun 2021
-                                Nomor 756);</span></li>
-                        <li style="margin-left:35.99pt; text-align:justify; padding-left:0.01pt; font-size:12pt">
-                            <span>Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 19 Tahun 2021 tentang Tata Cara
-                                Pengelolaan Limbah Non Bahan Berbahaya dan Beracun (Berita Negara Republik Indonesia
-                                Tahun 2021 Nomor 1214);</span>
+                                Kementerian Lingkungan Hidup dan Kehutanan;</span>
                         </li>
-                        <li
-                            style="margin-left:35.99pt; margin-bottom:12pt; text-align:justify; padding-left:0.01pt; font-size:12pt">
-                            <span>Keputusan Menteri Lingkungan Hidup dan Kehutanan Nomor: SK.1206/
-                                Menlhk/Setjen/Kum.1/12/2021 tentang Penunjukan Pejabat Penerbit Persetujuan Pernyataan
-                                Kesanggupan Pengelolaan Lingkungan Hidup kepada Direktur Jenderal Planologi Kehutanan
-                                dan Tata Lingkungan.</span>
+                        {{-- 9 --}}
+                        <li style="margin-left:35.99pt; text-align:justify; padding-left:0.01pt; font-size:12pt">
+                            <span>Keputusan Menteri Lingkungan Hidup dan Kehutanan Nomor:
+                                SK.1206/Menlhk/Setjen/Kum.1/12/2021 tentang Penunjukan Pejabat Penerbit Persetujuan
+                                Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup kepada Direktur Jenderal Planologi
+                                Kehutanan dan Tata Lingkungan;</span>
                         </li>
                     </ol>
                 </td>
@@ -495,9 +507,8 @@
                 <td style="width:68%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>Risalah Pengolahan Data (RPD) Penerbitan
                             Persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup Kegiatan
-                            {{ $data_pkplh->nama_usaha_baru }} oleh
-                            {{ $data_pkplh->pelaku_usaha_baru }} Nomor: {{ $data_pkplh->nomor_rpd }}
-                            tanggal: {{ $data_pkplh->tgl_rpd }} </span></p>
+                            {{ $data_pkplh->nama_usaha_baru }} di Kota/Kabupaten {{ucwords(strtolower($data_kabkota))}} Provinsi {{ ucwords(strtolower($data_prov)) }} 
+                            Nomor RPD: {{ $data_pkplh->nomor_rpd }}
                 </td>
             </tr>
             <tr>
@@ -518,8 +529,8 @@
                     <p style="text-align:justify; font-size:12pt"><span>KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN
                             KEHUTANAN
                             TENTANG PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN HIDUP KEGIATAN
-                            {{ strtoupper($data_pkplh->nama_usaha_baru) }} OLEH
-                            {{ strtoupper($data_pkplh->pelaku_usaha_baru) }} </span>
+                            {{ strtoupper($data_pkplh->nama_usaha_baru) }} DI KOTA/KABUPATEN {{ $data_kabkota }} 
+                            PROVINSI {{ $data_prov }} OLEH {{ strtoupper($data_pkplh->pelaku_usaha_baru) }} </span>
                     </p>
                 </td>
             </tr>

@@ -88,6 +88,16 @@ class PkplhController extends Controller
 			$pertek[] = $request->pertek;
 		}
 
+        if (in_array("pertek5", $pertek)) {
+			$request->validate([
+				'rintek_upload' => 'required|max:5120',
+			]);
+		} else if (in_array("pertek6", $pertek)) {
+			$request->validate([
+				'rintek_limbah_upload' => 'required|max:5120'
+			]);
+		}
+
 		if (is_array($request->jenis_peraturan)) {
 			$jenis_peraturan = $request->jenis_peraturan;
 		} else {
@@ -356,6 +366,16 @@ class PkplhController extends Controller
 			$pertek[] = $request->pertek;
 		}
 
+        if (in_array("pertek5", $pertek)) {
+			$request->validate([
+				'rintek_upload' => 'required|max:5120',
+			]);
+		} else if (in_array("pertek6", $pertek)) {
+			$request->validate([
+				'rintek_limbah_upload' => 'required|max:5120'
+			]);
+		}
+
 		if (is_array($request->jenis_peraturan)) {
 			$jenis_peraturan = $request->jenis_peraturan;
 		} else {
@@ -494,7 +514,7 @@ class PkplhController extends Controller
 	{
 		$data_pkplh = Pkplh::find($id);
 		$il_pkplh = il_pkplh::where('id_pkplh', $id)->get();
-        $pertek_pkplh = Pertek_pkplh::where('id_pkpl', $id)->get();
+        $pertek_pkplh = Pertek_pkplh::where('id_pkplh', $id)->get();
 
 		return view('operator.pkplh.preview', compact('data_pkplh', 'il_pkplh', 'pertek_pkplh'));
 	}

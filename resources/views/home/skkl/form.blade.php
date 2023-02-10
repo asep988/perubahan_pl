@@ -60,9 +60,21 @@
         </div>
 
         <div class="card-body">
-            @if (Session::has('pesan'))
-                <div style="background-color: 7FFF00; font: white;">{{ Session::get('pesan') }}</div>
+            @if (session()->has('pesan'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('pesan') }}
+                </div>
             @endif
+            @error('rintek_upload')
+                <div class="alert alert-danger" role="alert">
+                    File belum terupload!
+                </div>
+            @enderror
+            @error('rintek_limbah_upload')
+                <div class="alert alert-danger" role="alert">
+                    File belum terupload!
+                </div>
+            @enderror
             <form action="{{ route('skkl.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <h5><b>Pilih Jenis Perubahan:</b></h5>
@@ -738,7 +750,7 @@
                                     <span class="input-group-text" id="rintek_upload">Upload dokumen yang diperlukan</span>
                                 </div>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="rintek_upload" name="rintek_upload" aria-describedby="rintek_upload">
+                                    <input type="file" class="custom-file-input @error('rintek_upload') is-invalid @enderror" id="rintek_upload" name="rintek_upload" aria-describedby="rintek_upload">
                                     <label class="custom-file-label" for="rintek_upload">Choose file</label>
                                 </div>
                             </div>
@@ -759,8 +771,7 @@
                                     diperlukan</span>
                             </div>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="rintek_limbah_upload"
-                                    name="rintek_limbah_upload" aria-describedby="rintek_limbah_upload">
+                                <input type="file" class="custom-file-input @error('rintek_limbah_upload') is-invalid @enderror" id="rintek_limbah_upload" name="rintek_limbah_upload" aria-describedby="rintek_limbah_upload">
                                 <label class="custom-file-label" for="rintek_limbah_upload">Choose file</label>
                             </div>
                         </div>

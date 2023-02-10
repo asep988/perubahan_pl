@@ -60,8 +60,10 @@
         </div>
 
         <div class="card-body">
-            @if (Session::has('pesan'))
-                <div style="background-color: 7FFF00; font: white;">{{ Session::get('pesan') }}</div>
+            @if (session()->has('pesan'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('pesan') }}
+                </div>
             @endif
             <div class="table-responsive">
                 <table id="datatable" class="table table-bordered table-striped" style="table-layout: fixed;">

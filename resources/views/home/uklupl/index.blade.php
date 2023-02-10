@@ -6,9 +6,6 @@
         <i class="fa fa-bars"></i>
     </button>
     <div class="card">
-        @if (Session::has('pesan'))
-            <div style="background-color: 7FFF00; font: white;">{{ Session::get('pesan') }}</div>
-        @endif
         <div class="card-header">
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -63,6 +60,11 @@
         </div>
 
         <div class="card-body">
+            @if (session()->has('pesan'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('pesan') }}
+                </div>
+            @endif
             <div class="table-responsive">
                 <table id="datatable" class="table table-bordered table-striped" style="table-layout: fixed;">
                     <thead>

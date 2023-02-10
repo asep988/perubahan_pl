@@ -175,10 +175,10 @@
                             </div>
                             <small class="text-muted mb-3">Max file size: 5mb | Format file: PDF only</small>
                             {{-- @error('file')
-                            <div class="invalid-feedback mb-3">
-                                Format file salah!
-                            </div>
-                    @enderror --}}
+                                <div class="invalid-feedback mb-3">
+                                    Format file salah!
+                                </div>
+                            @enderror --}}
                             <br class="mb-3">
                             <span class="mt-3"><b>Apakah file yang akan diupload sudah final?</b></span>
                             <div class="form-check">
