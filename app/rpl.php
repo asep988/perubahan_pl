@@ -13,8 +13,10 @@ class rpl extends Model
     protected $table = 'rpl';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'jenis_dampak',
         'id_skkl',
+        'tahap_kegiatan',
+        'jenis_dph',
+        'jenis_dampak',
         'indikator',
         'sumber_dampak',
         'metode',

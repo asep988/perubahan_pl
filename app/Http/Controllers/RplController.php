@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\rpl;
 use App\Skkl;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RplController extends Controller
 {

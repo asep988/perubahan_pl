@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\Uklupl as ImportsUklupl;
 use App\Pkplh;
 use App\Uklupl;
 use Illuminate\Http\Request;
@@ -73,8 +74,10 @@ class UkluplController extends Controller
         return redirect()->route('uklupl.create', $uklupl->id_pkplh)->with('pesan', 'Data berhasil diperbarui!');
     }
 
-    // public function import(Request $request, $id)
-    // {
-    //     Excel::import()
-    // }
+    public function import(Request $request, $id)
+    {
+        Excel::import(new ImportsUklupl($id), $request->file);
+
+        return back()->with('pesan', 'Import Success');
+    }
 }

@@ -244,7 +244,7 @@
                         <span><b>Download Template</b></span>
                         <div class="input-group mb-3">
                             <a type="button" class="btn btn-sm btn-success mr-1" target="_blank"
-                                href="{{ asset('template/RKL Template.xlsx') }}">Download</a>
+                                href="{{ asset('template/RPL Template.xlsx') }}">Download</a>
                         </div>
 
                         <span><b>Pilih file:</b></span>

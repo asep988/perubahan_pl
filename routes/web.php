@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {
     Route::get('/Pemrakarsa/uklupl/ubah/{id}', 'UkluplController@ubah')->name('uklupl.ubah');
     Route::post('/Pemrakarsa/uklupl/update/{id}', 'UkluplController@update')->name('uklupl.update');
     Route::post('/Pemrakarsa/uklupl', 'UkluplController@store')->name('uklupl.store');
+    Route::post('/Pemrakarsa/uklupl/{id}', 'UkluplController@import')->name('uklupl.import');
 
     //rpl
     Route::get('/Pemrakarsa/rpl/create/{id}', 'RplController@create')->name('rpl.create');
