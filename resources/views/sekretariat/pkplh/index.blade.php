@@ -134,7 +134,7 @@
                                 {{-- <a href="{{ route('sekre.pkplh.reject', $pkplh->id) }}"
                                     class="btn btn-sm btn-danger @if ($pkplh->status == 'Ditolak') disabled @endif"
                                     onclick="return confirm('Yakin ingin menolak pengajuan ini?')">Tolak</a> --}}
-                                <button type="button" class="btn btn-sm btn-danger" @if ($skkl->status == 'Ditolak') disabled @endif data-toggle="modal"
+                                <button type="button" class="btn btn-sm btn-danger" @if ($pkplh->status == 'Ditolak') disabled @endif data-toggle="modal"
                                     data-target="{{ '#tolak' . $pkplh->id }}">
                                     Tolak
                                 </button>
