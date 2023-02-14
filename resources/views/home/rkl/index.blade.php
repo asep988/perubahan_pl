@@ -83,6 +83,17 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {{-- @if (count($data_rkl) > 0)
+                            <tr>
+                                <td colspan="8"><strong>{{ $data_rkl->tahap_kegiatan }} </strong></td>
+                            </tr>
+                        @endif --}}
+                        {{-- <tr id="dampakpenting">
+                            <td colspan="8"><b> DAMPAK PENTING YANG DIKELOLA</b></td>
+                        </tr>
+                        <tr id="dampaklainnya">
+                            <td colspan="8"><b> DAMPAK LAINNYA YANG DIKELOLA</b></td>
+                        </tr> --}}
                         @foreach ($data_rkl as $rkl)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>

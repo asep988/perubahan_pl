@@ -87,15 +87,8 @@ class PrintRklController extends Controller
         $body = '<html>
                 <head>
                 <style>
-                    @page {
-                        size: A4 landscape;
-                        margin: 1.25cm 2cm 1.5cm 2cm;
-                    }
                     body {
                         font-family:"Bookman Old Style";
-                    }
-                    tbody{
-                        font-size : 7pt;
                     }
                     ol {
                     columns:2;
@@ -107,18 +100,28 @@ class PrintRklController extends Controller
                         vertical-align: top;
                         text-align: justify;
                     }
+                    }
                     table{
                         font-size: 7pt;
                     }
-                    td table{
-                        font-size: 7pt;
+                    table.matriks, .matriks td, .matriks th {
+						border: 1px solid black; border-collapse: collapse;
+						font-size: 7pt;
+						width: 100%;
+					}
+                    @page SectionLC {
+                        size:841.7pt 595.45pt;mso-page-orientation:landscape;margin:1.25in 1.0in 1.25in 1.0in;mso-header-margin:.5in;mso-footer-margin:.5in;mso-paper-source:0;
+                    }
+
+                    div.SectionLC {
+                        page:SectionLC;
                     }
                 </style>
                 </head>';
 
 
         $body .= '<body>
-
+            <div class=SectionLC>
 						LAMPIRAN II<br>
 						KEPUTUSAN MENTRI LINGKUNGAN HIDUP <br>
 						DAN KEHUTANAN REPUBLIK INDONESIA <br>
@@ -164,7 +167,7 @@ class PrintRklController extends Controller
 
 
         //========= DAMPAK LAINNYA =============
-        $body .= '<tr id="dampakpenting">
+        $body .= '<tr id="dampaklainnya">
             <td colspan="8"><b>DAMPAK LAINNYA YANG DIKELOLA</b></td>
         </tr>';
 
@@ -183,6 +186,7 @@ class PrintRklController extends Controller
 
 
         $body .= '</tbody></table>
+        </div>
             </body>
             </html>';
 

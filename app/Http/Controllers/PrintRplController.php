@@ -87,42 +87,44 @@ class PrintRplController extends Controller
         );
 
         $body = '<html>
-                <head><meta charset="utf-8">
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.4.1/paper.css"></head>
+                <head>
                 <body>';
 
         $body .= '<style>
-                    body {
-                        font-family:"Bookman Old Style";
-                        transform: rotate(-90deg);
-                        display: flex;
-                    }
-                    ol {
-                    columns:2;
-                    }
-                    ol > li.list_kurung::marker {
-                    content:counter(list-item) ")\2003";
-                    }
-                    td {
-                        vertical-align: top;
-                        text-align: justify;
-                    }
-                    @page{
-                        size: A4 landscape;
-                    }
-                    @media (orientation: landscape) {
-                        body {
-                          flex-direction: row;
-                        }
-                    }
-                    table{
-                        font-size: 7pt;
-                    }
-                </style>';
+        body {
+            font-family:"Bookman Old Style";
+        }
+        ol {
+        columns:2;
+        }
+        ol > li.list_kurung::marker {
+        content:counter(list-item) ")\2003";
+        }
+        td {
+            vertical-align: top;
+            text-align: justify;
+        }
+        }
+        table{
+            font-size: 7pt;
+        }
+        table.matriks, .matriks td, .matriks th {
+            border: 1px solid black; border-collapse: collapse;
+            font-size: 7pt;
+            width: 100%;
+        }
+        @page SectionLC {
+            size:841.7pt 595.45pt;mso-page-orientation:landscape;margin:1.25in 1.0in 1.25in 1.0in;mso-header-margin:.5in;mso-footer-margin:.5in;mso-paper-source:0;
+        }
+
+        div.SectionLC {
+            page:SectionLC;
+        }
+    </style>';
 
 
-        $body .='<body class="A4 landscape">
+        $body .='<body>
+        <div class=SectionLC>
         LAMPIRAN II<br>
         KEPUTUSAN MENTRI LINGKUNGAN HIDUP <br>
         DAN KEHUTANAN REPUBLIK INDONESIA <br>
@@ -192,6 +194,7 @@ class PrintRplController extends Controller
 
 
         $body .= '</tbody></table>
+        </div>
             </body>
             </html>';
 
