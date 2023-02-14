@@ -273,6 +273,7 @@
     <script>
         $(document).ready(function() {
             $("#datatable").DataTable({
+                "scrollX": true,
                 "responsive": true,
                 "lengthchange": true,
                 "autowidth": true,

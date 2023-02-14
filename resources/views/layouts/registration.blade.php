@@ -22,11 +22,11 @@
                 bottom: -60px; 
                 left: 0px; 
                 right: 0px;
-                height: 50px; 
+                height: 60px; 
 
                 /** Extra personal styles **/
                 text-align: center;
-                line-height: 35px;
+                line-height: 45px;
             }
     </style>
 </head>
@@ -47,46 +47,38 @@
 
     <br><br>
 
-    <table style="border: 1px; border-color: black; width: 640px" align="center">
-        <tr>
-            <td>Jenis Permohonan</td>
-            <td>:</td>
-            <td>&nbsp; Test</td>
+    <table style="border: 1px solid black; border-collapse: collapse; width: 650px" align="center">
+        <tr style="border: 1px solid black; border-collapse: collapse;" class="row">
+            <td style="border: 1px solid black; border-collapse: collapse; max-width: 80px;" >Jenis Permohonan</td>     
+            <td colspan="2" style="border: 1px solid black; border-collapse: collapse;">&nbsp;&nbsp; Test</td>          
         </tr>
-        <tr>
-            <td>Nama Pelaku Usaha</td>
-            <td>:</td>
-            <td>&nbsp; Test</td>
+        <tr style="border: 1px solid black; border-collapse: collapse;">
+            <td style="border: 1px solid black; border-collapse: collapse; max-width: 80px;">Nama Pelaku Usaha</td>
+            <td colspan="2" style="border: 1px solid black; border-collapse: collapse;">&nbsp;&nbsp; Test</td>
         </tr>
-        <tr>
-            <td>Judul Usaha/Kegiatan</td>
-            <td>:</td>
-            <td>&nbsp; Test</td>
+        <tr style="border: 1px solid black; border-collapse: collapse;">
+            <td style="border: 1px solid black; border-collapse: collapse; max-width: 80px;">Judul Usaha/Kegiatan</td>
+            <td colspan="2" style="border: 1px solid black; border-collapse: collapse;">&nbsp;&nbsp; Test</td>
         </tr>
-        <tr>
-            <td>Tanggal Dibuat</td>
-            <td>:</td>
-            <td>&nbsp; Tanggal dan Jam menit</td>
+        <tr style="border: 1px solid black; border-collapse: collapse;">
+            <td style="border: 1px solid black; border-collapse: collapse; max-width: 80px;">Tanggal Dibuat</td>
+            <td colspan="2" style="border: 1px solid black; border-collapse: collapse;">&nbsp;&nbsp; Tanggal dan Jam menit</td>
+        </tr>{{  }}
+        <tr style="border: 1px solid black; border-collapse: collapse;">
+            <td style="border: 1px solid black; border-collapse: collapse; max-width: 80px;">Nomor Verifikasi PTSP</td>
+            <td colspan="2" style="border: 1px solid black; border-collapse: collapse;">&nbsp;&nbsp; Test</td>
         </tr>
-        <tr>
-            <td>Nomor Verifikasi PTSP</td>
-            <td>:</td>
-            <td>&nbsp; Test</td>
+        <tr style="border: 1px solid black; border-collapse: collapse;">
+            <td style="border: 1px solid black; border-collapse: collapse; max-width: 80px;">Jumlah Data RKL</td>
+            <td colspan="2" style="border: 1px solid black; border-collapse: collapse;">&nbsp;&nbsp; Test</td>
         </tr>
-        <tr>
-            <td>Jumlah Data RKL</td>
-            <td>:</td>
-            <td>&nbsp; Test</td>
+        <tr style="border: 1px solid black; border-collapse: collapse;">
+            <td style="border: 1px solid black; border-collapse: collapse; max-width: 80px;">Jumlah Data RPL</td>
+            <td colspan="2" style="border: 1px solid black; border-collapse: collapse;">&nbsp;&nbsp; Test</td>
         </tr>
-        <tr>
-            <td>Jumlah Data RPL</td>
-            <td>:</td>
-            <td>&nbsp; Test</td>
-        </tr>
-        <tr>
-            <td>Jumlah Data UKLUPL</td>
-            <td>:</td>
-            <td>&nbsp; Test</td>
+        <tr style="border: 1px solid black; border-collapse: collapse;">
+            <td style="border: 1px solid black; border-collapse: collapse; max-width: 80px;">Jumlah Data UKLUPL</td>
+            <td colspan="2" style="border: 1px solid black; border-collapse: collapse;">&nbsp;&nbsp; Test</td>
         </tr>
     </table>
 

@@ -63,22 +63,24 @@
             <thead>
                 <tr class="text-center">
                     <th width="70px">No</th>
+                    {{-- <th>Nomor Registrasi</th> --}}
+                    <th>Tanggal Dibuat</th>
                     <th>Pemrakarsa</th>
                     <th>Nama Usaha/ Kegiatan</th>
-                    <th>NIB</th>
-                    <th>Verifikasi Administrasi PTSP</th>
-                    <th>Permohonan Dari Pemrakarsa</th>
-                    <th>Nama PJM</th>
-                    <th>PIC</th>
                     <th>Status</th>
+                    <th>PIC</th>
+                    <th>Nama PJM</th>
+                    <th>NIB</th>
+                    <th>Verifikasi PTSP</th>
+                    <th>Permohonan Dari Pemrakarsa</th>
                     <th>Aksi</th>
-
                 </tr>
             </thead>
             <tbody>
                 @foreach ($data_skkl as $skkl)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $skkl->created_at }}</td>
                         <td>
                             @foreach ($pemrakarsa as $user)
                                 @if ($skkl->user_id == $user->id)
@@ -87,21 +89,6 @@
                             @endforeach
                         </td>
                         <td>{{ $skkl->nama_usaha_baru }}</td>
-                        <td>{{ $skkl->nib_baru }}</td>
-                        <td>Nomor: {{ $skkl->nomor_validasi }} <br>
-                            Tanggal: {{ $skkl->tgl_validasi }}</td>
-                        <td>{{  $skkl->perihal }}</td>
-                        <td>
-                            @if ($skkl->nama_operator != null)
-                                {{ $skkl->nama_operator }}
-                            @else
-                                -
-                            @endif
-                        </td>
-                        <td>
-                            {{ $skkl->pic_pemohon }} <br>
-                            ({{ $skkl->no_hp_pic }})
-                        </td>
                         <td class="text-center">
                             @if ($skkl->status == 'Belum')
                                 <span class="badge badge-secondary">Belum diproses</span>
@@ -115,6 +102,21 @@
                                 <span class="badge badge-danger">Ditolak</span>
                             @endif
                         </td>
+                        <td>
+                            {{ $skkl->pic_pemohon }} <br>
+                            ({{ $skkl->no_hp_pic }})
+                        </td>
+                        <td>
+                            @if ($skkl->nama_operator != null)
+                                {{ $skkl->nama_operator }}
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td>{{ $skkl->nib_baru }}</td>
+                        <td>Nomor: {{ $skkl->nomor_validasi }} <br>
+                            Tanggal: {{ $skkl->tgl_validasi }}</td>
+                        <td>{{  $skkl->perihal }}</td>
                         <td>
                             <div class="btn-group-vertical">
                                 <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
@@ -255,10 +257,10 @@
                     <div class="modal-body">
                         <a class="btn btn-success btn-block" href="{{ route('operator.download', [$skkl->id]) }}">Unduh
                             PL</a></button>
-                        <a class="btn btn-success btn-block" href="{{ route('printrkl.download', [$skkl->id]) }}">Unduh
-                            RKL</a></button>
-                        <a class="btn btn-success btn-block" href="{{ route('printrpl.download', [$skkl->id]) }}">Unduh
-                            RPL</a></button>
+                        <a class="btn btn-success btn-block" href="{{ route('printrkl.download', [$skkl->id]) }}">
+                        Unduh Lampiran I RKL</a></button>
+                        <a class="btn btn-success btn-block" href="{{ route('printrpl.download', [$skkl->id]) }}">
+                        Unduh Lampiran I RPL</a></button>
                         <button class="btn btn-success btn-block"><a style="color: white;" target="_blank"
                                 href="{{ url($skkl->link_drive) }}">Drive</a></button>
 
@@ -276,7 +278,7 @@
                         <hr>
 
                         <a class="btn btn-primary btn-block mb-2"
-                            href="{{ route('operator.download.lampiran1', $skkl->id) }}">Unduh lampiran I</a>
+                            href="{{ route('operator.download.lampiran1', $skkl->id) }}">Unduh lampiran II</a>
                         <?php $i = 3; ?>
                         @if ($skkl->jenis_perubahan != 'perkep1')
                             @foreach ($skkl->pertek as $pertek)
@@ -306,9 +308,10 @@
     <script>
         $(document).ready(function() {
             $("#datatable").DataTable({
+                "scrollX": true,
                 "responsive": true,
-                "lengthChange": true,
-                "autoWidth": false,
+                "lengthchange": true,
+                "autowidth": true,
                 "lengthmenu": [
                     [5, 10, 25, 50, -1],
                     [5, 10, 25, 50, 'All']

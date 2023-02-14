@@ -304,9 +304,10 @@
     <script>
         $(document).ready(function() {
             $("#datatable").DataTable({
-                responsive: true,
-                "lengthChange": true,
-                "autoWidth": false,
+                "scrollX": true,
+                "responsive": true,
+                "lengthchange": true,
+                "autowidth": true,
                 "lengthmenu": [
                     [5, 10, 25, 50, -1],
                     [5, 10, 25, 50, 'All']

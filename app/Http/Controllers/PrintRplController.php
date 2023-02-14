@@ -117,7 +117,10 @@ class PrintRplController extends Controller
                         body {
                           flex-direction: row;
                         }
-                      }
+                    }
+                    table{
+                        font-size: 7pt;
+                    }
                 </style>';
 
 
@@ -132,7 +135,7 @@ class PrintRplController extends Controller
     <br><br><br>
                 <center>MATRIKS RENCANA PENGELOLAAN LINGKUNGAN HIDUP<center>';
 
-        $body .='<table width="100%" border="1" rules="all" cellpadding="5" cellspacing="0" style="font-size: 6pt;">
+        $body .='<table width="100%" border="1" rules="all" cellpadding="5" cellspacing="0" style="font-size: 7pt;">
 		    <thead>
                 <tr>
                     <th width="70px" rowspan="2" class="align-middle">No</th>

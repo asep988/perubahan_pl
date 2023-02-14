@@ -507,8 +507,27 @@
             </div>
 
             <hr>
-            <label><b>Sebutkan Ruang Lingkup (sebutkan ruang lingkup usaha dan/kegiatan yang akan di muat di dalam SK)</b></label>
+            <label>
+                <b>Sebutkan Ruang Lingkup (sebutkan ruang lingkup usaha dan/kegiatan yang akan di muat di dalam SK)</b>
+                <button type="button" class="ml-2 btn btn-sm btn-warning" id="btn-detail-rl"><i class="fa fa-info fa-sm"></i>&nbsp; Detail</button>
+            </label>
             <div class="form-group row">
+                <div style="display: none" class="alert alert-warning ml-2" role="alert" id="detail-rl">
+                    <span>Lampiran Dokumen yang diupload dalam Google Drive:</span>
+                    <span><br> 1. Izin Lingkungan, SKKL, PKPLH, Persetujuan DELH, Persetujuan DELH</span>
+                    <span><br> 2. Dokumen Amdal, UKL-UPL, DELH, atau DPLH yang dimiliki</span>
+                    <span><br> 3. Berita Acara Validasi dari PTSP</span>
+                    <span><br> 4. NIB beserta lampirannya (KBLI dan lokasi usaha kegiatan sesuai dengan usaha/kegiatan yg diajukan
+                        perubahan PL-nya harus termuat di dalam dokumen NIB)</span>
+                    <span><br> 5. Akta Notaris Perubahan Kepemikan</span>
+                    <span><br> 6. RKL-RPL dalam Bentuk Word</span>
+                    <span><br> 7. Izin PPLH atau Persetujuan Teknis (Pembuangan Air Limbah, Emisi, Persetujuan
+                        Andalalin) yang telah dimiliki</span>
+                    <span><br> 8. Rincian Teknis Penyimpanan Limbah B3 dalam bentuk Word</span>
+                    <span><br> 9. Rincian Teknis Penyimpanan Limbah Non B3 (optional bila melakukan penyimpanan
+                        limbah non B3)</span>
+                    <span><br> 10. Pastikan Link Google Drive anda Bisa diakses Oleh Publik</span>
+                </div>
                 <div class="col-sm-8">
                     <textarea class="form-control" id="mytextarea" aria-label="editor" name="ruang_lingkup">{!! $skkl->ruang_lingkup !!}</textarea>
                 </div>
@@ -979,7 +998,7 @@
                             <label class="custom-file-label" for="rintek_upload">Choose file</label>
                         </div>
                     </div>
-                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 5 mb </small>
+                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 10 mb </small>
                 </div>
 
                 <div class="custom-control custom-checkbox">
@@ -997,7 +1016,7 @@
                             <label class="custom-file-label" for="rintek_limbah_upload">Choose file</label>
                         </div>
                     </div>
-                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 5 mb </small>
+                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 10 mb </small>
                 </div>
                 <hr>
             </div>
@@ -1059,6 +1078,10 @@
 
         $("#btn-detail").click(function() {
             $("#detail").fadeToggle("slow");
+        });
+
+        $("#btn-detail-rl").click(function() {
+            $("#detail-rl").fadeToggle("slow");
         });
 
         $(document).on('change', '#jenis_perubahan1', function () {

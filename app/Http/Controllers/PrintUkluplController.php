@@ -95,6 +95,9 @@ class PrintUkluplController extends Controller
                         vertical-align: top;
                         text-align: justify;
                     }
+                    table {
+                        font-size: 7pt;
+                    }
                 </style>';
 
 
@@ -110,7 +113,7 @@ class PrintUkluplController extends Controller
 
                 <center> MATRIKS UPAYA PENGELOLAAN DAN PEMANTAUAN LINGKUNGAN HIDUP (UKL-UPL)</center>';
 
-        $body .='<table width="100%" border="1" rules="all" cellpadding="5" cellspacing="0" style="font-size: 6pt;">
+        $body .='<table width="100%" border="1" rules="all" cellpadding="5" cellspacing="0" style="font-size: 7pt;">
 		    <thead>
                 <tr>
                     <th width="70px" rowspan="2" class="align-middle">No</th>

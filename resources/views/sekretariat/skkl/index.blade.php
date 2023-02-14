@@ -55,21 +55,24 @@
                 <thead>
                     <tr class="text-center">
                         <th width="70px">No</th>
+                        {{-- <th>Nomor Registrasi</th> --}}
+                        <th>Tanggal Dibuat</th>
                         <th>Pemrakarsa</th>
                         <th>Nama Usaha/ Kegiatan</th>
+                        <th>Status</th>
+                        <th>PIC</th>
+                        <th>Nama PJM</th>
+                        <th>Jenis Permohonan</th>
                         <th>Nomor Verif PTSP</th>
                         <th>Tanggal Verif PTSP</th>
                         <th>Permohonan Dari Pemrakarsa</th>
-                        <th>Nama PJM</th>
-                        <th>PIC</th>
-                        <th>Status</th>
                         <th>Aksi</th>
                         <th width="120px">Penugasan</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                        <th colspan="10"></th>
+                        <th colspan="12"></th>
                         <th>
                             <button type="submit" class="btn btn-sm btn-success btn-block">Tugaskan</button>
                         </th>
@@ -79,30 +82,16 @@
                     @foreach ($data_skkl as $skkl)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>
+                            <td>{{ $skkl->created_at }}</td>
+                            <td> <!-- Pemrakarsa -->
                                 @foreach ($pemrakarsa as $user)
                                     @if ($skkl->user_id == $user->id)
                                         {{ $user->name }}
                                     @endif
                                 @endforeach
                             </td>
-                            <td>{{ $skkl->nama_usaha_baru }}</td>
-                            <td>{{ $skkl->nomor_validasi }}</td>
-                            <td>{{ $skkl->tgl_validasi }}</td>
-                            <td>Nomor: {{ $skkl->nomor_pl }} <br>
-                                Tanggal: {{ $skkl->tgl_pl }}</td>
-                            <td>
-                                @if ($skkl->nama_operator != null)
-                                    {{ $skkl->nama_operator }}
-                                @else
-                                    -
-                                @endif
-                            </td>
-                            <td>
-                                {{ $skkl->pic_pemohon }} <br>
-                                ({{ $skkl->no_hp_pic }})
-                            </td>
-                            <td class="text-center">
+                            <td>{{ $skkl->nama_usaha_baru }}</td> <!-- nama usaha/kegiatan -->
+                            <td class="text-center"> <!-- status -->
                                 @if ($skkl->status == 'Belum')
                                     <span class="badge badge-secondary">Belum diproses</span>
                                 @elseif ($skkl->status == 'Proses')
@@ -115,6 +104,29 @@
                                     <span class="badge badge-danger">Ditolak</span>
                                 @endif
                             </td>
+                            <td> <!-- pic -->
+                                {{ $skkl->pic_pemohon }} <br>
+                                ({{ $skkl->no_hp_pic }})
+                            </td>
+                            <td> <!-- nama pjm -->
+                                @if ($skkl->nama_operator != null)
+                                    {{ $skkl->nama_operator }}
+                                @else
+                                    -
+                                @endif
+                            </td>
+                            <td> <!-- jenis permohonan -->
+                                @if ($skkl->jenis_perubahan == "perkep1")
+                                    Perubahan Kepemilikkan
+                                @elseif ($skkl->jenis_perubahan == "perkep2")
+                                    Perubahan Kepemilikkan dan Integrasi Pertek/Rintek
+                                @elseif ($skkl->jenis_perubahan == "perkep3")
+                                    Integrasi Pertek/Rintek
+                                @endif
+                            </td>
+                            <td>{{ $skkl->nomor_validasi }}</td> <!-- nomor verif ptsp -->
+                            <td>{{ $skkl->tgl_validasi }}</td> <!-- tgl verif ptsp-->
+                            <td>{{ $skkl->perihal }}</td> <!-- permohonan dari pemrakarsa -->
                             <td>
                                 <div class="btn-group-vertical">
                                     <a href="{{ route('sekre.skkl.reject', $skkl->id) }}"
@@ -161,12 +173,12 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <a class="btn btn-success btn-block" href="{{ route('sekretariat.skkl.download', [$skkl->id]) }}">Unduh
-                            PL</a></button>
-                        <a class="btn btn-success btn-block" href="{{ route('sekretariat.printrkl.download', [$skkl->id]) }}">Unduh
-                            RKL</a></button>
-                        <a class="btn btn-success btn-block" href="{{ route('sekretariat.printrpl.download', [$skkl->id]) }}">Unduh
-                            RPL</a></button>
+                        <a class="btn btn-success btn-block" href="{{ route('sekretariat.skkl.download', [$skkl->id]) }}">
+                        Unduh PL</a></button>
+                        <a class="btn btn-success btn-block" href="{{ route('sekretariat.printrkl.download', [$skkl->id]) }}">
+                        Unduh Lampiran 1 RKL</a></button>
+                        <a class="btn btn-success btn-block" href="{{ route('sekretariat.printrpl.download', [$skkl->id]) }}">
+                        Unduh Lampiran 1 RPL</a></button>
                         <button class="btn btn-success btn-block"><a style="color: white;" target="_blank"
                                 href="{{ url($skkl->link_drive) }}">Drive</a></button>
 
@@ -184,7 +196,7 @@
                         <hr>
 
                         <a class="btn btn-primary btn-block mb-2"
-                            href="{{ route('sekretariat.download.lampiran1', $skkl->id) }}">Unduh lampiran I</a>
+                            href="{{ route('sekretariat.download.lampiran1', $skkl->id) }}">Unduh lampiran II</a>
                         <?php $i = 3; ?>
                         @if ($skkl->jenis_perubahan != 'perkep1')
                             @foreach ($skkl->pertek as $pertek)
@@ -215,9 +227,10 @@
         $(document).ready(function() {
             $('.operator-list').select2();
             $("#datatable").DataTable({
-                "responsive": false,
+                "scrollX" : true,
+                "autoWidth": true,
+                "responsive": true,
                 "lengthChange": true,
-                "autoWidth": false,
                 "lengthmenu": [
                     [5, 10, 25, 50, -1],
                     [5, 10, 25, 50, 'All']

@@ -105,6 +105,9 @@ class PrintRklController extends Controller
                         vertical-align: top;
                         text-align: justify;
                     }
+                    table{
+                        font-size: 7pt;
+                    }
                 </style>
                 </head>';
 
@@ -123,7 +126,7 @@ class PrintRklController extends Controller
 
                 <center>MATRIKS RENCANA PENGELOLAAN LINGKUNGAN HIDUP<center>';
 
-        $body .= '<table width="100%" border="1" rules="all" cellpadding="5" cellspacing="0" style="font-size: 6pt;">
+        $body .= '<table width="100%" border="1" rules="all" cellpadding="5" cellspacing="0" style="font-size: 7pt;">
 		<thead>
 			<tr>
 				<th>No</th>

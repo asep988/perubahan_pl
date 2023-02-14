@@ -115,10 +115,6 @@
         </div>
         <div class="modal-body">
             <a class="btn btn-warning btn-block @if ($skkl->status == "Final") disabled @endif" href="{{ route('skkl.edit', $skkl->id) }}">Ubah Data SKKL</a>
-            <hr>
-            <a class="btn btn-success btn-block" href="{{ route('rkl.create', $skkl->id) }}">Dokumen RKL</a>
-            <a class="btn btn-success btn-block" href="{{ route('rpl.create', $skkl->id) }}">Dokumen RPL</a>
-            <hr>
             @if ($skkl->rintek_upload)
                 <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek_upload) }}">Unduh Dokumen Rincian Teknis</a></button>
             @endif
@@ -128,7 +124,9 @@
 
             <hr>
 
-            <a class="btn btn-primary btn-block mb-2" href="{{ route('pemrakarsa.download.lampiran1', $skkl->id) }}">Preview lampiran I</a>
+            <a class="btn btn-primary btn-block" href="{{ route('rkl.create', $skkl->id) }}">Lampiran I RKL</a>
+            <a class="btn btn-primary btn-block" href="{{ route('rpl.create', $skkl->id) }}">Lampiran I RPL</a>
+            <a class="btn btn-primary btn-block mb-2" href="{{ route('pemrakarsa.download.lampiran1', $skkl->id) }}">Preview lampiran II</a>
             <?php $i = 3; ?>
             @if ($skkl->jenis_perubahan != 'perkep1')
                 @foreach ($skkl->pertek as $pertek)
@@ -152,9 +150,10 @@
     <script>
         $(document).ready(function() {
             $("#datatable").DataTable({
+                "scrollX": true,
                 "responsive": true,
                 "lengthchange": true,
-                "autowidth": false,
+                "autowidth": true,
                 "lengthmenu": [
                     [5, 10, 25, 50, -1],
                     [5, 10, 25, 50, 'All']

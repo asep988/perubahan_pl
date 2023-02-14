@@ -85,11 +85,11 @@ class SkklController extends Controller
 
 		if (in_array("pertek5", $pertek)) {
 			$request->validate([
-				'rintek_upload' => 'required|max:5120',
-			]);
+				'rintek_upload' => 'required|max:10240',
+			]);{{  }}
 		} else if (in_array("pertek6", $pertek)) {
 			$request->validate([
-				'rintek_limbah_upload' => 'required|max:5120'
+				'rintek_limbah_upload' => 'required|max:10240'
 			]);
 		}
 
@@ -302,11 +302,11 @@ class SkklController extends Controller
 
 		if (in_array("pertek5", $pertek)) {
 			$request->validate([
-				'rintek_upload' => 'required|max:5120',
+				'rintek_upload' => 'required|max:10240',
 			]);
 		} else if (in_array("pertek6", $pertek)) {
 			$request->validate([
-				'rintek_limbah_upload' => 'required|max:5120'
+				'rintek_limbah_upload' => 'required|max:10240'
 			]);
 		}
 
@@ -468,7 +468,7 @@ class SkklController extends Controller
 			<table>
 				<tr>
 					<td>
-						LAMPIRAN I <br>
+						LAMPIRAN II <br>
 						KEPUTUSAN MENTRI LINGKUNGAN HIDUP <br>
 						DAN KEHUTANAN REPUBLIK INDONESIA <br>
 						NOMOR <br>

@@ -90,11 +90,11 @@ class PkplhController extends Controller
 
         if (in_array("pertek5", $pertek)) {
 			$request->validate([
-				'rintek_upload' => 'required|max:5120',
+				'rintek_upload' => 'required|max:10240',
 			]);
 		} else if (in_array("pertek6", $pertek)) {
 			$request->validate([
-				'rintek_limbah_upload' => 'required|max:5120'
+				'rintek_limbah_upload' => 'required|max:10240'
 			]);
 		}
 
@@ -368,11 +368,11 @@ class PkplhController extends Controller
 
         if (in_array("pertek5", $pertek)) {
 			$request->validate([
-				'rintek_upload' => 'required|max:5120',
+				'rintek_upload' => 'required|max:10240',
 			]);
 		} else if (in_array("pertek6", $pertek)) {
 			$request->validate([
-				'rintek_limbah_upload' => 'required|max:5120'
+				'rintek_limbah_upload' => 'required|max:10240'
 			]);
 		}
 
@@ -625,7 +625,7 @@ class PkplhController extends Controller
 
             "Content-type" => "text/html",
 
-            "Content-Disposition" => "attachment;Filename=PKPLH_$pkplh->pelaku_usaha_baru.doc"
+            "Content-Disposition" => "attachment;Filename=PKPLH_" . $pkplh->pelaku_usaha_baru . ".doc"
 
         );
 

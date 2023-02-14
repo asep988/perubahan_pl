@@ -248,9 +248,10 @@
     <script>
         $(document).ready(function() {
             $("#datatable").DataTable({
+                "scrollX": true,
                 "responsive": true,
                 "lengthchange": true,
-                "autowidth": false,
+                "autowidth": true,
                 "lengthmenu": [
                     [5, 10, 25, 50, -1],
                     [5, 10, 25, 50, 'All']

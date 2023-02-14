@@ -63,77 +63,79 @@
             <thead>
                 <tr class="text-center">
                     <th width="70px">No</th>
+                    {{-- <th>Nomor Registrasi</th> --}}
+                    <th>Tanggal Dibuat</th>
                     <th>Pemrakarsa</th>
                     <th>Nama Usaha/ Kegiatan</th>
-                    <th>NIB</th>
-                    <th>Verifikasi Administrasi PTSP</th>
-                    <th>Permohonan Dari Pemrakarsa</th>
-                    <th>Nama PJM</th>
-                    <th>PIC</th>
                     <th>Status</th>
+                    <th>PIC</th>
+                    <th>Nama PJM</th>
+                    <th>NIB</th>
+                    <th>Verifikasi PTSP</th>
+                    <th>Permohonan Dari Pemrakarsa</th>
                     <th>Aksi</th>
-
                 </tr>
             </thead>
             <tbody>
                 @foreach ($data_pkplh as $pkplh)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>
-                            @foreach ($pemrakarsa as $user)
-                                @if ($pkplh->user_id == $user->id)
-                                    {{ $user->name }}
-                                @endif
-                            @endforeach
-                        </td>
-                        <td>{{ $pkplh->nama_usaha_baru }}</td>
-                        <td>{{ $pkplh->nib_baru }}</td>
-                        <td>Nomor: {{ $pkplh->nomor_validasi }} <br>
-                            Tanggal: {{ $pkplh->tgl_validasi }}</td>
-                        <td>{{  $pkplh->perihal }}</td>
-                        <td>
-                            @if ($pkplh->nama_operator != null)
-                                {{ $pkplh->nama_operator }}
-                            @else
-                                -
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $pkplh->created_at }}</td>
+                    <td>
+                        @foreach ($pemrakarsa as $user)
+                            @if ($pkplh->user_id == $user->id)
+                                {{ $user->name }}
                             @endif
-                        </td>
-                        <td>
-                            {{ $pkplh->pic_pemohon }} <br>
-                            ({{ $pkplh->no_hp_pic }})
-                        </td>
-                        <td class="text-center">
-                            @if ($pkplh->status == 'Belum')
-                                <span class="badge badge-secondary">Belum diproses</span>
-                            @elseif ($pkplh->status == 'Proses')
-                                <span class="badge badge-warning">Proses Validasi</span>
-                            @elseif ($pkplh->status == 'Draft')
-                                <span class="badge badge-primary">Selesai Drafting</span>
-                            @elseif ($pkplh->status == 'Final')
-                                <span class="badge badge-success">Selesai</span>
-                            @else
-                                <span class="badge badge-danger">Ditolak</span>
-                            @endif
-                        </td>
-                        <td>
-                            <div class="btn-group-vertical">
-                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                                    data-target="{{ '#aksiModal' . $pkplh->id }}">
-                                    Pilih
-                                </button>
-                                <button type="button" class="btn btn-sm btn-success" data-toggle="modal"
-                                    data-target="{{ '#rpdModal' . $pkplh->id }}">RPD
-                                    <i class="fa fa-edit"></i>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                                    data-target="{{ '#staticBackdrop' . $pkplh->id }}">
-                                    Upload
-                                </button>
-                            </div>
+                        @endforeach
+                    </td>
+                    <td>{{ $pkplh->nama_usaha_baru }}</td>
+                    <td class="text-center">
+                        @if ($pkplh->status == 'Belum')
+                            <span class="badge badge-secondary">Belum diproses</span>
+                        @elseif ($pkplh->status == 'Proses')
+                            <span class="badge badge-warning">Proses Validasi</span>
+                        @elseif ($pkplh->status == 'Draft')
+                            <span class="badge badge-primary">Selesai Drafting</span>
+                        @elseif ($pkplh->status == 'Final')
+                            <span class="badge badge-success">Selesai</span>
+                        @else
+                            <span class="badge badge-danger">Ditolak</span>
+                        @endif
+                    </td>
+                    <td>
+                        {{ $pkplh->pic_pemohon }} <br>
+                        ({{ $pkplh->no_hp_pic }})
+                    </td>
+                    <td>
+                        @if ($pkplh->nama_operator != null)
+                            {{ $pkplh->nama_operator }}
+                        @else
+                            -
+                        @endif
+                    </td>
+                    <td>{{ $pkplh->nib_baru }}</td>
+                    <td>Nomor: {{ $pkplh->nomor_validasi }} <br>
+                        Tanggal: {{ $pkplh->tgl_validasi }}</td>
+                    <td>{{  $pkplh->perihal }}</td>
+                    <td>
+                        <div class="btn-group-vertical">
+                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                data-target="{{ '#aksiModal' . $pkplh->id }}">
+                                Pilih
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success" data-toggle="modal"
+                                data-target="{{ '#rpdModal' . $pkplh->id }}">RPD
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                data-target="{{ '#staticBackdrop' . $pkplh->id }}">
+                                Upload
+                            </button>
+                        </div>
 
-                        </td>
+                    </td>
 
-                    </tr>
+                </tr>
                 @endforeach
             </tbody>
         </table>
@@ -299,9 +301,10 @@
     <script>
         $(document).ready(function() {
             $("#datatable").DataTable({
+                "scrollX": true,
                 "responsive": true,
                 "lengthchange": true,
-                "autowidth": false,
+                "autowidth": true,
                 "lengthmenu": [
                     [5, 10, 25, 50, -1],
                     [5, 10, 25, 50, 'All']
