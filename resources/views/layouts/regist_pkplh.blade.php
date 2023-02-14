@@ -35,7 +35,7 @@
     <table border="0" align="center">
         <tr>
             <td>
-                <center><img src="{{ public_path('img/pohon.png') }}" width="80px"></center>
+                <center><img src="https://amdalnet.menlhk.go.id/perubahan_pl/img/pohon.PNG" width="80px"></center>
             </td>
         </tr>
         <tr>
