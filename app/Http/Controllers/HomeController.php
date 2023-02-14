@@ -118,14 +118,21 @@ class HomeController extends Controller
 
     public function registration_def()
     {
-        $message = 'regist2';
-        $key = 'SKKL';
-        $hash = hash_hmac('sha256', $message, $key);    
-        $regista = "A" .substr($hash, 0, 14);
-        $registb = "B" .substr($hash, 0, 14);
+        $skkl = Skkl::all();
+        $pkplh = Pkplh::all();
 
-        Skkl::where('noreg', null)->update(['noreg' => $regista]);
-        Pkplh::where('noreg', null)->update(['noreg' => $registb]);
+        for ($i = 0; $i < count($skkl); $i++) {
+            $hash = hash_hmac('sha256', $skkl[$i]->nama_usaha_baru . $i, 'SKKL');    
+            $regist = "A" . substr($hash, 0, 14);
+            Skkl::find($skkl[$i]->id)->update(['noreg' => $regist]);
+        }
+
+        for ($i = 0; $i < count($pkplh); $i++) {
+            $hash = hash_hmac('sha256', $pkplh[$i]->nama_usaha_baru . $i, 'PKPLH');    
+            $regist = "B" . substr($hash, 0, 14);
+            Pkplh::find($pkplh[$i]->id)->update(['noreg' => $regist]);
+        }
+
 
         return "Berhasil";
     }
