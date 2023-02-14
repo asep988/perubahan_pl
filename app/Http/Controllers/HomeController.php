@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Skkl;
 use App\Uklupl;
 use App\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -101,16 +102,9 @@ class HomeController extends Controller
         }
     }
 
-    public function queryCheck()
+    public function testing()
     {
-        $cek = User::join('luk_members', 'users.email', 'luk_members.email')
-        ->join('feasibility_test_team_members', 'luk_members.id', 'feasibility_test_team_members.id_luk_member')
-        ->join('feasibility_test_teams', 'feasibility_test_teams.id', 'feasibility_test_team_members.id_feasibility_test_team')
-        ->select('users.email')
-        ->where('feasibility_test_team_members.position', 'Kepala Sekretariat')
-        ->where('feasibility_test_teams.authority', 'Pusat')
-        ->get();
-
-        return $cek;
+        $pdf = Pdf::loadView('layouts.registration');
+        return $pdf->stream();
     }
 }

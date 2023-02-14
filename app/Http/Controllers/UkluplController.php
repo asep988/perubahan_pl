@@ -13,7 +13,7 @@ class UkluplController extends Controller
     public function create($id)
     {
         $id_pkplh = $id;
-		$data_uklupl = Uklupl::where('id_pkplh', $id)->orderBy('id', 'desc')->get();
+		$data_uklupl = Uklupl::where('id_pkplh', $id)->orderBy('tahap_kegiatan')->orderBy('id', 'asc')->get();
 
         return view('home.uklupl.index', compact('data_uklupl', 'id_pkplh'));
     }

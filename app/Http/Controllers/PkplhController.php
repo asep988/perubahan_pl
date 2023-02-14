@@ -778,7 +778,7 @@ class PkplhController extends Controller
                 <td width="20px">1.</td>
                 <td width="40%" style="text-align: left;">Nama Usaha dan/atau Kegiatan</td>
                 <td>:</td>
-                <td width= "50%">' . ucfirst($pkplh->nama_usaha_baru) . '</td>
+                <td width= "50%">' . strtoupper($pkplh->pelaku_usaha_baru) . '</td>
             </tr>
             <tr>
                 <td>2.</td>

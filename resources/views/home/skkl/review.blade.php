@@ -549,7 +549,7 @@
                             </td>
                             <td style="width:50%; padding:0.75pt; vertical-align:top">
                                 <p style="text-align:justify; font-size:12pt">
-                                    <span>{{ ucfirst($data_skkl->nama_usaha_baru) }}</span>
+                                    <span>{{ strtoupper($data_skkl->pelaku_usaha_baru) }}</span>
                                 </p>
                             </td>
                         </tr>
@@ -1088,8 +1088,6 @@
                             <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Bupati/Walikota
                                     {{ ucwords(strtolower($kabkot)) }}</span></li>
                         @endforeach
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Kepala Dinas Lingkungan
-                                Hidup Provinsi Dki Jakarta; </span></li>
                         @foreach ($data_skkl->provinsi as $prov)
                             <li style="margin-left:35.99pt; text-align:justify; padding-left:0.01pt; font-size:12pt">
                                 <span>Kepala Dinas Lingkungan Hidup Provinsi {{ ucwords(strtolower($prov)) }}; </span>

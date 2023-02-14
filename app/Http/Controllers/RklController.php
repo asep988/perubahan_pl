@@ -18,7 +18,7 @@ class RklController extends Controller
 	public function create($id)
 	{
 		$id_skkl = $id;
-		$data_rkl = rkl::where('id_skkl', $id)->orderBy('id', 'desc')->get();
+		$data_rkl = rkl::where('id_skkl', $id)->orderBy('tahap_kegiatan')->orderBy('id', 'asc')->get();
 
         return view('home.rkl.index', compact('data_rkl', 'id_skkl'));
 	}
@@ -51,7 +51,7 @@ class RklController extends Controller
 	public function ubah($id){
         $rkl = rkl::find($id);
         return view('home.rkl.edit', compact('rkl'));
-    }
+	}
 
 	public function update(Request $request, $id){
         $rkl = rkl::find($id);

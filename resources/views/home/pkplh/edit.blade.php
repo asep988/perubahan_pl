@@ -409,7 +409,7 @@
                                     <th>Nomor Surat</th>
                                     <th>Perihal/Tentang</th>
                                 </tr>
-                            </thead>{{  }}
+                            </thead>
                             <tbody class="table-input1">
                                 <?php $no = 1 ?>
                                 @for ($i = 0; $i < count($pkplh->jenis_peraturan); $i++)

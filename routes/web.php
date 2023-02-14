@@ -21,7 +21,7 @@ Auth::routes([
 ]);
 
 Route::get('/loginform', 'HomeController@loginform');
-Route::get('/query-check', 'HomeController@queryCheck');
+Route::get('/testing', 'HomeController@testing');
 
 //home
 Route::get('/', [LoginController::class, 'index'])->name('login.form');

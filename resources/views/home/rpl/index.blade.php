@@ -125,10 +125,10 @@
                     <h5>
                         <b>Tambah Data RPL</b>
                     </h5>
-                    <button type="button" class="btn btn-sm btn-primary ml-auto mb-1" data-toggle="modal"
+                    {{-- <button type="button" class="btn btn-sm btn-primary ml-auto mb-1" data-toggle="modal"
                         data-target="#importModal">
                         Import
-                    </button>
+                    </button> --}}
                 </div>
                 <input type="hidden" name="id_skkl" value="{{ $id_skkl }}">
                 <table border="1" width="100%">

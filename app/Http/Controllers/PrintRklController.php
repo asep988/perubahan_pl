@@ -64,15 +64,15 @@ class PrintRklController extends Controller
     {
         $skkl = Skkl::find($id_skkl);
         //phpword
-        $rkl_penting_prakons = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan', 'Pra Konstruksi')->orderBy('id', 'desc')->get();
-        $rkl_penting_konstruksi = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan', 'Konstruksi')->orderBy('id', 'desc')->get();
-        $rkl_penting_operasi = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan', 'Operasi')->orderBy('id', 'desc')->get();
-        $rkl_penting_pasca = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan', 'Pasca Oprerasi')->orderBy('id', 'desc')->get();
+        $rkl_penting_prakons = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan', 'Pra Konstruksi')->orderBy('id', 'asc')->get();
+        $rkl_penting_konstruksi = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan', 'Konstruksi')->orderBy('id', 'asc')->get();
+        $rkl_penting_operasi = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan', 'Operasi')->orderBy('id', 'asc')->get();
+        $rkl_penting_pasca = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan', 'Pasca Oprerasi')->orderBy('id', 'asc')->get();
 
-        $rkl_lainnya_prakons = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan', 'Pra Konstruksi')->orderBy('id', 'desc')->get();
-        $rkl_lainnya_konstruksi = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan', 'Konstruksi')->orderBy('id', 'desc')->get();
-        $rkl_lainnya_operasi = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan', 'Operasi')->orderBy('id', 'desc')->get();
-        $rkl_lainnya_pasca = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan', 'Pasca Oprerasi')->orderBy('id', 'desc')->get();
+        $rkl_lainnya_prakons = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan', 'Pra Konstruksi')->orderBy('id', 'asc')->get();
+        $rkl_lainnya_konstruksi = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan', 'Konstruksi')->orderBy('id', 'asc')->get();
+        $rkl_lainnya_operasi = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan', 'Operasi')->orderBy('id', 'asc')->get();
+        $rkl_lainnya_pasca = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan', 'Pasca Oprerasi')->orderBy('id', 'asc')->get();
 
         // $pw = new \PhpOffice\PhpWord\PhpWord();
         // $section = $pw->addSection();
