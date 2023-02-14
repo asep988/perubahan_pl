@@ -70,11 +70,9 @@ class PrintUkluplController extends Controller
         $uklupl_pasca = Uklupl::where('id_pkplh', $id_pkplh)->where('tahap_kegiatan','Pasca Oprerasi')->orderBy('id', 'desc')->get();
 
         $headers = array(
-
-            "Content-type" => "text/html",
-
-            "Content-Disposition" => "attachment;Filename=UKL-UPL_$pkplh->nama_usaha_baru.doc"
-
+            "Content-type" => "application/vnd.msword",
+            "Content-Disposition" => "attachment;Filename=UKLUPL_$pkplh->pelaku_usaha_baru.doc",
+            "Cache-Control"=> "no-cache;must-revalidate"
         );
 
         $body = '<html>

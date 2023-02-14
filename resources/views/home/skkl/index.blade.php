@@ -59,6 +59,7 @@
                 <tr class="text-center">
                     <th style="width: 50px;">No</th>
                     <th style="width: 250px;">Tanggal, Waktu Permohonan</th>
+                    <th>Nomor Registrasi</th>
                     <th>Perihal Permohonan</th>
                     <th>Tanggal proses</th>
                     <th style="width: 150px;">Status</th>
@@ -70,6 +71,7 @@
                 <tr>
                     <td class="text-center">{{ $loop->iteration }}</td>
                     <td>{{ $skkl->created_at->format('d F Y')}}, {{ $skkl->created_at->format('H:i:s') }}</td>
+                    <td>{{ $skkl->noreg }}</td>
                     <td>{{ $skkl->perihal }}</td>
                     <td>
                         @if ($skkl->tgl_update)
@@ -87,8 +89,10 @@
                             <span class="badge badge-primary">Selesai Drafting</span>
                         @elseif ($skkl->status == "Final")
                             <span class="badge badge-success">Selesai</span>
+                        @elseif ($skkl->status == "Batal")
+                            <span class="badge badge-danger" title="{{ $skkl->note }}">Dibatalkan</span>
                         @else
-                            <span class="badge badge-danger">Ditolak</span>
+                            <span class="badge badge-danger" title="{{ $skkl->note }}">Ditolak</span>
                         @endif
                     </td>
                     <td class="text-center">
@@ -115,6 +119,8 @@
         </div>
         <div class="modal-body">
             <a class="btn btn-warning btn-block @if ($skkl->status == "Final") disabled @endif" href="{{ route('skkl.edit', $skkl->id) }}">Ubah Data SKKL</a>
+            <a class="btn btn-success btn-block" target="_blank" href="{{ route('skkl.regist', $skkl->id) }}">Bukti Submit</a>
+            <button type="button" class="btn btn-danger btn-block my-2" data-toggle="modal" data-target="{{ '#batal'.$skkl->id }}">Batalkan Permohonan</button>
             @if ($skkl->rintek_upload)
                 <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek_upload) }}">Unduh Dokumen Rincian Teknis</a></button>
             @endif
@@ -144,6 +150,37 @@
     </div>
 </div>
 @endforeach
+
+@foreach ($data_skkl as $skkl)
+<div class="modal fade" id="{{ 'batal'.$skkl->id }}" tabindex="-1" aria-labelledby="batalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="batalLabel">Yakin ingin membatalkan permohonan?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="{{ route('skkl.batal', $skkl->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="modal-body">
+                <div class="input-box mb-2">
+                    <label for="note" class="form-label">Catatan</label>
+                    <textarea class="form-control" name="note" id="note"></textarea>
+                    {{-- <input type="text" class="form-control" name="note" required> --}}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger">Batalkan</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+@endforeach
+
 @endsection
 
 @push('scripts')
@@ -151,7 +188,7 @@
         $(document).ready(function() {
             $("#datatable").DataTable({
                 "scrollX": true,
-                "responsive": true,
+                "responsive": false,
                 "lengthchange": true,
                 "autowidth": true,
                 "lengthmenu": [

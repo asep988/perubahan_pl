@@ -433,20 +433,12 @@
             </label>
             <div class="form-group row">
                 <div style="display: none" class="alert alert-warning ml-2" role="alert" id="detail-rl">
-                    <span>Lampiran Dokumen yang diupload dalam Google Drive:</span>
-                    <span><br> 1. Izin Lingkungan, SKKL, PKPLH, Persetujuan DELH, Persetujuan DELH</span>
-                    <span><br> 2. Dokumen Amdal, UKL-UPL, DELH, atau DPLH yang dimiliki</span>
-                    <span><br> 3. Berita Acara Validasi dari PTSP</span>
-                    <span><br> 4. NIB beserta lampirannya (KBLI dan lokasi usaha kegiatan sesuai dengan usaha/kegiatan yg diajukan
-                        perubahan PL-nya harus termuat di dalam dokumen NIB)</span>
-                    <span><br> 5. Akta Notaris Perubahan Kepemikan</span>
-                    <span><br> 6. RKL-RPL dalam Bentuk Word</span>
-                    <span><br> 7. Izin PPLH atau Persetujuan Teknis (Pembuangan Air Limbah, Emisi, Persetujuan
-                        Andalalin) yang telah dimiliki</span>
-                    <span><br> 8. Rincian Teknis Penyimpanan Limbah B3 dalam bentuk Word</span>
-                    <span><br> 9. Rincian Teknis Penyimpanan Limbah Non B3 (optional bila melakukan penyimpanan
-                        limbah non B3)</span>
-                    <span><br> 10. Pastikan Link Google Drive anda Bisa diakses Oleh Publik</span>
+                    <span>Muatan Ruang Lingkup antara lain mencakup:</span>
+                    <span><br> 1. Informasi Skala/besaran, seperti: luas / panjang</span>
+                    <span><br> 2. Data / tabel koordinat</span>
+                    <span><br> 3. Kapasitas / jenis usaha / kegiatan</span>
+                    <span><br> 4. Sumber energi listrik dan air (jika ada)</span>
+                    <span><br> 5. Limbah yang dihasilkan serta jenis pengelolaan (Jika ada)</span>
                 </div>
                 <div class="col-sm-8">
                     <textarea class="form-control" id="mytextarea" aria-label="editor" name="ruang_lingkup"></textarea>

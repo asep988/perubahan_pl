@@ -302,7 +302,7 @@
         $(document).ready(function() {
             $("#datatable").DataTable({
                 "scrollX": true,
-                "responsive": true,
+                "responsive": false,
                 "lengthchange": true,
                 "autowidth": true,
                 "lengthmenu": [

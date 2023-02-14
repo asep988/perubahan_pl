@@ -81,11 +81,9 @@ class PrintRplController extends Controller
         $rpl_lainnya_pasca = rpl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan','Pasca Oprerasi')->orderBy('id', 'desc')->get();
 
         $headers = array(
-
-            "Content-type" => "text/html",
-
-            "Content-Disposition" => "attachment;Filename=RPL_$skkl->pelaku_usaha_baru.doc"
-
+            "Content-type" => "application/vnd.msword",
+            "Content-Disposition" => "attachment;Filename=RPL_$skkl->pelaku_usaha_baru.doc",
+            "Cache-Control"=> "no-cache;must-revalidate"
         );
 
         $body = '<html>

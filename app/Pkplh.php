@@ -71,7 +71,9 @@ class Pkplh extends Model
         'rintek_limbah_upload',
         'tgl_update',
         'pic_pemohon',
-        'no_hp_pic'
+        'no_hp_pic',
+        'noreg',
+        'note'
     ];
 
     public function il_pkplh()

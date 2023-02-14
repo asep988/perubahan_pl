@@ -151,3 +151,31 @@
 </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+        tinymce.init({
+            selector: 'textarea#myuklupl',
+            height: 400,
+            forced_root_block: "",
+            force_br_newlines: true,
+            force_p_newlines: true,
+            plugins: 'anchor autolink charmap codesample link lists searchreplace visualblocks wordcount',
+            toolbar1: 'undo redo | insert | styleselect | bold italic | hr alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media ',
+            toolbar2: 'forecolor backcolor emoticons | fontselect | fontsizeselect | fullscreen',
+            templates: [{
+                    title: 'Test template 1',
+                    content: ''
+                },
+                {
+                    title: 'Test template 2',
+                    content: ''
+                }
+            ],
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                '//www.tinymce.com/css/codepen.min.css'
+            ],
+        });
+    </script>    
+@endpush

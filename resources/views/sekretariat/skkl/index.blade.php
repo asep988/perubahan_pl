@@ -83,7 +83,8 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $skkl->created_at }}</td>
-                            <td> <!-- Pemrakarsa -->
+                            <td>
+                                <!-- Pemrakarsa -->
                                 @foreach ($pemrakarsa as $user)
                                     @if ($skkl->user_id == $user->id)
                                         {{ $user->name }}
@@ -91,7 +92,8 @@
                                 @endforeach
                             </td>
                             <td>{{ $skkl->nama_usaha_baru }}</td> <!-- nama usaha/kegiatan -->
-                            <td class="text-center"> <!-- status -->
+                            <td class="text-center">
+                                <!-- status -->
                                 @if ($skkl->status == 'Belum')
                                     <span class="badge badge-secondary">Belum diproses</span>
                                 @elseif ($skkl->status == 'Proses')
@@ -100,27 +102,32 @@
                                     <span class="badge badge-primary">Selesai Drafting</span>
                                 @elseif ($skkl->status == 'Final')
                                     <span class="badge badge-success">Selesai</span>
+                                @elseif ($skkl->status == "Batal")
+                                    <span class="badge badge-danger" title="{{ $skkl->note }}">Dibatalkan</span>
                                 @else
-                                    <span class="badge badge-danger">Ditolak</span>
+                                    <span class="badge badge-danger" title="{{ $skkl->note }}">Ditolak</span>
                                 @endif
                             </td>
-                            <td> <!-- pic -->
+                            <td>
+                                <!-- pic -->
                                 {{ $skkl->pic_pemohon }} <br>
                                 ({{ $skkl->no_hp_pic }})
                             </td>
-                            <td> <!-- nama pjm -->
+                            <td>
+                                <!-- nama pjm -->
                                 @if ($skkl->nama_operator != null)
                                     {{ $skkl->nama_operator }}
                                 @else
                                     -
                                 @endif
                             </td>
-                            <td> <!-- jenis permohonan -->
-                                @if ($skkl->jenis_perubahan == "perkep1")
+                            <td>
+                                <!-- jenis permohonan -->
+                                @if ($skkl->jenis_perubahan == 'perkep1')
                                     Perubahan Kepemilikkan
-                                @elseif ($skkl->jenis_perubahan == "perkep2")
+                                @elseif ($skkl->jenis_perubahan == 'perkep2')
                                     Perubahan Kepemilikkan dan Integrasi Pertek/Rintek
-                                @elseif ($skkl->jenis_perubahan == "perkep3")
+                                @elseif ($skkl->jenis_perubahan == 'perkep3')
                                     Integrasi Pertek/Rintek
                                 @endif
                             </td>
@@ -129,9 +136,11 @@
                             <td>{{ $skkl->perihal }}</td> <!-- permohonan dari pemrakarsa -->
                             <td>
                                 <div class="btn-group-vertical">
-                                    <a href="{{ route('sekre.skkl.reject', $skkl->id) }}"
-                                        class="btn btn-sm btn-danger @if ($skkl->status == 'Ditolak') disabled @endif"
-                                        onclick="return confirm('Yakin ingin menolak pengajuan ini?')">Tolak</a>
+                                    {{-- <a href="{{ route('sekre.skkl.reject', $skkl->id) }}" class="btn btn-sm btn-danger @if ($skkl->status == 'Ditolak') disabled @endif" onclick="return confirm('Yakin ingin menolak pengajuan ini?')">Tolak</a> --}}
+                                    <button type="button" class="btn btn-sm btn-danger" @if ($skkl->status == 'Ditolak') disabled @endif data-toggle="modal"
+                                        data-target="{{ '#tolak' . $skkl->id }}">
+                                        Tolak
+                                    </button>
                                     <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
                                         data-target="{{ '#aksiModal' . $skkl->id }}">
                                         Pilih
@@ -160,6 +169,36 @@
 
     <!-- Modal -->
 
+    @foreach ($data_skkl as $skkl)
+        <div class="modal fade" id="{{ 'tolak' . $skkl->id }}" tabindex="-1" aria-labelledby="batalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="batalLabel">Yakin ingin menolak permohonan?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ route('sekre.skkl.reject', $skkl->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body">
+                            <div class="input-box mb-2">
+                                <label for="note" class="form-label">Catatan</label>
+                                <textarea class="form-control" name="note" id="note"></textarea>
+                                {{-- <input type="text" class="form-control" name="note" required> --}}
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">Tolak</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endforeach
 
     @foreach ($data_skkl as $skkl)
         <div class="modal fade" id="{{ 'aksiModal' . $skkl->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -173,14 +212,17 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <a class="btn btn-success btn-block" href="{{ route('sekretariat.skkl.download', [$skkl->id]) }}">
-                        Unduh PL</a></button>
-                        <a class="btn btn-success btn-block" href="{{ route('sekretariat.printrkl.download', [$skkl->id]) }}">
-                        Unduh Lampiran 1 RKL</a></button>
-                        <a class="btn btn-success btn-block" href="{{ route('sekretariat.printrpl.download', [$skkl->id]) }}">
-                        Unduh Lampiran 1 RPL</a></button>
-                        <button class="btn btn-success btn-block"><a style="color: white;" target="_blank"
-                                href="{{ url($skkl->link_drive) }}">Drive</a></button>
+                        <a class="btn btn-success btn-block"
+                            href="{{ route('sekretariat.skkl.download', [$skkl->id]) }}">
+                            Unduh PL</a></button>
+                        <a class="btn btn-success btn-block"
+                            href="{{ route('sekretariat.printrkl.download', [$skkl->id]) }}">
+                            Unduh Lampiran 1 RKL</a></button>
+                        <a class="btn btn-success btn-block"
+                            href="{{ route('sekretariat.printrpl.download', [$skkl->id]) }}">
+                            Unduh Lampiran 1 RPL</a></button>
+                        <a class="btn btn-success btn-block" 
+                            href="{{ url($skkl->link_drive) }}"> Drive</a></button>
 
                         @if ($skkl->rintek_upload)
                             <a class="btn btn-success btn-block" target="_blank"
@@ -213,7 +255,8 @@
                         @endif
 
                         <hr>
-                        <a class="btn btn-warning btn-block" href="{{ route('sekretariat.skkl.preview', [$skkl->id]) }}">Preview
+                        <a class="btn btn-warning btn-block"
+                            href="{{ route('sekretariat.skkl.preview', [$skkl->id]) }}">Preview
                             PL</a></button>
                     </div>
                 </div>
@@ -227,9 +270,9 @@
         $(document).ready(function() {
             $('.operator-list').select2();
             $("#datatable").DataTable({
-                "scrollX" : true,
+                "scrollX": true,
                 "autoWidth": true,
-                "responsive": true,
+                "responsive": false,
                 "lengthChange": true,
                 "lengthmenu": [
                     [5, 10, 25, 50, -1],

@@ -14,6 +14,7 @@ use App\Skkl;
 use App\Uklupl;
 use App\User;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -106,5 +107,26 @@ class HomeController extends Controller
     {
         $pdf = Pdf::loadView('layouts.registration');
         return $pdf->stream();
+    }
+
+    public function dd()
+    {
+        $skkl = Skkl::find(63);
+        $tes = rkl::where('id_skkl', $skkl->id)->get()->count();
+        return $tes;
+    }
+
+    public function registration_def()
+    {
+        $message = 'regist2';
+        $key = 'SKKL';
+        $hash = hash_hmac('sha256', $message, $key);    
+        $regista = "A" .substr($hash, 0, 14);
+        $registb = "B" .substr($hash, 0, 14);
+
+        Skkl::where('noreg', null)->update(['noreg' => $regista]);
+        Pkplh::where('noreg', null)->update(['noreg' => $registb]);
+
+        return "Berhasil";
     }
 }

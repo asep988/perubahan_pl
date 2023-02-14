@@ -6,10 +6,13 @@ use il;
 use App\User;
 use App\Pkplh;
 use App\region;
+use App\Uklupl;
 use App\il_pkplh;
 use App\initiator;
+use Carbon\Carbon;
 use App\Pertek_pkplh;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -144,6 +147,11 @@ class PkplhController extends Controller
 			$fileName2 = null;
 		}
 
+        $message = 'regist2';
+        $key = 'SKKL';
+        $hash = hash_hmac('sha256', $message, $key);    
+        $regist = "B" .substr($hash, 0, 14);
+
 		DB::beginTransaction();
 		$pkplh = new Pkplh;
 		$pkplh->user_id 				=   $id_user;
@@ -167,6 +175,7 @@ class PkplhController extends Controller
 		$pkplh->kbli_baru			    =	$nomor_kbli;
 		$pkplh->rintek_upload		    =	$fileName1;
 		$pkplh->rintek_limbah_upload	=	$fileName2;
+		$pkplh->noreg               	=	$regist;
 
 		$pkplh->provinsi				=	$provinsi;
 		$pkplh->kabupaten_kota	    	=	$kabkota;
@@ -517,6 +526,38 @@ class PkplhController extends Controller
         $pertek_pkplh = Pertek_pkplh::where('id_pkplh', $id)->get();
 
 		return view('operator.pkplh.preview', compact('data_pkplh', 'il_pkplh', 'pertek_pkplh'));
+	}
+
+    public function batal(Request $request, $id)
+	{
+		Pkplh::find($id)->update([
+			'status' => "Batal",
+			'note' => $request->note
+		]);
+
+		return back()->with('message', 'Permohonan berhasil dibatalkan!');
+	}
+
+    public function regist($id)
+	{
+		$pkplh = Pkplh::find($id);
+		$now = tgl_indo2(Carbon::now()->format('d-m-Y'));
+		$time = Carbon::now()->format('H:i:s');
+		$tgl_dibuat = tgl_indo2($pkplh->created_at->format('d-m-Y'));
+
+		$data = [
+			'tgl_cetak' => $now . ", " . $time,
+			'noreg' => $pkplh->noreg,
+			'pelaku_usaha_baru' => $pkplh->pelaku_usaha_baru,
+			'nama_usaha_baru' =>  $pkplh->nama_usaha_baru,
+			'nomor_validasi' =>  $pkplh->nomor_validasi,
+			'tgl_dibuat' =>  $tgl_dibuat,
+			'jenis_perubahan' =>  $pkplh->jenis_perubahan,
+			'jml_uklupl' => Uklupl::where('id_pkplh', $pkplh->id)->get()->count(),
+		];
+
+		$pdf = Pdf::loadView('layouts.regist_pkplh', $data);
+        return $pdf->stream();
 	}
 
 	public function download($id)

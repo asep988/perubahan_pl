@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\rkl;
+use App\rpl;
 use App\Skkl;
 use App\User;
 use App\region;
 use App\il_skkl;
 use App\initiator;
+use Carbon\Carbon;
 use App\Pertek_skkl;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -86,7 +90,7 @@ class SkklController extends Controller
 		if (in_array("pertek5", $pertek)) {
 			$request->validate([
 				'rintek_upload' => 'required|max:10240',
-			]);{{  }}
+			]);
 		} else if (in_array("pertek6", $pertek)) {
 			$request->validate([
 				'rintek_limbah_upload' => 'required|max:10240'
@@ -139,6 +143,11 @@ class SkklController extends Controller
 			$fileName2 = null;
 		}
 
+		$message = 'regist2';
+        $key = 'SKKL';
+        $hash = hash_hmac('sha256', $message, $key);    
+        $regist = "A" .substr($hash, 0, 14);
+
 		DB::beginTransaction();
 		$skkl = new Skkl;
 		$skkl->user_id 				=   $id_user;
@@ -162,6 +171,7 @@ class SkklController extends Controller
 		$skkl->kbli_baru			=	$nomor_kbli;
 		$skkl->rintek_upload		=	$fileName1;
 		$skkl->rintek_limbah_upload	=	$fileName2;
+		$skkl->noreg				=	$regist;
 
 		$skkl->provinsi				=	$provinsi;
 		$skkl->kabupaten_kota		=	$kabkota;
@@ -447,6 +457,39 @@ class SkklController extends Controller
 		return redirect()->route('pemrakarsa.index')->with('pesan', 'Data berhasil diperbarui');
 	}
 
+	public function batal(Request $request, $id)
+	{
+		Skkl::find($id)->update([
+			'status' => "Batal",
+			'note' => $request->note
+		]);
+
+		return back()->with('message', 'Permohonan berhasil dibatalkan!');
+	}
+
+	public function regist($id)
+	{
+		$skkl = Skkl::find($id);
+		$now = tgl_indo2(Carbon::now()->format('d-m-Y'));
+		$time = Carbon::now()->format('H:i:s');
+		$tgl_dibuat = tgl_indo2($skkl->created_at->format('d-m-Y'));
+
+		$data = [
+			'tgl_cetak' => $now . ", " . $time,
+			'noreg' => $skkl->noreg,
+			'pelaku_usaha_baru' => $skkl->pelaku_usaha_baru,
+			'nama_usaha_baru' =>  $skkl->nama_usaha_baru,
+			'nomor_validasi' =>  $skkl->nomor_validasi,
+			'tgl_dibuat' =>  $tgl_dibuat,
+			'jenis_perubahan' =>  $skkl->jenis_perubahan,
+			'jml_rkl' => rkl::where('id_skkl', $skkl->id)->get()->count(),
+			'jml_rpl' => rpl::where('id_skkl', $skkl->id)->get()->count()
+		];
+
+		$pdf = Pdf::loadView('layouts.regist_skkl', $data);
+        return $pdf->stream();
+	}
+
 	public function download_lampiranI($id)
 	{
 		$skkl = Skkl::find($id);
@@ -669,6 +712,27 @@ class SkklController extends Controller
 			</table>';
 
 			return \Response::make($body, 200, $headers);
+	}
+
+	public function download_skkl($id)
+	{
+		$test = Skkl::select('jenis_perubahan',
+						'jenis_usaha_baru',
+						'pelaku_usaha_baru',
+						'nama_usaha_baru',
+						'created_at',
+						'nomor_validasi',)
+					->first();
+
+					$pdf = Pdf::loadView('layouts.registration', [
+						'jenis_perubahan' => $test['jenis_perubahan'],
+						'pelaku_usaha_baru' => $test['pelaku_usaha_baru'],
+						'jenis_usaha_baru' => $test['jenis_usaha_baru'],
+						'nama_usaha_baru' => $test['nama_usaha_baru'],
+						'tgl_dibuat' => tgl_indo(\date_format($test['created_at'], 'Y-m-d')),
+						'nomor_validasi' => $test['nomor_validasi']
+					]);
+					return $pdf->stream();
 	}
 
 }

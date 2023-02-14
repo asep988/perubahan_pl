@@ -100,8 +100,10 @@
                                 <span class="badge badge-primary">Selesai Drafting</span>
                             @elseif ($pkplh->status == 'Final')
                                 <span class="badge badge-success">Selesai</span>
+                            @elseif ($pkplh->status == 'Batal')
+                                <span class="badge badge-danger" title="{{ $pkplh->note }}">Dibatalkan</span>
                             @else
-                                <span class="badge badge-danger">Ditolak</span>
+                                <span class="badge badge-danger" title="{{ $pkplh->note }}">Ditolak</span>
                             @endif
                         </td>
                         <td> <!-- pic -->
@@ -129,9 +131,13 @@
                         <td>{{ $pkplh->perihal }}</td> <!-- permohonan dari pemrakarsa -->
                         <td>
                             <div class="btn-group-vertical">
-                                <a href="{{ route('sekre.skkl.reject', $pkplh->id) }}"
+                                {{-- <a href="{{ route('sekre.pkplh.reject', $pkplh->id) }}"
                                     class="btn btn-sm btn-danger @if ($pkplh->status == 'Ditolak') disabled @endif"
-                                    onclick="return confirm('Yakin ingin menolak pengajuan ini?')">Tolak</a>
+                                    onclick="return confirm('Yakin ingin menolak pengajuan ini?')">Tolak</a> --}}
+                                <button type="button" class="btn btn-sm btn-danger" @if ($skkl->status == 'Ditolak') disabled @endif data-toggle="modal"
+                                    data-target="{{ '#tolak' . $pkplh->id }}">
+                                    Tolak
+                                </button>
                                 <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
                                     data-target="{{ '#aksiModal' . $pkplh->id }}">
                                     Pilih
@@ -158,6 +164,37 @@
     </div>
 
     <!-- Modal -->
+    @foreach ($data_pkplh as $pkplh)
+        <div class="modal fade" id="{{ 'tolak' . $pkplh->id }}" tabindex="-1" aria-labelledby="batalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="batalLabel">Yakin ingin menolak permohonan?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ route('sekre.pkplh.reject', $pkplh->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body">
+                            <div class="input-box mb-2">
+                                <label for="note" class="form-label">Catatan</label>
+                                <textarea class="form-control" name="note" id="note"></textarea>
+                                {{-- <input type="text" class="form-control" name="note" required> --}}
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">Tolak</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
     @foreach ($data_pkplh as $pkplh)
         <div class="modal fade operator-modal" id="{{ 'aksiModal' . $pkplh->id }}" tabindex="-1"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -218,7 +255,7 @@
             $('.sekretariat-list').select2();
             $("#datatable").DataTable({
                 "scrollX": true,
-                "responsive": true,
+                "responsive": false,
                 "lengthchange": true,
                 "autowidth": true,
                 "lengthmenu": [

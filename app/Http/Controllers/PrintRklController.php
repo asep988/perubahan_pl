@@ -41,7 +41,7 @@ class PrintRklController extends Controller
                     ' . $data->sumber_dampak . '
                 </td>
                 <td>
-                    ' . $data->indikator . '
+                    ' . $data->indikatori . '
                 </td>
                 <td>
                     ' . $data->bentuk_pengelolaan . '
@@ -79,7 +79,6 @@ class PrintRklController extends Controller
         // $paper = new \PhpOffice\PhpWord\Style\Paper();
 
         $headers = array(
-
             "Content-type" => "application/vnd.msword",
             "Content-Disposition" => "attachment;Filename=RKL_$skkl->pelaku_usaha_baru.doc",
             "Cache-Control"=> "no-cache;must-revalidate"
@@ -95,6 +94,9 @@ class PrintRklController extends Controller
                     body {
                         font-family:"Bookman Old Style";
                     }
+                    tbody{
+                        font-size : 7pt;
+                    }
                     ol {
                     columns:2;
                     }
@@ -106,6 +108,9 @@ class PrintRklController extends Controller
                         text-align: justify;
                     }
                     table{
+                        font-size: 7pt;
+                    }
+                    td table{
                         font-size: 7pt;
                     }
                 </style>

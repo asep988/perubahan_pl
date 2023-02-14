@@ -18,7 +18,7 @@ class RklController extends Controller
 	public function create($id)
 	{
 		$id_skkl = $id;
-		$data_rkl = rkl::where('id_skkl', $id)->orderBy('tahap_kegiatan')->orderBy('id', 'asc')->get();
+		$data_rkl = rkl::where('id_skkl', $id)->orderBy('tahap_kegiatan', 'asc')->orderBy('id', 'asc')->groupBy('tahap_kegiatan', 'id')->get();
 
         return view('home.rkl.index', compact('data_rkl', 'id_skkl'));
 	}

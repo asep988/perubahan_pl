@@ -81,15 +81,11 @@
         <tr style="border: 1px solid black; border-collapse: collapse;">
             <td style="border: 1px solid black; border-collapse: collapse; width: 150px;">Nomor Verifikasi PTSP</td>
             <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $nomor_validasi }}
-            </td>{{  }}
+            </td>
         </tr>
         <tr style="border: 1px solid black; border-collapse: collapse;">
-            <td style="border: 1px solid black; border-collapse: collapse; width: 150px;">Jumlah Data RKL</td>
-            <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $jml_rkl }}</td>
-        </tr>
-        <tr style="border: 1px solid black; border-collapse: collapse;">
-            <td style="border: 1px solid black; border-collapse: collapse; width: 150px;">Jumlah Data RPL</td>
-            <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $jml_rpl }}</td>
+            <td style="border: 1px solid black; border-collapse: collapse; width: 150px;">Jumlah Data UKL-UPL</td>
+            <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $jml_uklupl }}</td>
         </tr>
     </table>
 
@@ -97,15 +93,15 @@
         <table style="border: 1px solid black; border-collapse: collapse; width: 650px" align="center">
                <tr style="padding-top:0px">
                     <td>1. </td>
-                    <td >Dokumen ini sah, diterbitkan sistem Amdalnet berdasarkan data dari Pemrakarsa Pelaku Usaha, tersimpan dalam sistem Amdalnet dan menjadi tanggung jawab Pemrakarsa Pelaku Usaha.</td>
+                    <td style="padding-left: 10px">Dokumen ini sah, diterbitkan sistem Amdalnet berdasarkan data dari Pemrakarsa Pelaku Usaha, tersimpan dalam sistem Amdalnet dan menjadi tanggung jawab Pemrakarsa Pelaku Usaha.</td>
                </tr>
                <tr>
                     <td>2. </td>
-                    <td >Dalam hal terjadi kekeliruan isi dokumen, maka akan dilakukan perbaikan sebagaimana mestinya.</td>
+                    <td style="padding-left: 10px">Dalam hal terjadi kekeliruan isi dokumen, maka akan dilakukan perbaikan sebagaimana mestinya.</td>
                </tr>
                <tr style="padding-bottom:0px">
                     <td style="padding-top: 20px">&nbsp;</td>
-                    <td >Dicetak pada tanggal {{ $tgl_cetak }} WIB</td>
+                    <td style="padding-left: 10px">Dicetak pada tanggal {{ $tgl_cetak }} WIB</td>
                </tr>
         </table>
         <table border="0" align="center">

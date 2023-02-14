@@ -69,6 +69,7 @@
                 <tr class="text-center">
                     <th style="width: 50px;">No</th>
                     <th style="width: 250px;">Tanggal, Waktu Permohonan</th>
+                    <th>Nomor Registrasi</th>
                     <th>Perihal Permohonan</th>
                     <th>Tanggal proses</th>
                     <th style="width: 150px;">Status</th>
@@ -80,6 +81,7 @@
                 <tr>
                     <td class="text-center">{{ $loop->iteration }}</td>
                     <td>{{ $pkplh->created_at->format('d F Y')}}, {{ $pkplh->created_at->format('H:i:s') }}</td>
+                    <td>{{ $pkplh->noreg }}</td>
                     <td>{{ $pkplh->perihal }}</td>
                     <td>
                         @if ($pkplh->tgl_update)
@@ -97,14 +99,14 @@
                             <span class="badge badge-primary">Selesai Drafting</span>
                         @elseif ($pkplh->status == "Final")
                             <span class="badge badge-success">Selesai</span>
+                        @elseif ($pkplh->status == "Batal")
+                            <span class="badge badge-danger" title="{{ $pkplh->note }}">Dibatalkan</span>
                         @else
-                            <span class="badge badge-danger">Ditolak</span>
+                            <span class="badge badge-danger" title="{{ $pkplh->note }}">Ditolak</span>
                         @endif
                     </td>
                     <td class="text-center">
-                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="{{ '#exampleModal'.$pkplh->id }}">
-                            Pilih
-                        </button>
+                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="{{ '#exampleModal'.$pkplh->id }}">Pilih</button>
                     </td>
                 </tr>
                 @endforeach
@@ -125,6 +127,7 @@
         </div>
         <div class="modal-body">
             <a class="btn btn-success btn-block" href="{{ route('uklupl.create', $pkplh->id) }}">Dokumen UKL-UPL</a>
+            <a class="btn btn-success btn-block" target="_blank" href="{{ route('pkplh.regist', $pkplh->id) }}">Bukti Submit</a>
             @if ($pkplh->rintek_upload)
                 <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek_upload) }}">Unduh Dokumen Rincian Teknis</a></button>
             @endif
@@ -133,12 +136,44 @@
             @endif
             <hr>
             <a class="btn btn-warning btn-block @if ($pkplh->status == "Final") disabled @endif" href="{{ route('pkplh.edit', $pkplh->id) }}">Ubah Data PKPLH</a>
+            <button type="button" class="btn btn-danger btn-block my-2" data-toggle="modal" data-target="{{ '#batal'.$pkplh->id }}">Batalkan Permohonan</button>
             <a class="btn btn-primary btn-block" href="{{ route('pkplh.review', $pkplh->id) }}">Preview Dokumen PKPLH</a>
         </div>
       </div>
     </div>
 </div>
 @endforeach
+
+@foreach ($data_pkplh as $pkplh)
+<div class="modal fade" id="{{ 'batal'.$pkplh->id }}" tabindex="-1" aria-labelledby="batalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="batalLabel">Yakin ingin membatalkan permohonan?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="{{ route('pkplh.batal', $pkplh->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="modal-body">
+                <div class="input-box mb-2">
+                    <label for="note" class="form-label">Catatan</label>
+                    <textarea class="form-control" name="note" id="note"></textarea>
+                    {{-- <input type="text" class="form-control" name="note" required> --}}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger">Batalkan</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+@endforeach
+
 @endsection
 
 @push('scripts')
@@ -146,7 +181,7 @@
         $(document).ready(function() {
             $("#datatable").DataTable({
                 "scrollX": true,
-                "responsive": true,
+                "responsive": false,
                 "lengthchange": true,
                 "autowidth": true,
                 "lengthmenu": [
@@ -154,6 +189,10 @@
                     [5, 10, 25, 50, 'All']
                 ]
             });
+
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
         });
     </script>
 @endpush

@@ -150,7 +150,7 @@
     <script>
         $(document).ready(function() {
             $('#table').DataTable({
-                "responsive": true,
+                "responsive": false,
                 "lengthChange": true,
                 "autoWidth": true
             });

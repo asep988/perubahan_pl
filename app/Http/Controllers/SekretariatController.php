@@ -54,12 +54,13 @@ class SekretariatController extends Controller
         return redirect()->route('sekre.skkl.index')->with('message', 'Berhasil menugaskan PJM pada usaha/kegiatan yang dipilih');
     }
     
-    public function skklReject($id)
+    public function skklReject(Request $request, $id)
     {
         Skkl::find($id)->update([
             'status' => "Ditolak",
             'tgl_update' => Carbon::now()->toDateString(),
-            'nama_operator' => null
+            'nama_operator' => null,
+            'note' => $request->note
         ]);
         
         $skkl = Skkl::find($id);
@@ -111,12 +112,13 @@ class SekretariatController extends Controller
         return redirect()->route('sekre.pkplh.index')->with('message', 'Berhasil menugaskan PJM pada usaha/kegiatan yang dipilih');
     }
 
-    public function pkplhReject($id)
+    public function pkplhReject(Request $request, $id)
     {
         Pkplh::find($id)->update([
             'status' => "Ditolak",
             'tgl_update' => Carbon::now()->toDateString(),
-            'nama_operator' => null
+            'nama_operator' => null,
+            'note' => $request->note
         ]);
         
         $pkplh = Pkplh::find($id);

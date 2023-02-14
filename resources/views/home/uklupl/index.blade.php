@@ -171,29 +171,17 @@
 
                             <div class="input-box">
                                 <label for="besaran_dampak" class="form-label">Besaran Dampak</label>
-                                <div class="form-group row">
-                                    <div class="col-sm-8">
-                                        <textarea class="form-control" id="mytextarea" aria-label="editor" name="besaran_dampak"></textarea>
-                                    </div>
-                                </div>
+                                <textarea class="form-control" id="myuklupl" aria-label="editor" name="besaran_dampak"></textarea>
                             </div>
 
                             <div class="input-box">
                                 <label for="besaran_dampak" class="form-label">Bentuk Pengelolaan</label>
-                                <div class="form-group row">
-                                    <div class="col-sm-8">
-                                        <textarea class="form-control" id="mytextarea" aria-label="editor" name="bentuk_pengelolaan"></textarea>
-                                    </div>
-                                </div>
+                                <textarea class="form-control" id="myuklupl" aria-label="editor" name="bentuk_pengelolaan"></textarea>
                             </div>
 
                             <div class="input-box">
                                 <label for="lokasi_pengelolaan" class="form-label">Lokasi Pengelolaan</label>
-                                <div class="form-group row">
-                                    <div class="col-sm-8">
-                                        <textarea class="form-control" id="mytextarea" aria-label="editor" name="lokasi_pengelolaan"></textarea>
-                                    </div>
-                                </div>
+                                <textarea class="form-control" id="myuklupl" aria-label="editor" name="lokasi_pengelolaan"></textarea>
                             </div>
 
                             <div class="input-box">
@@ -207,20 +195,12 @@
 
                             <div class="input-box">
                                 <label for="bentuk_pemantauan" class="form-label">Bentuk Pemantauan</label>
-                                <div class="form-group row">
-                                    <div class="col-sm-8">
-                                        <textarea class="form-control" id="mytextarea" aria-label="editor" name="bentuk_pemantauan"></textarea>
-                                    </div>
-                                </div>
+                                <textarea class="form-control" id="myuklupl" aria-label="editor" name="bentuk_pemantauan"></textarea>
                             </div>
 
                             <div class="input-box">
                                 <label for="lokasi_pemantauan" class="form-label">Lokasi Pemantauan</label>
-                                <div class="form-group row">
-                                    <div class="col-sm-8">
-                                        <textarea class="form-control" id="mytextarea" aria-label="editor" name="lokasi_pemantauan"></textarea>
-                                    </div>
-                                </div>
+                                <textarea class="form-control" id="myuklupl" aria-label="editor" name="lokasi_pemantauan"></textarea>
                             </div>
 
                             <div class="input-box">
@@ -234,20 +214,12 @@
 
                             <div class="input-box">
                                 <label for="institusi" class="form-label">Institusi Pengelola dan Pemantau</label>
-                                <div class="form-group row">
-                                    <div class="col-sm-8">
-                                        <textarea class="form-control" id="mytextarea" aria-label="editor" name="institusi"></textarea>
-                                    </div>
-                                </div>
+                                <textarea class="form-control" id="myuklup" aria-label="editor" name="institusi"></textarea>
                             </div>
 
                             <div class="input-box">
                                 <label for="keterangan" class="form-label">Keterangan</label>
-                                <div class="form-group row">
-                                    <div class="col-sm-8">
-                                        <textarea class="form-control" id="mytextarea" aria-label="editor" name="keterangan"></textarea>
-                                    </div>
-                                </div>
+                                <textarea class="form-control" id="myuklup" aria-label="editor" name="keterangan"></textarea>
                             </div>
                         </td>
                     </tr>
@@ -305,7 +277,7 @@
         $(document).ready(function() {
             $("#datatable").DataTable({
                 "scrollX": true,
-                "responsive": true,
+                "responsive": false,
                 "lengthchange": true,
                 "autowidth": true,
                 "lengthmenu": [
@@ -313,6 +285,32 @@
                     [5, 10, 25, 50, 'All']
                 ]
             });
+        });
+    </script>
+
+    <script>
+        tinymce.init({
+            selector: 'textarea#myuklupl',
+            height: 400,
+            forced_root_block: "",
+            force_br_newlines: true,
+            force_p_newlines: true,
+            plugins: 'anchor autolink charmap codesample link lists searchreplace visualblocks wordcount',
+            toolbar1: 'undo redo | insert | styleselect | bold italic | hr alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media ',
+            toolbar2: 'forecolor backcolor emoticons | fontselect | fontsizeselect | fullscreen',
+            templates: [{
+                    title: 'Test template 1',
+                    content: ''
+                },
+                {
+                    title: 'Test template 2',
+                    content: ''
+                }
+            ],
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                '//www.tinymce.com/css/codepen.min.css'
+            ],
         });
     </script>
 @endpush
