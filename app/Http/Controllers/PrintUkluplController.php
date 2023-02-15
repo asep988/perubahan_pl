@@ -80,27 +80,40 @@ class PrintUkluplController extends Controller
                 <body>';
 
         $body .= '<style>
-                    body {
-                        font-family:"Bookman Old Style";
-                    }
-                    ol {
-                    columns:2;
-                    }
-                    ol > li.list_kurung::marker {
-                    content:counter(list-item) ")\2003";
-                    }
-                    td {
-                        vertical-align: top;
-                        text-align: justify;
-                    }
-                    table {
-                        font-size: 7pt;
-                    }
-                </style>';
+        body {
+            font-family:"Bookman Old Style";
+        }
+        ol {
+        columns:2;
+        }
+        ol > li.list_kurung::marker {
+        content:counter(list-item) ")\2003";
+        }
+        td {
+            vertical-align: top;
+            text-align: justify;
+        }
+        }
+        table{
+            font-size: 7pt;
+        }
+        table.matriks, .matriks td, .matriks th {
+            border: 1px solid black; border-collapse: collapse;
+            font-size: 7pt;
+            width: 100%;
+        }
+        @page SectionLC {
+            size:841.7pt 595.45pt;mso-page-orientation:landscape;margin:1.25in 1.0in 1.25in 1.0in;mso-header-margin:.5in;mso-footer-margin:.5in;mso-paper-source:0;
+        }
+
+        div.SectionLC {
+            page:SectionLC;
+        }
+        </style>';
 
 
         $body .='<body>
-
+        <div class=SectionLC>
         LAMPIRAN I<br>
 						KEPUTUSAN MENTRI LINGKUNGAN HIDUP <br>
 						DAN KEHUTANAN REPUBLIK INDONESIA <br>
@@ -149,6 +162,7 @@ class PrintUkluplController extends Controller
         $no += count($uklupl_pasca);
 
         $body .= '</tbody></table>
+        </div>
             </body>
             </html>';
 
