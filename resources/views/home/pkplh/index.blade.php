@@ -138,7 +138,7 @@
             @endif
             <hr>
             <?php $i = 2; ?>
-            @if ($pkplh->jenis_perubahan != 'perkep1')
+            @if ($pkplh->jenis_perubahan != 'perkep1' && $pkplh->pertek[0] != null)
                 @foreach ($pkplh->pertek as $pertek)
                     <form @if ($pertek != "pertek6") action="{{ route('pemrakarsa.pkplh.pertek', $pkplh->id) }}" @else action="{{ route('pemrakarsa.pkplh.rintek', $pkplh->id) }}" @endif method="GET">
                         @csrf

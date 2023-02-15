@@ -583,7 +583,8 @@ class SkklController extends Controller
 				} else if ($pertek[$i]->pertek == "pertek5") {
 					$isi = "Persetujuan Teknis Dokumen Rincian Teknis";
 				}
-				$index = array_search('pertek1', $data);
+
+				$index = array_search($pertek[$i]->pertek, $data);
 				$roman = 3 + $index;
 				$pertek_isi .= '<li>Surat/Izin/Keputusan '.ucfirst($pertek[$i]->surat_pertek).'
 				Nomor: '.strtoupper($pertek[$i]->nomor_pertek).'

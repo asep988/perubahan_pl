@@ -1105,7 +1105,7 @@ class PkplhController extends Controller
                 } else if ($pertek[$i]->pertek == "pertek5") {
                     $isi = "Persetujuan Teknis Dokumen Rincian Reknis";
                 }
-				$index = array_search('pertek1', $data);
+				$index = array_search($pertek[$i]->pertek, $data);
 				$roman = 2 + $index;
 				$pertek_isi .= '<li>Surat/Izin/Keputusan '.ucfirst($pertek[$i]->surat_pertek).'
 				Nomor: '.strtoupper($pertek[$i]->nomor_pertek).'

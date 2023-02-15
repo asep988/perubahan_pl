@@ -138,7 +138,7 @@
             <a class="btn btn-primary btn-block" href="{{ route('rpl.create', $skkl->id) }}">Lampiran I RPL</a>
             <a class="btn btn-primary btn-block mb-2" href="{{ route('pemrakarsa.download.lampiran1', $skkl->id) }}">Preview lampiran II</a>
             <?php $i = 3; ?>
-            @if ($skkl->jenis_perubahan != 'perkep1')
+            @if ($skkl->jenis_perubahan != 'perkep1' && $skkl->pertek[0] != null)
                 @foreach ($skkl->pertek as $pertek)
                     <form @if ($pertek != "pertek6") action="{{ route('pemrakarsa.download.pertek', $skkl->id) }}" @else action="{{ route('pemrakarsa.download.rintek', $skkl->id) }}" @endif method="GET">
                         @csrf
