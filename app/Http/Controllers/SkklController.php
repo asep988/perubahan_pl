@@ -143,10 +143,8 @@ class SkklController extends Controller
 			$fileName2 = null;
 		}
 
-		$message = 'regist2';
-        $key = 'SKKL';
-        $hash = hash_hmac('sha256', $message, $key);
-        $regist = "A" .substr($hash, 0, 14);
+		$hash = hash_hmac('sha256', $request->nama_usaha_baru . rand(0,100), 'SKKL');    
+		$regist = "A" . substr($hash, 0, 14);
 
 		DB::beginTransaction();
 		$skkl = new Skkl;

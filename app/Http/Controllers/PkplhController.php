@@ -147,10 +147,8 @@ class PkplhController extends Controller
 			$fileName2 = null;
 		}
 
-        $message = 'regist2';
-        $key = 'SKKL';
-        $hash = hash_hmac('sha256', $message, $key);
-        $regist = "B" .substr($hash, 0, 14);
+        $hash = hash_hmac('sha256', $request->nama_usaha_baru . rand(0,100), 'PKPLH');    
+		$regist = "B" . substr($hash, 0, 14);
 
 		DB::beginTransaction();
 		$pkplh = new Pkplh;
