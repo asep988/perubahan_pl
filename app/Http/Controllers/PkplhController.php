@@ -672,7 +672,8 @@ class PkplhController extends Controller
         $body = '
         <style>
             body {
-                font-family:"Bookman Old Style";
+                font-family:"Bookman Old Style !important";
+                font-size: 12pt !important;
             }
             ol {
             columns:2;
@@ -867,7 +868,7 @@ class PkplhController extends Controller
     </td>
     <td width="2%"> :</td>
     <td width="68%">Ruang lingkup dalam persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup ini, meliputi:
-        ' . ucfirst($pkplh->ruang_lingkup) . '.
+        <table>' . ucfirst($pkplh->ruang_lingkup) . '</table>
     </td>
     </tr>
     <tr>

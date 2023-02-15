@@ -85,21 +85,36 @@ class PrintUkluplController extends Controller
         }
         ol {
         columns:2;
+        font-size: 7pt !important;
+        }
+        p {
+            font-size: 7pt !important;
+        }
+        span {
+            font-size: 7pt !important;
         }
         ol > li.list_kurung::marker {
         content:counter(list-item) ")\2003";
+        font-size: 7pt !important;
         }
         td {
             vertical-align: top;
             text-align: justify;
+            font-size: 7pt !important;
         }
+        }
+        tbody{
+            font-size: 7pt !important;
+        }
+        tbody table{
+            font-size: 7pt !important;
         }
         table{
-            font-size: 7pt;
+            font-size: 7pt !important;
         }
         table.matriks, .matriks td, .matriks th {
             border: 1px solid black; border-collapse: collapse;
-            font-size: 7pt;
+            font-size: 7pt !important;
             width: 100%;
         }
         @page SectionLC {

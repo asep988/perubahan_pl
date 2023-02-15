@@ -315,7 +315,8 @@ class OperatorController extends Controller
         $body = '
         <style>
             body {
-                font-family:"Bookman Old Style";
+                font-family:"Bookman Old Style !important";
+                font-size: 12pt !important;
             }
             ol {
             columns:2;
