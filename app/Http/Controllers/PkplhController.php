@@ -1094,15 +1094,15 @@ class PkplhController extends Controller
         $roman = 0;
 		for ($i = 0; $i < count($pertek); $i++) {
 			if ($request->pertek == $pertek[$i]->pertek) {
-                if ($request->pertek == "pertek1") {
+                if ($pertek[$i]->pertek == "pertek1") {
                     $isi = "Persetujuan Teknis Pemenuhan Baku Mutu Air Limbah";
-                } else if ($request->pertek == "pertek2") {
+                } else if ($pertek[$i]->pertek == "pertek2") {
                     $isi = "Persetujuan Teknis Pemenuhan Baku Mutu Emisi";
-                } else if ($request->pertek == "pertek3") {
+                } else if ($pertek[$i]->pertek == "pertek3") {
                     $isi = "Persetujuan Teknis Di Bidang Pengelolaan Limbah B3";
-                } else if ($request->pertek == "pertek4") {
+                } else if ($pertek[$i]->pertek == "pertek4") {
                     $isi = "Persetujuan Teknis Andalalin";
-                } elseif ($request->pertek == "pertek5") {
+                } else if ($pertek[$i]->pertek == "pertek5") {
                     $isi = "Persetujuan Teknis Dokumen Rincian Reknis";
                 }
 				$index = array_search('pertek1', $data);
