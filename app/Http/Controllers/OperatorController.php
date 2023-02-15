@@ -376,7 +376,7 @@ class OperatorController extends Controller
                         <ol> ' . $il_dkk . ' </ol>
                     </li>
                     <li>
-                      ' . $perkep . '
+                       Bahwa '. $skkl->jabatan_baru .' melalui surat Nomor: '. $skkl->nomor_pl .', Tanggal '. tgl_indo($skkl->tgl_pl) .' Perihal '. $skkl->perihal .', mengajukan permohonan perubahan persetujuan lingkungan kepada Menteri Lingkungan Hidup;
                     </li>
                     <li>
                         Bahwa ' . ucfirst($skkl->pejabat_pl) .' '. ucfirst($skkl->pelaku_usaha_baru) . ' melalui surat nomor ' . strtoupper($skkl->nomor_pl) . ',tanggal ' . tgl_indo($skkl->tgl_pl) . ', perihal ' . ucfirst($skkl->perihal_surat) . ';

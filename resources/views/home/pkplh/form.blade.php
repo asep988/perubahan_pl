@@ -331,16 +331,15 @@
                         <table border="1" width="100%">
                             <thead>
                                 <tr class="text-center">
-                                    <th>#</th>
                                     <th>Jenis Dasar Perubahan</th>
                                     <th>Pejabat yang mengesahkan</th>
                                     <th>Nomor Surat</th>
                                     <th>Perihal/Tentang</th>
+                                    <th>#</th>
                                 </tr>
                             </thead>
                             <tbody class="table-input1">
-                                <tr id="1claster1">
-                                    <td>1</td>
+                                <tr id="1Claster1">
                                     <td>
                                         <input type="text" name="jenis_peraturan[]" class="form-control" placeholder="Surat/Akta Notaris/SK">
                                     </td>
@@ -353,13 +352,15 @@
                                     <td>
                                         <textarea class="form-control" name="perihal_peraturan[]" rows="2"></textarea>
                                     </td>
+                                    <td class="text-center">
+                                        <button type="button" id="1" class="btn remove-btn1 btn-sm btn-danger">
+                                            <i class="fas fa-minus fa-sm"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                         <div class="mt-1">
-                            <button type="button" id="remove" class="btn remove-btn1 btn-sm btn-danger">
-                                <i class="fas fa-minus fa-sm"></i>
-                            </button>
                             <button type="button" id="add1" class="btn btn-sm btn-primary">
                                 <i class="fas fa-plus fa-sm"></i>
                             </button>
@@ -386,17 +387,16 @@
                     <table border="1" width="100%">
                         <thead>
                             <tr class="text-center">
-                                <th>#</th>
                                 <th>Jenis Izin Persetujuan</th>
                                 <th>Pejabat yang mengesahkan</th>
                                 <th>Nomor SK</th>
                                 <th>Tanggal Surat</th>
                                 <th>Perihal/Tentang</th>
+                                <th>#</th>
                             </tr>
                         </thead>
                         <tbody class="table-input2">
-                            <tr id="2claster1">
-                                <td>1</td>
+                            <tr id="2Claster1">
                                 <td>
                                     <input type="text" name="jenis_izin[]" class="form-control" placeholder="Surat/Keputusan/Ketetapan">
                                 </td>
@@ -412,13 +412,15 @@
                                 <td>
                                     <textarea class="form-control" name="perihal[]" rows="2"></textarea>
                                 </td>
+                                <td class="text-center">
+                                    <button type="button" id="1" class="btn remove-btn2 btn-sm btn-danger">
+                                        <i class="fas fa-minus fa-sm"></i>
+                                    </button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                     <div class="mt-1">
-                        <button type="button" id="remove" class="btn remove-btn2 btn-sm btn-danger">
-                            <i class="fas fa-minus fa-sm"></i>
-                        </button>
                         <button type="button" id="add2" class="btn btn-sm btn-primary">
                             <i class="fas fa-plus fa-sm"></i>
                         </button>
@@ -439,6 +441,7 @@
                     <span><br> 3. Kapasitas / jenis usaha / kegiatan</span>
                     <span><br> 4. Sumber energi listrik dan air (jika ada)</span>
                     <span><br> 5. Limbah yang dihasilkan serta jenis pengelolaan (Jika ada)</span>
+                    <span><br> 6. Masukkan Tabel Koordinat Lokasi</span>
                 </div>
                 <div class="col-sm-8">
                     <textarea class="form-control" id="mytextarea" aria-label="editor" name="ruang_lingkup"></textarea>
@@ -941,7 +944,6 @@
         $('#add1').click(function() {
             j++
             $('.table-input1').append(`<tr id="1Claster${j}">
-                        <td>${j}</td>
                         <td>
                             <input type="text" name="jenis_peraturan[]" class="form-control" placeholder="Surat/Akta Notaris/SK">
                         </td>
@@ -954,19 +956,23 @@
                         <td>
                             <textarea class="form-control" name="perihal_peraturan[]" rows="2"></textarea>
                         </td>
+                        <td class="text-center">
+                            <button type="button" id="${j}" class="btn remove-btn1 btn-sm btn-danger">
+                                            <i class="fas fa-minus fa-sm"></i>
+                            </button>
+                        </td>
                     </tr>`)
         });
 
         $(document).on('click', '.remove-btn1', function() {
-            var button_id = j;
-            $('#1Claster$' + button_id + '').remove();
+            var button_id = $(this).attr('id');
+            $('#1Claster' + button_id + '').remove();
             j--
         });
 
         $('#add2').click(function() {
             i++
             $('.table-input2').append(`<tr id="2Claster${i}">
-                        <td>${i}</td>
                         <td>
                             <input type="text" name="jenis_izin[]" class="form-control" placeholder="Surat/Keputusan/Ketetapan">
                         </td>
@@ -982,11 +988,16 @@
                         <td>
                             <textarea class="form-control" name="perihal[]" rows="2"></textarea>
                         </td>
+                        <td class="text-center">
+                            <button type="button" id="${i}" class="btn remove-btn2 btn-sm btn-danger">
+                                <i class="fas fa-minus fa-sm"></i>
+                            </button>
+                        </td>
                     </tr>`)
         });
 
         $(document).on('click', '.remove-btn2', function() {
-            var button_id = i;
+            var button_id = $(this).attr('id');
             $('#2Claster' + button_id + '').remove();
             i--
         });

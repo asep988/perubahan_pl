@@ -322,6 +322,8 @@ class PkplhController extends Controller
 		$selected_kabupaten_kota = $pkplh->kabupaten_kota;
 		$jum = count($il_pkplh);
 
+        return $pkplh->jenis_perubahan;
+
 		return view('home.pkplh.edit', compact('provinces', 'initiator', 'regencies', 'pkplh', 'jum', 'il_pkplh', 'selected_provinces', 'selected_kabupaten_kota', 'pertek_pkplh'));
 	}
 
@@ -387,7 +389,7 @@ class PkplhController extends Controller
 
 		if (is_array($request->jenis_peraturan)) {
 			$jenis_peraturan = $request->jenis_peraturan;
-		} else {
+		} else {{{  }}
 			$jenis_peraturan = array();
 			$jenis_peraturan[] = $request->jenis_peraturan;
 		}
@@ -734,7 +736,7 @@ class PkplhController extends Controller
                 <ol>'. $il_dkk .'</ol>
             </li>
             <li>
-            ' . $perkep . '
+            Bahwa '. $pkplh->jabatan_baru .' melalui surat Nomor: '. $pkplh->nomor_pl .', Tanggal '. tgl_indo($pkplh->tgl_pl) .' Perihal '. $pkplh->perihal .', mengajukan permohonan perubahan persetujuan lingkungan kepada Menteri Lingkungan Hidup;
             </li>
             <li>
                 bahwa '. ucfirst($pkplh->pelaku_usaha_baru) .' sesuai Nomor '. $pkplh->nomor_pl  .'
@@ -1094,7 +1096,17 @@ class PkplhController extends Controller
         $roman = 0;
 		for ($i = 0; $i < count($pertek); $i++) {
 			if ($request->pertek == $pertek[$i]->pertek) {
-				$isi = "Persetujuan Teknis Pemenuhan Baku Mutu Air Limbah";
+                if ($request->pertek == "pertek1") {
+                    $isi = "Persetujuan Teknis Pemenuhan Baku Mutu Air Limbah";
+                } else if ($request->pertek == "pertek2") {
+                    $isi = "Persetujuan Teknis Pemenuhan Baku Mutu Emisi";
+                } else if ($request->pertek == "pertek3") {
+                    $isi = "Persetujuan Teknis Di Bidang Pengelolaan Limbah B3";
+                } else if ($request->pertek == "pertek4") {
+                    $isi = "Persetujuan Teknis Andalalin";
+                } elseif ($request->pertek == "pertek5") {
+                    $isi = "Persetujuan Teknis Dokumen Rincian Reknis";
+                }
 				$index = array_search('pertek1', $data);
 				$roman = 2 + $index;
 				$pertek_isi .= '<li>Surat/Izin/Keputusan '.ucfirst($pertek[$i]->surat_pertek).'

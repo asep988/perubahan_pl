@@ -91,27 +91,27 @@
             <table border="1" width="100%" class="mb-3">
                 <tr>
                     <!-- dari -->
-                    <td style="padding: 20px;" class="align-top" id="dari" @if ($pkplh->jenis_perubahan == "perkep3") style="display: none;" @endif>
+                    <td style="padding: 20px;" class="align-top" id="dari">
                         <div class="">
                             <span>Dari :</span>
                             <div class="input-box">
                                 <br>
                                 <label for="pelaku_usaha" class="form-label">Nama Pelaku Usaha/Kegiatan</label>
                                 <div>
-                                    <input type="text" class="form-control" name="pelaku_usaha" value="{{ $initiator[0]->name }}">
+                                    <input type="text" class="form-control" name="pelaku_usaha" value="{{ $pkplh->pelaku_usaha }}">
                                 </div>
                             </div>
                             <div class="input-box">
                                 <label for="penanggung" class="form-label">Penanggung Jawab Usaha/Kegiatan</label>
-                                <input type="text" class="form-control" name="penanggung" value="{{ $initiator[0]->pic }}">
+                                <input type="text" class="form-control" name="penanggung" value="{{ $pkplh->penanggung }}">
                             </div>
                             <div class="input-box">
                                 <label for="jabatan" class="form-label">Jabatan</label>
-                                <input type="text" class="form-control" name="jabatan" value="{{ $initiator[0]->pic_role }}">
+                                <input type="text" class="form-control" name="jabatan" value="{{ $pkplh->jabatan }}">
                             </div>
                             <div class="input-box">
                                 <label for="alamat" class="form-label">Alamat Kantor/Kegiatan</label>
-                                <textarea class="form-control" id="alamat" name="alamat" rows="3">{{ $initiator[0]->address }}</textarea>
+                                <textarea class="form-control" id="alamat" name="alamat" rows="3">{{ $pkplh->alamat }}</textarea>
                             </div>
                         </div>
                     </td>
@@ -403,39 +403,45 @@
                         <table border="1" width="100%">
                             <thead>
                                 <tr class="text-center">
-                                    <th>#</th>
                                     <th>Jenis Dasar Perubahan</th>
                                     <th>Pejabat yang mengesahkan</th>
                                     <th>Nomor Surat</th>
                                     <th>Perihal/Tentang</th>
+                                    <th>#</th>
                                 </tr>
                             </thead>
                             <tbody class="table-input1">
-                                <?php $no = 1 ?>
+                                <?php $no = 1; ?>
                                 @for ($i = 0; $i < count($pkplh->jenis_peraturan); $i++)
-                                    <tr id="{{ '1claster' . $no }}">
-                                        <td>{{ $no }}</td>
+                                    <tr id="{{ '1Claster' . $no }}">
                                         <td>
-                                            <input type="text" name="jenis_peraturan[]" class="form-control" value="{{ $pkplh->jenis_peraturan[$i] }}" placeholder="Surat/Akta Notaris/SK">
+                                            <input type="text" name="jenis_peraturan[]" class="form-control"
+                                                value="{{ $pkplh->jenis_peraturan[$i] }}"
+                                                placeholder="Surat/Akta Notaris/SK">
                                         </td>
                                         <td>
-                                            <input type="text" name="pejabat_daerah[]" value="{{ $pkplh->pejabat_daerah[$i] }}" class="form-control">
+                                            <input type="text" name="pejabat_daerah[]"
+                                                value="{{ $pkplh->pejabat_daerah[$i] }}" class="form-control">
                                         </td>
                                         <td>
-                                            <input type="text" name="nomor_peraturan[]" value="{{ $pkplh->nomor_peraturan[$i] }}" class="form-control">
+                                            <input type="text" name="nomor_peraturan[]"
+                                                value="{{ $pkplh->nomor_peraturan[$i] }}" class="form-control">
                                         </td>
                                         <td>
                                             <textarea class="form-control" name="perihal_peraturan[]" rows="2">{{ $pkplh->perihal_peraturan[$i] }}</textarea>
                                         </td>
+                                        <td class="text-center">
+                                            <button type="button" id="{{ $no }}"
+                                                class="btn remove-btn1 btn-sm btn-danger">
+                                                <i class="fas fa-minus fa-sm"></i>
+                                            </button>
+                                        </td>
                                     </tr>
-                                    <?php $no++ ?>
+                                    <?php $no++; ?>
                                 @endfor
                             </tbody>
                         </table>
                         <div class="mt-1">
-                            <button type="button" id="remove" class="btn remove-btn1 btn-sm btn-danger">
-                                <i class="fas fa-minus fa-sm"></i>
-                            </button>
                             <button type="button" id="add1" class="btn btn-sm btn-primary">
                                 <i class="fas fa-plus fa-sm"></i>
                             </button>
@@ -462,33 +468,42 @@
                     <table border="1" width="100%">
                         <thead>
                             <tr class="text-center">
-                                <th>#</th>
                                 <th>Jenis Izin Persetujuan</th>
                                 <th>Pejabat yang mengesahkan</th>
                                 <th>Nomor SK</th>
                                 <th>Tanggal Surat</th>
                                 <th>Perihal/Tentang</th>
+                                <th>#</th>
                             </tr>
                         </thead>
                         <tbody class="table-input2">
                             <?php $i = 1; ?>
                             @foreach ($il_pkplh as $row)
-                                <tr id="{{ '2claster' . $i }}">
-                                    <td>{{ $i }}</td>
+                                <tr id="{{ '2Claster' . $i }}">
                                     <td>
-                                        <input type="text" name="jenis_izin[]" class="form-control" value="{{ $row->jenis_sk }}" placeholder="Surat/Keputusan/Ketetapan">
+                                        <input type="text" name="jenis_izin[]" class="form-control"
+                                            value="{{ $row->jenis_sk }}" placeholder="Surat/Keputusan/Ketetapan">
                                     </td>
                                     <td>
-                                        <input type="text" name="pejabat[]" value="{{ $row->menerbitkan }}" class="form-control">
+                                        <input type="text" name="pejabat[]" value="{{ $row->menerbitkan }}"
+                                            class="form-control">
                                     </td>
                                     <td>
-                                        <input type="text" name="nomor_sk[]" value="{{ $row->nomor_surat }}" class="form-control">
+                                        <input type="text" name="nomor_sk[]" value="{{ $row->nomor_surat }}"
+                                            class="form-control">
                                     </td>
                                     <td>
-                                        <input type="date" name="tgl_surat[]" value="{{ $row->tgl_surat }}" class="form-control">
+                                        <input type="date" name="tgl_surat[]" value="{{ $row->tgl_surat }}"
+                                            class="form-control">
                                     </td>
                                     <td>
                                         <textarea class="form-control" name="perihal[]" rows="2">{{ $row->perihal_surat }}</textarea>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" id="{{ $i }}"
+                                            class="btn remove-btn2 btn-sm btn-danger">
+                                            <i class="fas fa-minus fa-sm"></i>
+                                        </button>
                                     </td>
                                 </tr>
                                 <?php $i++; ?>
@@ -496,9 +511,6 @@
                         </tbody>
                     </table>
                     <div class="mt-1">
-                        <button type="button" id="remove" class="btn remove-btn2 btn-sm btn-danger">
-                            <i class="fas fa-minus fa-sm"></i>
-                        </button>
                         <button type="button" id="add2" class="btn btn-sm btn-primary">
                             <i class="fas fa-plus fa-sm"></i>
                         </button>
@@ -519,6 +531,7 @@
                     <span><br> 3. Kapasitas / jenis usaha / kegiatan</span>
                     <span><br> 4. Sumber energi listrik dan air (jika ada)</span>
                     <span><br> 5. Limbah yang dihasilkan serta jenis pengelolaan (Jika ada)</span>
+                    <span><br> 6. Masukkan Tabel Koordinat Lokasi</span>
                 </div>
                 <div class="col-sm-8">
                     <textarea class="form-control" id="mytextarea" aria-label="editor" name="ruang_lingkup">{!! $pkplh->ruang_lingkup !!}</textarea>
@@ -1022,6 +1035,7 @@
 <input type="text" @if ($pertek3 == 0) value="1" @else value="{{ $prk3 }}" @endif id="jum_prk3" hidden>
 <input type="text" @if ($pertek4 == 0) value="1" @else value="{{ $prk4 }}" @endif id="jum_prk4" hidden>
 <input type="text" @if ($pertek5 == 0) value="1" @else value="{{ $prk5 }}" @endif id="jum_prk5" hidden>
+<input type="text" value="{{ $pkplh->jenis_perubahan }}" id="jenper" hidden>
 
 <script>
     $('.js-kabkota-multiple').select2({
@@ -1034,6 +1048,13 @@
 
     $('.regional-multiple').select2({
         dropdownCssClass: "select2--small",
+    });
+
+    $(window).on("load", function() {
+        perkep = $('#jenper').val();
+        if (perkep == "perkep3") {
+            $('#dari').hide();
+        }
     });
 
     $(document).ready(function() {
@@ -1234,24 +1255,28 @@
         $('#add1').click(function() {
             j++
             $('.table-input1').append(`<tr id="1Claster${j}">
-                            <td>${j}</td>
-                            <td>
-                                <input type="text" name="jenis_peraturan[]" class="form-control" placeholder="Surat/Akta Notaris/SK">
-                            </td>
-                            <td>
-                                <input type="text" name="pejabat_daerah[]" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" name="nomor_peraturan[]" class="form-control">
-                            </td>
-                            <td>
-                                <textarea class="form-control" name="perihal_peraturan[]" rows="2"></textarea>
-                            </td>
-                        </tr>`)
+                        <td>
+                            <input type="text" name="jenis_peraturan[]" class="form-control" placeholder="Surat/Akta Notaris/SK">
+                        </td>
+                        <td>
+                            <input type="text" name="pejabat_daerah[]" class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" name="nomor_peraturan[]" class="form-control">
+                        </td>
+                        <td>
+                            <textarea class="form-control" name="perihal_peraturan[]" rows="2"></textarea>
+                        </td>
+                        <td class="text-center">
+                            <button type="button" id="${j}" class="btn remove-btn1 btn-sm btn-danger">
+                                <i class="fas fa-minus fa-sm"></i>
+                            </button>
+                        </td>
+                    </tr>`)
         });
 
         $(document).on('click', '.remove-btn1', function() {
-            var button_id = j;
+            var button_id = $(this).attr('id');
             $('#1Claster' + button_id + '').remove();
             j--
         });
@@ -1259,7 +1284,6 @@
         $('#add2').click(function() {
             i++
             $('.table-input2').append(`<tr id="2Claster${i}">
-                            <td>${i}</td>
                             <td>
                                 <input type="text" name="jenis_izin[]" class="form-control" placeholder="Surat/Keputusan/Ketetapan">
                             </td>
@@ -1274,6 +1298,11 @@
                             </td>
                             <td>
                                 <textarea class="form-control" name="perihal[]" rows="2"></textarea>
+                            </td>
+                            <td class="text-center">
+                                <button type="button" id="${i}" class="btn remove-btn2 btn-sm btn-danger">
+                                    <i class="fas fa-minus fa-sm"></i>
+                                </button>
                             </td>
                         </tr>`)
         });

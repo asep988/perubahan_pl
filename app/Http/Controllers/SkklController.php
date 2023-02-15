@@ -570,10 +570,21 @@ class SkklController extends Controller
 		}
 
 		$data = array_values(array_unique($data));
+		$roman = 0;
 
 		for ($i = 0; $i < count($pertek); $i++) {
 			if ($request->pertek == $pertek[$i]->pertek) {
-				$isi = "Persetujuan Teknis Pemenuhan Baku Mutu Air Limbah";
+				if ($request->pertek == "pertek1") {
+					$isi = "Persetujuan Teknis Pemenuhan Baku Mutu Air Limbah";
+				} else if ($request->pertek == "pertek2") {
+					$isi = "Persetujuan Teknis Pemenuhan Baku Mutu Emisi";
+				} else if ($request->pertek == "pertek3") {
+					$isi = "Persetujuan Teknis Di Bidang Pengelolaan Limbah B3";
+				} else if ($request->pertek == "pertek4") {
+					$isi = "Persetujuan Teknis Andalalin";
+				} else if ($request->pertek == "pertek5") {
+					$isi = "Persetujuan Teknis Dokumen Rincian Teknis";
+				}
 				$index = array_search('pertek1', $data);
 				$roman = 3 + $index;
 				$pertek_isi .= '<li>Surat/Izin/Keputusan '.ucfirst($pertek[$i]->surat_pertek).'
