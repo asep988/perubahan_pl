@@ -149,7 +149,7 @@ class PkplhController extends Controller
 
         $message = 'regist2';
         $key = 'SKKL';
-        $hash = hash_hmac('sha256', $message, $key);    
+        $hash = hash_hmac('sha256', $message, $key);
         $regist = "B" .substr($hash, 0, 14);
 
 		DB::beginTransaction();
@@ -485,7 +485,6 @@ class PkplhController extends Controller
 		$pkplh->perihal_peraturan	=	$perihal_peraturan;
 		$pkplh->ruang_lingkup		= 	$request->ruang_lingkup;
 		$pkplh->pertek				= 	$pertek;
-		$pkplh->status 				= 	"Belum";
 		$pkplh->update();
 
 		il_pkplh::where('id_pkplh', $id)->delete();

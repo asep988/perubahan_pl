@@ -252,7 +252,7 @@
                         <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
                             <span>
                                 bahwa {{ $data_pkplh->jabatan_baru }} melalui surat Nomor: {{ $data_pkplh->nomor_pl }}, Tanggal {{ tgl_indo($data_pkplh->tgl_pl) }}, perihal {{ $data_pkplh->perihal }},
-                                mengajukan permohonan perubahan persetujuan lingkungan kepada Menteri Lingkungan Hidup; 
+                                mengajukan permohonan perubahan persetujuan lingkungan kepada Menteri Lingkungan Hidup;
                             </span>
                         </li>
                         <!-- point c lama -->
@@ -413,7 +413,7 @@
                     <ol start="4" type="a" style="margin:0pt; padding-left:0pt">
                         <!-- point d -->
                         <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
-                            <span>d. bahwa telah diterbitkan Keputusan Menteri Lingkungan Hidup dan Kehutanan Nomor:
+                            <span>bahwa telah diterbitkan Keputusan Menteri Lingkungan Hidup dan Kehutanan Nomor:
                                 SK.1206/Menlhk/Setjen/Kum.1/12/2021 tentang Penunjukan Pejabat Penerbit Persetujuan
                                 Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup kepada Direktur Jenderal Planologi
                                 Kehutanan dan Tata Lingkungan; </span>
@@ -430,7 +430,7 @@
                             <span>berdasarkan pertimbangan sebagaimana dimaksud dalam huruf a sampai dengan e, perlu
                                 menetapkan Keputusan Mentri Lingkungan Hidup dan Kehutanan Republik Indonesia
                                 tentang
-                                Kelayakan Lingkungan Hidup Kegiatan {{ $data_pkplh->nama_usaha_baru }} di Kota/Kabupaten {{ucwords(strtolower($data_kabkota))}} 
+                                Kelayakan Lingkungan Hidup Kegiatan {{ $data_pkplh->nama_usaha_baru }} di Kota/Kabupaten {{ucwords(strtolower($data_kabkota))}}
                                 Provinsi {{ucwords(strtolower($data_prov)) }}; </span>
                         </li>
                     </ol>
@@ -507,7 +507,7 @@
                 <td style="width:68%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>Risalah Pengolahan Data (RPD) Penerbitan
                             Persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup Kegiatan
-                            {{ $data_pkplh->nama_usaha_baru }} di Kota/Kabupaten {{ucwords(strtolower($data_kabkota))}} Provinsi {{ ucwords(strtolower($data_prov)) }} 
+                            {{ $data_pkplh->nama_usaha_baru }} di Kota/Kabupaten {{ucwords(strtolower($data_kabkota))}} Provinsi {{ ucwords(strtolower($data_prov)) }}
                             Nomor RPD: {{ $data_pkplh->nomor_rpd }}
                 </td>
             </tr>
@@ -529,7 +529,7 @@
                     <p style="text-align:justify; font-size:12pt"><span>KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN
                             KEHUTANAN
                             TENTANG PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN HIDUP KEGIATAN
-                            {{ strtoupper($data_pkplh->nama_usaha_baru) }} DI KOTA/KABUPATEN {{ $data_kabkota }} 
+                            {{ strtoupper($data_pkplh->nama_usaha_baru) }} DI KOTA/KABUPATEN {{ $data_kabkota }}
                             PROVINSI {{ $data_prov }} OLEH {{ strtoupper($data_pkplh->pelaku_usaha_baru) }} </span>
                     </p>
                 </td>

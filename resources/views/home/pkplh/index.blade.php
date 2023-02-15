@@ -99,10 +99,12 @@
                             <span class="badge badge-primary">Selesai Drafting</span>
                         @elseif ($pkplh->status == "Final")
                             <span class="badge badge-success">Selesai</span>
+                        @elseif ($pkplh->status == "Final" && $pkplh->file != null)
+                            <a href="{{ asset('storage/files/pkplh/' . $pkplh->file) }}"><span class="badge badge-success">Selesai</span></a>
                         @elseif ($pkplh->status == "Batal")
                             <span class="badge badge-danger" title="{{ $pkplh->note }}">Dibatalkan</span>
-                        @else
-                            <span class="badge badge-danger" title="{{ $pkplh->note }}">Ditolak</span>
+                        @elseif ($pkplh->status == "Batal" && $pkplh->file != null)
+                            <a href=""><span class="badge badge-danger" title="{{ $pkplh->note }}">Dibatalkan</span></a>
                         @endif
                     </td>
                     <td class="text-center">
@@ -126,7 +128,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <a class="btn btn-success btn-block" href="{{ route('uklupl.create', $pkplh->id) }}">Dokumen UKL-UPL</a>
+            <a class="btn btn-success btn-block" href="{{ route('uklupl.create', $pkplh->id) }}">Dokumen UKL-UPL (Lampiran I)</a>
             <a class="btn btn-success btn-block" target="_blank" href="{{ route('pkplh.regist', $pkplh->id) }}">Bukti Submit</a>
             @if ($pkplh->rintek_upload)
                 <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek_upload) }}">Unduh Dokumen Rincian Teknis</a></button>
@@ -135,6 +137,17 @@
                 <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek_limbah_upload) }}">Unduh Dokumen Rincian Teknis Penyimpanan Limbah B3</a></button>
             @endif
             <hr>
+            <?php $i = 2; ?>
+            @if ($pkplh->jenis_perubahan != 'perkep1')
+                @foreach ($pkplh->pertek as $pertek)
+                    <form @if ($pertek != "pertek6") action="{{ route('pemrakarsa.pkplh.pertek', $pkplh->id) }}" @else action="{{ route('pemrakarsa.pkplh.rintek', $pkplh->id) }}" @endif method="GET">
+                        @csrf
+                        <input type="text" name="pertek" value="{{ $pertek }}" hidden>
+                        <button type="submit" class="btn btn-primary btn-block mb-2">Preview lampiran {{ integerToRoman($i) }}</button>
+                    </form>
+                    <?php $i++; ?>
+                @endforeach
+            @endif
             <a class="btn btn-warning btn-block @if ($pkplh->status == "Final") disabled @endif" href="{{ route('pkplh.edit', $pkplh->id) }}">Ubah Data PKPLH</a>
             <button type="button" class="btn btn-danger btn-block my-2" data-toggle="modal" data-target="{{ '#batal'.$pkplh->id }}">Batalkan Permohonan</button>
             <a class="btn btn-primary btn-block" href="{{ route('pkplh.review', $pkplh->id) }}">Preview Dokumen PKPLH</a>
@@ -160,7 +173,7 @@
             <div class="modal-body">
                 <div class="input-box mb-2">
                     <label for="note" class="form-label">Catatan</label>
-                    <textarea class="form-control" name="note" id="note"></textarea>
+                    <textarea class="form-control" name="note" id="note" required></textarea>
                     {{-- <input type="text" class="form-control" name="note" required> --}}
                 </div>
             </div>

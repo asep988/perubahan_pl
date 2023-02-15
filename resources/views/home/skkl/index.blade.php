@@ -89,8 +89,12 @@
                             <span class="badge badge-primary">Selesai Drafting</span>
                         @elseif ($skkl->status == "Final")
                             <span class="badge badge-success">Selesai</span>
+                        @elseif ($skkl->status == "Final" && $skkl->file != null)
+                            <a href="{{ asset('storage/files/skkl/' . $skkl->file) }}"><span class="badge badge-success">Selesai</span></a>
                         @elseif ($skkl->status == "Batal")
                             <span class="badge badge-danger" title="{{ $skkl->note }}">Dibatalkan</span>
+                        @elseif ($skkl->status == "Batal" && $skkl->file != null)
+                            <a href=""><span class="badge badge-danger" title="{{ $skkl->note }}">Dibatalkan</span></a>
                         @else
                             <span class="badge badge-danger" title="{{ $skkl->note }}">Ditolak</span>
                         @endif
@@ -167,7 +171,7 @@
             <div class="modal-body">
                 <div class="input-box mb-2">
                     <label for="note" class="form-label">Catatan</label>
-                    <textarea class="form-control" name="note" id="note"></textarea>
+                    <textarea class="form-control" name="note" id="note" required></textarea>
                     {{-- <input type="text" class="form-control" name="note" required> --}}
                 </div>
             </div>

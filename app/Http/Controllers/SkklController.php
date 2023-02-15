@@ -34,7 +34,7 @@ class SkklController extends Controller
 		$data = array("Test", "Testing");
 
 		if (in_array("Test", $data)) {
-			$cek = 1; 
+			$cek = 1;
 		} else {
 			$cek = 0;
 		}
@@ -145,7 +145,7 @@ class SkklController extends Controller
 
 		$message = 'regist2';
         $key = 'SKKL';
-        $hash = hash_hmac('sha256', $message, $key);    
+        $hash = hash_hmac('sha256', $message, $key);
         $regist = "A" .substr($hash, 0, 14);
 
 		DB::beginTransaction();
@@ -423,7 +423,6 @@ class SkklController extends Controller
 		$skkl->pend_tek				= 	$request->pend_tek;
 		$skkl->pend_sos				= 	$request->pend_sos;
 		$skkl->pend_institut		= 	$request->pend_institut;
-		$skkl->status 				= 	"Belum";
 		$skkl->update();
 
 		il_skkl::where('id_skkl', $id)->delete();

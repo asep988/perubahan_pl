@@ -55,7 +55,7 @@
             <thead>
                     <tr class="text-center">
                         <th width="70px">No</th>
-                        {{-- <th>Nomor Registrasi</th> --}}
+                        <th>Nomor Registrasi</th>
                         <th>Tanggal Dibuat</th>
                         <th>Pemrakarsa</th>
                         <th>Nama Usaha/ Kegiatan</th>
@@ -82,6 +82,7 @@
                     @foreach ($data_pkplh as $pkplh)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $pkplh->noreg }}</td>
                         <td>{{ $pkplh->created_at }}</td>
                         <td> <!-- Pemrakarsa -->
                             @foreach ($pemrakarsa as $user)
@@ -181,7 +182,7 @@
                         <div class="modal-body">
                             <div class="input-box mb-2">
                                 <label for="note" class="form-label">Catatan</label>
-                                <textarea class="form-control" name="note" id="note"></textarea>
+                                <textarea class="form-control" name="note" id="note" required></textarea>
                                 {{-- <input type="text" class="form-control" name="note" required> --}}
                             </div>
                         </div>

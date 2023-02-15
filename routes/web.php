@@ -76,6 +76,8 @@ Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {
     Route::get('/pemrakarsa/lampiran/satu/{id}', 'SkklController@download_lampiranI')->name('pemrakarsa.download.lampiran1');
     Route::get('/pemrakarsa/pertek/{id}', 'SkklController@download_pertek')->name('pemrakarsa.download.pertek');
     Route::get('/pemrakarsa/rintek/{id}', 'SkklController@download_rintek')->name('pemrakarsa.download.rintek');
+    Route::get('/pemrakarsa/pertek/pkplh/{id}', 'PkplhController@download_pertek')->name('pemrakarsa.pkplh.pertek');
+    Route::get('/pemrakarsa/rintek/pkplh/{id}', 'PkplhController@download_rintek')->name('pemrakarsa.pkplh.rintek');
 });
 
 Route::group(['middleware' => ['auth', 'cekRole:Operator']], function() {

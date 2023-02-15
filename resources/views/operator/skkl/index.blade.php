@@ -63,7 +63,7 @@
             <thead>
                 <tr class="text-center">
                     <th width="70px">No</th>
-                    {{-- <th>Nomor Registrasi</th> --}}
+                    <th>Nomor Registrasi</th>
                     <th>Tanggal Dibuat</th>
                     <th>Pemrakarsa</th>
                     <th>Nama Usaha/ Kegiatan</th>
@@ -80,6 +80,7 @@
                 @foreach ($data_skkl as $skkl)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $skkl->noreg }}</td>
                         <td>{{ $skkl->created_at }}</td>
                         <td>
                             @foreach ($pemrakarsa as $user)

@@ -55,7 +55,7 @@
                 <thead>
                     <tr class="text-center">
                         <th width="70px">No</th>
-                        {{-- <th>Nomor Registrasi</th> --}}
+                        <th>Nomor Registrasi</th>
                         <th>Tanggal Dibuat</th>
                         <th>Pemrakarsa</th>
                         <th>Nama Usaha/ Kegiatan</th>
@@ -82,6 +82,7 @@
                     @foreach ($data_skkl as $skkl)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
+                            <td>{{ $skkl->noreg }}</td>
                             <td>{{ $skkl->created_at }}</td>
                             <td>
                                 <!-- Pemrakarsa -->
@@ -186,7 +187,7 @@
                         <div class="modal-body">
                             <div class="input-box mb-2">
                                 <label for="note" class="form-label">Catatan</label>
-                                <textarea class="form-control" name="note" id="note"></textarea>
+                                <textarea class="form-control" name="note" id="note" required></textarea>
                                 {{-- <input type="text" class="form-control" name="note" required> --}}
                             </div>
                         </div>
@@ -221,7 +222,7 @@
                         <a class="btn btn-success btn-block"
                             href="{{ route('sekretariat.printrpl.download', [$skkl->id]) }}">
                             Unduh Lampiran 1 RPL</a></button>
-                        <a class="btn btn-success btn-block" 
+                        <a class="btn btn-success btn-block"
                             href="{{ url($skkl->link_drive) }}"> Drive</a></button>
 
                         @if ($skkl->rintek_upload)
