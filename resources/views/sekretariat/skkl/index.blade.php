@@ -241,7 +241,7 @@
                         <a class="btn btn-primary btn-block mb-2"
                             href="{{ route('sekretariat.download.lampiran1', $skkl->id) }}">Unduh lampiran II</a>
                         <?php $i = 3; ?>
-                        @if ($skkl->jenis_perubahan != 'perkep1')
+                        @if ($skkl->jenis_perubahan != 'perkep1' && $skkl->pertek[0] != null)
                             @foreach ($skkl->pertek as $pertek)
                                 <form
                                     @if ($pertek != 'pertek6') action="{{ route('sekretariat.download.pertek', $skkl->id) }}" @else action="{{ route('sekretariat.download.rintek', $skkl->id) }}" @endif

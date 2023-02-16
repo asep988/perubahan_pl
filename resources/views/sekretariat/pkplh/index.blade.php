@@ -224,7 +224,7 @@
                         <hr>
 
                         <?php $i = 2; ?>
-                        @if ($pkplh->jenis_perubahan != 'perkep1')
+                        @if ($pkplh->jenis_perubahan != 'perkep1' && $pkplh->pertek[0] != null)
                             @foreach ($pkplh->pertek as $pertek)
                                 <form
                                     @if ($pertek != 'pertek6') action="{{ route('sekretariat.pkplh.pertek', $pkplh->id) }}" @else action="{{ route('sekretariat.pkplh.rintek', $pkplh->id) }}" @endif

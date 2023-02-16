@@ -140,14 +140,12 @@
             <?php $i = 2; ?>
             @if ($pkplh->jenis_perubahan != 'perkep1' && $pkplh->pertek[0] != null)
                 @foreach ($pkplh->pertek as $pertek)
-                    @if ($pertek != null)
-                        <form @if ($pertek != "pertek6") action="{{ route('pemrakarsa.pkplh.pertek', $pkplh->id) }}" @else action="{{ route('pemrakarsa.pkplh.rintek', $pkplh->id) }}" @endif method="GET">
-                            @csrf
-                            <input type="text" name="pertek" value="{{ $pertek }}" hidden>
-                            <button type="submit" class="btn btn-primary btn-block mb-2">Preview lampiran {{ integerToRoman($i) }}</button>
-                        </form>
-                        <?php $i++; ?>
-                    @endif
+                    <form @if ($pertek != "pertek6") action="{{ route('pemrakarsa.pkplh.pertek', $pkplh->id) }}" @else action="{{ route('pemrakarsa.pkplh.rintek', $pkplh->id) }}" @endif method="GET">
+                        @csrf
+                        <input type="text" name="pertek" value="{{ $pertek }}" hidden>
+                        <button type="submit" class="btn btn-primary btn-block mb-2">Preview lampiran {{ integerToRoman($i) }}</button>
+                    </form>
+                    <?php $i++; ?>
                 @endforeach
             @endif
             <a class="btn btn-warning btn-block @if ($pkplh->status == "Final") disabled @endif" href="{{ route('pkplh.edit', $pkplh->id) }}">Ubah Data PKPLH</a>

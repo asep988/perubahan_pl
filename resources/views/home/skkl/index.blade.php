@@ -140,14 +140,12 @@
             <?php $i = 3; ?>
             @if ($skkl->jenis_perubahan != 'perkep1' && $skkl->pertek[0] != null)
                 @foreach ($skkl->pertek as $pertek)
-                    @if ($pertek != null)
-                        <form @if ($pertek != "pertek6") action="{{ route('pemrakarsa.download.pertek', $skkl->id) }}" @else action="{{ route('pemrakarsa.download.rintek', $skkl->id) }}" @endif method="GET">
-                            @csrf
-                            <input type="text" name="pertek" value="{{ $pertek }}" hidden>
-                            <button type="submit" class="btn btn-primary btn-block mb-2">Preview lampiran {{ integerToRoman($i) }}</button>
-                        </form>
-                        <?php $i++; ?>
-                    @endif
+                    <form @if ($pertek != "pertek6") action="{{ route('pemrakarsa.download.pertek', $skkl->id) }}" @else action="{{ route('pemrakarsa.download.rintek', $skkl->id) }}" @endif method="GET">
+                        @csrf
+                        <input type="text" name="pertek" value="{{ $pertek }}" hidden>
+                        <button type="submit" class="btn btn-primary btn-block mb-2">Preview lampiran {{ integerToRoman($i) }}</button>
+                    </form>
+                    <?php $i++; ?>
                 @endforeach
             @endif
             <a class="btn btn-primary btn-block" href="{{ route('skkl.review', $skkl->id) }}">Preview Dokumen SKKL</a>
