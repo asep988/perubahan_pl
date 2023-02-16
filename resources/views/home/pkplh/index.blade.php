@@ -11,7 +11,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 <li>
-                    <h4><b>PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN HIDUP (PKPLH)</b></h4>
+                    <h4><b>Permohonan Persetujuan Lingkungan (PKPLH)</b></h4>
                 </li>
             </ul>
 
@@ -62,7 +62,10 @@
     </nav>
 </div>
 <div class="card-body">
-    <button class=" btn btn-sm btn-success"><a style="color: white;" href="{{ route('pkplh.create') }}">Tambah</a></button><br><br>
+    <a class=" btn btn-sm btn-success float-left" style="color: white;" href="{{ route('pkplh.create') }}">Tambah</a>
+    <div class="d-flex justify-content-center">
+        <a class=" btn btn-outline-success mb-3" target="_blank" style="margin-left: -30px" href="https://wa.me/6281339990567">Jika ingin bertanya lebih lanjut, hubungi kami&nbsp;&nbsp;<img src="{{ asset('img/whatsapp.png') }}" width="30px" alt=""></a>
+    </div>
     <div class="table-responsive">
         <table id="datatable" class="table" style="width: 100%">
             <thead>

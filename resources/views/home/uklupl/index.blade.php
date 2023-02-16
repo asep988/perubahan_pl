@@ -65,29 +65,33 @@
                     {{ session('pesan') }}
                 </div>
             @endif
+            @error('file')
+                <div class="alert alert-danger" role="alert">
+                    File yang diupload salah!
+                </div>
+            @enderror
             <div class="table-responsive">
                 <table id="datatable" class="table table-bordered table-striped" style="table-layout: fixed;">
                     <thead>
                         <tr>
-                            <th width="70px" rowspan="2" class="align-middle">No</th>
+                            <th rowspan="2" class="align-middle">No</th>
                             <th colspan="3" class="align-middle"></th>
                             <th colspan="3" class="align-middle">Standar Pengelolaan Lingkungan Hidup</th>
                             <th colspan="3" class="align-middle">Standar Pemantauan Lingkungan Hidup</th>
                             <th rowspan="2">Institusi Pengelola dan Pemantau Lingkungan Hidup</th>
                             <th rowspan="2" class="align-middle">Keterangan</th>
-                            <th rowspan="2" class="align-middle">Aksi</th>
+                            <th width="60px" rowspan="2" class="align-middle text-center">Aksi</th>
                         </tr>
                         <tr>
-                            <th>Sumber Dampak</th>
-                            <th>Jenis Dampak</th>
-                            <th>Besaran Dampak</th>
-                            <th>Bentuk</th>
-                            <th>Lokasi</th>
-                            <th>Periode</th>
-                            <th>Bentuk</th>
-                            <th>Lokasi</th>
-                            <th>Periode</th>
-
+                            <th class="align-middle">Sumber Dampak</th>
+                            <th class="align-middle">Jenis Dampak</th>
+                            <th class="align-middle">Besaran Dampak</th>
+                            <th class="align-middle">Bentuk</th>
+                            <th class="align-middle">Lokasi</th>
+                            <th class="align-middle">Periode</th>
+                            <th class="align-middle">Bentuk</th>
+                            <th class="align-middle">Lokasi</th>
+                            <th class="align-middle">Periode</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -120,16 +124,18 @@
                 </table>
             </div>
 
+            <hr>
+
             <form action="{{ route('uklupl.store') }}" method="post">
                 @csrf
-                <div class="d-flex mt-5">
+                <div class="d-flex">
                     <h5>
                         <b>Tambah Data UKL/UPL</b>
                     </h5>
-                    {{-- <button type="button" class="btn btn-primary ml-auto mb-1" data-toggle="modal"
+                    <button type="button" class="btn btn-primary ml-auto mb-1" data-toggle="modal"
                         data-target="#importModal">
                         Import
-                    </button> --}}
+                    </button>
                 </div>
                 <input type="hidden" name="id_pkplh" value="{{ $id_pkplh }}">
                 <table border="1" width="100%" class="mb-3">
@@ -246,10 +252,23 @@
                 <form action="{{ route('uklupl.import', $id_pkplh) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
+                        @error('file')
+                            <div class="alert alert-danger" role="alert">
+                                File yang diupload salah!
+                            </div>
+                        @enderror
                         <span><b>Download Template</b></span>
                         <div class="input-group mb-3">
-                            <a type="button" class="btn btn-sm btn-success mr-1" target="_blank"
-                                href="{{ asset('template/UKLUPL Template.xlsx') }}">Download</a>
+                            <a type="button" class="btn btn-sm btn-success mr-1" target="_blank" href="{{ asset('template/UKLUPL Template.xlsx') }}">Download</a>
+                            <button type="button" class="btn btn-sm btn-warning" id="importDetail"><i class="fas fa-info fa-sm"></i></button>
+                        </div>
+
+                        <div style="display: none" class="alert alert-warning" role="alert" id="detail-import">
+                            <span style="font-size: 12px">Syarat upload file untuk import:</span>
+                            <span style="font-size: 12px"><br>1. File yang diupload harus menggunakan template yang disediakan</span>
+                            <span style="font-size: 12px"><br>2. Isi tabel harus menyesuaikan dengan template</span>
+                            <span style="font-size: 12px"><br>3. File yang diupload tidak bisa melebihi dari 5 mb</span>
+                            <span style="font-size: 12px"><br>4. Format yang diupload harus berbentuk Excel (xlsx)</span>
                         </div>
 
                         <span><b>Pilih file:</b></span>
@@ -275,6 +294,10 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            $('#importDetail').click(function () {
+                $('#detail-import').fadeToggle('slow');
+            });
+
             $("#datatable").DataTable({
                 "scrollX": true,
                 "responsive": false,

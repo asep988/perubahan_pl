@@ -71,6 +71,9 @@ class RklController extends Controller
 
     public function import(Request $request, $id)
     {
+		$request->validate([
+			'file' => 'nullable|mimes:xlsx|max:5120'
+		]);
         Excel::import(new ImportsRkl($id), $request->file);
 
         return back()->with('pesan', 'Import Success');

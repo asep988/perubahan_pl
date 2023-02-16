@@ -332,7 +332,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="no_hp_pic" class="col-sm-2 col-form-label">Nomor PIC yang bisa dihubungi</label>
+                    <label for="no_hp_pic" class="col-sm-2 col-form-label">Nomor PIC (Nomor WA aktif)</label>
                     <div class="col-sm-8">
                         <input type="text" style="width: 100%" class="form-control" id="no_hp_pic" name="no_hp_pic" value="{{ $pkplh->no_hp_pic }}" placeholder="Nomor Telepon PIC" required>
                     </div>

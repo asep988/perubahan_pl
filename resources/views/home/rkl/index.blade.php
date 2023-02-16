@@ -65,21 +65,26 @@
                     {{ session('pesan') }}
                 </div>
             @endif
+            @error('file')
+                <div class="alert alert-danger" role="alert">
+                    File yang diupload salah!
+                </div>
+            @enderror
             <div class="table-responsive">
-                <table id="datatable" class="table" style="width: 100%">
+                <table id="datatable" class="table table-bordered table-striped" style="width: 100%">
                     <thead>
                         <tr>
-                            <th width="70px">No</th>
-                            <th>Tahap Kegiatan</th>
-                            <th>Jenis DPH</th>
-                            <th>Dampak Lingkungan yang Dikelola</th>
-                            <th>Sumber Dampak</th>
-                            <th>Indikator Keberhasilan Pengelolaan Lingkungan Hidup</th>
-                            <th>Bentuk Pengelolaan Lingkungan Hidup</th>
-                            <th>Lokasi Pengelolaan Lingkungan Hidup</th>
-                            <th>Periode Pengelolaan Lingkungan Hidup</th>
-                            <th>Institusi Pengelolaan Lingkungan Hidup</th>
-                            <th width="200px">Aksi</th>
+                            <th class="align-middle">No</th>
+                            <th class="align-middle">Tahap Kegiatan</th>
+                            <th class="align-middle">Jenis DPH</th>
+                            <th class="align-middle">Dampak Lingkungan yang Dikelola</th>
+                            <th class="align-middle">Sumber Dampak</th>
+                            <th class="align-middle">Indikator Keberhasilan Pengelolaan Lingkungan Hidup</th>
+                            <th class="align-middle">Bentuk Pengelolaan Lingkungan Hidup</th>
+                            <th class="align-middle">Lokasi Pengelolaan Lingkungan Hidup</th>
+                            <th class="align-middle">Periode Pengelolaan Lingkungan Hidup</th>
+                            <th class="align-middle">Institusi Pengelolaan Lingkungan Hidup</th>
+                            <th class="align-middle text-center" width="60px">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -96,7 +101,7 @@
                         </tr> --}}
                         @foreach ($data_rkl as $rkl)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td class="text-center">{{ $loop->iteration }}</td>
                                 <td>{{ $rkl->tahap_kegiatan }}</td>
                                 <td>{{ $rkl->jenis_dph }}</td>
                                 <td>{{ $rkl->dampak_dikelola }}</td>
@@ -106,14 +111,11 @@
                                 <td>{!! $rkl->lokasi !!}</td>
                                 <td>{{ $rkl->periode }}</td>
                                 <td>{!! $rkl->institusi !!}</td>
-                                <td>
+                                <td class="text-center">
                                     <form action="{{ route('rkl.delete', $rkl->id) }}" method="post">
                                         @csrf
-                                        <a class="btn btn-sm btn-warning" href="{{ route('rkl.ubah', $rkl->id) }}"><i
-                                                class="fa fa-edit"></i></a>
-                                        <button class="btn btn-sm btn-danger"
-                                            onclick="return confirm('yakin mau menghapus data ini?')"><i
-                                                class="fa fa-trash"></i></button>
+                                        <a class="btn btn-sm btn-warning" href="{{ route('rkl.ubah', $rkl->id) }}"><i class="fa fa-edit"></i></a>
+                                        <button class="btn btn-sm btn-danger" onclick="return confirm('yakin mau menghapus data ini?')"><i class="fa fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -122,16 +124,18 @@
                 </table>
             </div>
 
+            <hr>
+
             <form action="{{ route('rkl.store_rkl') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="d-flex">
                     <h5>
                         <b>Tambah Data RKL</b>
                     </h5>
-                    {{-- <button type="button" class="btn btn-sm btn-primary ml-auto mb-1" data-toggle="modal"
+                    <button type="button" class="btn btn-sm btn-primary ml-auto mb-1" data-toggle="modal"
                         data-target="#importModal">
                         Import
-                    </button> --}}
+                    </button>
                 </div>
                 <input type="hidden" name="id_skkl" value="{{ $id_skkl }}">
                 <table border="1" width="100%">
@@ -218,10 +222,23 @@
                 <form action="{{ route('rkl.import', $id_skkl) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
+                        @error('file')
+                            <div class="alert alert-danger" role="alert">
+                                File yang diupload salah!
+                            </div>
+                        @enderror
                         <span><b>Download Template</b></span>
                         <div class="input-group mb-3">
-                            <a type="button" class="btn btn-sm btn-success mr-1" target="_blank"
-                                href="{{ asset('template/RKL Template.xlsx') }}">Download</a>
+                            <a type="button" class="btn btn-sm btn-success mr-1" target="_blank" href="{{ asset('template/RKL Template.xlsx') }}">Download</a>
+                            <button type="button" class="btn btn-sm btn-warning" id="importDetail"><i class="fas fa-info fa-sm"></i></button>
+                        </div>
+
+                        <div style="display: none" class="alert alert-warning" role="alert" id="detail-import">
+                            <span style="font-size: 12px">Syarat upload file untuk import:</span>
+                            <span style="font-size: 12px"><br>1. File yang diupload harus menggunakan template yang disediakan</span>
+                            <span style="font-size: 12px"><br>2. Isi tabel harus menyesuaikan dengan template</span>
+                            <span style="font-size: 12px"><br>3. File yang diupload tidak bisa melebihi dari 5 mb</span>
+                            <span style="font-size: 12px"><br>4. Format yang diupload harus berbentuk Excel (xlsx)</span>
                         </div>
 
                         <span><b>Pilih file:</b></span>
@@ -247,6 +264,10 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            $('#importDetail').click(function () {
+                $('#detail-import').fadeToggle('slow');
+            });
+
             $("#datatable").DataTable({
                 "scrollX": true,
                 "responsive": false,

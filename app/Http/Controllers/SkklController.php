@@ -128,7 +128,7 @@ class SkklController extends Controller
 		if ($request->rintek_upload) {
 			$file1 = $request->file('rintek_upload');
 			$format1 = $file1->getClientOriginalExtension();
-			$fileName1 = time() . '_rintek.' . $format1; //Variabel yang menampung nama file
+			$fileName1 = time() . rand(0,100) . '_rintek.' . $format1; //Variabel yang menampung nama file
 			$file1->storeAs('files/skkl/rintek', $fileName1); //Simpan ke Storage
 		} else {
 			$fileName1 = null;
@@ -137,7 +137,7 @@ class SkklController extends Controller
 		if ($request->rintek_limbah_upload) {
 			$file2 = $request->file('rintek_limbah_upload');
 			$format2 = $file2->getClientOriginalExtension();
-			$fileName2 = time() . '_rintek_limbah.' . $format2; //Variabel yang menampung nama file
+			$fileName2 = time() . rand(0,100) . '_rintek_limbah.' . $format2; //Variabel yang menampung nama file
 			$file2->storeAs('files/skkl/rintek', $fileName2); //Simpan ke Storage
 		} else {
 			$fileName2 = null;
@@ -356,7 +356,7 @@ class SkklController extends Controller
 
 			$file1 = $request->file('rintek_upload');
 			$format1 = $file1->getClientOriginalExtension();
-			$fileName1 = time() . '_rintek.' . $format1; //Variabel yang menampung nama file
+			$fileName1 = time() . rand(0,100) . '_rintek.' . $format1; //Variabel yang menampung nama file
 			$file1->storeAs('files/skkl/rintek', $fileName1); //Simpan ke Storage
 		} else {
 			$fileName1 = null;
@@ -370,7 +370,7 @@ class SkklController extends Controller
 
 			$file2 = $request->file('rintek_limbah_upload');
 			$format2 = $file2->getClientOriginalExtension();
-			$fileName2 = time() . '_rintek_limbah.' . $format2; //Variabel yang menampung nama file
+			$fileName2 = time() . rand(0,100) . '_rintek_limbah.' . $format2; //Variabel yang menampung nama file
 			$file2->storeAs('files/skkl/rintek', $fileName2); //Simpan ke Storage
 		} else {
 			$fileName2 = null;
