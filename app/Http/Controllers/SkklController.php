@@ -89,11 +89,11 @@ class SkklController extends Controller
 
 		if (in_array("pertek5", $pertek)) {
 			$request->validate([
-				'rintek_upload' => 'required|max:10240',
+				'rintek_upload' => 'required',
 			]);
 		} else if (in_array("pertek6", $pertek)) {
 			$request->validate([
-				'rintek_limbah_upload' => 'required|max:10240'
+				'rintek_limbah_upload' => 'required'
 			]);
 		}
 
@@ -310,11 +310,11 @@ class SkklController extends Controller
 
 		if (in_array("pertek5", $pertek)) {
 			$request->validate([
-				'rintek_upload' => 'required|max:10240',
+				'rintek_upload' => 'required',
 			]);
 		} else if (in_array("pertek6", $pertek)) {
 			$request->validate([
-				'rintek_limbah_upload' => 'required|max:10240'
+				'rintek_limbah_upload' => 'required'
 			]);
 		}
 
