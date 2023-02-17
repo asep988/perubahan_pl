@@ -320,8 +320,6 @@ class PkplhController extends Controller
 		$selected_kabupaten_kota = $pkplh->kabupaten_kota;
 		$jum = count($il_pkplh);
 
-        return $pkplh->jenis_perubahan;
-
 		return view('home.pkplh.edit', compact('provinces', 'initiator', 'regencies', 'pkplh', 'jum', 'il_pkplh', 'selected_provinces', 'selected_kabupaten_kota', 'pertek_pkplh'));
 	}
 
