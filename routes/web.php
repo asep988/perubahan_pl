@@ -49,7 +49,7 @@ Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {
     Route::put('/Pemrakarsa/pkplh/batal/{id}', 'PkplhController@batal')->name('pkplh.batal');
     Route::get('/Pemrakarsa/pkplh/regist/{id}', 'PkplhController@regist')->name('pkplh.regist');
     //rkl
-    Route::get('/Pemrakarsa/rkl/create/{id}', 'RklController@create')->name('rkl.create');
+    Route::get('/Pemrakarsa/rkl/create', 'RklController@create')->name('rkl.create');
     Route::post('/Pemrakarsa/rkl/delete/{id}', 'RklController@delete')->name('rkl.delete');
     Route::get('/Pemrakarsa/rkl/ubah/{id}', 'RklController@ubah')->name('rkl.ubah');
     Route::post('/Pemrakarsa/rkl/update/{id}', 'RklController@update')->name('rkl.update');
@@ -57,7 +57,7 @@ Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {
     Route::post('/Pemrakarsa/rkl/import/{id}', 'RklController@import')->name('rkl.import');
 
     //ukl_upl
-    Route::get('/Pemrakarsa/uklupl/create/{id}', 'UkluplController@create')->name('uklupl.create');
+    Route::get('/Pemrakarsa/uklupl/create', 'UkluplController@create')->name('uklupl.create');
     Route::post('/Pemrakarsa/uklupl/delete/{id}', 'UkluplController@delete')->name('uklupl.delete');
     Route::get('/Pemrakarsa/uklupl/ubah/{id}', 'UkluplController@ubah')->name('uklupl.ubah');
     Route::post('/Pemrakarsa/uklupl/update/{id}', 'UkluplController@update')->name('uklupl.update');
@@ -65,7 +65,7 @@ Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {
     Route::post('/Pemrakarsa/uklupl/{id}', 'UkluplController@import')->name('uklupl.import');
 
     //rpl
-    Route::get('/Pemrakarsa/rpl/create/{id}', 'RplController@create')->name('rpl.create');
+    Route::get('/Pemrakarsa/rpl/create', 'RplController@create')->name('rpl.create');
     Route::post('/Pemrakarsa/rpl/delete/{id}', 'RplController@delete')->name('rpl.delete');
     Route::get('/Pemrakarsa/rpl/ubah/{id}', 'RplController@ubah')->name('rpl.ubah');
     Route::post('/Pemrakarsa/rpl/update/{id}', 'RplController@update')->name('rpl.update');
