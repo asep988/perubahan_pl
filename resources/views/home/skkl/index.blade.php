@@ -54,7 +54,7 @@
 <div class="card-body">
     <a class=" btn btn-sm btn-success float-left" style="color: white;" href="{{ route('skkl.create') }}">Tambah</a>
     <div class="d-flex justify-content-center">
-        <a class=" btn btn-outline-success mb-3" target="_blank" style="margin-left: -30px" href="https://wa.me/6281339990567">Jika ingin bertanya lebih lanjut, hubungi kami&nbsp;&nbsp;<img src="{{ asset('img/whatsapp.png') }}" width="30px" alt=""></a>
+        <a class=" btn btn-outline-success mb-3" target="_blank" style="margin-left: -30px" href="https://wa.me/6281339990567">Layanan Chat Operator (Jam Kerja  09.00 - 15.00 WIB)&nbsp;&nbsp;<img src="{{ asset('img/whatsapp.png') }}" width="30px" alt=""></a>
     </div>
     <div class="table-responsive">
         <table id="datatable" class="table" style="width: 100%">

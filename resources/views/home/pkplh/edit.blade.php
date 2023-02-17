@@ -377,6 +377,7 @@
                     <label for="nomor_validasi" class="col-sm-2 col-form-label">Nomor Bukti Validasi Administrasi PTSP</label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" aria-label="nomor_validasi" id="nomor_validasi" value="{{ $pkplh->nomor_validasi }}" name="nomor_validasi">
+                        <small class="text-muted">Silakan isi dengan tanda "<b>-</b>" jika belum ada, dan perbarui kembali data jika sudah diproses di PTSP</small>
                     </div>
                 </div>
 
@@ -384,6 +385,7 @@
                     <label for="tgl_validasi" class="col-sm-2 col-form-label">Tanggal Validasi</label>
                     <div class="col-sm-3">
                         <input class="form-control" type="date" id="tgl_validasi" name="tgl_validasi" value="{{ $pkplh->tgl_validasi }}" placeholder="yyyy/mm/dd">
+                        <small class="text-muted">Jika belum ada, silakan isi dengan tanggal hari ini dan perbarui kembali data jika sudah diproses di PTSP</small>
                     </div>
                 </div>
 
