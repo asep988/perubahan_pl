@@ -409,7 +409,7 @@
                             <span>Bahwa berdasarkan hasil verifikasi administrasi oleh pelayanan Terpadu
                                 Satu Pintu Kementerian Lingkungan Hidup dan Kehutanan sesuai Berita Acara Validasi
                                 Permohonan Layanan Nomor {{ $data_skkl->nomor_validasi }},tanggal
-                                {{ tgl_indo($data_skkl->tgl_pl) }}
+                                {{ tgl_indo($data_skkl->tgl_validasi) }}
                                 dinyatakan lengkap secara administrasi; </span>
                         </li>
                         {{-- point e --}}
