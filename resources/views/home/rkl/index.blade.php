@@ -126,7 +126,7 @@
 
             <hr>
 
-            <form action="{{ route('rkl.store_rkl') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('rkl.store_rkl', $id_skkl) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="d-flex">
                     <h5>
