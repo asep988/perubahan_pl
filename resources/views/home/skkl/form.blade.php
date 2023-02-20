@@ -489,7 +489,7 @@
 
                 <div>
                     <!-- Lampiran I Pendekatan Pengelolaan Lingkungan -->
-                    <label><b>Lampiran I Pendekatan Pengelolaan Lingkungan</b></label>
+                    <label><b>Lampiran II Pendekatan Pengelolaan Lingkungan</b></label>
 
                     <div class="form-group row">
                         <div class="col-sm-8">
@@ -766,7 +766,7 @@
                                 </div>
                             </div>
                         </div>
-                        <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 10 mb </small>
+                        <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 5 mb </small>
                     </div>
 
                     <div class="custom-control custom-checkbox">
@@ -786,7 +786,7 @@
                                 <label class="custom-file-label" for="rintek_limbah_upload">Choose file</label>
                             </div>
                         </div>
-                        <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 10 mb </small>
+                        <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 5 mb </small>
                     </div>
                     <hr>
                 </div>

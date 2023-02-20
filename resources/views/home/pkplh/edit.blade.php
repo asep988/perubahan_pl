@@ -978,7 +978,7 @@
                             <label class="custom-file-label" for="rintek_upload">Choose file</label>
                         </div>
                     </div>
-                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 10 mb </small>
+                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 5 mb </small>
                 </div>
 
                 <div class="custom-control custom-checkbox">
@@ -996,7 +996,7 @@
                             <label class="custom-file-label" for="rintek_limbah_upload">Choose file</label>
                         </div>
                     </div>
-                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 10 mb </small>
+                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 5 mb </small>
                 </div>
                 <hr>
             </div>
