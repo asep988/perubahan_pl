@@ -52,7 +52,7 @@
             @csrf
             @method('PUT')
             <table id="datatable" class="table table-bordered table-striped" style="table-layout: fixed;">
-            <thead>
+                <thead>
                     <tr class="text-center">
                         <th width="70px">No</th>
                         <th>Nomor Registrasi</th>
@@ -80,84 +80,90 @@
                 </tfoot>
                 <tbody>
                     @foreach ($data_pkplh as $pkplh)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $pkplh->noreg }}</td>
-                        <td>{{ $pkplh->created_at }}</td>
-                        <td> <!-- Pemrakarsa -->
-                            @foreach ($pemrakarsa as $user)
-                                @if ($pkplh->user_id == $user->id)
-                                    {{ $user->name }}
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $pkplh->noreg }}</td>
+                            <td>{{ $pkplh->created_at }}</td>
+                            <td>
+                                <!-- Pemrakarsa -->
+                                @foreach ($pemrakarsa as $user)
+                                    @if ($pkplh->user_id == $user->id)
+                                        {{ $user->name }}
+                                    @endif
+                                @endforeach
+                            </td>
+                            <td>{{ $pkplh->nama_usaha_baru }}</td> <!-- nama usaha/kegiatan -->
+                            <td class="text-center">
+                                <!-- status -->
+                                @if ($pkplh->status == 'Belum')
+                                    <span class="badge badge-secondary">Belum diproses</span>
+                                @elseif ($pkplh->status == 'Proses')
+                                    <span class="badge badge-warning">Proses Validasi</span>
+                                @elseif ($pkplh->status == 'Draft')
+                                    <span class="badge badge-primary">Selesai Drafting</span>
+                                @elseif ($pkplh->status == 'Final')
+                                    <span class="badge badge-success">Selesai</span>
+                                @elseif ($pkplh->status == 'Batal')
+                                    <span class="badge badge-danger" title="{{ $pkplh->note }}">Dibatalkan</span>
+                                @else
+                                    <span class="badge badge-danger" title="{{ $pkplh->note }}">Ditolak</span>
                                 @endif
-                            @endforeach
-                        </td>
-                        <td>{{ $pkplh->nama_usaha_baru }}</td> <!-- nama usaha/kegiatan -->
-                        <td class="text-center"> <!-- status -->
-                            @if ($pkplh->status == 'Belum')
-                                <span class="badge badge-secondary">Belum diproses</span>
-                            @elseif ($pkplh->status == 'Proses')
-                                <span class="badge badge-warning">Proses Validasi</span>
-                            @elseif ($pkplh->status == 'Draft')
-                                <span class="badge badge-primary">Selesai Drafting</span>
-                            @elseif ($pkplh->status == 'Final')
-                                <span class="badge badge-success">Selesai</span>
-                            @elseif ($pkplh->status == 'Batal')
-                                <span class="badge badge-danger" title="{{ $pkplh->note }}">Dibatalkan</span>
-                            @else
-                                <span class="badge badge-danger" title="{{ $pkplh->note }}">Ditolak</span>
-                            @endif
-                        </td>
-                        <td> <!-- pic -->
-                            {{ $pkplh->pic_pemohon }} <br>
-                            ({{ $pkplh->no_hp_pic }})
-                        </td>
-                        <td> <!-- nama pjm -->
-                            @if ($pkplh->nama_operator != null)
-                                {{ $pkplh->nama_operator }}
-                            @else
-                                -
-                            @endif
-                        </td>
-                        <td> <!-- jenis permohonan -->
-                            @if ($pkplh->jenis_perubahan == "perkep1")
-                                Perubahan Kepemilikkan
-                            @elseif ($pkplh->jenis_perubahan == "perkep2")
-                                Perubahan Kepemilikkan dan Integrasi Pertek/Rintek
-                            @elseif ($pkplh->jenis_perubahan == "perkep3")
-                                Integrasi Pertek/Rintek
-                            @endif
-                        </td>
-                        <td>{{ $pkplh->nomor_validasi }}</td> <!-- nomor verif ptsp -->
-                        <td>{{ $pkplh->tgl_validasi }}</td> <!-- tgl verif ptsp-->
-                        <td>{{ $pkplh->perihal }}</td> <!-- permohonan dari pemrakarsa -->
-                        <td>
-                            <div class="btn-group-vertical">
-                                {{-- <a href="{{ route('sekre.pkplh.reject', $pkplh->id) }}"
+                            </td>
+                            <td>
+                                <!-- pic -->
+                                {{ $pkplh->pic_pemohon }} <br>
+                                ({{ $pkplh->no_hp_pic }})
+                            </td>
+                            <td>
+                                <!-- nama pjm -->
+                                @if ($pkplh->nama_operator != null)
+                                    {{ $pkplh->nama_operator }}
+                                @else
+                                    -
+                                @endif
+                            </td>
+                            <td>
+                                <!-- jenis permohonan -->
+                                @if ($pkplh->jenis_perubahan == 'perkep1')
+                                    Perubahan Kepemilikkan
+                                @elseif ($pkplh->jenis_perubahan == 'perkep2')
+                                    Perubahan Kepemilikkan dan Integrasi Pertek/Rintek
+                                @elseif ($pkplh->jenis_perubahan == 'perkep3')
+                                    Integrasi Pertek/Rintek
+                                @endif
+                            </td>
+                            <td>{{ $pkplh->nomor_validasi }}</td> <!-- nomor verif ptsp -->
+                            <td>{{ $pkplh->tgl_validasi }}</td> <!-- tgl verif ptsp-->
+                            <td>{{ $pkplh->perihal }}</td> <!-- permohonan dari pemrakarsa -->
+                            <td>
+                                <div class="btn-group-vertical">
+                                    {{-- <a href="{{ route('sekre.pkplh.reject', $pkplh->id) }}"
                                     class="btn btn-sm btn-danger @if ($pkplh->status == 'Ditolak') disabled @endif"
                                     onclick="return confirm('Yakin ingin menolak pengajuan ini?')">Tolak</a> --}}
-                                <button type="button" class="btn btn-sm btn-danger" @if ($pkplh->status == 'Ditolak') disabled @endif data-toggle="modal"
-                                    data-target="{{ '#tolak' . $pkplh->id }}">
-                                    Tolak
-                                </button>
-                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                                    data-target="{{ '#aksiModal' . $pkplh->id }}">
-                                    Pilih
-                                </button>
-                            </div>
-                        </td>
-                        <td>
-                            <select class="operator-list" style="width: 100%" name="operator_name[]">
-                                <option value="-">Pilih</option>
-                                @foreach ($operators as $operator)
-                                    <option value="{{ $operator->name }}">{{ $operator->name }}</option>
-                                @endforeach
-                            </select>
-                            <input type="text" name="id[]" value="{{ $pkplh->id }}" hidden>
-                            {{-- <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="{{ '#aksiModal'.$pkplh->id }}">
+                                    <button type="button" class="btn btn-sm btn-danger"
+                                        @if ($pkplh->status == 'Ditolak') disabled @endif data-toggle="modal"
+                                        data-target="{{ '#tolak' . $pkplh->id }}">
+                                        Tolak
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                        data-target="{{ '#aksiModal' . $pkplh->id }}">
+                                        Pilih
+                                    </button>
+                                </div>
+                            </td>
+                            <td>
+                                <select class="operator-list" style="width: 100%" name="operator_name[]">
+                                    <option value="-">Pilih</option>
+                                    @foreach ($operators as $operator)
+                                        <option value="{{ $operator->name }}">{{ $operator->name }}</option>
+                                    @endforeach
+                                </select>
+                                <input type="text" name="id[]" value="{{ $pkplh->id }}" hidden>
+                                {{-- <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="{{ '#aksiModal'.$pkplh->id }}">
                             Tugaskan
                         </button> --}}
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -208,8 +214,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <a class="btn btn-success btn-block" href="{{ route('sekretariat.printuklupl.download', $pkplh->id) }}">Unduh
+                        <a class="btn btn-success btn-block"
+                            href="{{ route('sekretariat.printuklupl.download', $pkplh->id) }}">Unduh
                             UKL-UPL</a></button>
+                        <a class="btn btn-success btn-block" href="{{ url($pkplh->link_drive) }}"> Drive</a></button>
                         @if ($pkplh->rintek_upload)
                             <a class="btn btn-success btn-block" target="_blank"
                                 href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek_upload) }}">Unduh Dokumen
@@ -241,8 +249,8 @@
                         <hr>
                         <a class="btn btn-success btn-block"
                             href="{{ route('sekretariat.pkplh.download', $pkplh->id) }}">Unduh PKPLH</a></button>
-                        <a class="btn btn-primary btn-block"
-                            href="{{ route('pkplh.review', $pkplh->id) }}">Preview PKPLH</a></button>
+                        <a class="btn btn-primary btn-block" href="{{ route('pkplh.review', $pkplh->id) }}">Preview
+                            PKPLH</a></button>
                     </div>
                 </div>
             </div>
