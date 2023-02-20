@@ -332,7 +332,7 @@ class OperatorController extends Controller
 
         $body .=
             '<br><br><br><br>
-<table width="100%">
+<table width="100%" class="table1">
         <tr>
             <td colspan="3" width="100%">
                 <center>KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN<br>REPUBLIK INDONESIA<br>
