@@ -332,7 +332,7 @@ class OperatorController extends Controller
 
         $body .=
             '<br><br><br><br>
-<table width="100%" class="table1">
+<table width="100%">
         <tr>
             <td colspan="3" width="100%">
                 <center>KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN<br>REPUBLIK INDONESIA<br>
@@ -520,7 +520,7 @@ class OperatorController extends Controller
             <td width="5%"> :</td>
             <td width="65%">Ruang lingkup kegiatan dalam Surat Keputusan Kelayakan Lingkungan Hidup ini,
                 meliputi:
-                <table border="0">
+                <table width="65%" border="0">
                 ' . ucfirst($skkl->ruang_lingkup) . '
                 </table>
             </td>
