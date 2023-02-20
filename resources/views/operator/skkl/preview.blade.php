@@ -240,17 +240,17 @@
                                 </ol>
                             </span>
                         </li>
-                        
+
                         <!-- point c baru-->
                         <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
                             <span>
                                 bahwa {{ $data_skkl->jabatan_baru }} melalui surat Nomor: {{ $data_skkl->nomor_pl }}, Tanggal {{ tgl_indo($data_skkl->tgl_pl) }}, perihal {{ $data_skkl->perihal }},
-                                mengajukan permohonan perubahan persetujuan lingkungan kepada Menteri Lingkungan Hidup; 
+                                mengajukan permohonan perubahan persetujuan lingkungan kepada Menteri Lingkungan Hidup;
                             </span>
                         </li>
 
                         <!-- point c lama-->
-                        {{-- @if ($data_skkl->jenis_perubahan == 'perkep1')  
+                        {{-- @if ($data_skkl->jenis_perubahan == 'perkep1')
                             <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>bahwa terdapat
                                     perubahan kepemilikan kegiatan {{ $data_skkl->nama_usaha_baru }} oleh
                                     {{ $data_skkl->pelaku_usaha_baru }} berdasarkan:
@@ -420,13 +420,7 @@
                                 {{ ucwords(strtolower($data_kabkota)) }}
                                 Provinsi {{ ucwords(strtolower($data_prov)) }} oleh
                                 {{ $data_skkl->pelaku_usaha_baru }};
-                        <li
-                            style="margin-left:35.99pt; margin-bottom:12pt; text-align:justify; padding-left:0.01pt; font-size:12pt">
-                            <span>berdasarkan pertimbangan sebagaimana dimaksud dalam huruf a sampai dengan e, perlu
-                                menetapkan Keputusan Mentri Lingkungan Hidup dan Kehutanan Republik Indonesia
-                                tentang
-                                Kelayakan Lingkungan Hidup Kegiatan {{ $data_skkl->nama_usaha_baru }}; </span>
-                        </li>
+
                     </ol>
                 </td>
             </tr>
