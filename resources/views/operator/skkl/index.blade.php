@@ -263,7 +263,7 @@
                         <a class="btn btn-success btn-block" href="{{ route('printrpl.download', [$skkl->id]) }}">
                         Unduh Lampiran I RPL</a></button>
                         <button class="btn btn-success btn-block"><a style="color: white;" target="_blank"
-                                href="{{ url($skkl->link_drive) }}">Drive</a></button>
+                                href="{{ $skkl->link_drive }}">Drive</a></button>
 
                         @if ($skkl->rintek_upload)
                             <a class="btn btn-success btn-block" target="_blank"
