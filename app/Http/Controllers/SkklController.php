@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Chat_skkl;
 use App\rkl;
 use App\rpl;
 use App\Skkl;
@@ -17,6 +18,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+
+use function PHPUnit\Framework\isEmpty;
+
 // use Illuminate\Support\Str;
 
 class SkklController extends Controller
@@ -726,22 +730,89 @@ class SkklController extends Controller
 	public function download_skkl($id)
 	{
 		$test = Skkl::select('jenis_perubahan',
-						'jenis_usaha_baru',
-						'pelaku_usaha_baru',
-						'nama_usaha_baru',
-						'created_at',
-						'nomor_validasi',)
-					->first();
+			'jenis_usaha_baru',
+			'pelaku_usaha_baru',
+			'nama_usaha_baru',
+			'created_at',
+			'nomor_validasi',)
+		->first();
 
-					$pdf = Pdf::loadView('layouts.registration', [
-						'jenis_perubahan' => $test['jenis_perubahan'],
-						'pelaku_usaha_baru' => $test['pelaku_usaha_baru'],
-						'jenis_usaha_baru' => $test['jenis_usaha_baru'],
-						'nama_usaha_baru' => $test['nama_usaha_baru'],
-						'tgl_dibuat' => tgl_indo(\date_format($test['created_at'], 'Y-m-d')),
-						'nomor_validasi' => $test['nomor_validasi']
-					]);
-					return $pdf->stream();
+		$pdf = Pdf::loadView('layouts.registration', [
+			'jenis_perubahan' => $test['jenis_perubahan'],
+			'pelaku_usaha_baru' => $test['pelaku_usaha_baru'],
+			'jenis_usaha_baru' => $test['jenis_usaha_baru'],
+			'nama_usaha_baru' => $test['nama_usaha_baru'],
+			'tgl_dibuat' => tgl_indo(\date_format($test['created_at'], 'Y-m-d')),
+			'nomor_validasi' => $test['nomor_validasi']
+		]);
+		return $pdf->stream();
 	}
 
+	public function chat($id)
+	{
+		$data = Skkl::find($id);
+		$chat = Chat_skkl::where('id_skkl', $data->id)->orderBy('created_at')->get();
+		$role = $this->level();
+		
+		if (count($chat) == 0) {
+			$chat = null;
+		}
+
+		return view('layouts.chat_skkl', compact('data', 'chat', 'role'));
+	}
+
+	public function chatCreate(Request $request, $id)
+	{
+		if ($request->role == 'Pemrakarsa') {
+			$nama = Auth::user()->name;
+		} else {
+			$nama = 'PJM';
+		}
+		
+		$chat = new Chat_skkl;
+		$chat->id_skkl = $id;
+		$chat->nama = $nama;
+		$chat->chat = $request->chat;
+		$chat->sender = $request->role;
+		$chat->notif = 0;
+		$chat->save();
+
+		return redirect()->back();
+	}
+
+	public function chatUpdate(Request $request, $id)
+	{
+		if ($request->role == 'Pemrakarsa') {
+			$nama = Auth::user()->name;
+		} else {
+			$nama = 'PJM';
+		}
+
+		$chat = Chat_skkl::find($id);
+		$chat->nama = $nama;
+		$chat->chat = $request->chat;
+		$chat->sender = $request->role;
+		$chat->update();
+
+		if ($request->role == 'Operator') {
+			return redirect()->route('skkl.operator.chat', $chat->id_skkl);
+		} else {
+			return redirect()->route('skkl.chat', $chat->id_skkl);
+		}
+	}
+
+	public function notifUpdate($id)
+	{
+		$chat = Chat_skkl::find($id);
+		$chat->notif = 1;
+		$chat->update();
+		
+		$role = $this->level();
+		
+		if ($role == 'Operator') {
+			return redirect()->route('skkl.operator.chat', $chat->id_skkl);
+		} else {
+			return redirect()->route('skkl.chat', $chat->id_skkl);
+		}
+	}
 }

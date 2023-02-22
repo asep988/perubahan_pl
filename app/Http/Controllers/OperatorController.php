@@ -317,6 +317,8 @@ class OperatorController extends Controller
             body {
                 font-family:"Bookman Old Style !important";
                 font-size: 12pt !important;
+                margin: 0;
+                width: 100%;
             }
             ol {
             columns:2;
@@ -328,11 +330,17 @@ class OperatorController extends Controller
                 vertical-align: top;
                 text-align: justify;
             }
+            .ruli {
+                width: 30% !important; 
+            }
+            .ruli table {
+                width: 30% !important; 
+            }
         </style>';
 
         $body .=
             '<br><br><br><br>
-<table width="100%">
+    <table width="100%">
         <tr>
             <td colspan="3" width="100%">
                 <center>KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN<br>REPUBLIK INDONESIA<br>
@@ -513,6 +521,7 @@ class OperatorController extends Controller
                 </table>
             </td>
         </tr>
+
         <tr>
             <td width="30%">
                 KEDUA
@@ -520,11 +529,12 @@ class OperatorController extends Controller
             <td width="5%"> :</td>
             <td width="65%">Ruang lingkup kegiatan dalam Surat Keputusan Kelayakan Lingkungan Hidup ini,
                 meliputi:
-                <table width="65%" border="0">
-                ' . ucfirst($skkl->ruang_lingkup) . '
-                </table>
+                <div class="ruli">
+                    ' . ucfirst($skkl->ruang_lingkup) . '                            
+                </div>
             </td>
         </tr>
+
         <tr>
             <td width="30%">
                 KETIGA
@@ -706,7 +716,8 @@ class OperatorController extends Controller
                 Keputusan ini mulai berlaku pada tanggal ditetapkan dan berakhir bersamaan dengan berakhirnya Perizinan Berusaha atau Persetujuan Pemerintah.
             </td>
         </tr>
-</table><br><br>';
+    </table>
+    <br><br>';
 
         $body .= '<table width="100%">
     <tr>

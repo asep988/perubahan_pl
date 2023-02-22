@@ -30,6 +30,15 @@ Route::get('/', [LoginController::class, 'index'])->name('login.form');
 Route::get('/redirection', 'HomeController@redirection')->name('redirection');
 Route::get('/truncate-reset', 'HomeController@reset');
 
+//chat
+Route::post('/skkl/chat/create/{id}', 'SkklController@chatCreate')->name('skkl.chat.create');
+Route::post('/skkl/chat/update/{id}', 'SkklController@chatUpdate')->name('skkl.chat.update');
+Route::get('/skkl/notif/update/{id}', 'SkklController@notifUpdate')->name('skkl.notif.update');
+
+Route::post('/pkplh/chat/create/{id}', 'PkplhController@chatCreate')->name('pkplh.chat.create');
+Route::post('/pkplh/chat/update/{id}', 'PkplhController@chatUpdate')->name('pkplh.chat.update');
+Route::get('/pkplh/notif/update/{id}', 'PkplhController@notifUpdate')->name('pkplh.notif.update');
+
 Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {
     //skkl
     Route::get('/Pemrakarsa', 'HomeController@index')->name('pemrakarsa.index');
@@ -40,6 +49,7 @@ Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {
     Route::put('/Pemrakarsa/skkl/update/{id}', 'SkklController@update')->name('skkl.update');
     Route::put('/Pemrakarsa/skkl/batal/{id}', 'SkklController@batal')->name('skkl.batal');
     Route::get('/Pemrakarsa/skkl/regist/{id}', 'SkklController@regist')->name('skkl.regist');
+    Route::get('/Pemrakarsa/skkl/chat/{id}', 'SkklController@chat')->name('skkl.chat');
     //pkplh
     Route::get('/Pemrakarsa/pkplh', 'PkplhController@index')->name('pkplh.index');
     Route::get('/Pemrakarsa/pkplh/form', 'PkplhController@create')->name('pkplh.create');
@@ -48,6 +58,7 @@ Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {
     Route::put('/Pemrakarsa/pkplh/update/{id}', 'PkplhController@update')->name('pkplh.update');
     Route::put('/Pemrakarsa/pkplh/batal/{id}', 'PkplhController@batal')->name('pkplh.batal');
     Route::get('/Pemrakarsa/pkplh/regist/{id}', 'PkplhController@regist')->name('pkplh.regist');
+    Route::get('/Pemrakarsa/pkplh/chat/{id}', 'PkplhController@chat')->name('pkplh.chat');
     //rkl
     Route::get('/Pemrakarsa/rkl/create/{id}', 'RklController@create')->name('rkl.create');
     Route::post('/Pemrakarsa/rkl/delete/{id}', 'RklController@delete')->name('rkl.delete');
@@ -85,17 +96,20 @@ Route::group(['middleware' => ['auth', 'cekRole:Operator']], function() {
     Route::get('/Operator/search', 'OperatorController@search')->name('operator.search');
     Route::put('/Operator/skkl/periksa/{id}', 'OperatorController@periksa')->name('operator.skkl.periksa');
     Route::put('/Operator/skkl/rpd/{id}', 'OperatorController@rpd_skkl')->name('operator.skkl.rpd');
+    Route::get('/Operator/skkl/chat/{id}', 'SkklController@chat')->name('skkl.operator.chat');
+    
     Route::put('/Operator/pkplh/rpd/{id}', 'OperatorController@rpd_pkplh')->name('operator.pkplh.rpd');
     Route::get('/Operator/download/{id}', 'OperatorController@download')->name('operator.download');
     Route::get('/Operator/preview/{id}', 'OperatorController@preview')->name('operator.preview');
     Route::put('/Operator/upload_file', 'OperatorController@upload_file')->name('operator.upload_file');
     Route::get('/Operator/file/delete/{id}', 'OperatorController@destroyFile')->name('operator.destroy.file');
-
+    
     Route::get('/Operator/pkplh', 'PkplhController@operatorIndex')->name('operator.pkplh.index');
     Route::get('/Operator/pkplh/preview/{id}', 'PkplhController@operatorPreview')->name('operator.pkplh.preview');
     Route::put('/Operator/pkplh/upload_file', 'PkplhController@uploadFile')->name('operator.pkplh.upload');
     Route::get('/Operator/pkplh/file/delete/{id}', 'PkplhController@destroyFile')->name('operator.pkplh.destroy');
     Route::get('/Operator/pkplh/download/{id}', 'PkplhController@download')->name('operator.pkplh.download');
+    Route::get('/Operator/pkplh/chat/{id}', 'PkplhController@chat')->name('pkplh.operator.chat');
 
     //Print doc RKL RPL
     Route::get('/Operator/printrkl/download/{id}', 'PrintRklController@download')->name('printrkl.download');

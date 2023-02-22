@@ -1073,7 +1073,7 @@
                             </li>
                         @endforeach
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Sekretaris Jendral
-                                Kementrian Lingkungan Hidup dan Kehutanan;</span></li>
+                                Kementerian Lingkungan Hidup dan Kehutanan;</span></li>
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Direktur Jendral
                                 Planologi Kehutanan dan Tata Lingkungan;</span></li>
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Direktur Jendral

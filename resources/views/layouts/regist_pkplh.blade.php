@@ -41,7 +41,7 @@
         <tr>
             <td>
                 <center>
-                    <b>BUKTI SUBMIT DOKUMEN SKKL/PKPL</b><br>
+                    <b>BUKTI SUBMIT PERMOHONAN PERUBAHAN PKPLH</b><br>
                     <b>No. Registrasi: {{ $noreg }}</b><br>
                 </center>
             </td>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Chat_pkplh;
 use il;
 use App\User;
 use App\Pkplh;
@@ -687,6 +688,12 @@ class PkplhController extends Controller
                 content : counters(item, ".") "";
                 counter-incerment:item
             }
+            .ruli {
+                width: 30% !important; 
+            }
+            .ruli table {
+                width: 30% !important; 
+            }
         </style>';
 
         $body .=
@@ -866,7 +873,9 @@ class PkplhController extends Controller
     </td>
     <td width="2%"> :</td>
     <td width="68%">Ruang lingkup dalam persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup ini, meliputi:
-        <table>' . ucfirst($pkplh->ruang_lingkup) . '</table>
+        <div class="ruli">' 
+            . ucfirst($pkplh->ruang_lingkup) . '
+        </div>
     </td>
     </tr>
     <tr>
@@ -1245,5 +1254,73 @@ class PkplhController extends Controller
 			</table>';
 
 			return \Response::make($body, 200, $headers);
+	}
+
+    public function chat($id)
+	{
+		$data = Pkplh::find($id);
+		$chat = Chat_pkplh::where('id_pkplh', $data->id)->orderBy('created_at')->get();
+		$role = $this->level();
+		
+		if (count($chat) == 0) {
+			$chat = null;
+		}
+
+		return view('layouts.chat_pkplh', compact('data', 'chat', 'role'));
+	}
+
+	public function chatCreate(Request $request, $id)
+	{
+		if ($request->role == 'Pemrakarsa') {
+			$nama = Auth::user()->name;
+		} else {
+			$nama = 'PJM';
+		}
+		
+		$chat = new Chat_pkplh;
+		$chat->id_pkplh = $id;
+		$chat->nama = $nama;
+		$chat->chat = $request->chat;
+		$chat->sender = $request->role;
+		$chat->notif = 0;
+		$chat->save();
+
+		return redirect()->back();
+	}
+
+	public function chatUpdate(Request $request, $id)
+	{
+		if ($request->role == 'Pemrakarsa') {
+			$nama = Auth::user()->name;
+		} else {
+			$nama = 'PJM';
+		}
+
+		$chat = Chat_pkplh::find($id);
+		$chat->nama = $nama;
+		$chat->chat = $request->chat;
+		$chat->sender = $request->role;
+		$chat->update();
+
+		if ($request->role == 'Operator') {
+			return redirect()->route('pkplh.operator.chat', $chat->id_pkplh);
+		} else {
+			return redirect()->route('pkplh.chat', $chat->id_pkplh);
+		}
+	}
+
+    public function notifUpdate($id)
+	{
+		$chat = Chat_pkplh::find($id);
+        $chat->notif = 1;
+		$chat->update();
+		
+		$role = $this->level();
+		
+		if ($role == 'Operator') {
+			return redirect()->route('pkplh.operator.chat', $chat->id_pkplh);
+		} else {
+			return redirect()->route('pkplh.chat', $chat->id_pkplh);
+		}
 	}
 }

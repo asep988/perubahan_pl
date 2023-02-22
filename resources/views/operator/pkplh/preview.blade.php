@@ -428,7 +428,7 @@
                         <li
                             style="margin-left:35.99pt; margin-bottom:12pt; text-align:justify; padding-left:0.01pt; font-size:12pt">
                             <span>berdasarkan pertimbangan sebagaimana dimaksud dalam huruf a sampai dengan e, perlu
-                                menetapkan Keputusan Mentri Lingkungan Hidup dan Kehutanan Republik Indonesia
+                                menetapkan Keputusan Menteri Lingkungan Hidup dan Kehutanan Republik Indonesia
                                 tentang
                                 Kelayakan Lingkungan Hidup Kegiatan {{ $data_pkplh->nama_usaha_baru }} di Kota/Kabupaten {{ucwords(strtolower($data_kabkota))}} 
                                 Provinsi {{ucwords(strtolower($data_prov)) }}; </span>
@@ -1068,7 +1068,7 @@
                             </li>
                         @endforeach
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Sekretaris Jendral
-                                Kementrian Lingkungan Hidup dan Kehutanan;</span></li>
+                                Kementerian Lingkungan Hidup dan Kehutanan;</span></li>
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Direktur Jendral
                                 Planologi Kehutanan dan Tata Lingkungan;</span></li>
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Direktur Jendral

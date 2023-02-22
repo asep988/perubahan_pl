@@ -88,4 +88,9 @@ class Skkl extends Model
     {
         return $this->hasMany(Pertek_skkl::class, 'id_skkl', 'id');
     }
+
+    public function Chat_skkl()
+    {
+        return $this->hasMany(Chat_skkl::class, 'id_skkl', 'id');
+    }
 }

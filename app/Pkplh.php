@@ -90,4 +90,9 @@ class Pkplh extends Model
     {
         return $this->hasMany(Pertek_pkplh::class, 'id_pkplh', 'id');
     }
+
+    public function Chat_pkplh()
+    {
+        return $this->hasMany(Chat_pkplh::class, 'id_pkplh', 'id');
+    }
 }

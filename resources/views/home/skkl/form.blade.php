@@ -22,38 +22,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
+                    @include('layouts.navbar')
                 </div>
 
             </nav>
@@ -333,7 +302,7 @@
                         <label for="nomor_validasi" class="col-sm-2 col-form-label">Nomor Bukti Validasi Administrasi
                             PTSP</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="nomor_validasi" id="nomor_validasi" name="nomor_validasi">
+                            <input type="text" class="form-control" aria-label="nomor_validasi" id="nomor_validasi" name="nomor_validasi" required>
                             <small class="text-muted">Silakan isi dengan tanda "<b>-</b>" jika belum ada, dan perbarui kembali data jika sudah diproses di PTSP</small>
                         </div>
                     </div>
@@ -341,7 +310,7 @@
                     <div class="form-group row">
                         <label for="tgl_validasi" class="col-sm-2 col-form-label">Tanggal Validasi</label>
                         <div class="col-sm-3">
-                            <input class="form-control" type="date" id="tgl_validasi" name="tgl_validasi" placeholder="yyyy/mm/dd">
+                            <input class="form-control" type="date" id="tgl_validasi" name="tgl_validasi" placeholder="yyyy/mm/dd" required>
                             <small class="text-muted">Jika belum ada, silakan isi dengan tanggal hari ini dan perbarui kembali data jika sudah diproses di PTSP</small>
                         </div>
                     </div>

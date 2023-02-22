@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Chat_skkl;
 use App\il_pkplh;
 use App\il_skkl;
 use App\Pertek_pkplh;

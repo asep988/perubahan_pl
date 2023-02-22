@@ -45,7 +45,9 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
@@ -75,11 +77,19 @@
                 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
                 <!-- ckeditor -->
-                <script src="https://cdn.tiny.cloud/1/hq3fwdzyw02rpmstjsppgvlus70tbut6gt60m8gfvnp6udmm/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+                <script src="https://cdn.tiny.cloud/1/hq3fwdzyw02rpmstjsppgvlus70tbut6gt60m8gfvnp6udmm/tinymce/6/tinymce.min.js"
+                    referrerpolicy="origin"></script>
 
                 <script>
                     tinymce.init({
                         selector: 'textarea#mytextarea',
+                        content_style: 'table { font-family:"Bookman Old Style !important"; font-size: 10pt !important;}',
+                        object_resizing: false,
+                        table_use_colgroups: false,
+                        table_default_styles: {
+                            width: "50%"
+                        },
+                        table_sizing_mode: 'relative',
                         height: 400,
                         forced_root_block: "",
                         force_br_newlines: true,
