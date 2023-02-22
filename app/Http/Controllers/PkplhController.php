@@ -148,7 +148,7 @@ class PkplhController extends Controller
 			$fileName2 = null;
 		}
 
-        $hash = hash_hmac('sha256', $request->nama_usaha_baru . rand(0,100), 'PKPLH');    
+        $hash = hash_hmac('sha256', $request->nama_usaha_baru . rand(0,100), 'PKPLH');
 		$regist = "B" . substr($hash, 0, 14);
 
 		DB::beginTransaction();
@@ -689,10 +689,14 @@ class PkplhController extends Controller
                 counter-incerment:item
             }
             .ruli {
-                width: 30% !important; 
+                font-family:"Bookman Old Style !important";
+                font-size: 10pt !important;
+                width: 30% !important;
             }
             .ruli table {
-                width: 30% !important; 
+                font-family:"Bookman Old Style !important";
+                font-size: 10pt !important;
+                width: 30% !important;
             }
         </style>';
 
@@ -873,7 +877,7 @@ class PkplhController extends Controller
     </td>
     <td width="2%"> :</td>
     <td width="68%">Ruang lingkup dalam persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup ini, meliputi:
-        <div class="ruli">' 
+        <div class="ruli">'
             . ucfirst($pkplh->ruang_lingkup) . '
         </div>
     </td>
@@ -1261,7 +1265,7 @@ class PkplhController extends Controller
 		$data = Pkplh::find($id);
 		$chat = Chat_pkplh::where('id_pkplh', $data->id)->orderBy('created_at')->get();
 		$role = $this->level();
-		
+
 		if (count($chat) == 0) {
 			$chat = null;
 		}
@@ -1276,7 +1280,7 @@ class PkplhController extends Controller
 		} else {
 			$nama = 'PJM';
 		}
-		
+
 		$chat = new Chat_pkplh;
 		$chat->id_pkplh = $id;
 		$chat->nama = $nama;
@@ -1314,9 +1318,9 @@ class PkplhController extends Controller
 		$chat = Chat_pkplh::find($id);
         $chat->notif = 1;
 		$chat->update();
-		
+
 		$role = $this->level();
-		
+
 		if ($role == 'Operator') {
 			return redirect()->route('pkplh.operator.chat', $chat->id_pkplh);
 		} else {

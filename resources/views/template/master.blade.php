@@ -83,13 +83,13 @@
                 <script>
                     tinymce.init({
                         selector: 'textarea#mytextarea',
-                        content_style: 'table { font-family:"Bookman Old Style !important"; font-size: 10pt !important;}',
-                        object_resizing: false,
-                        table_use_colgroups: false,
-                        table_default_styles: {
-                            width: "50%"
-                        },
-                        table_sizing_mode: 'relative',
+                        // content_style: 'table { font-family:"Bookman Old Style !important"; font-size: 10pt !important;}',
+                        // object_resizing: false,
+                        // table_use_colgroups: false,
+                        // table_default_styles: {
+                        //     width: "50%"
+                        // },
+                        // table_sizing_mode: 'relative',
                         height: 400,
                         forced_root_block: "",
                         force_br_newlines: true,

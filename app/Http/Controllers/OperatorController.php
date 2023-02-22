@@ -331,10 +331,12 @@ class OperatorController extends Controller
                 text-align: justify;
             }
             .ruli {
-                width: 30% !important; 
+                font-family:"Bookman Old Style !important";
+                width: 30% !important;
             }
             .ruli table {
-                width: 30% !important; 
+                font-family:"Bookman Old Style !important";
+                width: 30% !important;
             }
         </style>';
 
@@ -530,7 +532,7 @@ class OperatorController extends Controller
             <td width="65%">Ruang lingkup kegiatan dalam Surat Keputusan Kelayakan Lingkungan Hidup ini,
                 meliputi:
                 <div class="ruli">
-                    ' . ucfirst($skkl->ruang_lingkup) . '                            
+                    ' . ucfirst($skkl->ruang_lingkup) . '
                 </div>
             </td>
         </tr>
