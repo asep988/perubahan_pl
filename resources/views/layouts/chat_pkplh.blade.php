@@ -12,7 +12,7 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
                     <li>
-                        <h4><b>Chat dengan PJM | No. Registrasi: {{ $data->noreg }}</b></h4>
+                        <h4><b>Chat | No. Registrasi: {{ $data->noreg }}</b></h4>
                     </li>
                 </ul>
 

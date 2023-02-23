@@ -236,6 +236,7 @@
                         @endif
 
                         <hr>
+                        <a class="btn btn-success btn-block" target="_blank" href="{{ route('skkl.sekretariat.chat', $skkl->id) }}">Chat dengan Pemrakarsa</a>
                         <a class="btn btn-warning btn-block"
                             href="{{ route('sekretariat.skkl.preview', [$skkl->id]) }}">Preview
                             PL</a></button>

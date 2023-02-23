@@ -23,17 +23,18 @@ class Uklupl implements ToCollection
         {
             AppUklupl::create([
                 'id_pkplh' => $this->id,
-                'sumber_dampak' => $row[0],
-                'jenis_dampak' => $row[1],
-                'besaran_dampak' => $row[2],
-                'bentuk_pengelolaan' => $row[3],
-                'lokasi_pengelolaan' => $row[4],
-                'periode_pengelolaan' => $row[5],
-                'bentuk_pemantauan' => $row[6],
-                'lokasi_pemantauan' => $row[7],
-                'periode_pemantauan' => $row[8],
-                'institusi' => $row[9],
-                'keterangan' => $row[10],
+                'tahap_kegiatan' => $row[0],
+                'sumber_dampak' => $row[1],
+                'jenis_dampak' => $row[2],
+                'besaran_dampak' => $row[3],
+                'bentuk_pengelolaan' => $row[4],
+                'lokasi_pengelolaan' => $row[5],
+                'periode_pengelolaan' => $row[6],
+                'bentuk_pemantauan' => $row[7],
+                'lokasi_pemantauan' => $row[8],
+                'periode_pemantauan' => $row[9],
+                'institusi' => $row[10],
+                'keterangan' => $row[11],
             ]);
         }
     }

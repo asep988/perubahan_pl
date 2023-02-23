@@ -765,8 +765,10 @@ class SkklController extends Controller
 	{
 		if ($request->role == 'Pemrakarsa') {
 			$nama = Auth::user()->name;
-		} else {
+		} else if ($request->role == 'Operator') {
 			$nama = 'PJM';
+		} else {
+			$nama = 'Sekretariat';
 		}
 		
 		$chat = new Chat_skkl;
@@ -784,8 +786,10 @@ class SkklController extends Controller
 	{
 		if ($request->role == 'Pemrakarsa') {
 			$nama = Auth::user()->name;
-		} else {
+		} else if ($request->role == 'Operator') {
 			$nama = 'PJM';
+		} else {
+			$nama = 'Sekretariat';
 		}
 
 		$chat = Chat_skkl::find($id);
@@ -796,23 +800,33 @@ class SkklController extends Controller
 
 		if ($request->role == 'Operator') {
 			return redirect()->route('skkl.operator.chat', $chat->id_skkl);
-		} else {
+		} else if ($request->role == 'Pemrakarsa') {
 			return redirect()->route('skkl.chat', $chat->id_skkl);
+		} else {
+			return redirect()->route('skkl.sekretariat.chat', $chat->id_skkl);
 		}
 	}
 
 	public function notifUpdate($id)
 	{
-		$chat = Chat_skkl::find($id);
-		$chat->notif = 1;
-		$chat->update();
-		
 		$role = $this->level();
+
+		if ($role == 'Sekretariat') {
+			$notif = 1;
+		} else {
+			$notif = 2;
+		}
+
+		$chat = Chat_skkl::find($id);
+		$chat->notif = $notif;
+		$chat->update();
 		
 		if ($role == 'Operator') {
 			return redirect()->route('skkl.operator.chat', $chat->id_skkl);
-		} else {
+		} else if ($role == 'Pemrakarsa') {
 			return redirect()->route('skkl.chat', $chat->id_skkl);
+		} else {
+			return redirect()->route('skkl.sekretariat.chat', $chat->id_skkl);
 		}
 	}
 }

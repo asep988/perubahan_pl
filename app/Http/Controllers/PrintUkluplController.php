@@ -112,17 +112,24 @@ class PrintUkluplController extends Controller
         table{
             font-size: 7pt !important;
         }
-        table.matriks, .matriks td, .matriks th {
-            border: 1px solid black; border-collapse: collapse;
-            font-size: 7pt !important;
-            width: 100%;
-        }
+        
         @page SectionLC {
             size:841.7pt 595.45pt;mso-page-orientation:landscape;margin:1.25in 1.0in 1.25in 1.0in;mso-header-margin:.5in;mso-footer-margin:.5in;mso-paper-source:0;
         }
 
         div.SectionLC {
             page:SectionLC;
+        }
+        .solid-table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+          
+        .solid-table th,
+        .solid-table td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
         }
         </style>';
 
@@ -131,7 +138,7 @@ class PrintUkluplController extends Controller
         <div class=SectionLC>
         LAMPIRAN I<br>
 						KEPUTUSAN MENTRI LINGKUNGAN HIDUP <br>
-						DAN KEHUTANAN REPUBLIK INDONESIA <br>
+						DAN KEHUTANAN REPUBLIK INDONESIA <br>Masih nyala
 						NOMOR <br>
 						TENTANG PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN HIDUP '. strtoupper($pkplh->nama_usaha_baru).'
 						OLEH '.strtoupper($pkplh->pelaku_usaha_baru).'
@@ -139,7 +146,7 @@ class PrintUkluplController extends Controller
 
                 <center> MATRIKS UPAYA PENGELOLAAN DAN PEMANTAUAN LINGKUNGAN HIDUP (UKL-UPL)</center>';
 
-        $body .='<table width="100%" border="1" rules="all" cellpadding="5" cellspacing="0" style="font-size: 7pt;">
+        $body .='<table width="100%" border="1" rules="all" cellpadding="5" cellspacing="0" style="font-size: 7pt;" class="solid-table">
 		    <thead>
                 <tr>
                     <th width="70px" rowspan="2" class="align-middle">No</th>

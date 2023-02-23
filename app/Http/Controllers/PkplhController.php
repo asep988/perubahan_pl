@@ -671,7 +671,7 @@ class PkplhController extends Controller
         $body = '
         <style>
             body {
-                font-family:"Bookman Old Style !important";
+                font-family:"Bookman Old Style" !important;
                 font-size: 12pt !important;
             }
             ol {
@@ -689,12 +689,12 @@ class PkplhController extends Controller
                 counter-incerment:item
             }
             .ruli {
-                font-family:"Bookman Old Style !important";
+                font-family:"Bookman Old Style" !important;
                 font-size: 10pt !important;
                 width: 30% !important;
             }
             .ruli table {
-                font-family:"Bookman Old Style !important";
+                font-family:"Bookman Old Style" !important;
                 font-size: 10pt !important;
                 width: 30% !important;
             }
@@ -1277,9 +1277,11 @@ class PkplhController extends Controller
 	{
 		if ($request->role == 'Pemrakarsa') {
 			$nama = Auth::user()->name;
-		} else {
+		} else if ($request->role == 'Operator') {
 			$nama = 'PJM';
-		}
+		} else {
+            $nama = 'Sekretariat';
+        }
 
 		$chat = new Chat_pkplh;
 		$chat->id_pkplh = $id;
@@ -1296,9 +1298,11 @@ class PkplhController extends Controller
 	{
 		if ($request->role == 'Pemrakarsa') {
 			$nama = Auth::user()->name;
-		} else {
+		} else if ($request->role == 'Operator') {
 			$nama = 'PJM';
-		}
+		} else {
+            $nama = 'Sekretariat';
+        }
 
 		$chat = Chat_pkplh::find($id);
 		$chat->nama = $nama;
@@ -1308,23 +1312,33 @@ class PkplhController extends Controller
 
 		if ($request->role == 'Operator') {
 			return redirect()->route('pkplh.operator.chat', $chat->id_pkplh);
-		} else {
+		} else if ($request->role == 'Pemrakarsa') {
 			return redirect()->route('pkplh.chat', $chat->id_pkplh);
-		}
+		} else {
+            return redirect()->route('pkplh.sekretariat.chat');
+        }
 	}
 
     public function notifUpdate($id)
 	{
-		$chat = Chat_pkplh::find($id);
-        $chat->notif = 1;
-		$chat->update();
-
 		$role = $this->level();
+
+        if ($role == 'Sekretariat') {
+            $notif = 1;
+        } else {
+            $notif = 2;
+        }
+
+		$chat = Chat_pkplh::find($id);
+        $chat->notif = $notif;
+		$chat->update();
 
 		if ($role == 'Operator') {
 			return redirect()->route('pkplh.operator.chat', $chat->id_pkplh);
-		} else {
+		} else if ($role == 'Pemrakarsa') {
 			return redirect()->route('pkplh.chat', $chat->id_pkplh);
-		}
+		} else {
+            return redirect()->route('pkplh.sekretariat.chat');
+        }
 	}
 }

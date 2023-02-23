@@ -315,7 +315,7 @@ class OperatorController extends Controller
         $body = '
         <style>
             body {
-                font-family:"Bookman Old Style !important";
+                font-family:"Bookman Old Style" !important;
                 font-size: 12pt !important;
                 margin: 0;
                 width: 100%;
@@ -331,11 +331,13 @@ class OperatorController extends Controller
                 text-align: justify;
             }
             .ruli {
-                font-family:"Bookman Old Style !important";
+                font-family:"Bookman Old Style" !important;
+                font-size: 10pt !important;
                 width: 30% !important;
             }
             .ruli table {
-                font-family:"Bookman Old Style !important";
+                font-family:"Bookman Old Style" !important;
+                font-size: 10pt !important;
                 width: 30% !important;
             }
         </style>';

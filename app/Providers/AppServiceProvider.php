@@ -95,29 +95,41 @@ class AppServiceProvider extends ServiceProvider
                     }
                 }
 
-                $skkl_notif = Chat_skkl::join('skkl', 'chat_skkl.id_skkl', 'skkl.id')
-                ->select('skkl.noreg', 'skkl.nama_usaha_baru', 'chat_skkl.created_at', 'chat_skkl.id');
+                // Query SKKL
 
-                if ($role != 'Operator') {
-                    $skkl_notif->where('skkl.user_id', Auth::user()->id);
+                $skkl_notif = Chat_skkl::join('skkl', 'chat_skkl.id_skkl', 'skkl.id')
+                ->select('skkl.noreg', 'skkl.nama_usaha_baru', 'chat_skkl.created_at', 'chat_skkl.id')
+                ->where('chat_skkl.sender', '!=', $role);
+
+                if ($role == 'Pemrakarsa') {
+                    $skkl_notif->where('skkl.user_id', Auth::user()->id)
+                    ->where('chat_skkl.notif', 0)
+                    ->orWhere('chat_skkl.notif', 1);
+                } else if ($role == 'Operator') {
+                    $skkl_notif->where('skkl.nama_operator', Auth::user()->name)
+                    ->where('chat_skkl.notif', 0)
+                    ->orWhere('chat_skkl.notif', 1);
                 } else {
-                    $skkl_notif->where('skkl.nama_operator', Auth::user()->name);
+                    $skkl_notif->where('chat_skkl.notif', 0);
                 }
 
-                $skkl_notif->where('chat_skkl.sender', '!=', $role)
-                ->where('chat_skkl.notif', 0);
+                // Query PKPLH
 
                 $pkplh_notif = Chat_pkplh::join('pkplh', 'chat_pkplh.id_pkplh', 'pkplh.id')
-                ->select('pkplh.noreg', 'pkplh.nama_usaha_baru', 'chat_pkplh.created_at', 'chat_pkplh.id');
+                ->select('pkplh.noreg', 'pkplh.nama_usaha_baru', 'chat_pkplh.created_at', 'chat_pkplh.id')
+                ->where('chat_pkplh.sender', '!=', $role);
 
-                if ($role != 'Operator') {
-                    $pkplh_notif->where('pkplh.user_id', Auth::user()->id);
+                if ($role == 'Pemrakarsa') {
+                    $pkplh_notif->where('pkplh.user_id', Auth::user()->id)
+                    ->where('chat_pkplh.notif', 0)
+                    ->orWhere('chat_pkplh.notif', 1);
+                } else if ($role == 'Operator') {
+                    $pkplh_notif->where('pkplh.nama_operator', Auth::user()->name)
+                    ->where('chat_pkplh.notif', 0)
+                    ->orWhere('chat_pkplh.notif', 1);
                 } else {
-                    $pkplh_notif->where('pkplh.nama_operator', Auth::user()->name);
+                    $pkplh_notif->where('chat_pkplh.notif', 0);
                 }
-
-                $pkplh_notif->where('chat_pkplh.sender', '!=', $role)
-                ->where('chat_pkplh.notif', 0);
 
                 $skkl_jml = $skkl_notif->count();
                 $pkplh_jml = $pkplh_notif->count();
@@ -125,13 +137,13 @@ class AppServiceProvider extends ServiceProvider
                 if (count($skkl_notif->get()) == 0) {
                     $data_skkl = null;
                 } else {
-                    $data_skkl = $skkl_notif->get();
+                    $data_skkl = $skkl_notif->orderBy('created_at', 'desc')->get();
                 }
 
                 if (count($pkplh_notif->get()) == 0) {
                     $data_pkplh = null;
                 } else {
-                    $data_pkplh = $pkplh_notif->get();
+                    $data_pkplh = $pkplh_notif->orderBy('created_at', 'desc')->get();
                 }
 
                 $view->with([

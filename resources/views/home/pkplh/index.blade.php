@@ -93,9 +93,7 @@
         <div class="modal-body">
             <a class="btn btn-success btn-block" href="{{ route('uklupl.create', $pkplh->id) }}">Dokumen UKL-UPL (Lampiran I)</a>
             <a class="btn btn-success btn-block" target="_blank" href="{{ route('pkplh.regist', $pkplh->id) }}">Bukti Submit</a>
-            @if ($pkplh->nama_operator != null)
-                <a class="btn btn-success btn-block" target="_blank" href="{{ route('pkplh.chat', $pkplh->id) }}">Chat dengan PJM</a>
-            @endif
+            <a class="btn btn-success btn-block" target="_blank" href="{{ route('pkplh.chat', $pkplh->id) }}">Chat dengan PJM</a>
             @if ($pkplh->rintek_upload)
                 <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek_upload) }}">Unduh Dokumen Rincian Teknis</a></button>
             @endif

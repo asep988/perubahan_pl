@@ -102,9 +102,7 @@
         <div class="modal-body">
             <a class="btn btn-warning btn-block @if ($skkl->status == "Final") disabled @endif" href="{{ route('skkl.edit', $skkl->id) }}">Ubah Data SKKL</a>
             <a class="btn btn-success btn-block" target="_blank" href="{{ route('skkl.regist', $skkl->id) }}">Bukti Submit</a>
-            @if ($skkl->nama_operator != null)
-                <a class="btn btn-success btn-block" target="_blank" href="{{ route('skkl.chat', $skkl->id) }}">Chat dengan PJM</a>
-            @endif
+            <a class="btn btn-success btn-block" target="_blank" href="{{ route('skkl.chat', $skkl->id) }}">Chat dengan PJM</a>
             <button type="button" class="btn btn-danger btn-block my-2" data-toggle="modal" data-target="{{ '#batal'.$skkl->id }}">Batalkan Permohonan</button>
             <hr>
             @if ($skkl->rintek_upload)

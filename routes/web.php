@@ -21,14 +21,14 @@ Auth::routes([
 ]);
 
 Route::get('/loginform', 'HomeController@loginform');
-Route::get('/testing', 'HomeController@testing');
-Route::get('/dd', 'HomeController@dd');
-Route::get('/registration_def', 'HomeController@registration_def');
+// Route::get('/testing', 'HomeController@testing');
+// Route::get('/dd', 'HomeController@dd');
+// Route::get('/registration_def', 'HomeController@registration_def');
+// Route::get('/truncate-reset', 'HomeController@reset');
 
 //home
 Route::get('/', [LoginController::class, 'index'])->name('login.form');
 Route::get('/redirection', 'HomeController@redirection')->name('redirection');
-Route::get('/truncate-reset', 'HomeController@reset');
 
 //chat
 Route::post('/skkl/chat/create/{id}', 'SkklController@chatCreate')->name('skkl.chat.create');
@@ -131,12 +131,16 @@ Route::group(['middleware' => ['auth', 'cekRole:Sekretariat']], function() {
     Route::get('/Sekretariat/pkplh', 'SekretariatController@pkplhIndex')->name('sekre.pkplh.index');
     Route::put('/Sekretariat/pkplh/update', 'SekretariatController@pkplhAssign')->name('sekre.pkplh.update');
     Route::put('/Sekretariat/pkplh/reject/{id}', 'SekretariatController@pkplhReject')->name('sekre.pkplh.reject');
+    Route::get('/Sekretariat/skkl/chat/{id}', 'SkklController@chat')->name('skkl.sekretariat.chat');
+    Route::get('/Sekretariat/pkplh/chat/{id}', 'PkplhController@chat')->name('pkplh.sekretariat.chat');
+
     // buton aksi pkplh
     Route::get('/Sekretariat/pkplh/preview/{id}', 'PkplhController@operatorPreview')->name('sekretariat.pkplh.preview');
     Route::get('/Sekretariat/uklupl/download/{id}', 'PrintUkluplController@download')->name('sekretariat.printuklupl.download');
     Route::get('/Sekretariat/pkplh/pertek/{id}', 'PkplhController@download_pertek')->name('sekretariat.pkplh.pertek');
     Route::get('/Sekretariat/pkplh/rintek/{id}', 'PkplhController@download_rintek')->name('sekretariat.pkplh.rintek');
     Route::get('/Sekretariat/pkplh/download/{id}', 'PkplhController@download')->name('sekretariat.pkplh.download');
+
     // buton aksi skkl
     Route::get('/Sekretariat/skkl/preview/{id}', 'OperatorController@preview')->name('sekretariat.skkl.preview');
     Route::get('/Sekretariat/skkl/download/{id}', 'OperatorController@download')->name('sekretariat.skkl.download');

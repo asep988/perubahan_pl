@@ -92,7 +92,7 @@ class PrintRplController extends Controller
 
         $body .= '<style>
         body {
-            font-family:"Bookman Old Style";
+            font-family:"Bookman Old Style" !important;
         }
         ol {
         columns:2;
@@ -123,17 +123,24 @@ class PrintRplController extends Controller
         table{
             font-size: 7pt !important;
         }
-        table.matriks, .matriks td, .matriks th {
-            border: 1px solid black; border-collapse: collapse;
-            font-size: 7pt !important;
-            width: 100%;
-        }
+
         @page SectionLC {
             size:841.7pt 595.45pt;mso-page-orientation:landscape;margin:1.25in 1.0in 1.25in 1.0in;mso-header-margin:.5in;mso-footer-margin:.5in;mso-paper-source:0;
         }
 
         div.SectionLC {
             page:SectionLC;
+        }
+        .solid-table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+          
+        .solid-table th,
+        .solid-table td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
         }
     </style>';
 
@@ -150,7 +157,7 @@ class PrintRplController extends Controller
     <br><br><br>
                 <center>MATRIKS RENCANA PENGELOLAAN LINGKUNGAN HIDUP<center>';
 
-        $body .='<table width="100%" border="1" rules="all" cellpadding="5" cellspacing="0" style="font-size: 7pt;">
+        $body .='<table width="100%" border="1" rules="all" cellpadding="5" cellspacing="0" style="font-size: 7pt;" class="solid-table">
 		    <thead>
                 <tr>
                     <th width="70px" rowspan="2" class="align-middle">No</th>
