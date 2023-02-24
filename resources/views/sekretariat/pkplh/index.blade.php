@@ -227,7 +227,7 @@
                         @endif
 
                         <hr>
-                        <a class="btn btn-success btn-block" target="_blank" href="{{ route('skkl.sekretariat.chat', $skkl->id) }}">Chat dengan Pemrakarsa</a>
+                        <a class="btn btn-success btn-block" target="_blank" href="{{ route('pkplh.sekretariat.chat', $pkplh->id) }}">Chat dengan Pemrakarsa</a>
                         <a class="btn btn-success btn-block"
                             href="{{ route('sekretariat.pkplh.download', $pkplh->id) }}">Unduh PKPLH</a></button>
                         <a class="btn btn-primary btn-block" href="{{ route('pkplh.review', $pkplh->id) }}">Preview
