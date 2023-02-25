@@ -22,6 +22,11 @@
     </nav>
 </div>
 <div class="card-body">
+    @if (session()->has('message'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('message') }}
+        </div>
+    @endif
     <a class=" btn btn-sm btn-success float-left" style="color: white;" href="{{ route('pkplh.create') }}">Tambah</a>
     <div class="d-flex justify-content-center">
         <a class=" btn btn-outline-success mb-3" target="_blank" style="margin-left: -30px" href="https://wa.me/6281339990567">Layanan Chat Operator (Jam Kerja  09.00 - 15.00 WIB)&nbsp;&nbsp;<img src="{{ asset('img/whatsapp.png') }}" width="30px" alt=""></a>
@@ -91,8 +96,10 @@
           </button>
         </div>
         <div class="modal-body">
-            <a class="btn btn-success btn-block" href="{{ route('uklupl.create', $pkplh->id) }}">Dokumen UKL-UPL (Lampiran I)</a>
-            <a class="btn btn-success btn-block" target="_blank" href="{{ route('pkplh.regist', $pkplh->id) }}">Bukti Submit</a>
+            <a class="btn btn-warning btn-block @if ($pkplh->status == "Final") disabled @endif" href="{{ route('pkplh.edit', $pkplh->id) }}">Ubah Data PKPLH</a>
+            <a class="btn btn-success btn-block" href="{{ route('uklupl.create', $pkplh->id) }}">Input Dokumen UKL-UPL (Lampiran I)</a>
+            <button type="button" class="btn btn-danger btn-block my-2" data-toggle="modal" data-target="{{ '#batal'.$pkplh->id }}">Batalkan Permohonan</button>
+            <a class="btn btn-success btn-block" target="_blank" href="{{ route('pkplh.regist', $pkplh->id) }}">Submit Data</a>
             <a class="btn btn-success btn-block" target="_blank" href="{{ route('pkplh.chat', $pkplh->id) }}">Chat dengan PJM</a>
             @if ($pkplh->rintek_upload)
                 <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek_upload) }}">Unduh Dokumen Rincian Teknis</a></button>
@@ -112,8 +119,6 @@
                     <?php $i++; ?>
                 @endforeach
             @endif
-            <a class="btn btn-warning btn-block @if ($pkplh->status == "Final") disabled @endif" href="{{ route('pkplh.edit', $pkplh->id) }}">Ubah Data PKPLH</a>
-            <button type="button" class="btn btn-danger btn-block my-2" data-toggle="modal" data-target="{{ '#batal'.$pkplh->id }}">Batalkan Permohonan</button>
             <a class="btn btn-primary btn-block" href="{{ route('pkplh.review', $pkplh->id) }}">Preview Dokumen PKPLH</a>
         </div>
       </div>

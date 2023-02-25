@@ -195,6 +195,7 @@ class PkplhController extends Controller
 		$pkplh->ruang_lingkup		    = 	$request->ruang_lingkup;
 		$pkplh->pertek				    = 	$pertek;
 		$pkplh->status 				    = 	"Belum";
+		$pkplh->count 				    = 	0;
 		$pkplh->save();
 
 		$late = Pkplh::orderBy('id', 'DESC')->take(1)->get();
@@ -228,7 +229,7 @@ class PkplhController extends Controller
 		}
 		DB::commit();
 
-        return redirect()->route('pkplh.index')->with('pesan', 'Data berhasil diinput');
+        return redirect()->route('uklupl.create', $pkplh_id)->with('pesan', 'Data berhasil diinput');
 	}
 
 	public function review($id)
@@ -484,6 +485,7 @@ class PkplhController extends Controller
 		$pkplh->perihal_peraturan	=	$perihal_peraturan;
 		$pkplh->ruang_lingkup		= 	$request->ruang_lingkup;
 		$pkplh->pertek				= 	$pertek;
+		$pkplh->count				= 	$pkplh->count + 1;
 		$pkplh->update();
 
 		il_pkplh::where('id_pkplh', $id)->delete();
@@ -542,6 +544,14 @@ class PkplhController extends Controller
 		$now = tgl_indo2(Carbon::now()->format('d-m-Y'));
 		$time = Carbon::now()->format('H:i:s');
 		$tgl_dibuat = tgl_indo2($pkplh->created_at->format('d-m-Y'));
+		$tgl_diperbarui = tgl_indo2($pkplh->updated_at->format('d-m-Y'));
+        $jml_uklupl = Uklupl::where('id_pkplh', $pkplh->id)->get()->count();
+
+        if ($jml_uklupl != 0) {
+            $last_uklupl = Uklupl::where('id_pkplh', $pkplh->id)->orderBy('updated_at', 'desc')->first();
+        } else {
+            return redirect()->back()->with('message', 'Mohon isi minimal satu data dokumen UKL-UPL!');
+        }
 
 		$data = [
 			'tgl_cetak' => $now . ", " . $time,
@@ -550,8 +560,11 @@ class PkplhController extends Controller
 			'nama_usaha_baru' =>  $pkplh->nama_usaha_baru,
 			'nomor_validasi' =>  $pkplh->nomor_validasi,
 			'tgl_dibuat' =>  $tgl_dibuat,
+			'tgl_diperbarui' =>  $tgl_diperbarui,
+			'jml_perubahan' =>  $pkplh->count,
 			'jenis_perubahan' =>  $pkplh->jenis_perubahan,
-			'jml_uklupl' => Uklupl::where('id_pkplh', $pkplh->id)->get()->count(),
+			'jml_uklupl' => $jml_uklupl,
+			'last_uklupl' => tgl_indo2($last_uklupl->updated_at->format('d-m-Y')),
 		];
 
 		$pdf = Pdf::loadView('layouts.regist_pkplh', $data);

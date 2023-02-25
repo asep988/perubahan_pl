@@ -22,6 +22,11 @@
     </nav>
 </div>
 <div class="card-body">
+    @if (session()->has('message'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('message') }}
+        </div>
+    @endif
     <a class=" btn btn-sm btn-success float-left" style="color: white;" href="{{ route('skkl.create') }}">Tambah</a>
     <div class="d-flex justify-content-center">
         <a class=" btn btn-outline-success mb-3" target="_blank" style="margin-left: -30px" href="https://wa.me/6281339990567">Layanan Chat Operator (Jam Kerja  09.00 - 15.00 WIB)&nbsp;&nbsp;<img src="{{ asset('img/whatsapp.png') }}" width="30px" alt=""></a>
@@ -101,9 +106,11 @@
         </div>
         <div class="modal-body">
             <a class="btn btn-warning btn-block @if ($skkl->status == "Final") disabled @endif" href="{{ route('skkl.edit', $skkl->id) }}">Ubah Data SKKL</a>
-            <a class="btn btn-success btn-block" target="_blank" href="{{ route('skkl.regist', $skkl->id) }}">Bukti Submit</a>
-            <a class="btn btn-success btn-block" target="_blank" href="{{ route('skkl.chat', $skkl->id) }}">Chat dengan PJM</a>
+            <a class="btn btn-primary btn-block" href="{{ route('rkl.create', $skkl->id) }}">Input Dokumen RKL (Lampiran I)</a>
+            <a class="btn btn-primary btn-block" href="{{ route('rpl.create', $skkl->id) }}">Input Dokumen RPL (Lampiran I)</a>
             <button type="button" class="btn btn-danger btn-block my-2" data-toggle="modal" data-target="{{ '#batal'.$skkl->id }}">Batalkan Permohonan</button>
+            <a class="btn btn-success btn-block" target="_blank" href="{{ route('skkl.regist', $skkl->id) }}">Submit Data</a>
+            <a class="btn btn-success btn-block" target="_blank" href="{{ route('skkl.chat', $skkl->id) }}">Chat dengan PJM</a>
             <hr>
             @if ($skkl->rintek_upload)
                 <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek_upload) }}">Unduh Dokumen Rincian Teknis</a></button>
@@ -114,8 +121,6 @@
 
             <hr>
 
-            <a class="btn btn-primary btn-block" href="{{ route('rkl.create', $skkl->id) }}">Dokumen RKL (Lampiran I)</a>
-            <a class="btn btn-primary btn-block" href="{{ route('rpl.create', $skkl->id) }}">Dokumen RPL (Lampiran I)</a>
             <a class="btn btn-primary btn-block mb-2" href="{{ route('pemrakarsa.download.lampiran1', $skkl->id) }}">Preview lampiran II</a>
             <?php $i = 3; ?>
             @if ($skkl->jenis_perubahan != 'perkep1' && $skkl->pertek[0] != null)

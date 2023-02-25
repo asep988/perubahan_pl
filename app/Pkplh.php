@@ -73,7 +73,8 @@ class Pkplh extends Model
         'pic_pemohon',
         'no_hp_pic',
         'noreg',
-        'note'
+        'note',
+        'count'
     ];
 
     public function il_pkplh()

@@ -102,6 +102,7 @@
                         data-target="#importModal">
                         Import
                     </button>
+                    {{-- <a href="{{ route('rkl.create', $id_skkl) }}" type="button" class="btn btn-sm btn-success ml-1 mb-1">Input Dokumen RKL</a> --}}
                 </div>
                 <input type="hidden" name="id_skkl" value="{{ $id_skkl }}">
                 <table border="1" width="100%">
@@ -185,6 +186,7 @@
 
                 <div>
                     <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="{{ route('rkl.create', $id_skkl) }}" type="button" class="btn btn-success float-right">Input Dokumen RKL</a>
                 </div>
             </form>
         </div>

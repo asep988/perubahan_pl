@@ -79,17 +79,31 @@
             <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $tgl_dibuat }}</td>
         </tr>
         <tr style="border: 1px solid black; border-collapse: collapse;">
+            <td style="border: 1px solid black; border-collapse: collapse; width: 150px;">Tanggal Diperbarui</td>
+            <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $tgl_diperbarui }}</td>
+        </tr>
+        <tr style="border: 1px solid black; border-collapse: collapse;">
+            <td style="border: 1px solid black; border-collapse: collapse; width: 150px;">Jumlah Perubahan</td>
+            <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $jml_perubahan }}</td>
+        </tr>
+        <tr style="border: 1px solid black; border-collapse: collapse;">
             <td style="border: 1px solid black; border-collapse: collapse; width: 150px;">Nomor Verifikasi PTSP</td>
             <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $nomor_validasi }}
             </td>
         </tr>
         <tr style="border: 1px solid black; border-collapse: collapse;">
             <td style="border: 1px solid black; border-collapse: collapse; width: 150px;">Jumlah Data RKL</td>
-            <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $jml_rkl }}</td>
+            <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;">
+                <div class="float-left">{{ $jml_rkl }}</div>
+                <div class="float-right">Tanggal terakhir update: {{ $last_rkl }}</div>    
+            </td>
         </tr>
         <tr style="border: 1px solid black; border-collapse: collapse;">
             <td style="border: 1px solid black; border-collapse: collapse; width: 150px;">Jumlah Data RPL</td>
-            <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $jml_rpl }}</td>
+            <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;">
+                <div class="float-left">{{ $jml_rpl }}</div>
+                <div class="float-right">Tanggal terakhir update: {{ $last_rpl }}</div>
+            </td>
         </tr>
     </table>
 

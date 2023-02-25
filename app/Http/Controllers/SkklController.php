@@ -197,6 +197,7 @@ class SkklController extends Controller
 		$skkl->pend_sos				= 	$request->pend_sos;
 		$skkl->pend_institut		= 	$request->pend_institut;
 		$skkl->status 				= 	"Belum";
+		$skkl->count 				= 	0;
 		$skkl->save();
 
 		$late = Skkl::orderBy('id', 'DESC')->take(1)->get();
@@ -230,7 +231,7 @@ class SkklController extends Controller
 		}
 		DB::commit();
 
-        return redirect()->route('pemrakarsa.index')->with('pesan', 'Data berhasil diinput');
+        return redirect()->route('rkl.create', $skkl_id)->with('pesan', 'Data berhasil diinput');
 	}
 
 	public function review($id) //Pemrakarsa
@@ -425,6 +426,7 @@ class SkklController extends Controller
 		$skkl->pend_tek				= 	$request->pend_tek;
 		$skkl->pend_sos				= 	$request->pend_sos;
 		$skkl->pend_institut		= 	$request->pend_institut;
+		$skkl->count				= 	$skkl->count + 1;
 		$skkl->update();
 
 		il_skkl::where('id_skkl', $id)->delete();
@@ -474,6 +476,23 @@ class SkklController extends Controller
 		$now = tgl_indo2(Carbon::now()->format('d-m-Y'));
 		$time = Carbon::now()->format('H:i:s');
 		$tgl_dibuat = tgl_indo2($skkl->created_at->format('d-m-Y'));
+		$tgl_diperbarui = tgl_indo2($skkl->updated_at->format('d-m-Y'));
+		$jum_rkl = rkl::where('id_skkl', $skkl->id)->get()->count();
+		$jum_rpl = rpl::where('id_skkl', $skkl->id)->get()->count();
+
+		if ($jum_rkl != 0) {
+			$last_rkl = rkl::where('id_skkl', $skkl->id)->orderBy('updated_at', 'desc')->first();
+		} if ($jum_rpl != 0) {
+			$last_rpl = rpl::where('id_skkl', $skkl->id)->orderBy('updated_at', 'desc')->first();
+		}
+
+		if ($jum_rkl == 0 && $jum_rpl == 0) {
+			return redirect()->back()->with('message', 'Mohon isi minimal satu data dokumen RKL dan RPL!');
+		} else if ($jum_rkl == 0) {
+			return redirect()->back()->with('message', 'Mohon isi minimal satu data dokumen RKL!');
+		} else if ($jum_rpl == 0) {
+			return redirect()->back()->with('message', 'Mohon isi minimal satu data dokumen RPL!');
+		}
 
 		$data = [
 			'tgl_cetak' => $now . ", " . $time,
@@ -482,9 +501,13 @@ class SkklController extends Controller
 			'nama_usaha_baru' =>  $skkl->nama_usaha_baru,
 			'nomor_validasi' =>  $skkl->nomor_validasi,
 			'tgl_dibuat' =>  $tgl_dibuat,
+			'tgl_diperbarui' =>  $tgl_diperbarui,
 			'jenis_perubahan' =>  $skkl->jenis_perubahan,
-			'jml_rkl' => rkl::where('id_skkl', $skkl->id)->get()->count(),
-			'jml_rpl' => rpl::where('id_skkl', $skkl->id)->get()->count()
+			'jml_perubahan' =>  $skkl->count,
+			'jml_rkl' => $jum_rkl,
+			'last_rkl' => tgl_indo2($last_rkl->updated_at->format('d-m-Y')),
+			'jml_rpl' => $jum_rpl,
+			'last_rpl' => tgl_indo2($last_rpl->updated_at->format('d-m-Y')),
 		];
 
 		$pdf = Pdf::loadView('layouts.regist_skkl', $data);

@@ -79,13 +79,24 @@
             <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $tgl_dibuat }}</td>
         </tr>
         <tr style="border: 1px solid black; border-collapse: collapse;">
+            <td style="border: 1px solid black; border-collapse: collapse; width: 150px;">Tanggal Diperbarui</td>
+            <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $tgl_diperbarui }}</td>
+        </tr>
+        <tr style="border: 1px solid black; border-collapse: collapse;">
+            <td style="border: 1px solid black; border-collapse: collapse; width: 150px;">Jumlah Perubahan</td>
+            <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $jml_perubahan }}</td>
+        </tr>
+        <tr style="border: 1px solid black; border-collapse: collapse;">
             <td style="border: 1px solid black; border-collapse: collapse; width: 150px;">Nomor Verifikasi PTSP</td>
             <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $nomor_validasi }}
             </td>
         </tr>
         <tr style="border: 1px solid black; border-collapse: collapse;">
             <td style="border: 1px solid black; border-collapse: collapse; width: 150px;">Jumlah Data UKL-UPL</td>
-            <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $jml_uklupl }}</td>
+            <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;">
+                <div class="float-right">{{ $jml_uklupl }}</div>
+                <div class="float-right">Tanggal terakhir update: {{ $last_uklupl }}</div>
+            </td>
         </tr>
     </table>
 
