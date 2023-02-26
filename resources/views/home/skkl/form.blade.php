@@ -679,10 +679,12 @@
                             </div>
                         </div>
                     </div>
+
+                    <label><b>Lampiran Rincian Teknis</b></label>
                     {{-- pertek 5 --}}
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="pertek5">
-                        <label class="custom-control-label" for="pertek5">Dokumen Rincian Teknis</label>
+                        <label class="custom-control-label" for="pertek5">Dokumen Rincian Teknis Pengelolaan Limbah Non B3</label>
                     </div>
 
                     <div class="mb-3" id="rintek" style="display: none">
