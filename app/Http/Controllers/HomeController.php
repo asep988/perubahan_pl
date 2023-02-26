@@ -39,8 +39,11 @@ class HomeController extends Controller
     {
         $user_id =  Auth::user()->id;
         $data_skkl = Skkl::where('user_id',$user_id)->orderBy('updated_at', 'desc')->get();
+        $pertek_skkl = Pertek_skkl::join('skkl', 'pertek_skkl.id_skkl', 'skkl.id')
+        ->select('pertek_skkl.id_skkl', 'pertek_skkl.pertek', 'pertek_skkl.surat_pertek')
+        ->where('skkl.user_id', $user_id)->orderBy('pertek_skkl.id', 'asc')->get();
 
-        return view('home.skkl.index', compact('data_skkl'));
+        return view('home.skkl.index', compact('data_skkl', 'pertek_skkl'));
     }
 
     public function reset()

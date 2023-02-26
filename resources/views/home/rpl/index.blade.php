@@ -98,11 +98,14 @@
                     <h5>
                         <b>Tambah Data RPL</b>
                     </h5>
+                    {{-- <div class="d-flex justify-content-center" style="padding-left: 150px;">
+                        <a class=" btn btn-outline-success mb-3" target="_blank" style="margin-left: 150px;" href="{{ route('preview.rpl', $id_skkl) }}">Preview</a>
+                    </div> --}}
                     <button type="button" class="btn btn-sm btn-primary ml-auto mb-1" data-toggle="modal"
                         data-target="#importModal">
                         Import
                     </button>
-                    {{-- <a href="{{ route('rkl.create', $id_skkl) }}" type="button" class="btn btn-sm btn-success ml-1 mb-1">Input Dokumen RKL</a> --}}
+                    <a target="_blank" href="{{ route('preview.rpl', $id_skkl) }}" type="button" class="btn btn-sm btn-success ml-1 mb-1">Preview RPL</a>
                 </div>
                 <input type="hidden" name="id_skkl" value="{{ $id_skkl }}">
                 <table border="1" width="100%">

@@ -26,8 +26,11 @@ class PkplhController extends Controller
     {
         $user_id =  Auth::user()->id;
         $data_pkplh = Pkplh::where('user_id',$user_id)->orderBy('updated_at', 'desc')->get();
+		$pertek_pkplh = Pertek_pkplh::join('pkplh', 'pertek_pkplh.id_pkplh', 'pkplh.id')
+        ->select('pertek_pkplh.id_pkplh', 'pertek_pkplh.pertek', 'pertek_pkplh.surat_pertek')
+        ->where('pkplh.user_id', $user_id)->orderBy('pertek_pkplh.id', 'asc')->get();
 
-        return view('home.pkplh.index', compact('data_pkplh'));
+        return view('home.pkplh.index', compact('data_pkplh', 'pertek_pkplh'));
     }
 
     public function create()
@@ -46,10 +49,6 @@ class PkplhController extends Controller
 	public function store(Request $request)
 	{
 		$id_user = Auth::user()->id;
-		$request->validate([
-			'rintek_upload' => 'nullable|max:5120',
-			'rintek_limbah_upload' => 'nullable|max:5120'
-		]);
 
 		if (is_array($request->kabupaten_kota)) {
 			$kabkota = $request->kabupaten_kota;
@@ -93,12 +92,29 @@ class PkplhController extends Controller
 		}
 
         if (in_array("pertek5", $pertek)) {
-			$request->validate([
-				'rintek_upload' => 'required',
-			]);
+			if (in_array("Penyimpanan", $request->surat_pertek)) {
+				$request->validate([
+					'rintek_upload1' => 'required|max:10240',
+				]);
+			}
+			if (in_array("Pemanfaatan", $request->surat_pertek)) {
+				$request->validate([
+					'rintek_upload2' => 'required|max:10240',
+				]);
+			}
+			if (in_array("Penimbunan", $request->surat_pertek)) {
+				$request->validate([
+					'rintek_upload3' => 'required|max:10240',
+				]);
+			}
+			if (in_array("Pengurangan", $request->surat_pertek)) {
+				$request->validate([
+					'rintek_upload4' => 'required|max:10240',
+				]);
+			}
 		} else if (in_array("pertek6", $pertek)) {
 			$request->validate([
-				'rintek_limbah_upload' => 'required'
+				'rintek_limbah_upload' => 'required|max:10240'
 			]);
 		}
 
@@ -130,23 +146,52 @@ class PkplhController extends Controller
 			$perihal_peraturan[] = $request->perihal_peraturan;
 		}
 
-		if ($request->rintek_upload) {
-			$file1 = $request->file('rintek_upload');
+		#region
+		if ($request->rintek_upload1) {
+			$file1 = $request->file('rintek_upload1');
 			$format1 = $file1->getClientOriginalExtension();
-			$fileName1 = time() . rand(0,100) . '_rintek.' . $format1; //Variabel yang menampung nama file
-			$file1->storeAs('files/pkplh/rintek', $fileName1); //Simpan ke Storage
+			$rintek1 = time() . rand(0,100) . '_rintek_penyimpanan.' . $format1; //Variabel yang menampung nama file
+			$file1->storeAs('files/pkplh/rintek', $rintek1); //Simpan ke Storage
 		} else {
-			$fileName1 = null;
+			$rintek1 = null;
+		}
+
+		if ($request->rintek_upload2) {
+			$file2 = $request->file('rintek_upload2');
+			$format2 = $file2->getClientOriginalExtension();
+			$rintek2 = time() . rand(0,100) . '_rintek_pemanfaatan.' . $format2; //Variabel yang menampung nama file
+			$file2->storeAs('files/pkplh/rintek', $rintek2); //Simpan ke Storage
+		} else {
+			$rintek2 = null;
+		}
+
+		if ($request->rintek_upload3) {
+			$file3 = $request->file('rintek_upload3');
+			$format3 = $file3->getClientOriginalExtension();
+			$rintek3 = time() . rand(0,100) . '_rintek_penimbunan.' . $format3; //Variabel yang menampung nama file
+			$file3->storeAs('files/pkplh/rintek', $rintek3); //Simpan ke Storage
+		} else {
+			$rintek3 = null;
+		}
+
+		if ($request->rintek_upload4) {
+			$file4 = $request->file('rintek_upload4');
+			$format4 = $file4->getClientOriginalExtension();
+			$rintek4 = time() . rand(0,100) . '_rintek_pengurangan.' . $format4; //Variabel yang menampung nama file
+			$file4->storeAs('files/pkplh/rintek', $rintek4); //Simpan ke Storage
+		} else {
+			$rintek4 = null;
 		}
 
 		if ($request->rintek_limbah_upload) {
-			$file2 = $request->file('rintek_limbah_upload');
-			$format2 = $file2->getClientOriginalExtension();
-			$fileName2 = time() . rand(0,100) . '_rintek_limbah.' . $format2; //Variabel yang menampung nama file
-			$file2->storeAs('files/pkplh/rintek', $fileName2); //Simpan ke Storage
+			$file5 = $request->file('rintek_limbah_upload');
+			$format5 = $file5->getClientOriginalExtension();
+			$fileName2 = time() . rand(0,100) . '_rintek_limbah.' . $format5; //Variabel yang menampung nama file
+			$file5->storeAs('files/pkplh/rintek', $fileName2); //Simpan ke Storage
 		} else {
 			$fileName2 = null;
 		}
+		#endregion
 
         $hash = hash_hmac('sha256', $request->nama_usaha_baru . rand(0,100), 'PKPLH');
 		$regist = "B" . substr($hash, 0, 14);
@@ -172,7 +217,10 @@ class PkplhController extends Controller
 		$pkplh->lokasi_baru			    =	$request->lokasi_baru;
 		$pkplh->nama_kbli			    =	$nama_kbli;
 		$pkplh->kbli_baru			    =	$nomor_kbli;
-		$pkplh->rintek_upload		    =	$fileName1;
+		$pkplh->rintek_upload		    =	$rintek1;
+		$pkplh->rintek2_upload		    =	$rintek2;
+		$pkplh->rintek3_upload		    =	$rintek3;
+		$pkplh->rintek4_upload		    =	$rintek4;
 		$pkplh->rintek_limbah_upload	=	$fileName2;
 		$pkplh->noreg               	=	$regist;
 
@@ -216,14 +264,23 @@ class PkplhController extends Controller
 
 		if ($request->jenis_perubahan != "perkep1" && $request->surat_pertek != null) {
 			for ($i = 0; $i < count($request->surat_pertek); $i++) {
+				if ($request->pertek[$i] == "pertek5") {
+					$nomor_pertek = null;
+					$tgl_pertek = null;
+					$perihal_pertek = null;
+				} else {
+					$nomor_pertek = $request->nomor_pertek[$i];
+					$tgl_pertek = $request->tgl_pertek[$i];
+					$perihal_pertek = $request->perihal_pertek[$i];
+				}
+
 				$pertek_pkplh = new Pertek_pkplh;
 				$pertek_pkplh->id_pkplh = $pkplh_id;
 				$pertek_pkplh->pertek = $request->pertek[$i];
-				// $pertek_pkplh->judul_pertek = $request->judul_pertek[$i];
 				$pertek_pkplh->surat_pertek = $request->surat_pertek[$i];
-				$pertek_pkplh->nomor_pertek = $request->nomor_pertek[$i];
-				$pertek_pkplh->tgl_pertek = $request->tgl_pertek[$i];
-				$pertek_pkplh->perihal_pertek = $request->perihal_pertek[$i];
+				$pertek_pkplh->nomor_pertek = $nomor_pertek;
+				$pertek_pkplh->tgl_pertek = $tgl_pertek;
+				$pertek_pkplh->perihal_pertek = $perihal_pertek;
 				$pertek_pkplh->save();
 			}
 		}
@@ -253,7 +310,11 @@ class PkplhController extends Controller
         ->select('users.id', 'users.name', 'users.email')
         ->get();
 
-		return view('operator.pkplh.index', compact('data_pkplh', 'pemrakarsa'));
+		$pertek_pkplh = Pertek_pkplh::join('pkplh', 'pertek_pkplh.id_pkplh', 'pkplh.id')
+        ->select('pertek_pkplh.id_pkplh', 'pertek_pkplh.pertek', 'pertek_pkplh.surat_pertek')
+        ->orderBy('pertek_pkplh.id', 'asc')->get();
+
+		return view('operator.pkplh.index', compact('data_pkplh', 'pemrakarsa', 'pertek_pkplh'));
 	}
 
 	public function uploadFile(Request $request)
@@ -327,12 +388,7 @@ class PkplhController extends Controller
 
 	public function update(Request $request, $id) //Pemrakarsa
 	{
-        // return $request->all();
 		$id_user = Auth::user()->id;
-		$request->validate([
-			'rintek_upload' => 'nullable|max:5120',
-			'rintek_limbah_upload' => 'nullable|max:5120'
-		]);
 
 		if (is_array($request->kabupaten_kota)) {
 			$kabkota = $request->kabupaten_kota;
@@ -376,12 +432,29 @@ class PkplhController extends Controller
 		}
 
         if (in_array("pertek5", $pertek)) {
-			$request->validate([
-				'rintek_upload' => 'required',
-			]);
+			if (in_array("Penyimpanan", $request->surat_pertek)) {
+				$request->validate([
+					'rintek_upload1' => 'nullable|max:10240',
+				]);
+			}
+			if (in_array("Pemanfaatan", $request->surat_pertek)) {
+				$request->validate([
+					'rintek_upload2' => 'nullable|max:10240',
+				]);
+			}
+			if (in_array("Penimbunan", $request->surat_pertek)) {
+				$request->validate([
+					'rintek_upload3' => 'nullable|max:10240',
+				]);
+			}
+			if (in_array("Pengurangan", $request->surat_pertek)) {
+				$request->validate([
+					'rintek_upload4' => 'nullable|max:10240',
+				]);
+			}
 		} else if (in_array("pertek6", $pertek)) {
 			$request->validate([
-				'rintek_limbah_upload' => 'required'
+				'rintek_limbah_upload' => 'nullable|max:10240'
 			]);
 		}
 
@@ -415,33 +488,72 @@ class PkplhController extends Controller
 
 		$data = Pkplh::find($id);
 
-		if ($request->rintek_upload) {
+		#region
+		if ($request->rintek_upload1) {
 			$destination = 'files/pkplh/rintek/' . $data->rintek_upload;
-			if ($destination) {
+			if ($data->rintek_upload) {
 				Storage::delete($destination);
 			}
-
-			$file1 = $request->file('rintek_upload');
+			$file1 = $request->file('rintek_upload1');
 			$format1 = $file1->getClientOriginalExtension();
-			$fileName1 = time() . rand(0,100) . '_rintek.' . $format1; //Variabel yang menampung nama file
-			$file1->storeAs('files/pkplh/rintek', $fileName1); //Simpan ke Storage
+			$rintek1 = time() . rand(0,100) . '_rintek.' . $format1; //Variabel yang menampung nama file
+			$file1->storeAs('files/pkplh/rintek', $rintek1); //Simpan ke Storage
 		} else {
-			$fileName1 = null;
+			$rintek1 = null;
+		}
+
+		if ($request->rintek_upload2) {
+			$destination = 'files/pkplh/rintek/' . $data->rintek2_upload;
+			if ($data->rintek2_upload) {
+				Storage::delete($destination);
+			}
+			$file2 = $request->file('rintek_upload2');
+			$format2 = $file2->getClientOriginalExtension();
+			$rintek2 = time() . rand(0,100) . '_rintek.' . $format2; //Variabel yang menampung nama file
+			$file2->storeAs('files/pkplh/rintek', $rintek2); //Simpan ke Storage
+		} else {
+			$rintek2 = null;
+		}
+
+		if ($request->rintek_upload3) {
+			$destination = 'files/pkplh/rintek/' . $data->rintek3_upload;
+			if ($data->rintek3_upload) {
+				Storage::delete($destination);
+			}
+			$file3 = $request->file('rintek_upload3');
+			$format3 = $file3->getClientOriginalExtension();
+			$rintek3 = time() . rand(0,100) . '_rintek.' . $format3; //Variabel yang menampung nama file
+			$file3->storeAs('files/pkplh/rintek', $rintek3); //Simpan ke Storage
+		} else {
+			$rintek3 = null;
+		}
+
+		if ($request->rintek_upload4) {
+			$destination = 'files/pkplh/rintek/' . $data->rintek4_upload;
+			if ($data->rintek4_upload) {
+				Storage::delete($destination);
+			}
+			$file4 = $request->file('rintek_upload4');
+			$format4 = $file4->getClientOriginalExtension();
+			$rintek4 = time() . rand(0,100) . '_rintek.' . $format4; //Variabel yang menampung nama file
+			$file4->storeAs('files/pkplh/rintek', $rintek4); //Simpan ke Storage
+		} else {
+			$rintek4 = null;
 		}
 
 		if ($request->rintek_limbah_upload) {
 			$destination = 'files/pkplh/rintek/' . $data->rintek_limbah_upload;
-			if ($destination) {
+			if ($data->rintek_limbah_upload) {
 				Storage::delete($destination);
 			}
-
-			$file2 = $request->file('rintek_limbah_upload');
-			$format2 = $file2->getClientOriginalExtension();
-			$fileName2 = time() . rand(0,100) . '_rintek_limbah.' . $format2; //Variabel yang menampung nama file
-			$file2->storeAs('files/pkplh/rintek', $fileName2); //Simpan ke Storage
+			$file5 = $request->file('rintek_limbah_upload');
+			$format5 = $file5->getClientOriginalExtension();
+			$fileName2 = time() . rand(0,100) . '_rintek_limbah.' . $format5; //Variabel yang menampung nama file
+			$file5->storeAs('files/pkplh/rintek', $fileName2); //Simpan ke Storage
 		} else {
 			$fileName2 = null;
 		}
+		#endregion
 
 		DB::beginTransaction();
 		$pkplh = Pkplh::find($id);
@@ -464,7 +576,10 @@ class PkplhController extends Controller
 		$pkplh->lokasi_baru			=	$request->lokasi_baru;
 		$pkplh->nama_kbli			=	$nama_kbli;
 		$pkplh->kbli_baru			=	$nomor_kbli;
-		$pkplh->rintek_upload		=	$fileName1;
+		$pkplh->rintek_upload		=	$rintek1;
+		$pkplh->rintek2_upload		=	$rintek2;
+		$pkplh->rintek3_upload		=	$rintek3;
+		$pkplh->rintek4_upload		=	$rintek4;
 		$pkplh->rintek_limbah_upload=	$fileName2;
 
 		$pkplh->provinsi			=	$provinsi;
@@ -503,14 +618,23 @@ class PkplhController extends Controller
 		if ($request->jenis_perubahan != "perkep1" && $request->surat_pertek != null) {
 			Pertek_pkplh::where('id_pkplh', $id)->delete();
 			for ($i = 0; $i < count($request->surat_pertek); $i++) {
+				if ($request->pertek[$i] == "pertek5") {
+					$nomor_pertek = null;
+					$tgl_pertek = null;
+					$perihal_pertek = null;
+				} else {
+					$nomor_pertek = $request->nomor_pertek[$i];
+					$tgl_pertek = $request->tgl_pertek[$i];
+					$perihal_pertek = $request->perihal_pertek[$i];
+				}
+
 				$pertek_pkplh = new Pertek_pkplh;
 				$pertek_pkplh->id_pkplh = $id;
 				$pertek_pkplh->pertek = $request->pertek[$i];
-				// $pertek_pkplh->judul_pertek = $request->judul_pertek[$i];
 				$pertek_pkplh->surat_pertek = $request->surat_pertek[$i];
-				$pertek_pkplh->nomor_pertek = $request->nomor_pertek[$i];
-				$pertek_pkplh->tgl_pertek = $request->tgl_pertek[$i];
-				$pertek_pkplh->perihal_pertek = $request->perihal_pertek[$i];
+				$pertek_pkplh->nomor_pertek = $nomor_pertek;
+				$pertek_pkplh->tgl_pertek = $tgl_pertek;
+				$pertek_pkplh->perihal_pertek = $perihal_pertek;
 				$pertek_pkplh->save();
 			}
 		}
@@ -567,6 +691,11 @@ class PkplhController extends Controller
 			'last_uklupl' => tgl_indo2($last_uklupl->updated_at->format('d-m-Y')),
 		];
 
+		if ($pkplh->status == "Belum") {
+			$pkplh->status = "Submit";
+			$pkplh->update();
+		}
+		
 		$pdf = Pdf::loadView('layouts.regist_pkplh', $data);
         return $pdf->stream();
 	}
@@ -1141,7 +1270,7 @@ class PkplhController extends Controller
 		$headers = array(
 			"Content-type" => "text/html",
 
-			"Content-Disposition" => "attachment; Filename=Pertek_$pkplh->pelaku_usaha_baru.doc"
+			"Content-Disposition" => "attachment; Filename=Pertek_Lampiran ". integerToRoman($roman) ."_$pkplh->pelaku_usaha_baru.doc"
 		);
 
 		$body = '
@@ -1206,16 +1335,26 @@ class PkplhController extends Controller
 			return \Response::make($body, 200, $headers);
 	}
 
-	public function download_rintek($id)
+	public function download_rintek(Request $request, $id)
 	{
 		$pkplh = Pkplh::find($id);
         $pertek = Pertek_pkplh::where('id_pkplh', $id)->get();
-        $roman = 2 + count($pertek);
+
+        if ($request->pertek == "pertek5") {
+			$jenis = strtoupper($request->jenis);
+			$isi = "<td style='text-align: center;'>
+						RINCIAN TEKNIS PENGELOLAAN LIMBAH NON-B3 UNTUK KEGIATAN " . $jenis . " LIMBAH NON - B3 " . strtoupper($pkplh->pelaku_usaha_baru) . "
+					</td>";
+		} else if ($request->pertek == "pertek6") {
+			$isi = "<td>
+						<b>RINCIAN TEKNIS PENYIMPANAN LIMBAH B3</b>
+					</td>";
+		}
 
 		$headers = array(
 			"Content-type" => "text/html",
 
-			"Content-Disposition" => "attachment; Filename=Rintek_$pkplh->pelaku_usaha_baru.doc"
+			"Content-Disposition" => "attachment; Filename=Rintek_Lampiran ". integerToRoman($request->nomor) ."_$pkplh->pelaku_usaha_baru.doc"
 		);
 
 		$body = '
@@ -1228,7 +1367,7 @@ class PkplhController extends Controller
 			<table>
 				<tr>
 					<td>
-						LAMPIRAN ' . integerToRoman($roman) .' <br>
+						LAMPIRAN ' . integerToRoman($request->nomor) .' <br>
 						KEPUTUSAN MENTRI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
 						NOMOR <br>
 						TENTANG PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($pkplh->nama_usaha_baru).'
@@ -1237,9 +1376,7 @@ class PkplhController extends Controller
 				</tr>
 					<br><br><br>
 				<tr>
-					<td>
-						<b>RINCIAN TEKNIS PENYIMPANAN LIMBAH B3</b>
-					</td>
+					'. $isi .'
 				</tr>
 					<br><br>
 				<tr>

@@ -16,9 +16,6 @@ class PrintRplController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-    }
 
     public function showdata($data_rpl, $no, $tahap)
     {
@@ -73,12 +70,12 @@ class PrintRplController extends Controller
         $rpl_penting_prakons = rpl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan','Pra Konstruksi')->orderBy('id', 'desc')->get();
         $rpl_penting_konstruksi = rpl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan','Konstruksi')->orderBy('id', 'desc')->get();
         $rpl_penting_operasi = rpl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan','Operasi')->orderBy('id', 'desc')->get();
-        $rpl_penting_pasca = rpl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan','Pasca Oprerasi')->orderBy('id', 'desc')->get();
+        $rpl_penting_pasca = rpl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan','Pasca Operasi')->orderBy('id', 'desc')->get();
 
         $rpl_lainnya_prakons = rpl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan','Pra Konstruksi')->orderBy('id', 'desc')->get();
         $rpl_lainnya_konstruksi = rpl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan','Konstruksi')->orderBy('id', 'desc')->get();
         $rpl_lainnya_operasi = rpl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan','Operasi')->orderBy('id', 'desc')->get();
-        $rpl_lainnya_pasca = rpl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan','Pasca Oprerasi')->orderBy('id', 'desc')->get();
+        $rpl_lainnya_pasca = rpl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan','Pasca Operasi')->orderBy('id', 'desc')->get();
 
         $headers = array(
             "Content-type" => "application/vnd.msword",
@@ -135,7 +132,7 @@ class PrintRplController extends Controller
             border-collapse: collapse;
             width: 100%;
         }
-          
+
         .solid-table th,
         .solid-table td {
             border: 1px solid black;

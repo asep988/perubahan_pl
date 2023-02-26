@@ -59,20 +59,20 @@
                         @endif
                     </td>
                     <td class="text-center">
-                        @if ($pkplh->status == "Belum")
+                        @if ($pkplh->status == 'Belum')
                             <span class="badge badge-secondary">Belum diproses</span>
-                        @elseif ($pkplh->status == "Proses")
+                        @elseif ($pkplh->status == "Submit")
+                            <span class="badge badge-info">Tersubmit</span>
+                        @elseif ($pkplh->status == 'Proses')
                             <span class="badge badge-warning">Proses Validasi</span>
-                        @elseif ($pkplh->status == "Draft")
+                        @elseif ($pkplh->status == 'Draft')
                             <span class="badge badge-primary">Selesai Drafting</span>
-                        @elseif ($pkplh->status == "Final")
+                        @elseif ($pkplh->status == 'Final')
                             <span class="badge badge-success">Selesai</span>
-                        @elseif ($pkplh->status == "Final" && $pkplh->file != null)
-                            <a href="{{ asset('storage/files/pkplh/' . $pkplh->file) }}"><span class="badge badge-success">Selesai</span></a>
                         @elseif ($pkplh->status == "Batal")
                             <span class="badge badge-danger" title="{{ $pkplh->note }}">Dibatalkan</span>
-                        @elseif ($pkplh->status == "Batal" && $pkplh->file != null)
-                            <a href=""><span class="badge badge-danger" title="{{ $pkplh->note }}">Dibatalkan</span></a>
+                        @else
+                            <span class="badge badge-danger" title="{{ $pkplh->note }}">Ditolak</span>
                         @endif
                     </td>
                     <td class="text-center">
@@ -101,22 +101,49 @@
             <button type="button" class="btn btn-danger btn-block my-2" data-toggle="modal" data-target="{{ '#batal'.$pkplh->id }}">Batalkan Permohonan</button>
             <a class="btn btn-success btn-block" target="_blank" href="{{ route('pkplh.regist', $pkplh->id) }}">Submit Data</a>
             <a class="btn btn-success btn-block" target="_blank" href="{{ route('pkplh.chat', $pkplh->id) }}">Chat dengan PJM</a>
+            <hr>
             @if ($pkplh->rintek_upload)
-                <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek_upload) }}">Unduh Dokumen Rincian Teknis</a></button>
+                <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek_upload) }}">Dokumen Rincian Teknis Penyimpanan Limbah Non-B3</a></button>
+            @endif
+            @if ($pkplh->rintek2_upload)
+                <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek2_upload) }}">Dokumen Rincian Teknis Pemanfaatan Limbah Non-B3</a></button>
+            @endif
+            @if ($pkplh->rintek3_upload)
+                <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek3_upload) }}">Dokumen Rincian Teknis Penimbunan Limbah Non-B3</a></button>
+            @endif
+            @if ($pkplh->rintek4_upload)
+                <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek4_upload) }}">Dokumen Rincian Teknis Pengurangan Limbah Non-B3</a></button>
             @endif
             @if ($pkplh->rintek_limbah_upload)
-                <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek_limbah_upload) }}">Unduh Dokumen Rincian Teknis Penyimpanan Limbah B3</a></button>
+                <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek_limbah_upload) }}">Dokumen Rincian Teknis Penyimpanan Limbah B3</a></button>
             @endif
             <hr>
             <?php $i = 2; ?>
             @if ($pkplh->jenis_perubahan != 'perkep1' && $pkplh->pertek[0] != null)
                 @foreach ($pkplh->pertek as $pertek)
-                    <form @if ($pertek != "pertek6") action="{{ route('pemrakarsa.pkplh.pertek', $pkplh->id) }}" @else action="{{ route('pemrakarsa.pkplh.rintek', $pkplh->id) }}" @endif method="GET">
-                        @csrf
+                @csrf
+                    @if ($pertek == "pertek5")
+                        @foreach ($pertek_pkplh as $row)
+                            @if ($row->id_pkplh == $pkplh->id)
+                                @if ($row->pertek == "pertek5")
+                                <form action="{{ route('pemrakarsa.pkplh.rintek', $pkplh->id) }}" method="GET">
+                                    <input type="text" name="pertek" value="{{ $pertek }}" hidden>
+                                    <input type="text" name="nomor" value="{{ $i }}" hidden>
+                                    <input type="text" name="jenis" value="{{ $row->surat_pertek }}" hidden>
+                                    <button type="submit" class="btn btn-primary btn-block mb-2">Preview lampiran {{ integerToRoman($i) }}</button>
+                                    <?php $i++; ?>
+                                </form>
+                                @endif
+                            @endif
+                        @endforeach
+                    @else
+                    <form @if ($pertek == "pertek6") action="{{ route('pemrakarsa.pkplh.rintek', $pkplh->id) }}" @else action="{{ route('pemrakarsa.pkplh.pertek', $pkplh->id) }}" @endif method="GET">
                         <input type="text" name="pertek" value="{{ $pertek }}" hidden>
+                        <input type="text" name="nomor" value="{{ $i }}" hidden>
                         <button type="submit" class="btn btn-primary btn-block mb-2">Preview lampiran {{ integerToRoman($i) }}</button>
+                        <?php $i++; ?>
                     </form>
-                    <?php $i++; ?>
+                    @endif
                 @endforeach
             @endif
             <a class="btn btn-primary btn-block" href="{{ route('pkplh.review', $pkplh->id) }}">Preview Dokumen PKPLH</a>

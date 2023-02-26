@@ -62,14 +62,18 @@
                     <td class="text-center">
                         @if ($pkplh->status == 'Belum')
                             <span class="badge badge-secondary">Belum diproses</span>
+                        @elseif ($pkplh->status == "Submit")
+                            <span class="badge badge-info">Tersubmit</span>
                         @elseif ($pkplh->status == 'Proses')
                             <span class="badge badge-warning">Proses Validasi</span>
                         @elseif ($pkplh->status == 'Draft')
                             <span class="badge badge-primary">Selesai Drafting</span>
                         @elseif ($pkplh->status == 'Final')
                             <span class="badge badge-success">Selesai</span>
+                        @elseif ($pkplh->status == "Batal")
+                            <span class="badge badge-danger" title="{{ $pkplh->note }}">Dibatalkan</span>
                         @else
-                            <span class="badge badge-danger">Ditolak</span>
+                            <span class="badge badge-danger" title="{{ $pkplh->note }}">Ditolak</span>
                         @endif
                     </td>
                     <td>
@@ -194,15 +198,22 @@
                         <a class="btn btn-success btn-block" href="{{ route('printuklupl.download', $pkplh->id) }}">Unduh
                             UKL-UPL</a></button>
                         <a class="btn btn-success btn-block" target="_blank" href="{{ $pkplh->link_drive }}"> Drive</a></button>
+                        <hr>
                         @if ($pkplh->rintek_upload)
-                            <a class="btn btn-success btn-block" target="_blank"
-                                href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek_upload) }}">Unduh Dokumen
-                                Rincian Teknis</a></button>
+                            <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek_upload) }}">Dokumen Rincian Teknis Penyimpanan Limbah Non-B3</a></button>
+                        @endif
+                        @if ($pkplh->rintek2_upload)
+                            <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek2_upload) }}">Dokumen Rincian Teknis Pemanfaatan Limbah Non-B3</a></button>
+                        @endif
+                        @if ($pkplh->rintek3_upload)
+                            <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek3_upload) }}">Dokumen Rincian Teknis Penimbunan Limbah Non-B3</a></button>
+                        @endif
+                        @if ($pkplh->rintek4_upload)
+                            <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek4_upload) }}">Dokumen Rincian Teknis Pengurangan Limbah Non-B3</a></button>
                         @endif
                         @if ($pkplh->rintek_limbah_upload)
                             <a class="btn btn-success btn-block" target="_blank"
-                                href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek_limbah_upload) }}">Unduh
-                                Dokumen Rincian Teknis Penyimpanan Limbah B3</a></button>
+                                href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek_limbah_upload) }}">Dokumen Rincian Teknis Penyimpanan Limbah B3</a></button>
                         @endif
 
                         <hr>
@@ -210,15 +221,29 @@
                         <?php $i = 2; ?>
                         @if ($pkplh->jenis_perubahan != 'perkep1' && $pkplh->pertek[0] != null)
                             @foreach ($pkplh->pertek as $pertek)
-                                <form
-                                    @if ($pertek != 'pertek6') action="{{ route('operator.pkplh.pertek', $pkplh->id) }}" @else action="{{ route('operator.pkplh.rintek', $pkplh->id) }}" @endif
-                                    method="GET">
-                                    @csrf
+                            @csrf
+                                @if ($pertek == "pertek5")
+                                    @foreach ($pertek_pkplh as $row)
+                                        @if ($row->id_pkplh == $pkplh->id)
+                                            @if ($row->pertek == "pertek5")
+                                            <form action="{{ route('operator.pkplh.rintek', $pkplh->id) }}" method="GET">
+                                                <input type="text" name="pertek" value="{{ $pertek }}" hidden>
+                                                <input type="text" name="nomor" value="{{ $i }}" hidden>
+                                                <input type="text" name="jenis" value="{{ $row->surat_pertek }}" hidden>
+                                                <button type="submit" class="btn btn-primary btn-block mb-2">Unduh lampiran {{ integerToRoman($i) }}</button>
+                                                <?php $i++; ?>
+                                            </form>
+                                            @endif
+                                        @endif
+                                    @endforeach
+                                @else
+                                <form @if ($pertek == "pertek6") action="{{ route('operator.pkplh.rintek', $pkplh->id) }}" @else action="{{ route('operator.pkplh.pertek', $pkplh->id) }}" @endif method="GET">
                                     <input type="text" name="pertek" value="{{ $pertek }}" hidden>
-                                    <button type="submit" class="btn btn-primary btn-block mb-2">Unduh lampiran
-                                        {{ integerToRoman($i) }}</button>
+                                    <input type="text" name="nomor" value="{{ $i }}" hidden>
+                                    <button type="submit" class="btn btn-primary btn-block mb-2">Unduh lampiran {{ integerToRoman($i) }}</button>
+                                    <?php $i++; ?>
                                 </form>
-                                <?php $i++; ?>
+                                @endif
                             @endforeach
                         @endif
 

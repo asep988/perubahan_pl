@@ -6,6 +6,8 @@ use App\Pkplh;
 use Illuminate\Http\Request;
 use App\Skkl;
 use App\User;
+use App\Pertek_skkl;
+use App\Pertek_pkplh;
 use Carbon\Carbon;
 
 class SekretariatController extends Controller
@@ -24,7 +26,11 @@ class SekretariatController extends Controller
         ->select('users.id', 'users.name', 'users.email')
         ->get();
 
-        return view('sekretariat.skkl.index', compact('data_skkl', 'operators', 'pemrakarsa'));
+        $pertek_skkl = Pertek_skkl::join('skkl', 'pertek_skkl.id_skkl', 'skkl.id')
+        ->select('pertek_skkl.id_skkl', 'pertek_skkl.pertek', 'pertek_skkl.surat_pertek')
+        ->orderBy('pertek_skkl.id', 'asc')->get();
+
+        return view('sekretariat.skkl.index', compact('data_skkl', 'operators', 'pemrakarsa', 'pertek_skkl'));
     }
 
     public function assign(Request $request)
@@ -82,7 +88,11 @@ class SekretariatController extends Controller
         ->select('users.id', 'users.name', 'users.email')
         ->get();
 
-        return view('sekretariat.pkplh.index', compact('data_pkplh', 'operators', 'pemrakarsa'));
+        $pertek_pkplh = Pertek_pkplh::join('pkplh', 'pertek_pkplh.id_pkplh', 'pkplh.id')
+        ->select('pertek_pkplh.id_pkplh', 'pertek_pkplh.pertek', 'pertek_pkplh.surat_pertek')
+        ->orderBy('pertek_pkplh.id', 'asc')->get();
+
+        return view('sekretariat.pkplh.index', compact('data_pkplh', 'operators', 'pemrakarsa', 'pertek_pkplh'));
     }
 
     public function pkplhAssign(Request $request)

@@ -867,89 +867,104 @@
                     </div>
                 </div>
 
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="pertek5" @if ($pertek5 == 1) checked @endif>
-                    <label class="custom-control-label" for="pertek5">Dokumen Rincian Teknis</label>
-                </div>
-
-                <div class="mb-3" id="rintek" @if ($pertek5 == 0) style="display: none" @endif>
-                    <div class="form-group row">
-                        <table border="1" width="100%">
-                            <thead>
-                                <tr class="text-center">
-                                    <th>#</th>
-                                    <th>Surat Persetujuan Teknis</th>
-                                    <th>Nomor Persetujuan Teknis</th>
-                                    <th>Tanggal Persetujuan Teknis</th>
-                                    <th>Perihal Persetujuan Teknis</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-pertek5">
-                                <?php $prtk5 = 1 ?>
-                                @foreach ($pertek_pkplh as $pertek)
-                                    @if ($pertek->pertek == "pertek5")
-                                        <tr id="{{ 'prt5-' . $prtk5 }}">
-                                            <td>{{ $prtk5 }}
-                                                <input type="text" name="pertek[]" id="name_pertek5" value="pertek5" hidden>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" id="surat_pertek5" placeholder="Surat Persetujuan Teknis" @if ($pertek->surat_pertek) name="surat_pertek[]" value="{{ $pertek->surat_pertek }}" required @endif>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" id="nomor_pertek5" placeholder="Nomor Persetujuan Teknis" @if ($pertek->nomor_pertek) name="nomor_pertek[]" value="{{ $pertek->nomor_pertek }}" required @endif>
-                                            </td>
-                                            <td>
-                                                <input type="date" class="form-control" id="tgl_pertek5" placeholder="Tanggal Persetujuan Teknis" @if ($pertek->tgl_pertek) name="tgl_pertek[]" value="{{ $pertek->tgl_pertek }}" required @endif>
-                                            </td>
-                                            <td>
-                                                <textarea class="form-control" id="perihal_pertek5" rows="2" @if ($pertek->perihal_pertek) name="perihal_pertek[]" required @endif>{!! $pertek->perihal_pertek !!}</textarea>
-                                            </td>
-                                        </tr>
-                                        <?php $prtk5++ ?>
-                                    @endif
-                                @endforeach
-                                @if ($pertek5 == 0)
-                                    <tr id="prt5-1">
-                                        <td>
-                                            1
-                                            <input type="text" id="name_pertek5" value="pertek5" hidden>
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" id="surat_pertek5" placeholder="Surat Persetujuan Teknis">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" id="nomor_pertek5" placeholder="Nomor Persetujuan Teknis">
-                                        </td>
-                                        <td>
-                                            <input type="date" class="form-control" id="tgl_pertek5" placeholder="Tanggal Persetujuan Teknis">
-                                        </td>
-                                        <td>
-                                            <textarea class="form-control" id="perihal_pertek5" rows="2"></textarea>
-                                        </td>
-                                    </tr>
-                                @endif
-                            </tbody>
-                        </table>
-                        <div class="mt-1">
-                            <button type="button" id="remove-pertek5" class="btn remove-pertek5 btn-sm btn-danger">
-                                <i class="fas fa-minus fa-sm"></i>
-                            </button>
-                            <button type="button" id="add-pertek5" class="btn btn-sm btn-primary">
-                                <i class="fas fa-plus fa-sm"></i>
-                            </button>
-                        </div>
+                <hr>
+                    <label><b>Lampiran Rincian Teknis</b></label>
+                    {{-- pertek 5 --}}
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="pertek5" @if($pertek5 == 1) checked @endif>
+                        <label class="custom-control-label" for="pertek5">Dokumen Rincian Teknis Pengelolaan Limbah Non B3</label>
                     </div>
 
-                    <div class="input-group mt-1">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="rintek_upload">Upload dokumen yang diperlukan</span>
-                        </div>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input @error('rintek_upload') is-invalid @enderror" id="rintek_upload" name="rintek_upload" aria-describedby="rintek_upload">
-                            <label class="custom-file-label" for="rintek_upload">Choose file</label>
+                    <div class="mb-3" id="rintek" @if($pertek5 == 0) style="display: none" @endif>
+                        <div class="form-group row">
+
+                            <div class="custom-control custom-checkbox ml-5">
+                                <input type="checkbox" class="custom-control-input" id="rintek1" name="surat_pertek[]" value="Penyimpanan" @if($pkplh->rintek_upload != null) checked @endif>
+                                <label class="custom-control-label" for="rintek1">Dokumen Rincian Teknis Pengelolaan Limbah Non-B3 untuk Kegiatan Penyimpanan</label>
+                            </div>
+
+                            <div class="input-group mt-1 ml-5">
+                                <div id="rintek1_form" @if($pkplh->rintek_upload == null) style="display: none" @endif>
+                                    <input type="text" id="rintek1_data" value="pertek5" hidden>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="rintek_upload1">Upload</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input @error('rintek_upload1') is-invalid @enderror" id="rintek_upload1" name="rintek_upload1" aria-describedby="rintek_upload1">
+                                            <label class="custom-file-label" for="rintek_upload1">Choose file</label>
+                                        </div>
+                                        <a class="btn btn-success ml-2 @if($pkplh->rintek_upload == null) disabled @endif" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek_upload) }}"><i class="fas fa-download"></i></a>
+                                    </div>
+                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 10 mb </small>
+                                </div>
+                            </div>
+
+                            <div class="custom-control custom-checkbox ml-5 mt-3">
+                                <input type="checkbox" class="custom-control-input" id="rintek2" name="surat_pertek[]" value="Pemanfaatan" @if($pkplh->rintek2_upload != null) checked @endif>
+                                <label class="custom-control-label" for="rintek2">Dokumen Rincian Teknis Pengelolaan Limbah Non-B3 untuk Kegiatan Pemanfaatan</label>
+                            </div>
+                            <div class="input-group mt-1 ml-5">
+                                <div id="rintek2_form" @if($pkplh->rintek2_upload == null) style="display: none" @endif>
+                                    <input type="text" id="rintek2_data" value="pertek5" hidden>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="rintek_upload2">Upload</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input @error('rintek_upload2') is-invalid @enderror" id="rintek_upload2" name="rintek_upload2" aria-describedby="rintek_upload2">
+                                            <label class="custom-file-label" for="rintek_upload2">Choose file</label>
+                                        </div>
+                                        <a class="btn btn-success ml-2 @if($pkplh->rintek2_upload == null) disabled @endif" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek2_upload) }}"><i class="fas fa-download"></i></a>
+                                    </div>
+                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 10 mb </small>
+                                </div>
+                            </div>
+
+                            <div class="custom-control custom-checkbox ml-5 mt-3">
+                                <input type="checkbox" class="custom-control-input" id="rintek3" name="surat_pertek[]" value="Penimbunan" @if($pkplh->rintek3_upload != null) checked @endif>
+                                <label class="custom-control-label" for="rintek3">Dokumen Rincian Teknis Pengelolaan Limbah Non-B3 untuk Kegiatan Penimbunan</label>
+                            </div>
+                            <div class="input-group mt-1 ml-5">
+                                <div id="rintek3_form" @if($pkplh->rintek3_upload == null) style="display: none" @endif>
+                                    <input type="text" id="rintek3_data" value="pertek5" hidden>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="rintek_upload3">Upload</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input @error('rintek_upload3') is-invalid @enderror" id="rintek_upload3" name="rintek_upload3" aria-describedby="rintek_upload3">
+                                            <label class="custom-file-label" for="rintek_upload3">Choose file</label>
+                                        </div>
+                                        <a class="btn btn-success ml-2 @if($pkplh->rintek3_upload == null) disabled @endif" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek3_upload) }}"><i class="fas fa-download"></i></a>
+                                    </div>
+                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 10 mb </small>
+                                </div>
+                            </div>
+
+                            <div class="custom-control custom-checkbox ml-5 mt-3">
+                                <input type="checkbox" class="custom-control-input" id="rintek4" name="surat_pertek[]" value="Pengurangan" @if($pkplh->rintek4_upload != null) checked @endif>
+                                <label class="custom-control-label" for="rintek4">Dokumen Rincian Teknis Pengelolaan Limbah Non-B3 untuk Kegiatan Pengurangan</label>
+                            </div>
+                            <div class="input-group mt-1 ml-5">
+                                <div id="rintek4_form" @if($pkplh->rintek4_upload == null) style="display: none" @endif>
+                                    <input type="text" id="rintek4_data" value="pertek5" hidden>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="rintek_upload4">Upload</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input @error('rintek_upload4') is-invalid @enderror" id="rintek_upload4" name="rintek_upload4" aria-describedby="rintek_upload4">
+                                            <label class="custom-file-label" for="rintek_upload4">Choose file</label>
+                                        </div>
+                                        <a class="btn btn-success ml-2 @if($pkplh->rintek4_upload == null) disabled @endif" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek4_upload) }}"><i class="fas fa-download"></i></a>
+                                    </div>
+                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 10 mb </small>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 5 mb </small>
                 </div>
 
                 <div class="custom-control custom-checkbox">
@@ -967,7 +982,7 @@
                             <label class="custom-file-label" for="rintek_limbah_upload">Choose file</label>
                         </div>
                     </div>
-                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 5 mb </small>
+                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 10 mb </small>
                 </div>
                 <hr>
             </div>
@@ -998,8 +1013,6 @@
             $prk3++;
         } elseif ($row->pertek == "pertek4") {
             $prk4++;
-        } elseif ($row->pertek == "pertek5") {
-            $prk5++;
         }
     }
 ?>
@@ -1007,7 +1020,6 @@
 <input type="text" @if ($pertek2 == 0) value="1" @else value="{{ $prk2 }}" @endif id="jum_prk2" hidden>
 <input type="text" @if ($pertek3 == 0) value="1" @else value="{{ $prk3 }}" @endif id="jum_prk3" hidden>
 <input type="text" @if ($pertek4 == 0) value="1" @else value="{{ $prk4 }}" @endif id="jum_prk4" hidden>
-<input type="text" @if ($pertek5 == 0) value="1" @else value="{{ $prk5 }}" @endif id="jum_prk5" hidden>
 <input type="text" value="{{ $pkplh->jenis_perubahan }}" id="jenper" hidden>
 
 <script>
@@ -1173,27 +1185,9 @@
 
         $(document).on('change', '#pertek5', function() {
             if ($('#pertek5').is(":checked")) {
-                $('#rintek').show()
-                $('#name_pertek5').attr('name', 'pertek[]')
-                $('#surat_pertek5').attr('name', 'surat_pertek[]')
-                $('#nomor_pertek5').attr('name', 'nomor_pertek[]')
-                $('#tgl_pertek5').attr('name', 'tgl_pertek[]')
-                $('#perihal_pertek5').attr('name', 'perihal_pertek[]')
-                $('#surat_pertek5').prop('required', true)
-                $('#nomor_pertek5').prop('required', true)
-                $('#tgl_pertek5').prop('required', true)
-                $('#perihal_pertek5').prop('required', true)
+                $('#rintek').show();
             } else {
-                $('#rintek').hide()
-                $('#name_pertek5').removeAttr('name')
-                $('#surat_pertek5').removeAttr('name')
-                $('#nomor_pertek5').removeAttr('name')
-                $('#tgl_pertek5').removeAttr('name')
-                $('#perihal_pertek5').removeAttr('name')
-                $('#surat_pertek5').prop('required', false)
-                $('#nomor_pertek5').prop('required', false)
-                $('#tgl_pertek5').prop('required', false)
-                $('#perihal_pertek5').prop('required', false)
+                $('#rintek').hide();
             }
         });
 
@@ -1202,6 +1196,43 @@
                 $('#rintek_limbah').show();
             } else {
                 $('#rintek_limbah').hide();
+            }
+        });
+
+        $(document).on('change', '#rintek1', function() {
+            if ($('#rintek1').is(":checked")) {
+                $('#rintek1_form').show();
+                $('#rintek1_data').attr('name', 'pertek[]')
+            } else {
+                $('#rintek1_form').hide();
+                $('#rintek1_data').removeAttr('name')
+            }
+        });
+        $(document).on('change', '#rintek2', function() {
+            if ($('#rintek2').is(":checked")) {
+                $('#rintek2_form').show();
+                $('#rintek2_data').attr('name', 'pertek[]')
+            } else {
+                $('#rintek2_form').hide();
+                $('#rintek2_data').removeAttr('name')
+            }
+        });
+        $(document).on('change', '#rintek3', function() {
+            if ($('#rintek3').is(":checked")) {
+                $('#rintek3_form').show();
+                $('#rintek3_data').attr('name', 'pertek[]')
+            } else {
+                $('#rintek3_form').hide();
+                $('#rintek3_data').removeAttr('name')
+            }
+        });
+        $(document).on('change', '#rintek4', function() {
+            if ($('#rintek4').is(":checked")) {
+                $('#rintek4_form').show();
+                $('#rintek4_data').attr('name', 'pertek[]')
+            } else {
+                $('#rintek4_form').hide();
+                $('#rintek4_data').removeAttr('name')
             }
         });
 
@@ -1288,156 +1319,125 @@
 
         var prt1 = $('#jum_prk1').val();
 
-            $('#add-pertek1').click(function() {
-                prt1++
-                $('.table-pertek1').append(`
-                    <tr id="prt1-${prt1}">
-                        <td>${prt1}
-                            <input type="text" name="pertek[]" id="name_pertek1" value="pertek1" hidden>
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" id="surat_pertek1" name="surat_pertek[]" required placeholder="Surat Persetujuan Teknis">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" id="nomor_pertek1" name="nomor_pertek[]" required placeholder="Nomor Persetujuan Teknis">
-                        </td>
-                        <td>
-                            <input type="date" class="form-control" id="tgl_pertek1" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan Teknis">
-                        </td>
-                        <td>
-                            <textarea class="form-control" name="perihal_pertek[]" id="perihal_pertek1" rows="2"></textarea>
-                        </td>
-                    </tr>`)
-            });
+        $('#add-pertek1').click(function() {
+            prt1++
+            $('.table-pertek1').append(`
+                <tr id="prt1-${prt1}">
+                    <td>${prt1}
+                        <input type="text" name="pertek[]" id="name_pertek1" value="pertek1" hidden>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="surat_pertek1" name="surat_pertek[]" required placeholder="Surat Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="nomor_pertek1" name="nomor_pertek[]" required placeholder="Nomor Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <input type="date" class="form-control" id="tgl_pertek1" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <textarea class="form-control" name="perihal_pertek[]" id="perihal_pertek1" rows="2"></textarea>
+                    </td>
+                </tr>`)
+        });
 
-            $(document).on('click', '#remove-pertek1', function() {
-                var button_id = prt1;
-                $('#prt1-' + button_id + '').remove();
-                prt1--
-            });
+        $(document).on('click', '#remove-pertek1', function() {
+            var button_id = prt1;
+            $('#prt1-' + button_id + '').remove();
+            prt1--
+        });
 
-            // jquery pertek 2
-            var prt2 = $('#jum_prk2').val();
+        // jquery pertek 2
+        var prt2 = $('#jum_prk2').val();
 
-            $('#add-pertek2').click(function() {
-                prt2++
-                $('.table-pertek2').append(`
-                    <tr id="prt2-${prt2}">
-                        <td>${prt2}
-                            <input type="text" name="pertek[]" id="name_pertek2" value="pertek2" hidden>
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" id="surat_pertek2" name="surat_pertek[]" required placeholder="Surat Persetujuan Teknis">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" id="nomor_pertek2" name="nomor_pertek[]" required placeholder="Nomor Persetujuan Teknis">
-                        </td>
-                        <td>
-                            <input type="date" class="form-control" id="tgl_pertek2" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan Teknis">
-                        </td>
-                        <td>
-                            <textarea class="form-control" name="perihal_pertek[]" id="perihal_pertek2" rows="2"></textarea>
-                        </td>
-                    </tr>`)
-            });
+        $('#add-pertek2').click(function() {
+            prt2++
+            $('.table-pertek2').append(`
+                <tr id="prt2-${prt2}">
+                    <td>${prt2}
+                        <input type="text" name="pertek[]" id="name_pertek2" value="pertek2" hidden>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="surat_pertek2" name="surat_pertek[]" required placeholder="Surat Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="nomor_pertek2" name="nomor_pertek[]" required placeholder="Nomor Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <input type="date" class="form-control" id="tgl_pertek2" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <textarea class="form-control" name="perihal_pertek[]" id="perihal_pertek2" rows="2"></textarea>
+                    </td>
+                </tr>`)
+        });
 
-            $(document).on('click', '#remove-pertek2', function() {
-                var button_id = prt2;
-                $('#prt2-' + button_id + '').remove();
-                prt2--
-            });
+        $(document).on('click', '#remove-pertek2', function() {
+            var button_id = prt2;
+            $('#prt2-' + button_id + '').remove();
+            prt2--
+        });
 
-            // jquery pertek 3
-            var prt3 = $('#jum_prk3').val();
+        // jquery pertek 3
+        var prt3 = $('#jum_prk3').val();
 
-            $('#add-pertek3').click(function() {
-                prt3++
-                $('.table-pertek3').append(`
-                    <tr id="prt3-${prt3}">
-                        <td>${prt3}
-                            <input type="text" name="pertek[]" id="name_pertek3" value="pertek3" hidden>
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" id="surat_pertek3" name="surat_pertek[]" required placeholder="Surat Persetujuan Teknisssss">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" id="nomor_pertek3" name="nomor_pertek[]" required placeholder="Nomor Persetujuan Teknis">
-                        </td>
-                        <td>
-                            <input type="date" class="form-control" id="tgl_pertek3" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan Teknis">
-                        </td>
-                        <td>
-                            <textarea class="form-control" name="perihal_pertek[]" id="perihal_pertek3" rows="2"></textarea>
-                        </td>
-                    </tr>`)
-            });
+        $('#add-pertek3').click(function() {
+            prt3++
+            $('.table-pertek3').append(`
+                <tr id="prt3-${prt3}">
+                    <td>${prt3}
+                        <input type="text" name="pertek[]" id="name_pertek3" value="pertek3" hidden>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="surat_pertek3" name="surat_pertek[]" required placeholder="Surat Persetujuan Teknisssss">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="nomor_pertek3" name="nomor_pertek[]" required placeholder="Nomor Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <input type="date" class="form-control" id="tgl_pertek3" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <textarea class="form-control" name="perihal_pertek[]" id="perihal_pertek3" rows="2"></textarea>
+                    </td>
+                </tr>`)
+        });
 
-            $(document).on('click', '#remove-pertek3', function() {
-                var button_id = prt3;
-                $('#prt3-' + button_id + '').remove();
-                prt3--
-            });
-            // jquery pertek 4
-            var prt4 = $('#jum_prk4').val();
+        $(document).on('click', '#remove-pertek3', function() {
+            var button_id = prt3;
+            $('#prt3-' + button_id + '').remove();
+            prt3--
+        });
+        // jquery pertek 4
+        var prt4 = $('#jum_prk4').val();
 
-            $('#add-pertek4').click(function() {
-                prt4++
-                $('.table-pertek4').append(`
-                    <tr id="prt4-${prt4}">
-                        <td>${prt4}
-                            <input type="text" name="pertek[]" id="name_pertek4" value="pertek4" hidden>
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" id="surat_pertek4" name="surat_pertek[]" required placeholder="Surat Persetujuan Teknis">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" id="nomor_pertek4" name="nomor_pertek[]" required placeholder="Nomor Persetujuan Teknis">
-                        </td>
-                        <td>
-                            <input type="date" class="form-control" id="tgl_pertek4" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan Teknis">
-                        </td>
-                        <td>
-                            <textarea class="form-control" name="perihal_pertek[]" id="perihal_pertek4" rows="2"></textarea>
-                        </td>
-                    </tr>`)
-            });
+        $('#add-pertek4').click(function() {
+            prt4++
+            $('.table-pertek4').append(`
+                <tr id="prt4-${prt4}">
+                    <td>${prt4}
+                        <input type="text" name="pertek[]" id="name_pertek4" value="pertek4" hidden>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="surat_pertek4" name="surat_pertek[]" required placeholder="Surat Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="nomor_pertek4" name="nomor_pertek[]" required placeholder="Nomor Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <input type="date" class="form-control" id="tgl_pertek4" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan Teknis">
+                    </td>
+                    <td>
+                        <textarea class="form-control" name="perihal_pertek[]" id="perihal_pertek4" rows="2"></textarea>
+                    </td>
+                </tr>`)
+        });
 
-            $(document).on('click', '#remove-pertek4', function() {
-                var button_id = prt4;
-                $('#prt4-' + button_id + '').remove();
-                prt4--
-            });
-
-            // jquery pertek 5
-            var prt5 = $('#jum_prk5').val();
-
-            $('#add-pertek5').click(function() {
-                prt5++
-                $('.table-pertek5').append(`
-                    <tr id="prt5-${prt5}">
-                        <td>${prt5}
-                            <input type="text" name="pertek[]" id="name_pertek5" value="pertek5" hidden>
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" id="surat_pertek5" name="surat_pertek[]" required placeholder="Surat Persetujuan Teknis">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" id="nomor_pertek5" name="nomor_pertek[]" required placeholder="Nomor Persetujuan Teknis">
-                        </td>
-                        <td>
-                            <input type="date" class="form-control" id="tgl_pertek5" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan Teknis">
-                        </td>
-                        <td>
-                            <textarea class="form-control" name="perihal_pertek[]" id="perihal_pertek5" rows="2"></textarea>
-                        </td>
-                    </tr>`)
-            });
-
-            $(document).on('click', '#remove-pertek5', function() {
-                var button_id = prt5;
-                $('#prt5-' + button_id + '').remove();
-                prt5--
-            });
+        $(document).on('click', '#remove-pertek4', function() {
+            var button_id = prt4;
+            $('#prt4-' + button_id + '').remove();
+            prt4--
+        });
     });
 </script>
 @endsection

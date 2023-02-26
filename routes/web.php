@@ -97,13 +97,13 @@ Route::group(['middleware' => ['auth', 'cekRole:Operator']], function() {
     Route::put('/Operator/skkl/periksa/{id}', 'OperatorController@periksa')->name('operator.skkl.periksa');
     Route::put('/Operator/skkl/rpd/{id}', 'OperatorController@rpd_skkl')->name('operator.skkl.rpd');
     Route::get('/Operator/skkl/chat/{id}', 'SkklController@chat')->name('skkl.operator.chat');
-    
+
     Route::put('/Operator/pkplh/rpd/{id}', 'OperatorController@rpd_pkplh')->name('operator.pkplh.rpd');
     Route::get('/Operator/download/{id}', 'OperatorController@download')->name('operator.download');
     Route::get('/Operator/preview/{id}', 'OperatorController@preview')->name('operator.preview');
     Route::put('/Operator/upload_file', 'OperatorController@upload_file')->name('operator.upload_file');
     Route::get('/Operator/file/delete/{id}', 'OperatorController@destroyFile')->name('operator.destroy.file');
-    
+
     Route::get('/Operator/pkplh', 'PkplhController@operatorIndex')->name('operator.pkplh.index');
     Route::get('/Operator/pkplh/preview/{id}', 'PkplhController@operatorPreview')->name('operator.pkplh.preview');
     Route::put('/Operator/pkplh/upload_file', 'PkplhController@uploadFile')->name('operator.pkplh.upload');
@@ -154,6 +154,8 @@ Route::group(['middleware' => ['auth', 'cekRole:Sekretariat']], function() {
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/skkl/review/{id}', 'SkklController@review')->name('skkl.review');
     Route::get('/pkplh/review/{id}', 'PkplhController@review')->name('pkplh.review');
+    Route::get('/rkl/preview/{id}', 'PreviewController@preview_rkl')->name('preview.rkl');
+    Route::get('/rpl/preview/{id}', 'PreviewController@preview_rpl')->name('preview.rpl');
 });
 
 

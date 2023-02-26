@@ -16,9 +16,6 @@ class PrintRklController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-    }
 
     public function showdata($data_rkl, $no, $tahap)
     {
@@ -67,16 +64,12 @@ class PrintRklController extends Controller
         $rkl_penting_prakons = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan', 'Pra Konstruksi')->orderBy('id', 'asc')->get();
         $rkl_penting_konstruksi = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan', 'Konstruksi')->orderBy('id', 'asc')->get();
         $rkl_penting_operasi = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan', 'Operasi')->orderBy('id', 'asc')->get();
-        $rkl_penting_pasca = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan', 'Pasca Oprerasi')->orderBy('id', 'asc')->get();
+        $rkl_penting_pasca = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Penting')->where('tahap_kegiatan', 'Pasca Operasi')->orderBy('id', 'asc')->get();
 
         $rkl_lainnya_prakons = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan', 'Pra Konstruksi')->orderBy('id', 'asc')->get();
         $rkl_lainnya_konstruksi = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan', 'Konstruksi')->orderBy('id', 'asc')->get();
         $rkl_lainnya_operasi = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan', 'Operasi')->orderBy('id', 'asc')->get();
-        $rkl_lainnya_pasca = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan', 'Pasca Oprerasi')->orderBy('id', 'asc')->get();
-
-        // $pw = new \PhpOffice\PhpWord\PhpWord();
-        // $section = $pw->addSection();
-        // $paper = new \PhpOffice\PhpWord\Style\Paper();
+        $rkl_lainnya_pasca = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan', 'Pasca Operasi')->orderBy('id', 'asc')->get();
 
         $headers = array(
             "Content-type" => "application/vnd.msword",
@@ -133,7 +126,7 @@ class PrintRklController extends Controller
                         padding: 8px;
                         text-align: left;
                     }
-                      
+
                 </style>
                 </head>';
 
@@ -208,12 +201,6 @@ class PrintRklController extends Controller
             </body>
             </html>';
 
-        // \PhpOffice\PhpWord\Shared\Html::addHtml($section, $body, $no, false, false);
-
-        // header("Content-Type: application/octet-stream");
-        // header("Content-Disposition: attachment;filename=\"convert.docx\"");
-        // $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($pw, "Word2007");
-        // $objWriter->save("php://output");
         return \Response::make($body, 200, $headers);
     }
 

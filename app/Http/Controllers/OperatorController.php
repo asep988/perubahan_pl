@@ -34,7 +34,11 @@ class OperatorController extends Controller
         ->select('users.id', 'users.name', 'users.email')
         ->get();
 
-        return view('operator.skkl.index', compact('data_skkl', 'pemrakarsa'));
+        $pertek_skkl = Pertek_skkl::join('skkl', 'pertek_skkl.id_skkl', 'skkl.id')
+        ->select('pertek_skkl.id_skkl', 'pertek_skkl.pertek', 'pertek_skkl.surat_pertek')
+        ->orderBy('pertek_skkl.id', 'asc')->get();
+
+        return view('operator.skkl.index', compact('data_skkl', 'pemrakarsa', 'pertek_skkl'));
     }
 
     /**
