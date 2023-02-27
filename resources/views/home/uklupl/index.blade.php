@@ -101,10 +101,11 @@
                     <h5>
                         <b>Tambah Data UKL/UPL</b>
                     </h5>
-                    <button type="button" class="btn btn-primary ml-auto mb-1" data-toggle="modal"
+                    <button type="button" class="btn btn-sm btn-primary ml-auto mb-1" data-toggle="modal"
                         data-target="#importModal">
                         Import
                     </button>
+                    <a target="_blank" href="{{ route('preview.uklupl', $id_pkplh) }}" type="button" class="btn btn-sm btn-success ml-1 mb-1">Preview UKL-UPL</a>
                 </div>
                 <input type="hidden" name="id_pkplh" value="{{ $id_pkplh }}">
                 <table border="1" width="100%" class="mb-3">

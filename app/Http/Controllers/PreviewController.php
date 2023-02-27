@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\rkl;
 use App\rpl;
 use App\Skkl;
+use App\Pkplh;
+use App\Uklupl;
 
 class PreviewController extends Controller
 {
@@ -64,7 +66,7 @@ class PreviewController extends Controller
         $rkl_lainnya_operasi = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan', 'Operasi')->orderBy('id', 'asc')->get();
         $rkl_lainnya_pasca = rkl::where('id_skkl', $id_skkl)->where('jenis_dph', 'Lainnya')->where('tahap_kegiatan', 'Pasca Operasi')->orderBy('id', 'asc')->get();
 
-        // dampak Penting
+        // dampak {{ Pent }}ing
         $body = '';
         $no = 0;
         $body .= $this->showdata_rkl($rkl_penting_prakons, $no, 'Pra Konstruksi');
@@ -195,4 +197,86 @@ class PreviewController extends Controller
         // return $bodyy;
     }
 
+    // UKL-UPL
+
+    public function showdata_uklupl($data_uklupl, $no, $tahap)
+    {
+        $body="";
+        if (count($data_uklupl) > 0) {
+            $body ='
+                <tr>
+                    <td colspan="12"><strong>'.$tahap.'</strong></td>
+                </tr>';
+            }
+        foreach ($data_uklupl as $data) {
+            $no++;
+            $body .='
+            <tr>
+                <td align="center"> '.$no.'</td>
+                <td>
+                    '.$data->sumber_dampak.'
+                </td>
+                <td>
+                    '.$data->jenis_dampak.'
+                </td>
+                <td>
+                    '.$data->besaran_dampak.'
+                </td>
+                <td>
+                    '.$data->bentuk_pengelolaan.'
+                </td>
+                <td>
+                    '.$data->lokasi_pengelolaan.'
+                </td>
+                <td>
+                    '.$data->periode_pengelolaan.'
+                </td>
+                <td>
+                    '.$data->bentuk_pemantauan.'
+                </td>
+                <td>
+                    '.$data->lokasi_pemantauan.'
+                </td>
+                <td>
+                    '.$data->periode_pemantauan.'
+                </td>
+                <td>
+                    '.$data->institusi.'
+                </td>
+                <td>
+                    '.$data->keterangan.'
+                </td>
+            </tr>';
+        }
+        return $body;
+    }
+
+    public function preview_uklupl($id_pkplh)
+    {
+        $pkplh=Pkplh::find($id_pkplh);
+        //
+        $uklupl_prakons = Uklupl::where('id_pkplh', $id_pkplh)->where('tahap_kegiatan','Pra Konstruksi')->orderBy('id', 'desc')->get();
+        $uklupl_konstruksi = Uklupl::where('id_pkplh', $id_pkplh)->where('tahap_kegiatan','Konstruksi')->orderBy('id', 'desc')->get();
+        $uklupl_operasi = Uklupl::where('id_pkplh', $id_pkplh)->where('tahap_kegiatan','Operasi')->orderBy('id', 'desc')->get();
+        $uklupl_pasca = Uklupl::where('id_pkplh', $id_pkplh)->where('tahap_kegiatan','Pasca Operasi')->orderBy('id', 'desc')->get();
+
+        // Dampak Penting
+        $body = '';
+        $no = 0;
+        $body .= $this->showdata_uklupl($uklupl_prakons, $no, 'Pra Konstruksi');
+        $no += count($uklupl_prakons);
+
+        $body .= $this->showdata_uklupl($uklupl_konstruksi, $no, 'Konstruksi');
+        $no += count($uklupl_konstruksi);
+
+        $body .= $this->showdata_uklupl($uklupl_operasi, $no, 'Operasi');
+        $no += count($uklupl_operasi);
+
+        $body .= $this->showdata_uklupl($uklupl_pasca, $no, 'Pasca Operasi');
+        $no += count($uklupl_pasca);
+
+
+        return view('preview.uklupl', compact('pkplh', 'body'));
+        // return $bodyy;
+    } 
 }

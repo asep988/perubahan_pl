@@ -67,7 +67,7 @@ class PrintUkluplController extends Controller
         $uklupl_prakons = Uklupl::where('id_pkplh', $id_pkplh)->where('tahap_kegiatan','Pra Konstruksi')->orderBy('id', 'desc')->get();
         $uklupl_konstruksi = Uklupl::where('id_pkplh', $id_pkplh)->where('tahap_kegiatan','Konstruksi')->orderBy('id', 'desc')->get();
         $uklupl_operasi = Uklupl::where('id_pkplh', $id_pkplh)->where('tahap_kegiatan','Operasi')->orderBy('id', 'desc')->get();
-        $uklupl_pasca = Uklupl::where('id_pkplh', $id_pkplh)->where('tahap_kegiatan','Pasca Oprerasi')->orderBy('id', 'desc')->get();
+        $uklupl_pasca = Uklupl::where('id_pkplh', $id_pkplh)->where('tahap_kegiatan','Pasca Operasi')->orderBy('id', 'desc')->get();
 
         $headers = array(
             "Content-type" => "application/vnd.msword",
@@ -76,66 +76,65 @@ class PrintUkluplController extends Controller
         );
 
         $body = '<html>
-                <head><meta charset="utf-8"></head>
-                <body>';
-
-        $body .= '<style>
-        body {
-            font-family:"Bookman Old Style";
-        }
-        ol {
-        columns:2;
-        font-size: 7pt !important;
-        }
-        p {
-            font-size: 7pt !important;
-        }
-        span {
-            font-size: 7pt !important;
-        }
-        ol > li.list_kurung::marker {
-        content:counter(list-item) ")\2003";
-        font-size: 7pt !important;
-        }
-        td {
-            vertical-align: top;
-            text-align: justify;
-            font-size: 7pt !important;
-        }
-        }
-        tbody{
-            font-size: 7pt !important;
-        }
-        tbody table{
-            font-size: 7pt !important;
-        }
-        table{
-            font-size: 7pt !important;
-        }
+                <head>
+                <style>
+                body {
+                    font-family:"Bookman Old Style";
+                }
+                ol {
+                columns:2;
+                font-size: 7pt !important;
+                }
+                p {
+                    font-size: 7pt !important;
+                }
+                span {
+                    font-size: 7pt !important;
+                }
+                ol > li.list_kurung::marker {
+                content:counter(list-item) ")\2003";
+                font-size: 7pt !important;
+                }
+                td {
+                    vertical-align: top;
+                    text-align: justify;
+                    font-size: 7pt !important;
+                }
+                tbody{
+                    font-size: 7pt !important;
+                }
+                tbody table{
+                    font-size: 7pt !important;
+                }
+                table{
+                    font-size: 7pt !important;
+                }
+                
+                @page SectionLC {
+                    size:841.7pt 595.45pt;mso-page-orientation:landscape;margin:1.25in 1.0in 1.25in 1.0in;mso-header-margin:.5in;mso-footer-margin:.5in;mso-paper-source:0;
+                }
         
-        @page SectionLC {
-            size:841.7pt 595.45pt;mso-page-orientation:landscape;margin:1.25in 1.0in 1.25in 1.0in;mso-header-margin:.5in;mso-footer-margin:.5in;mso-paper-source:0;
-        }
+                div.SectionLC {
+                    page:SectionLC;
+                }
+                .solid-table {
+                    border-collapse: collapse;
+                    width: 100%;
+                }
+                  
+                .solid-table th,
+                .solid-table td {
+                    border: 1px solid black;
+                    padding: 8px;
+                    text-align: left;
+                }
+                </style>
+                </head>';
 
-        div.SectionLC {
-            page:SectionLC;
-        }
-        .solid-table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-          
-        .solid-table th,
-        .solid-table td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        </style>';
+        $body .= '<body>';
 
 
-        $body .='<body>
-        <div class=SectionLC>
+        $body .='<div class=SectionLC>
         LAMPIRAN I<br>
 						KEPUTUSAN MENTERI LINGKUNGAN HIDUP <br>
 						DAN KEHUTANAN REPUBLIK INDONESIA <br>Masih nyala

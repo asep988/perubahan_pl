@@ -156,6 +156,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/pkplh/review/{id}', 'PkplhController@review')->name('pkplh.review');
     Route::get('/rkl/preview/{id}', 'PreviewController@preview_rkl')->name('preview.rkl');
     Route::get('/rpl/preview/{id}', 'PreviewController@preview_rpl')->name('preview.rpl');
+    Route::get('/uklupl/preview/{id}', 'PreviewController@preview_uklupl')->name('preview.uklupl');
 });
 
 
