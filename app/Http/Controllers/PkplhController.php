@@ -389,6 +389,7 @@ class PkplhController extends Controller
 	public function update(Request $request, $id) //Pemrakarsa
 	{
 		$id_user = Auth::user()->id;
+		$data = Pkplh::find($id);
 
 		if (is_array($request->kabupaten_kota)) {
 			$kabkota = $request->kabupaten_kota;
@@ -470,7 +471,7 @@ class PkplhController extends Controller
 
 		if (is_array($request->jenis_peraturan)) {
 			$jenis_peraturan = $request->jenis_peraturan;
-		} else {{{  }}
+		} else {
 			$jenis_peraturan = array();
 			$jenis_peraturan[] = $request->jenis_peraturan;
 		}
@@ -496,8 +497,6 @@ class PkplhController extends Controller
 			$perihal_peraturan[] = $request->perihal_peraturan;
 		}
 
-		$data = Pkplh::find($id);
-
 		#region
 		if ($request->rintek_upload1) {
 			$destination = 'files/pkplh/rintek/' . $data->rintek_upload;
@@ -509,13 +508,15 @@ class PkplhController extends Controller
 			$rintek1 = time() . rand(0,100) . '_rintek_penyimpanan.' . $format1; //Variabel yang menampung nama file
 			$file1->storeAs('files/pkplh/rintek', $rintek1); //Simpan ke Storage
 		} else {
-			if ($penyimpanan == 0 || $data->rintek_upload != null) {
+			if ($penyimpanan == 0 && $data->rintek_upload != null) {
 				$destination = 'files/pkplh/rintek/' . $data->rintek_upload;
 				if ($data->rintek_upload) {
 					Storage::delete($destination);
 				}
+				$rintek1 = null;
+			} else {
+				$rintek1 = $data->rintek_upload;
 			}
-			$rintek1 = null;
 		}
 
 		if ($request->rintek_upload2) {
@@ -528,13 +529,15 @@ class PkplhController extends Controller
 			$rintek2 = time() . rand(0,100) . '_rintek_pemanfaatan.' . $format2; //Variabel yang menampung nama file
 			$file2->storeAs('files/pkplh/rintek', $rintek2); //Simpan ke Storage
 		} else {
-			if ($pemanfaatan == 0 || $data->rintek2_upload != null) {
+			if ($pemanfaatan == 0 && $data->rintek2_upload != null) {
 				$destination = 'files/pkplh/rintek/' . $data->rintek2_upload;
 				if ($data->rintek2_upload) {
 					Storage::delete($destination);
 				}
+				$rintek2 = null;
+			} else {
+				$rintek2 = $data->rintek2_upload;
 			}
-			$rintek2 = null;
 		}
 
 		if ($request->rintek_upload3) {
@@ -547,13 +550,15 @@ class PkplhController extends Controller
 			$rintek3 = time() . rand(0,100) . '_rintek_penimbunan.' . $format3; //Variabel yang menampung nama file
 			$file3->storeAs('files/pkplh/rintek', $rintek3); //Simpan ke Storage
 		} else {
-			if ($penimbunan == 0 || $data->rintek3_upload != null) {
+			if ($penimbunan == 0 && $data->rintek3_upload != null) {
 				$destination = 'files/pkplh/rintek/' . $data->rintek3_upload;
 				if ($data->rintek3_upload) {
 					Storage::delete($destination);
 				}
+				$rintek3 = null;
+			} else {
+				$rintek3 = $data->rintek3_upload;
 			}
-			$rintek3 = null;
 		}
 
 		if ($request->rintek_upload4) {
@@ -566,13 +571,15 @@ class PkplhController extends Controller
 			$rintek4 = time() . rand(0,100) . '_rintek_pengurangan.' . $format4; //Variabel yang menampung nama file
 			$file4->storeAs('files/pkplh/rintek', $rintek4); //Simpan ke Storage
 		} else {
-			if ($pengurangan == 0 || $data->rintek4_upload != null) {
+			if ($pengurangan == 0 && $data->rintek4_upload != null) {
 				$destination = 'files/pkplh/rintek/' . $data->rintek4_upload;
 				if ($data->rintek4_upload) {
 					Storage::delete($destination);
 				}
+				$rintek4 = null;
+			} else {
+				$rintek4 = $data->rintek4_upload;
 			}
-			$rintek4 = null;
 		}
 
 		if ($request->rintek_limbah_upload) {
@@ -585,13 +592,15 @@ class PkplhController extends Controller
 			$fileName2 = time() . rand(0,100) . '_rintek_limbah.' . $format5; //Variabel yang menampung nama file
 			$file5->storeAs('files/pkplh/rintek', $fileName2); //Simpan ke Storage
 		} else {
-			if ($b3 == 0 || $data->rintek_limbah_upload != null) {
+			if ($b3 == 0 && $data->rintek_limbah_upload != null) {
 				$destination = 'files/pkplh/rintek/' . $data->rintek_limbah_upload;
 				if ($data->rintek_limbah_upload) {
 					Storage::delete($destination);
 				}
+				$fileName2 = null;
+			} else {
+				$fileName2 = $data->rintek_limbah_upload;
 			}
-			$fileName2 = null;
 		}
 		#endregion
 
