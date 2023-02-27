@@ -432,12 +432,12 @@ class PkplhController extends Controller
 			$pertek[] = $request->pertek;
 		}
 
+		$penyimpanan = 0;
+		$pemanfaatan = 0;
+		$penimbunan = 0;
+		$pengurangan = 0;
+		$b3 = 0;
         if (in_array("pertek5", $pertek)) {
-			$penyimpanan = 0;
-			$pemanfaatan = 0;
-			$penimbunan = 0;
-			$pengurangan = 0;
-			$b3 = 0;
 			if (in_array("Penyimpanan", $request->surat_pertek)) {
 				$request->validate([
 					'rintek_upload1' => 'nullable|max:15360',
