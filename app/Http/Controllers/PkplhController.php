@@ -94,25 +94,25 @@ class PkplhController extends Controller
         if (in_array("pertek5", $pertek)) {
 			if (in_array("Penyimpanan", $request->surat_pertek)) {
 				$request->validate([
-					'rintek_upload1' => 'required|max:10240',
+					'rintek_upload1' => 'required|max:1530',
 				]);
 			}
 			if (in_array("Pemanfaatan", $request->surat_pertek)) {
 				$request->validate([
-					'rintek_upload2' => 'required|max:10240',
+					'rintek_upload2' => 'required|max:15360',
 				]);
 			}
 			if (in_array("Penimbunan", $request->surat_pertek)) {
 				$request->validate([
-					'rintek_upload3' => 'required|max:10240',
+					'rintek_upload3' => 'required|max:15360',
 				]);
 			}
 			if (in_array("Pengurangan", $request->surat_pertek)) {
 				$request->validate([
-					'rintek_upload4' => 'required|max:10240',
+					'rintek_upload4' => 'required|max:15360',
 				]);
 			}
-		} else if (in_array("pertek6", $pertek)) {
+		} if (in_array("pertek6", $pertek)) {
 			$request->validate([
 				'rintek_limbah_upload' => 'required|max:10240'
 			]);
@@ -432,30 +432,40 @@ class PkplhController extends Controller
 		}
 
         if (in_array("pertek5", $pertek)) {
+			$penyimpanan = 0;
+			$pemanfaatan = 0;
+			$penimbunan = 0;
+			$pengurangan = 0;
+			$b3 = 0;
 			if (in_array("Penyimpanan", $request->surat_pertek)) {
 				$request->validate([
-					'rintek_upload1' => 'nullable|max:10240',
+					'rintek_upload1' => 'nullable|max:15360',
 				]);
+				$penyimpanan = 1;
 			}
 			if (in_array("Pemanfaatan", $request->surat_pertek)) {
 				$request->validate([
-					'rintek_upload2' => 'nullable|max:10240',
+					'rintek_upload2' => 'nullable|max:15360',
 				]);
+				$pemanfaatan = 1;
 			}
 			if (in_array("Penimbunan", $request->surat_pertek)) {
 				$request->validate([
-					'rintek_upload3' => 'nullable|max:10240',
+					'rintek_upload3' => 'nullable|max:15360',
 				]);
+				$penimbunan = 1;
 			}
 			if (in_array("Pengurangan", $request->surat_pertek)) {
 				$request->validate([
-					'rintek_upload4' => 'nullable|max:10240',
+					'rintek_upload4' => 'nullable|max:15360',
 				]);
+				$pengurangan = 1;
 			}
-		} else if (in_array("pertek6", $pertek)) {
+		} if (in_array("pertek6", $pertek)) {
 			$request->validate([
 				'rintek_limbah_upload' => 'nullable|max:10240'
 			]);
+			$b3 = 1;
 		}
 
 		if (is_array($request->jenis_peraturan)) {
@@ -496,9 +506,15 @@ class PkplhController extends Controller
 			}
 			$file1 = $request->file('rintek_upload1');
 			$format1 = $file1->getClientOriginalExtension();
-			$rintek1 = time() . rand(0,100) . '_rintek.' . $format1; //Variabel yang menampung nama file
+			$rintek1 = time() . rand(0,100) . '_rintek_penyimpanan.' . $format1; //Variabel yang menampung nama file
 			$file1->storeAs('files/pkplh/rintek', $rintek1); //Simpan ke Storage
 		} else {
+			if ($penyimpanan == 0 || $data->rintek_upload != null) {
+				$destination = 'files/pkplh/rintek/' . $data->rintek_upload;
+				if ($data->rintek_upload) {
+					Storage::delete($destination);
+				}
+			}
 			$rintek1 = null;
 		}
 
@@ -509,9 +525,15 @@ class PkplhController extends Controller
 			}
 			$file2 = $request->file('rintek_upload2');
 			$format2 = $file2->getClientOriginalExtension();
-			$rintek2 = time() . rand(0,100) . '_rintek.' . $format2; //Variabel yang menampung nama file
+			$rintek2 = time() . rand(0,100) . '_rintek_pemanfaatan.' . $format2; //Variabel yang menampung nama file
 			$file2->storeAs('files/pkplh/rintek', $rintek2); //Simpan ke Storage
 		} else {
+			if ($pemanfaatan == 0 || $data->rintek2_upload != null) {
+				$destination = 'files/pkplh/rintek/' . $data->rintek2_upload;
+				if ($data->rintek2_upload) {
+					Storage::delete($destination);
+				}
+			}
 			$rintek2 = null;
 		}
 
@@ -522,9 +544,15 @@ class PkplhController extends Controller
 			}
 			$file3 = $request->file('rintek_upload3');
 			$format3 = $file3->getClientOriginalExtension();
-			$rintek3 = time() . rand(0,100) . '_rintek.' . $format3; //Variabel yang menampung nama file
+			$rintek3 = time() . rand(0,100) . '_rintek_penimbunan.' . $format3; //Variabel yang menampung nama file
 			$file3->storeAs('files/pkplh/rintek', $rintek3); //Simpan ke Storage
 		} else {
+			if ($penimbunan == 0 || $data->rintek3_upload != null) {
+				$destination = 'files/pkplh/rintek/' . $data->rintek3_upload;
+				if ($data->rintek3_upload) {
+					Storage::delete($destination);
+				}
+			}
 			$rintek3 = null;
 		}
 
@@ -535,9 +563,15 @@ class PkplhController extends Controller
 			}
 			$file4 = $request->file('rintek_upload4');
 			$format4 = $file4->getClientOriginalExtension();
-			$rintek4 = time() . rand(0,100) . '_rintek.' . $format4; //Variabel yang menampung nama file
+			$rintek4 = time() . rand(0,100) . '_rintek_pengurangan.' . $format4; //Variabel yang menampung nama file
 			$file4->storeAs('files/pkplh/rintek', $rintek4); //Simpan ke Storage
 		} else {
+			if ($pengurangan == 0 || $data->rintek4_upload != null) {
+				$destination = 'files/pkplh/rintek/' . $data->rintek4_upload;
+				if ($data->rintek4_upload) {
+					Storage::delete($destination);
+				}
+			}
 			$rintek4 = null;
 		}
 
@@ -551,6 +585,12 @@ class PkplhController extends Controller
 			$fileName2 = time() . rand(0,100) . '_rintek_limbah.' . $format5; //Variabel yang menampung nama file
 			$file5->storeAs('files/pkplh/rintek', $fileName2); //Simpan ke Storage
 		} else {
+			if ($b3 == 0 || $data->rintek_limbah_upload != null) {
+				$destination = 'files/pkplh/rintek/' . $data->rintek_limbah_upload;
+				if ($data->rintek_limbah_upload) {
+					Storage::delete($destination);
+				}
+			}
 			$fileName2 = null;
 		}
 		#endregion
@@ -668,13 +708,15 @@ class PkplhController extends Controller
 		$now = tgl_indo2(Carbon::now()->format('d-m-Y'));
 		$time = Carbon::now()->format('H:i:s');
 		$tgl_dibuat = tgl_indo2($pkplh->created_at->format('d-m-Y'));
+		$jam_dibuat = $pkplh->created_at->format('H:i:s');
 		$tgl_diperbarui = tgl_indo2($pkplh->updated_at->format('d-m-Y'));
+		$jam_diperbarui = $pkplh->updated_at->format('H:i:s');
         $jml_uklupl = Uklupl::where('id_pkplh', $pkplh->id)->get()->count();
 
         if ($jml_uklupl != 0) {
             $last_uklupl = Uklupl::where('id_pkplh', $pkplh->id)->orderBy('updated_at', 'desc')->first();
         } else {
-            return redirect()->back()->with('message', 'Mohon isi minimal satu data dokumen UKL-UPL!');
+            return redirect()->back()->with('message', 'Mohon lengkapi data tabel matriks UKL-UPL sebelum melakukan submit data!');
         }
 
 		$data = [
@@ -684,7 +726,9 @@ class PkplhController extends Controller
 			'nama_usaha_baru' =>  $pkplh->nama_usaha_baru,
 			'nomor_validasi' =>  $pkplh->nomor_validasi,
 			'tgl_dibuat' =>  $tgl_dibuat,
+			'jam_dibuat' =>  $jam_dibuat,
 			'tgl_diperbarui' =>  $tgl_diperbarui,
+			'jam_diperbarui' =>  $jam_diperbarui,
 			'jml_perubahan' =>  $pkplh->count,
 			'jenis_perubahan' =>  $pkplh->jenis_perubahan,
 			'jml_uklupl' => $jml_uklupl,
@@ -1218,7 +1262,7 @@ class PkplhController extends Controller
         <ol>
             <li>Menteri Lingkungan Hidup dan Kehutanan;</li> '
         . $loopprov1 .
-        ' <li>Sekretaris Jendral Kementrian Lingkungan Hidup dan Kehutanan;</li>
+        ' <li>Sekretaris Jendral Kementerian Lingkungan Hidup dan Kehutanan;</li>
             <li>Direktur Jendral Penegakan Hukum Lingkungan Hidup dan Kehutanan;</li> '
         . $loopkk1 .
         '<li>Pelaku Usaha ' . $pkplh->pelaku_usaha_baru . ';</li>
@@ -1284,7 +1328,7 @@ class PkplhController extends Controller
 				<tr>
 					<td>
 						LAMPIRAN '. integerToRoman($roman) .' <br>
-						KEPUTUSAN MENTRI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
+						KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
 						NOMOR <br>
 						TENTANG PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($pkplh->nama_usaha_baru).'
 						OLEH '. strtoupper($pkplh->pelaku_usaha_baru).'
@@ -1368,7 +1412,7 @@ class PkplhController extends Controller
 				<tr>
 					<td>
 						LAMPIRAN ' . integerToRoman($request->nomor) .' <br>
-						KEPUTUSAN MENTRI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
+						KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
 						NOMOR <br>
 						TENTANG PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($pkplh->nama_usaha_baru).'
 						OLEH '. strtoupper($pkplh->pelaku_usaha_baru).'

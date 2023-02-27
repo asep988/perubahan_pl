@@ -402,7 +402,7 @@ class OperatorController extends Controller
                     </li>
                     <li>berdasarkan pertimbangan sebagaimana
                         dimaksud dalam huruf a sampai dengan e, perlu menetapkan Keputusan
-                        Mentri Lingkungan Hidup dan Kehutanan Republik Indonesia tentang Kelayakan Lingkungan
+                        Menteri Lingkungan Hidup dan Kehutanan Republik Indonesia tentang Kelayakan Lingkungan
                         Hidup Kegiatan ' . ucwords(strtolower($skkl->nama_usaha_baru)) . ' oleh ' . ucwords($skkl->pelaku_usaha_baru) . ';
                     </li>
                 </ol>
@@ -756,7 +756,7 @@ class OperatorController extends Controller
                 Tembusan Yth.: <br>
                 <ol>
                     '  . $loopprov1 . '
-                    <li>Sekretaris Jendral Kementrian Lingkungan Hidup dan Kehutanan;</li>
+                    <li>Sekretaris Jendral Kementerian Lingkungan Hidup dan Kehutanan;</li>
                     <li>Direktur Jendral Planologi Kehutanan dan Tata Lingkungan;</li>
                     <li>Direktur Jendral Penegakan Hukum Lingkungan Hidup dan Kehutanan;</li> '
             . $loopkk1

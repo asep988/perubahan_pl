@@ -137,7 +137,7 @@ class PrintUkluplController extends Controller
         $body .='<body>
         <div class=SectionLC>
         LAMPIRAN I<br>
-						KEPUTUSAN MENTRI LINGKUNGAN HIDUP <br>
+						KEPUTUSAN MENTERI LINGKUNGAN HIDUP <br>
 						DAN KEHUTANAN REPUBLIK INDONESIA <br>Masih nyala
 						NOMOR <br>
 						TENTANG PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN HIDUP '. strtoupper($pkplh->nama_usaha_baru).'

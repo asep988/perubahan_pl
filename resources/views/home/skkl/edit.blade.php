@@ -1019,7 +1019,7 @@
                                         </div>
                                         <a class="btn btn-success ml-2 @if($skkl->rintek_upload == null) disabled @endif" target="_blank" href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek_upload) }}"><i class="fas fa-download"></i></a>
                                     </div>
-                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 10 mb </small>
+                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 15 mb </small>
                                 </div>
                             </div>
 
@@ -1040,7 +1040,7 @@
                                         </div>
                                         <a class="btn btn-success ml-2 @if($skkl->rintek2_upload == null) disabled @endif" target="_blank" href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek2_upload) }}"><i class="fas fa-download"></i></a>
                                     </div>
-                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 10 mb </small>
+                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 15 mb </small>
                                 </div>
                             </div>
 
@@ -1061,7 +1061,7 @@
                                         </div>
                                         <a class="btn btn-success ml-2 @if($skkl->rintek3_upload == null) disabled @endif" target="_blank" href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek3_upload) }}"><i class="fas fa-download"></i></a>
                                     </div>
-                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 10 mb </small>
+                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 15 mb </small>
                                 </div>
                             </div>
 
@@ -1082,7 +1082,7 @@
                                         </div>
                                         <a class="btn btn-success ml-2 @if($skkl->rintek4_upload == null) disabled @endif" target="_blank" href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek4_upload) }}"><i class="fas fa-download"></i></a>
                                     </div>
-                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 10 mb </small>
+                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 15 mb </small>
                                 </div>
                             </div>
 

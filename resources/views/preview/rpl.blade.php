@@ -58,7 +58,7 @@
 <body>
     <div class=SectionLC>
         LAMPIRAN II<br>
-        KEPUTUSAN MENTRI LINGKUNGAN HIDUP <br>
+        KEPUTUSAN MENTERI LINGKUNGAN HIDUP <br>
         DAN KEHUTANAN REPUBLIK INDONESIA <br>
         NOMOR <br>
         TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN {{ strtoupper($skkl->nama_usaha_baru) }}

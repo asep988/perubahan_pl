@@ -94,25 +94,25 @@ class SkklController extends Controller
 		if (in_array("pertek5", $pertek)) {
 			if (in_array("Penyimpanan", $request->surat_pertek)) {
 				$request->validate([
-					'rintek_upload1' => 'required|max:10240',
+					'rintek_upload1' => 'required|max:15360',
 				]);
 			}
 			if (in_array("Pemanfaatan", $request->surat_pertek)) {
 				$request->validate([
-					'rintek_upload2' => 'required|max:10240',
+					'rintek_upload2' => 'required|max:15360',
 				]);
 			}
 			if (in_array("Penimbunan", $request->surat_pertek)) {
 				$request->validate([
-					'rintek_upload3' => 'required|max:10240',
+					'rintek_upload3' => 'required|max:15360',
 				]);
 			}
 			if (in_array("Pengurangan", $request->surat_pertek)) {
 				$request->validate([
-					'rintek_upload4' => 'required|max:10240',
+					'rintek_upload4' => 'required|max:15360',
 				]);
 			}
-		} else if (in_array("pertek6", $pertek)) {
+		} if (in_array("pertek6", $pertek)) {
 			$request->validate([
 				'rintek_limbah_upload' => 'required|max:10240'
 			]);
@@ -368,30 +368,40 @@ class SkklController extends Controller
 		}
 
 		if (in_array("pertek5", $pertek)) {
+			$penyimpanan = 0;
+			$pemanfaatan = 0;
+			$penimbunan = 0;
+			$pengurangan = 0;
+			$b3 = 0;
 			if (in_array("Penyimpanan", $request->surat_pertek)) {
 				$request->validate([
-					'rintek_upload1' => 'nullable|max:10240',
+					'rintek_upload1' => 'nullable|max:15360',
 				]);
+				$penyimpanan = 1;
 			}
 			if (in_array("Pemanfaatan", $request->surat_pertek)) {
 				$request->validate([
-					'rintek_upload2' => 'nullable|max:10240',
+					'rintek_upload2' => 'nullable|max:15360',
 				]);
+				$pemanfaatan = 1;
 			}
 			if (in_array("Penimbunan", $request->surat_pertek)) {
 				$request->validate([
-					'rintek_upload3' => 'nullable|max:10240',
+					'rintek_upload3' => 'nullable|max:15360',
 				]);
+				$penimbunan = 1;
 			}
 			if (in_array("Pengurangan", $request->surat_pertek)) {
 				$request->validate([
-					'rintek_upload4' => 'nullable|max:10240',
+					'rintek_upload4' => 'nullable|max:15360',
 				]);
+				$pengurangan = 1;
 			}
-		} else if (in_array("pertek6", $pertek)) {
+		} if (in_array("pertek6", $pertek)) {
 			$request->validate([
 				'rintek_limbah_upload' => 'nullable|max:10240'
 			]);
+			$b3 = 1;
 		}
 
 		if (is_array($request->jenis_peraturan)) {
@@ -435,6 +445,12 @@ class SkklController extends Controller
 			$rintek1 = time() . rand(0,100) . '_rintek_penyimpanan.' . $format1; //Variabel yang menampung nama file
 			$file1->storeAs('files/skkl/rintek', $rintek1); //Simpan ke Storage
 		} else {
+			if ($penyimpanan == 0 || $data->rintek_upload != null) {
+				$destination = 'files/skkl/rintek/' . $data->rintek_upload;
+				if ($data->rintek_upload) {
+					Storage::delete($destination);
+				}
+			}
 			$rintek1 = null;
 		}
 
@@ -448,6 +464,12 @@ class SkklController extends Controller
 			$rintek2 = time() . rand(0,100) . '_rintek_pemanfaatan.' . $format2; //Variabel yang menampung nama file
 			$file2->storeAs('files/skkl/rintek', $rintek2); //Simpan ke Storage
 		} else {
+			if ($pemanfaatan == 0 || $data->rintek2_upload != null) {
+				$destination = 'files/skkl/rintek/' . $data->rintek2_upload;
+				if ($data->rintek2_upload) {
+					Storage::delete($destination);
+				}
+			}
 			$rintek2 = null;
 		}
 
@@ -461,6 +483,12 @@ class SkklController extends Controller
 			$rintek3 = time() . rand(0,100) . '_rintek_penimbunan.' . $format3; //Variabel yang menampung nama file
 			$file3->storeAs('files/skkl/rintek', $rintek3); //Simpan ke Storage
 		} else {
+			if ($penimbunan == 0 || $data->rintek3_upload != null) {
+				$destination = 'files/skkl/rintek/' . $data->rintek3_upload;
+				if ($data->rintek3_upload) {
+					Storage::delete($destination);
+				}
+			}
 			$rintek3 = null;
 		}
 
@@ -474,6 +502,12 @@ class SkklController extends Controller
 			$rintek4 = time() . rand(0,100) . '_rintek_pengurangan.' . $format4; //Variabel yang menampung nama file
 			$file4->storeAs('files/skkl/rintek', $rintek4); //Simpan ke Storage
 		} else {
+			if ($pengurangan == 0 || $data->rintek4_upload != null) {
+				$destination = 'files/skkl/rintek/' . $data->rintek4_upload;
+				if ($data->rintek4_upload) {
+					Storage::delete($destination);
+				}
+			}
 			$rintek4 = null;
 		}
 
@@ -487,6 +521,12 @@ class SkklController extends Controller
 			$fileName2 = time() . rand(0,100) . '_rintek_limbah.' . $format5; //Variabel yang menampung nama file
 			$file5->storeAs('files/skkl/rintek', $fileName2); //Simpan ke Storage
 		} else {
+			if ($b3 == 0 || $data->rintek_limbah_upload != null) {
+				$destination = 'files/skkl/rintek/' . $data->rintek_limbah_upload;
+				if ($data->rintek_limbah_upload) {
+					Storage::delete($destination);
+				}
+			}
 			$fileName2 = null;
 		}
 		#endregion
@@ -598,7 +638,9 @@ class SkklController extends Controller
 		$now = tgl_indo2(Carbon::now()->format('d-m-Y'));
 		$time = Carbon::now()->format('H:i:s');
 		$tgl_dibuat = tgl_indo2($skkl->created_at->format('d-m-Y'));
+		$jam_dibuat = $skkl->created_at->format('H:i:s');
 		$tgl_diperbarui = tgl_indo2($skkl->updated_at->format('d-m-Y'));
+		$jam_diperbarui = $skkl->updated_at->format('H:i:s');
 		$jum_rkl = rkl::where('id_skkl', $skkl->id)->get()->count();
 		$jum_rpl = rpl::where('id_skkl', $skkl->id)->get()->count();
 
@@ -609,11 +651,11 @@ class SkklController extends Controller
 		}
 
 		if ($jum_rkl == 0 && $jum_rpl == 0) {
-			return redirect()->back()->with('message', 'Mohon isi minimal satu data dokumen RKL dan RPL!');
+			return redirect()->back()->with('message', 'Mohon lengkapi data tabel matriks RKL dan RPL sebelum melakukan submit data!');
 		} else if ($jum_rkl == 0) {
-			return redirect()->back()->with('message', 'Mohon isi minimal satu data dokumen RKL!');
+			return redirect()->back()->with('message', 'Mohon lengkapi data tabel matriks RKL sebelum melakukan submit data!');
 		} else if ($jum_rpl == 0) {
-			return redirect()->back()->with('message', 'Mohon isi minimal satu data dokumen RPL!');
+			return redirect()->back()->with('message', 'Mohon lengkapi data tabel matriks RPL sebelum melakukan submit data!');
 		}
 
 		$data = [
@@ -623,7 +665,9 @@ class SkklController extends Controller
 			'nama_usaha_baru' =>  $skkl->nama_usaha_baru,
 			'nomor_validasi' =>  $skkl->nomor_validasi,
 			'tgl_dibuat' =>  $tgl_dibuat,
+			'jam_dibuat' =>  $jam_dibuat,
 			'tgl_diperbarui' =>  $tgl_diperbarui,
+			'jam_diperbarui' =>  $jam_diperbarui,
 			'jenis_perubahan' =>  $skkl->jenis_perubahan,
 			'jml_perubahan' =>  $skkl->count,
 			'jml_rkl' => $jum_rkl,
@@ -663,7 +707,7 @@ class SkklController extends Controller
 				<tr>
 					<td>
 						LAMPIRAN II <br>
-						KEPUTUSAN MENTRI LINGKUNGAN HIDUP <br>
+						KEPUTUSAN MENTERI LINGKUNGAN HIDUP <br>
 						DAN KEHUTANAN REPUBLIK INDONESIA <br>
 						NOMOR <br>
 						TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN '. strtoupper($skkl->nama_usaha_baru).'
@@ -762,7 +806,7 @@ class SkklController extends Controller
 				<tr>
 					<td>
 						LAMPIRAN '. integerToRoman($roman) .' <br>
-						KEPUTUSAN MENTRI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
+						KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
 						NOMOR <br>
 						TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($skkl->nama_usaha_baru).'
 						OLEH '. strtoupper($skkl->pelaku_usaha_baru).'
@@ -842,7 +886,7 @@ class SkklController extends Controller
 				<tr>
 					<td>
 						LAMPIRAN ' . integerToRoman($request->nomor) . ' <br>
-						KEPUTUSAN MENTRI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
+						KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA <br>
 						NOMOR <br>
 						TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN '.strtoupper($skkl->nama_usaha_baru).'
 						OLEH '. strtoupper($skkl->pelaku_usaha_baru).'

@@ -76,15 +76,15 @@
         </tr>
         <tr style="border: 1px solid black; border-collapse: collapse;">
             <td style="border: 1px solid black; border-collapse: collapse; width: 150px;">Tanggal Dibuat</td>
-            <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $tgl_dibuat }}</td>
+            <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $tgl_dibuat }}, {{ $jam_dibuat }}</td>
         </tr>
         <tr style="border: 1px solid black; border-collapse: collapse;">
             <td style="border: 1px solid black; border-collapse: collapse; width: 150px;">Tanggal Diperbarui</td>
-            <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $tgl_diperbarui }}</td>
+            <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $tgl_diperbarui }}, {{ $jam_diperbarui }}</td>
         </tr>
         <tr style="border: 1px solid black; border-collapse: collapse;">
             <td style="border: 1px solid black; border-collapse: collapse; width: 150px;">Jumlah Perubahan</td>
-            <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $jml_perubahan }}</td>
+            <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $jml_perubahan == null ? '0' : $jml_perubahan }}</td>
         </tr>
         <tr style="border: 1px solid black; border-collapse: collapse;">
             <td style="border: 1px solid black; border-collapse: collapse; width: 150px;">Nomor Verifikasi PTSP</td>
@@ -94,8 +94,7 @@
         <tr style="border: 1px solid black; border-collapse: collapse;">
             <td style="border: 1px solid black; border-collapse: collapse; width: 150px;">Jumlah Data UKL-UPL</td>
             <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;">
-                <div class="float-right">{{ $jml_uklupl }}</div>
-                <div class="float-right">Tanggal terakhir update: {{ $last_uklupl }}</div>
+                <div class="float-right">{{ $jml_uklupl }}, terakhir update: {{ $last_uklupl }}</div>
             </td>
         </tr>
     </table>

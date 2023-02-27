@@ -78,7 +78,7 @@
                                 @if ($pkplh->status == 'Belum')
                                     <span class="badge badge-secondary">Belum diproses</span>
                                 @elseif ($pkplh->status == "Submit")
-                                    <span class="badge badge-info">Tersubmit</span>
+                                    <span class="badge badge-info">Sudah Submit</span>
                                 @elseif ($pkplh->status == 'Proses')
                                     <span class="badge badge-warning">Proses Validasi</span>
                                 @elseif ($pkplh->status == 'Draft')

@@ -707,7 +707,7 @@
                                             <label class="custom-file-label" for="rintek_upload1">Choose file</label>
                                         </div>
                                     </div>
-                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 10 mb </small>
+                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 15 mb </small>
                                 </div>
                             </div>
 
@@ -727,7 +727,7 @@
                                             <label class="custom-file-label" for="rintek_upload2">Choose file</label>
                                         </div>
                                     </div>
-                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 10 mb </small>
+                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 15 mb </small>
                                 </div>
                             </div>
 
@@ -747,7 +747,7 @@
                                             <label class="custom-file-label" for="rintek_upload3">Choose file</label>
                                         </div>
                                     </div>
-                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 10 mb </small>
+                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 15 mb </small>
                                 </div>
                             </div>
 
@@ -767,7 +767,7 @@
                                             <label class="custom-file-label" for="rintek_upload4">Choose file</label>
                                         </div>
                                     </div>
-                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 10 mb </small>
+                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 15 mb </small>
                                 </div>
                             </div>
 
