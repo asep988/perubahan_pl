@@ -130,8 +130,8 @@
                                     <label for="jenis_dph" class="form-label">Jenis Dampak Penting</label>
                                     <div>
                                         <select name="jenis_dph" id="jenis_dph" class="form-control">
-                                            <option value="Penting">Dampak Penting yang Dikelola</option>
-                                            <option value="Lainnya">Dampak Lainnya yang Dikelola</option>
+                                            <option value="Penting">Dampak Penting yang Dipantau</option>
+                                            <option value="Lainnya">Dampak Lainnya yang Dipantau</option>
                                         </select>
                                     </div>
                                 </div>
