@@ -1253,7 +1253,7 @@ class PkplhController extends Controller
             </tr>
             <tr>
                 <td colspan="2">a.n. MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA<br>
-                PLT. DIREKTORAT JENDRAL PLANOLOGI<br>
+                PLT. DIREKTORAT JENDERAL PLANOLOGI<br>
                 KEHUTANAN DAN TATA LINGKUNGAN,
                 <br><br><br><br><br><br>
                 RUANDHA AGUNG SUGARDIMAN<br>
@@ -1271,8 +1271,8 @@ class PkplhController extends Controller
         <ol>
             <li>Menteri Lingkungan Hidup dan Kehutanan;</li> '
         . $loopprov1 .
-        ' <li>Sekretaris Jendral Kementerian Lingkungan Hidup dan Kehutanan;</li>
-            <li>Direktur Jendral Penegakan Hukum Lingkungan Hidup dan Kehutanan;</li> '
+        ' <li>Sekretaris Jenderal Kementerian Lingkungan Hidup dan Kehutanan;</li>
+            <li>Direktur Jenderal Penegakan Hukum Lingkungan Hidup dan Kehutanan;</li> '
         . $loopkk1 .
         '<li>Pelaku Usaha ' . $pkplh->pelaku_usaha_baru . ';</li>
         </ol>
@@ -1372,7 +1372,7 @@ class PkplhController extends Controller
 					<table>
 						<tr>
                         <td colspan="2">a.n. MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA<br>
-                        PLT. DIREKTORAT JENDRAL PLANOLOGI<br>
+                        PLT. DIREKTORAT JENDERAL PLANOLOGI<br>
                         KEHUTANAN DAN TATA LINGKUNGAN,
                         <br><br><br><br><br><br>
                         RUANDHA AGUNG SUGARDIMAN<br>
@@ -1447,7 +1447,7 @@ class PkplhController extends Controller
 					<table>
 						<tr>
                         <td colspan="2">a.n. MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA<br>
-                        PLT. DIREKTORAT JENDRAL PLANOLOGI<br>
+                        PLT. DIREKTORAT JENDERAL PLANOLOGI<br>
                         KEHUTANAN DAN TATA LINGKUNGAN,
                         <br><br><br><br><br><br>
                         RUANDHA AGUNG SUGARDIMAN<br>

@@ -223,7 +223,8 @@
                             <span style="font-size: 12px"><br>1. File yang diupload harus menggunakan template yang disediakan</span>
                             <span style="font-size: 12px"><br>2. Isi tabel harus menyesuaikan dengan template</span>
                             <span style="font-size: 12px"><br>3. File yang diupload tidak bisa melebihi dari 5 mb</span>
-                            <span style="font-size: 12px"><br>4. Format yang diupload harus berbentuk Excel (xlsx)</span>
+                            <span style="font-size: 12px"><br>4. Pengisian data tidak boleh ada cell yang dimerge </span>
+                            <span style="font-size: 12px"><br>5. Format yang diupload harus berbentuk Excel (xlsx)</span>
                         </div>
 
                         <span><b>Pilih file:</b></span>

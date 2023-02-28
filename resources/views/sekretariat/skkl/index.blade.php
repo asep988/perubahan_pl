@@ -241,7 +241,7 @@
                                                     <input type="text" name="pertek" value="{{ $pertek }}" hidden>
                                                     <input type="text" name="nomor" value="{{ $i }}" hidden>
                                                     <input type="text" name="jenis" value="{{ $row->surat_pertek }}" hidden>
-                                                    <button type="submit" class="btn btn-primary btn-block mb-2">Preview lampiran {{ integerToRoman($i) }}</button>
+                                                    <button type="submit" class="btn btn-primary btn-block mb-2">Unduh lampiran {{ integerToRoman($i) }}</button>
                                                     <?php $i++; ?>
                                                 </form>
                                             @endif
@@ -251,7 +251,7 @@
                                 <form @if ($pertek == "pertek6") action="{{ route('sekretariat.download.rintek', $skkl->id) }}" @else action="{{ route('sekretariat.download.pertek', $skkl->id) }}" @endif method="GET">
                                     <input type="text" name="pertek" value="{{ $pertek }}" hidden>
                                     <input type="text" name="nomor" value="{{ $i }}" hidden>
-                                    <button type="submit" class="btn btn-primary btn-block mb-2">Preview lampiran {{ integerToRoman($i) }}</button>
+                                    <button type="submit" class="btn btn-primary btn-block mb-2">Unduh lampiran {{ integerToRoman($i) }}</button>
                                     <?php $i++; ?>
                                 </form>
                                 @endif

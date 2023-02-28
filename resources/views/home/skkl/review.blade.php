@@ -1072,11 +1072,11 @@
                                 <span>Gubernur {{ ucwords(strtolower($prov)) }}</span>
                             </li>
                         @endforeach
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Sekretaris Jendral
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Sekretaris Jenderal
                                 Kementerian Lingkungan Hidup dan Kehutanan;</span></li>
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Direktur Jendral
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Direktur Jenderal
                                 Planologi Kehutanan dan Tata Lingkungan;</span></li>
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Direktur Jendral
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Direktur Jenderal
                                 Penegakan Hukum Lingkungan Hidup dan Kehutanan;</span></li>
                         @foreach ($data_skkl->kabupaten_kota as $kabkot)
                             <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Bupati/Walikota

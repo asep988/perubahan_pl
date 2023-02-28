@@ -78,56 +78,57 @@ class PrintUkluplController extends Controller
         $body = '<html>
                 <head>
                 <style>
-                body {
-                    font-family:"Bookman Old Style";
-                }
-                ol {
-                columns:2;
-                font-size: 7pt !important;
-                }
-                p {
+                    body {
+                        font-family:"Bookman Old Style" !important;
+                    }
+                    ol {
+                    columns:2;
                     font-size: 7pt !important;
-                }
-                span {
+                    }
+                    p {
+                        font-size: 7pt !important;
+                    }
+                    span {
+                        font-size: 7pt !important;
+                    }
+                    ol > li.list_kurung::marker {
+                    content:counter(list-item) ")\2003";
                     font-size: 7pt !important;
-                }
-                ol > li.list_kurung::marker {
-                content:counter(list-item) ")\2003";
-                font-size: 7pt !important;
-                }
-                td {
-                    vertical-align: top;
-                    text-align: justify;
-                    font-size: 7pt !important;
-                }
-                tbody{
-                    font-size: 7pt !important;
-                }
-                tbody table{
-                    font-size: 7pt !important;
-                }
-                table{
-                    font-size: 7pt !important;
-                }
-                
-                @page SectionLC {
-                    size:841.7pt 595.45pt;mso-page-orientation:landscape;margin:1.25in 1.0in 1.25in 1.0in;mso-header-margin:.5in;mso-footer-margin:.5in;mso-paper-source:0;
-                }
-        
-                div.SectionLC {
-                    page:SectionLC;
-                }
-                .solid-table {
-                    border-collapse: collapse;
-                    width: 100%;
-                }
-                  
-                .solid-table th,
-                .solid-table td {
-                    border: 1px solid black;
-                    padding: 8px;
-                    text-align: left;
-                }
+                    }
+                    td {
+                        vertical-align: top;
+                        text-align: justify;
+                        font-size: 7pt !important;
+                    }
+                    }
+                    tbody{
+                        font-size: 7pt !important;
+                    }
+                    tbody table{
+                        font-size: 7pt !important;
+                    }
+                    table{
+                        font-size: 7pt !important;
+                    }
+            
+                    @page SectionLC {
+                        size:841.7pt 595.45pt;mso-page-orientation:landscape;margin:1.25in 1.0in 1.25in 1.0in;mso-header-margin:.5in;mso-footer-margin:.5in;mso-paper-source:0;
+                    }
+            
+                    div.SectionLC {
+                        page:SectionLC;
+                    }
+                    .solid-table {
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
+            
+                    .solid-table th,
+                    .solid-table td {
+                        border: 1px solid black;
+                        padding: 8px;
+                        text-align: left;
+                    }
                 </style>
                 </head>';
 
@@ -137,7 +138,7 @@ class PrintUkluplController extends Controller
         $body .='<div class=SectionLC>
         LAMPIRAN I<br>
 						KEPUTUSAN MENTERI LINGKUNGAN HIDUP <br>
-						DAN KEHUTANAN REPUBLIK INDONESIA <br>Masih nyala
+						DAN KEHUTANAN REPUBLIK INDONESIA <br>
 						NOMOR <br>
 						TENTANG PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN HIDUP '. strtoupper($pkplh->nama_usaha_baru).'
 						OLEH '.strtoupper($pkplh->pelaku_usaha_baru).'
@@ -156,15 +157,17 @@ class PrintUkluplController extends Controller
                     <th width="70px" rowspan="2" class="align-middle">Keterangan</th>
                 </tr>
                 <tr>
-                    <td>Sumber Dampak</td>
-                    <td>Jenis Dampak</td>
-                    <td>Besaran Dampak</td>
-                    <td>Bentuk</td>
-                    <td>Lokasi</td>
-                    <td>Periode</td>
-                    <td>Bentuk</td>
-                    <td>Lokasi</td>
-                    <td>Periode</td>
+                    <div class="sub-head">
+                        <td>Sumber Dampak</td>
+                        <td>Jenis Dampak</td>
+                        <td>Besaran Dampak</td>
+                        <td>Bentuk</td>
+                        <td>Lokasi</td>
+                        <td>Periode</td>
+                        <td>Bentuk</td>
+                        <td>Lokasi</td>
+                        <td>Periode</td>
+                    </div>
                 </tr>
             </thead>
 		<tbody>';

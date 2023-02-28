@@ -1047,7 +1047,7 @@
                         <tr>
                             <td style="padding:0.75pt; vertical-align:top">
                                 <p style="text-align:justify; font-size:12pt"><span>a.n. MENTERI LINGKUNGAN HIDUP DAN
-                                        KEHUTANAN REPUBLIK INDONESIA</span><br /><span>PLT. DIREKTORAT JENDRAL
+                                        KEHUTANAN REPUBLIK INDONESIA</span><br /><span>PLT. DIREKTORAT JENDERAL
                                         PLANOLOGI</span><br /><span>KEHUTANAN DAN TATA LINGKUNGAN,
                                     </span><br /><br /><br /><br /><br /><br /><span>RUANDHA AGUNG
                                         SUGARDIMAN</span><br /><span>NIP 19620301 198802 1 001 </span></p>
@@ -1067,11 +1067,11 @@
                                 <span>Gubernur {{ ucwords(strtolower($prov)) }}</span>
                             </li>
                         @endforeach
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Sekretaris Jendral
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Sekretaris Jenderal
                                 Kementerian Lingkungan Hidup dan Kehutanan;</span></li>
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Direktur Jendral
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Direktur Jenderal
                                 Planologi Kehutanan dan Tata Lingkungan;</span></li>
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Direktur Jendral
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Direktur Jenderal
                                 Penegakan Hukum Lingkungan Hidup dan Kehutanan;</span></li>
                         @foreach ($data_pkplh->kabupaten_kota as $kabkot)
                             <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Bupati/Walikota

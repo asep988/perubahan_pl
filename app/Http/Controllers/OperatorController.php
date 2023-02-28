@@ -756,9 +756,9 @@ class OperatorController extends Controller
                 Tembusan Yth.: <br>
                 <ol>
                     '  . $loopprov1 . '
-                    <li>Sekretaris Jendral Kementerian Lingkungan Hidup dan Kehutanan;</li>
-                    <li>Direktur Jendral Planologi Kehutanan dan Tata Lingkungan;</li>
-                    <li>Direktur Jendral Penegakan Hukum Lingkungan Hidup dan Kehutanan;</li> '
+                    <li>Sekretaris Jenderal Kementerian Lingkungan Hidup dan Kehutanan;</li>
+                    <li>Direktur Jenderal Planologi Kehutanan dan Tata Lingkungan;</li>
+                    <li>Direktur Jenderal Penegakan Hukum Lingkungan Hidup dan Kehutanan;</li> '
             . $loopkk1
             . $gubernur1
             . $loopkk3
