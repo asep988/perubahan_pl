@@ -39,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
 
         $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
 		->where('initiators.user_type', 'Pemrakarsa')
+        ->orWhere('initiators.user_type', 'Pemerintah')
 		->get();
 
 		$operator = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
@@ -60,6 +61,7 @@ class AppServiceProvider extends ServiceProvider
             if (Auth::check()) {
                 $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
                 ->where('initiators.user_type', 'Pemrakarsa')
+                ->orWhere('initiators.user_type', 'Pemerintah')
                 ->get();
 
                 $operator = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
@@ -149,7 +151,8 @@ class AppServiceProvider extends ServiceProvider
                 $view->with([
                     'notif_skkl' => $data_skkl,
                     'notif_pkplh' => $data_pkplh,
-                    'notif_jml' => $skkl_jml + $pkplh_jml
+                    'notif_jml' => $skkl_jml + $pkplh_jml,
+                    'user_role' => $role
                 ]);
             }
         });

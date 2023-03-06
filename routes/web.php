@@ -39,6 +39,11 @@ Route::post('/pkplh/chat/create/{id}', 'PkplhController@chatCreate')->name('pkpl
 Route::post('/pkplh/chat/update/{id}', 'PkplhController@chatUpdate')->name('pkplh.chat.update');
 Route::get('/pkplh/notif/update/{id}', 'PkplhController@notifUpdate')->name('pkplh.notif.update');
 
+Route::get('/ptsp', 'PtspController@login')->name('ptsp');
+Route::post('/ptsp/login', 'PtspController@authenticate')->name('ptsp.login');
+Route::get('/ptsp/skkl/8c7a5370e747a69ad6941f97c80dc06a', 'PtspController@skklIndex')->name('ptsp.skkl.index');
+Route::get('/ptsp/pkplh/842998c9fbab1a005e7fb0eb8f1f3765', 'PtspController@pkplhIndex')->name('ptsp.pkplh.index');
+
 Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {
     //skkl
     Route::get('/Pemrakarsa', 'HomeController@index')->name('pemrakarsa.index');

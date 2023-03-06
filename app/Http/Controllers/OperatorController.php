@@ -31,6 +31,7 @@ class OperatorController extends Controller
 
         $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
         ->where('initiators.user_type', 'Pemrakarsa')
+        ->orWhere('initiators.user_type', 'Pemerintah')
         ->select('users.id', 'users.name', 'users.email')
         ->get();
 

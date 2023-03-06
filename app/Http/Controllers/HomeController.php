@@ -66,6 +66,7 @@ class HomeController extends Controller
         if (Auth::check()) {
             $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
             ->where('initiators.user_type', 'Pemrakarsa')
+            ->orWhere('initiators.user_type', 'Pemerintah')
             ->get();
 
             $operator = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')

@@ -1,21 +1,25 @@
 <!-- Sidebar -->
 <?php
-    for ($i = 0; $i < count($pemrakarsa_role); $i++) {
-        if (Auth::user()->email == $pemrakarsa_role[$i]->email) {
-            $role = 'Pemrakarsa';
+    if (Auth::check()) {
+        for ($i = 0; $i < count($pemrakarsa_role); $i++) {
+            if (Auth::user()->email == $pemrakarsa_role[$i]->email) {
+                $role = 'Pemrakarsa';
+            }
         }
-    }
 
-    for ($i = 0; $i < count($operator_role); $i++) {
-        if (Auth::user()->email == $operator_role[$i]->email) {
-            $role = 'Operator';
+        for ($i = 0; $i < count($operator_role); $i++) {
+            if (Auth::user()->email == $operator_role[$i]->email) {
+                $role = 'Operator';
+            }
         }
-    }
 
-    for ($i = 0; $i < count($sekretariat_role); $i++) {
-        if (Auth::user()->email == $sekretariat_role[$i]->email) {
-            $role = 'Sekretariat';
+        for ($i = 0; $i < count($sekretariat_role); $i++) {
+            if (Auth::user()->email == $sekretariat_role[$i]->email) {
+                $role = 'Sekretariat';
+            }
         }
+    } else {
+        $role = 'ptsp';
     }
 ?>
 
@@ -70,6 +74,20 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('sekre.pkplh.index') }}">
+                <i class="fas fa-book"></i>
+                <span>Perubahan PKPLH</span>
+            </a>
+        </li>
+    @else
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('ptsp.skkl.index') }}">
+                <i class="fas fa-book"></i>
+                <span>Perubahan SKKL</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('ptsp.pkplh.index') }}">
                 <i class="fas fa-book"></i>
                 <span>Perubahan PKPLH</span>
             </a>
