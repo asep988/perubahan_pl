@@ -1314,6 +1314,18 @@
                     $('#rintek').show()
                 } else {
                     $('#rintek').hide()
+                    $('#rintek1').prop('checked', false)
+                    $('#rintek1_form').hide();
+                    $('#rintek1_data').removeAttr('name')
+                    $('#rintek2').prop('checked', false)
+                    $('#rintek2_form').hide();
+                    $('#rintek2_data').removeAttr('name')
+                    $('#rintek3').prop('checked', false)
+                    $('#rintek3_form').hide();
+                    $('#rintek3_data').removeAttr('name')
+                    $('#rintek4').prop('checked', false)
+                    $('#rintek4_form').hide();
+                    $('#rintek4_data').removeAttr('name')
                 }
             });
 
