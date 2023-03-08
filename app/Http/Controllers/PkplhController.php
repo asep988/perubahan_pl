@@ -749,7 +749,7 @@ class PkplhController extends Controller
 			$pkplh->status = "Submit";
 			$pkplh->update();
 		}
-		
+
 		$pdf = Pdf::loadView('layouts.regist_pkplh', $data);
         return $pdf->stream();
 	}
@@ -1121,19 +1121,19 @@ class PkplhController extends Controller
                 melakukan sosialisasi kegiatan kepada pemerintah daerah, tokoh masyarakat, dan masyarakat setempat sebelum kegiatan pengembangan dilakukan;
             </li>
             <li>
-                mendokumentasikan seluruh kegiatan pengelolaan lingkungan yang dilakukan terkait dengan kegiatan tersebut;
+            mendokumentasikan seluruh kegiatan pengelolaan lingkungan yang dilakukan terkait dengan kegiatan tersebut;
             </li>
             <li>
-                memenuhi kewajiban pada Persetujuan Teknis pasca verifikasi pemenuhan baku mutu Lingkungan Hidup, Pengelolaan Limbah B3, dan/atau Analisis Mengenai Dampak Lalu Lintas;
+            memenuhi kewajiban pada Persetujuan Teknis pasca verifikasi pemenuhan baku mutu Lingkungan Hidup, Pengelolaan Limbah B3, dan/atau Analisis Mengenai Dampak Lalu Lintas;
             </li>
             <li>
-                menyiapkan dana penjaminan untuk pemulihan fungsi Lingkungan Hidup sesuai dengan ketentuan peraturan perundang-undangan;
+            menyiapkan dana penjaminan untuk pemulihan fungsi Lingkungan Hidup sesuai dengan ketentuan peraturan perundang-undangan;
             </li>
             <li>
-                melakukan audit lingkungan pada tahapan pasca operasi untuk memastikan kewajiban telah dilaksanakan dalam rangka pengakhiran kewajiban pengelolaan dan pemantauan lingkungan hidup dan/atau kewajiban lain yang ditetapkan oleh Menteri, Gubernur, Bupati/Wali Kota sesuai dengan kewenangannya berdasarkan kepentingan perlindungan dan pengelolaan lingkungan hidup;
+            melakukan audit lingkungan pada tahapan pasca operasi untuk memastikan kewajiban telah dilaksanakan dalam rangka pengakhiran kewajiban pengelolaan dan pemantauan lingkungan hidup dan/atau kewajiban lain yang ditetapkan oleh Menteri, Gubernur, Bupati/Wali Kota sesuai dengan kewenangannya berdasarkan kepentingan perlindungan dan pengelolaan lingkungan hidup;
             </li>
             <li>
-                menyusun laporan pelaksanaan kewajiban sebagaimana dimaksud pada angka 1 (satu) sampai dengan angka 10 (sepuluh), paling sedikit 1 (satu) kali setiap 6 (enam) bulan selama usaha atau kegiatan berlangsung dan menyampaikan kepada:
+            menyusun laporan pelaksanaan kewajiban sebagaimana dimaksud pada angka 1 (satu) sampai dengan angka 10 (sepuluh), paling sedikit 1 (satu) kali setiap 6 (enam) bulan selama usaha atau kegiatan berlangsung dan menyampaikan kepada:
                 <ol type="a">
                     <li>
                         Menteri Lingkungan Hidup dan Kehutanan Republik Indonesia melalui Direktorat Jenderal Penegakan Hukum Lingkungan Hidup dan Kehutanan;
@@ -1161,7 +1161,7 @@ class PkplhController extends Controller
     </td>
     <td width="2%"> :</td>
     <td width="68%">
-        Dalam pelaksanaan Keputusan ini, Menteri menugaskan Pejabat Pengawas Lingkungan Hidup (PPLH) untuk melakukan pengawasan.
+        Apabila dalam pelaksanaan usaha dan/atau kegiatan timbul dampak lingkungan hidup di luar dari dampak yang dikelola sebagaimana dimaksud dalam Lampiran Keputusan ini, Penanggung jawab Usaha dan/atau Kegiatan wajib melaporkan kepada instansi sebagaimana dimaksud dalam Diktum KEEMPAT angka 14 paling lama 30 (tiga puluh) hari kerja sejak diketahuinya timbulan dampak lingkungan hidup di luar dampak yang wajib dikelola.
     </td>
     </tr>
     <tr>
@@ -1170,12 +1170,21 @@ class PkplhController extends Controller
     </td>
     <td width="2%"> :</td>
     <td width="68%">
-        Pengawasan sebagaimana dimaksud dalam Diktum KEENAM dilaksanakan sesuai dengan ketentuan peraturan perundang-undangan paling sedikit 2 (dua) kali dalam 1 (satu) tahun.
+        Dalam pelaksanaan Keputusan ini, Menteri menugaskan Pejabat Pengawas Lingkungan Hidup (PPLH) untuk melakukan pengawasan.
     </td>
     </tr>
     <tr>
     <td width="30%">
         KEDELAPAN
+    </td>
+    <td width="2%"> :</td>
+    <td width="68%">
+        Pengawasan sebagaimana dimaksud dalam Diktum KEENAM dilaksanakan sesuai dengan ketentuan peraturan perundang-undangan paling sedikit 2 (dua) kali dalam 1 (satu) tahun.
+    </td>
+    </tr>
+    <tr>
+    <td width="30%">
+        KESEMBILAN
     </td>
     <td width="2%"> :</td>
     <td width="68%">
@@ -1185,7 +1194,7 @@ class PkplhController extends Controller
 
     $body .= '<tr>
     <td width="30%">
-        KESEMBILAN
+        KESEPULUH
     </td>
     <td width="2%"> :</td>
     <td width="68%">
@@ -1194,7 +1203,7 @@ class PkplhController extends Controller
     </tr>
     <tr>
     <td width="30%">
-        KESEPULUH
+        KESEBELAS
     </td>
     <td width="2%"> :</td>
     <td width="68%">
@@ -1203,7 +1212,7 @@ class PkplhController extends Controller
     </tr>
     <tr>
     <td width="30%">
-        KESEBELAS
+        KEDUA BELAS
     </td>
     <td width="2%"> :</td>
     <td width="68%">
@@ -1212,7 +1221,7 @@ class PkplhController extends Controller
     </tr>
     <tr>
     <td width="30%">
-        KEDUA BELAS
+        KETIGA BELAS
     </td>
     <td width="2%"> :</td>
     <td width="68%">
@@ -1221,7 +1230,7 @@ class PkplhController extends Controller
     </tr>
     <tr>
     <td width="30%">
-        KETIGA BELAS
+        KEEMPAT BELAS
     </td>
     <td width="2%"> :</td>
     <td width="68%">
@@ -1232,7 +1241,7 @@ class PkplhController extends Controller
     </tr>
     <tr>
     <td width="30%">
-        KEEMPAT BELAS
+        KELIMA BELAS
     </td>
     <td width="2%"> :</td>
     <td width="68%">

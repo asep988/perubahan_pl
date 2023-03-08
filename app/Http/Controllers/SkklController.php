@@ -702,7 +702,7 @@ class SkklController extends Controller
 		$headers = array(
 			"Content-type" => "text/html",
 
-			"Content-Disposition" => "attachment; Filename=LampiranI_$skkl->pelaku_usaha_baru.doc"
+			"Content-Disposition" => "attachment; Filename=LampiranII_$skkl->pelaku_usaha_baru.doc"
 		);
 
 		$body = '

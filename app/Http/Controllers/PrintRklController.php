@@ -133,7 +133,7 @@ class PrintRklController extends Controller
 
         $body .= '<body>
             <div class=SectionLC>
-						LAMPIRAN II<br>
+						LAMPIRAN I<br>
 						KEPUTUSAN MENTERI LINGKUNGAN HIDUP <br>
 						DAN KEHUTANAN REPUBLIK INDONESIA <br>
 						NOMOR <br>

@@ -118,11 +118,11 @@ class PrintRplController extends Controller
                     table{
                         font-size: 7pt !important;
                     }
-            
+
                     @page SectionLC {
                         size:841.7pt 595.45pt;mso-page-orientation:landscape;margin:1.25in 1.0in 1.25in 1.0in;mso-header-margin:.5in;mso-footer-margin:.5in;mso-paper-source:0;
                     }
-            
+
                     div.SectionLC {
                         page:SectionLC;
                     }
@@ -130,7 +130,7 @@ class PrintRplController extends Controller
                         border-collapse: collapse;
                         width: 100%;
                     }
-            
+
                     .solid-table th,
                     .solid-table td {
                         border: 1px solid black;
@@ -144,7 +144,7 @@ class PrintRplController extends Controller
 
         $body .='
         <div class=SectionLC>
-        LAMPIRAN II<br>
+        LAMPIRAN I<br>
         KEPUTUSAN MENTERI LINGKUNGAN HIDUP <br>
         DAN KEHUTANAN REPUBLIK INDONESIA <br>
         NOMOR <br>
