@@ -33,10 +33,10 @@
                                     <label for="tahap_kegiatan" class="form-label">Tahap Kegiatan</label>
                                     <div>
                                         <select name="tahap_kegiatan" id="tahap_kegiatan" class="form-control">
-                                            <option value="Pra Konstruksi">Pra Konstruksi</option>
-                                            <option value="Konstruksi">Konstruksi</option>
-                                            <option value="Operasi">Operasi</option>
-                                            <option value="Pasca Operasi">Pasca Operasi</option>
+                                            <option value="Pra Konstruksi" @if ($rkl->tahap_kegiatan == "Pra Konstruksi") selected @endif>Pra Konstruksi</option>
+                                            <option value="Konstruksi" @if ($rkl->tahap_kegiatan == "Konstruksi") selected @endif>Konstruksi</option>
+                                            <option value="Operasi" @if ($rkl->tahap_kegiatan == "Operasi") selected @endif>Operasi</option>
+                                            <option value="Pasca Operasi" @if ($rkl->tahap_kegiatan == "Pasca Operasi") selected @endif>Pasca Operasi</option>
                                         </select>
                                     </div>
                                 </div>
@@ -45,8 +45,8 @@
                                     <label for="jenis_dph" class="form-label">Jenis Dampak Penting</label>
                                     <div>
                                         <select name="jenis_dph" id="jenis_dph" class="form-control">
-                                            <option value="Penting">Dampak Penting yang Dikelola</option>
-                                            <option value="Lainnya">Dampak Lainnya yang Dikelola</option>
+                                            <option value="Penting" @if ($rkl->jenis_dph == "Penting") selected @endif>Dampak Penting yang Dikelola</option>
+                                            <option value="Lainnya" @if ($rkl->jenis_dph == "Lainnya") selected @endif>Dampak Lainnya yang Dikelola</option>
                                         </select>
                                     </div>
                                 </div>

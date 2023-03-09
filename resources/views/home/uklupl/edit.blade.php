@@ -34,7 +34,7 @@
                                     <div class="col-sm-8">
                                         <select name="tahap_kegiatan" id="tahap_kegiatan" class="form-control">
                                             <option value="Pra Konstruksi" @if ($uklupl->tahap_kegiatan == "Pra Konstruksi") selected @endif>Pra Konstruksi</option>
-                                            <option value="Konstruksi" @if ($uklupl->tahap_kegiatan == "Konstuksi") selected @endif>Konstruksi</option>
+                                            <option value="Konstruksi" @if ($uklupl->tahap_kegiatan == "Konstruksi") selected @endif>Konstruksi</option>
                                             <option value="Operasi" @if ($uklupl->tahap_kegiatan == "Operasi") selected @endif>Operasi</option>
                                             <option value="Pasca Operasi" @if ($uklupl->tahap_kegiatan == "Pasca Operasi") selected @endif>Pasca Operasi</option>
                                         </select>
