@@ -152,7 +152,7 @@ class AppServiceProvider extends ServiceProvider
                     'notif_skkl' => $data_skkl,
                     'notif_pkplh' => $data_pkplh,
                     'notif_jml' => $skkl_jml + $pkplh_jml,
-                    'user_role' => $role
+                    'role' => $role
                 ]);
             }
         });
