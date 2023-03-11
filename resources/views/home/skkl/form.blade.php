@@ -291,7 +291,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="pejabat" class="col-sm-2 col-form-label">Pejabat yang menandatangani</label>
+                        <label for="pejabat" class="col-sm-2 col-form-label">Jabatan yang menandatangani</label>
                         <div class="col-sm-5">
                             <input type="text" class="form-control" aria-label="pejabat" id="pejabat"
                                 name="pejabat_pl">

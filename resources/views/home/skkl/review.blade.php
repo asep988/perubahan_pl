@@ -225,7 +225,8 @@
                         </li>
                         <!-- point b -->
                         <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
-                            <span>bahwa usaha dan/atau kegiatan {{ $data_skkl->nama_usaha_baru }} di Kabupaten/Kota {{ ucwords(strtolower($data_kabkota)) }}
+                            <span>bahwa usaha dan/atau kegiatan {{ $data_skkl->nama_usaha_baru }} di Kabupaten/Kota
+                                {{ ucwords(strtolower($data_kabkota)) }}
                                 Provinsi {{ ucwords(strtolower($data_prov)) }} oleh {{ $data_skkl->pelaku_usaha_baru }}
                                 berdasarkan dokumen lingkungan yang telah disetujui yaitu:
                                 <ol type="1" style="margin-right:0pt; margin-left:0pt; padding-left:0pt">
@@ -244,7 +245,8 @@
                         <!-- point c baru-->
                         <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
                             <span>
-                                bahwa {{ $data_skkl->jabatan_baru }} melalui surat Nomor: {{ $data_skkl->nomor_pl }}, Tanggal {{ tgl_indo($data_skkl->tgl_pl) }}, perihal {{ $data_skkl->perihal }},
+                                bahwa {{ $data_skkl->jabatan_baru }} melalui surat Nomor: {{ $data_skkl->nomor_pl }},
+                                Tanggal {{ tgl_indo($data_skkl->tgl_pl) }}, perihal {{ $data_skkl->perihal }},
                                 mengajukan permohonan perubahan persetujuan lingkungan kepada Menteri Lingkungan Hidup;
                             </span>
                         </li>
@@ -403,27 +405,30 @@
                                 @endfor
                             </ol>
                         @endif --}}
-                    <ol start="4" type="a" style="margin:0pt; padding-left:0pt">
-                        {{-- point d --}}
-                        <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
-                            <span>Bahwa berdasarkan hasil verifikasi administrasi oleh pelayanan Terpadu
-                                Satu Pintu Kementerian Lingkungan Hidup dan Kehutanan sesuai Berita Acara Validasi
-                                Permohonan Layanan Nomor {{ $data_skkl->nomor_validasi }},tanggal
-                                {{ tgl_indo($data_skkl->tgl_validasi) }}
-                                dinyatakan lengkap secara administrasi; </span>
-                        </li>
-                        {{-- point e --}}
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>berdasarkan
-                                pertimbangan sebagaimana dimaksud dalam huruf a sampai dengan huruf d, perlu menetapkan
-                                Keputusan Menteri Lingkungan Hidup dan Kehutanan tentang Kelayakan Lingkungan Hidup
-                                usaha dan/atau kegiatan {{ $data_skkl->nama_usaha_baru }} di Kabupaten/Kota
-                                {{ ucwords(strtolower($data_kabkota)) }}
-                                Provinsi {{ ucwords(strtolower($data_prov)) }} oleh
-                                {{ $data_skkl->pelaku_usaha_baru }};
+                        <ol start="4" type="a" style="margin:0pt; padding-left:0pt">
+                            {{-- point d --}}
+                            <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
+                                <span>Bahwa berdasarkan hasil verifikasi administrasi oleh pelayanan Terpadu
+                                    Satu Pintu Kementerian Lingkungan Hidup dan Kehutanan sesuai Berita Acara Validasi
+                                    Permohonan Layanan Nomor {{ $data_skkl->nomor_validasi }}, tanggal
+                                    {{ tgl_indo($data_skkl->tgl_validasi) }}
+                                    dinyatakan lengkap secara administrasi; </span>
+                            </li>
+                            {{-- point e --}}
+                            <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>berdasarkan
+                                    pertimbangan sebagaimana dimaksud dalam huruf a sampai dengan huruf d, perlu
+                                    menetapkan
+                                    Keputusan Menteri Lingkungan Hidup dan Kehutanan tentang Kelayakan Lingkungan Hidup
+                                    usaha dan/atau kegiatan {{ $data_skkl->nama_usaha_baru }} di Kabupaten/Kota
+                                    {{ ucwords(strtolower($data_kabkota)) }}
+                                    Provinsi {{ ucwords(strtolower($data_prov)) }} oleh
+                                    {{ $data_skkl->pelaku_usaha_baru }};
 
-                    </ol>
+                        </ol>
                 </td>
             </tr>
+
+            {{-- mengingat --}}
             <tr>
                 <td style="width:30%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>Mengingat </span></p>
@@ -435,46 +440,59 @@
                     <ol type="1" style="margin:0pt; padding-left:0pt">
                         {{-- 1 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Undang-Undang Nomor 32
-                                Tahun 2009 tentang Perlindungan dan Pengelolaan Lingkungan Hidup sebagaimana telah
-                                diubah dengan Undang-Undang Nomor 11 Tahun 2020 tentang Cipta Kerja; </span>
+                                Tahun 2009 tentang Perlindungan dan Pengelolaan Lingkungan Hidup (Lembaran Negara
+                                Republik Indonesia Tahun 2009 Nomor 140, Tambahan Lembaran Negara Republik Indonesia
+                                Nomor 5059) sebagaimana telah diubah dengan Peraturan Pemerintah Pengganti Undang-Undang
+                                Nomor 2 Tahun 2022 Tentang Cipta Kerja (Lembaran Negara Republik Indonesia Tahun 2022
+                                Nomor 238); </span>
                         </li>
                         {{-- 2 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Pemerintah
-                                Nomor 5 Tahun 2021 tentang Penyelenggaraan Perizinan Berusaha Berbasis Resiko;</span>
+                                Nomor 5 Tahun 2021 tentang Penyelenggaraan Perizinan Berusaha Berbasis Resiko (Lembaran
+                                Negara Republik Indonesia Tahun 2021 Nomor 15, Tambahan Lembaran Negara Republik
+                                Indonesia Nomor 6617);</span>
                         </li>
                         {{-- 3 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Pemerintah
                                 Nomor 22 Tahun 2021 tentang Penyelenggaraan Perlindungan dan Pengelolaan Lingkungan
-                                Hidup ; </span>
+                                Hidup (Lembaran Negara Republik Indonesia Tahun 2021 Nomor 32, Tambahan Lembaran Negara
+                                Republik indonesia Nomor 6634);</span>
                         </li>
                         {{-- 4 --}}
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Presiden
-                                Nomor 68 Tahun 2019 tentang Organisasi Kementerian Negara sebagaimana telah diubah
-                                dengan Peraturan Presiden Nomor 32 Tahun 2021;</span>
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Presiden Nomor
+                                68 Tahun 2019 tentang Organisasi Kementerian Negara , (Lembaran Negara Republik
+                                Indonesia Tahun 2019 Nomor 203), sebagaimana telah diubah dengan Peraturan Presiden
+                                Nomor 32 Tahun 2021 tentang Perubahan atas Peraturan Presiden Nomor 68 Tahun 2019
+                                (Lembaran Negara Republik Indonesia Tahun 2021 Nomor 106);</span>
                         </li>
                         {{-- 5 --}}
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Presiden
-                                Nomor 92 Tahun 2020 tentang Kementerian Lingkungan Hidup dan Kehutanan;</span>
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Presiden Nomor
+                                92 Tahun 2020 tentang Kementerian Lingkungan Hidup dan Kehutanan (Lembaran Negara
+                                Republik Indonesia Tahun 2020 Nomor 209);</span>
                         </li>
                         {{-- 6 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Menteri
                                 Lingkungan Hidup dan Kehutanan Nomor 4 Tahun 2021 tentang Daftar Usaha dan/atau Kegiatan
-                                yang Wajib Memiliki AMDAL, UKL-UPL atau SPPL;</span>
+                                yang Wajib Memiliki AMDAL, UKL-UPL atau SPPL (Berita Negara Republik Indonesia Tahun
+                                2021 Nomor 267);</span>
                         </li>
                         {{-- 7 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Menteri
                                 Lingkungan Hidup dan Kehutanan Nomor 5 Tahun 2021 tentang Tata Cara Penerbitan
                                 Persetujuan Teknis dan Surat Kelayakan Operasional Bidang Pengendalian Pencemaran
-                                Lingkungan;</span>
+                                Lingkungan (Berita Negara Republik Indonesia Tahun 2021 Nomor 268);</span>
                         </li>
                         {{-- 8 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Menteri
-                                Lingkungan Hidup dan Kehutanan Nomor 6 Tahun 2021</span>
+                                Lingkungan Hidup dan Kehutanan Nomor 6 Tahun 2021 tentang Tata Cara dan Persyaratan
+                                Pengelolaan Limbah Bahan Berbahaya dan Beracun (Berita Negara Republik Indonesia Tahun
+                                2021 Nomor 294);</span>
                         </li>
                         {{-- 9 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Menteri
                                 Lingkungan Hidup dan Kehutanan Nomor 15 Tahun 2021 tentang Organisasi dan Tata Kerja
-                                Kementerian Lingkungan Hidup dan Kehutanan; </span>
+                                Kementerian Lingkungan Hidup dan Kehutanan (Berita Negara Republik Indonesia Tahun 2021
+                                Nomor 756);</span>
                         </li>
                     </ol>
                 </td>
@@ -515,7 +533,8 @@
                 <td style="width:65%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN
                             KEHUTANAN REPUBLIK INDONESIA TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN
-                            {{ strtoupper($data_skkl->nama_usaha_baru) }} DI {{ $data_kabkota }} PROVINSI {{ $data_prov }}
+                            {{ strtoupper($data_skkl->nama_usaha_baru) }} DI {{ $data_kabkota }} PROVINSI
+                            {{ $data_prov }}
                             OLEH {{ $data_skkl->pelaku_usaha_baru }} </span></p>
                 </td>
             </tr>

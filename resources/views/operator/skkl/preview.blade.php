@@ -424,6 +424,8 @@
                     </ol>
                 </td>
             </tr>
+
+            {{-- mengingat --}}
             <tr>
                 <td style="width:30%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>Mengingat </span></p>
@@ -435,46 +437,59 @@
                     <ol type="1" style="margin:0pt; padding-left:0pt">
                         {{-- 1 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Undang-Undang Nomor 32
-                                Tahun 2009 tentang Perlindungan dan Pengelolaan Lingkungan Hidup sebagaimana telah
-                                diubah dengan Undang-Undang Nomor 11 Tahun 2020 tentang Cipta Kerja; </span>
+                                Tahun 2009 tentang Perlindungan dan Pengelolaan Lingkungan Hidup (Lembaran Negara
+                                Republik Indonesia Tahun 2009 Nomor 140, Tambahan Lembaran Negara Republik Indonesia
+                                Nomor 5059) sebagaimana telah diubah dengan Peraturan Pemerintah Pengganti Undang-Undang
+                                Nomor 2 Tahun 2022 Tentang Cipta Kerja (Lembaran Negara Republik Indonesia Tahun 2022
+                                Nomor 238); </span>
                         </li>
                         {{-- 2 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Pemerintah
-                                Nomor 5 Tahun 2021 tentang Penyelenggaraan Perizinan Berusaha Berbasis Resiko;</span>
+                                Nomor 5 Tahun 2021 tentang Penyelenggaraan Perizinan Berusaha Berbasis Resiko (Lembaran
+                                Negara Republik Indonesia Tahun 2021 Nomor 15, Tambahan Lembaran Negara Republik
+                                Indonesia Nomor 6617);</span>
                         </li>
                         {{-- 3 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Pemerintah
                                 Nomor 22 Tahun 2021 tentang Penyelenggaraan Perlindungan dan Pengelolaan Lingkungan
-                                Hidup ; </span>
+                                Hidup (Lembaran Negara Republik Indonesia Tahun 2021 Nomor 32, Tambahan Lembaran Negara
+                                Republik indonesia Nomor 6634);</span>
                         </li>
                         {{-- 4 --}}
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Presiden
-                                Nomor 68 Tahun 2019 tentang Organisasi Kementerian Negara sebagaimana telah diubah
-                                dengan Peraturan Presiden Nomor 32 Tahun 2021;</span>
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Presiden Nomor
+                                68 Tahun 2019 tentang Organisasi Kementerian Negara , (Lembaran Negara Republik
+                                Indonesia Tahun 2019 Nomor 203), sebagaimana telah diubah dengan Peraturan Presiden
+                                Nomor 32 Tahun 2021 tentang Perubahan atas Peraturan Presiden Nomor 68 Tahun 2019
+                                (Lembaran Negara Republik Indonesia Tahun 2021 Nomor 106);</span>
                         </li>
                         {{-- 5 --}}
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Presiden
-                                Nomor 92 Tahun 2020 tentang Kementerian Lingkungan Hidup dan Kehutanan;</span>
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Presiden Nomor
+                                92 Tahun 2020 tentang Kementerian Lingkungan Hidup dan Kehutanan (Lembaran Negara
+                                Republik Indonesia Tahun 2020 Nomor 209);</span>
                         </li>
                         {{-- 6 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Menteri
                                 Lingkungan Hidup dan Kehutanan Nomor 4 Tahun 2021 tentang Daftar Usaha dan/atau Kegiatan
-                                yang Wajib Memiliki AMDAL, UKL-UPL atau SPPL;</span>
+                                yang Wajib Memiliki AMDAL, UKL-UPL atau SPPL (Berita Negara Republik Indonesia Tahun
+                                2021 Nomor 267);</span>
                         </li>
                         {{-- 7 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Menteri
                                 Lingkungan Hidup dan Kehutanan Nomor 5 Tahun 2021 tentang Tata Cara Penerbitan
                                 Persetujuan Teknis dan Surat Kelayakan Operasional Bidang Pengendalian Pencemaran
-                                Lingkungan;</span>
+                                Lingkungan (Berita Negara Republik Indonesia Tahun 2021 Nomor 268);</span>
                         </li>
                         {{-- 8 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Menteri
-                                Lingkungan Hidup dan Kehutanan Nomor 6 Tahun 2021</span>
+                                Lingkungan Hidup dan Kehutanan Nomor 6 Tahun 2021 tentang Tata Cara dan Persyaratan
+                                Pengelolaan Limbah Bahan Berbahaya dan Beracun (Berita Negara Republik Indonesia Tahun
+                                2021 Nomor 294);</span>
                         </li>
                         {{-- 9 --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Menteri
                                 Lingkungan Hidup dan Kehutanan Nomor 15 Tahun 2021 tentang Organisasi dan Tata Kerja
-                                Kementerian Lingkungan Hidup dan Kehutanan; </span>
+                                Kementerian Lingkungan Hidup dan Kehutanan (Berita Negara Republik Indonesia Tahun 2021
+                                Nomor 756);</span>
                         </li>
                     </ol>
                 </td>
