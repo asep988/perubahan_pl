@@ -367,44 +367,49 @@ class OperatorController extends Controller
             <td width="5%"> :</td>
             <td width="65%">
                 <ol style="list-style-type: lower-alpha;">
-                    <li>bahwa berdasarkan ketentuan Peraturan Pemerintah Nomor 22 Tahun 2021 tentang Penyelenggaraan Perlindungan dan Pengelolaan Lingkungan Hidup, ditetapkan:</li>
+                    <li>
+                        bahwa berdasarkan ketentuan Peraturan Pemerintah Nomor 22 Tahun 2021 tentang Penyelenggaraan Perlindungan dan Pengelolaan Lingkungan Hidup, ditetapkan:
+                    </li>
                         <ol>
-                            <li class="list_kurung">Pasal 3 ayat (1): Persetujuan Lingkungan wajib dimiliki
-                                oleh setiap Usaha dan/atau Kegiatan yang memiliki Dampak Penting atau tidak penting terhadap lingkungan;
+                            <li class="list_kurung">
+                                Pasal 3 ayat (1) Persetujuan Lingkungan wajib dimiliki oleh setiap Usaha dan/atau Kegiatan yang memiliki Dampak Penting atau tidak penting terhadap lingkungan;
                             </li>
-                            <li class="list_kurung">Pasal 3 ayat (2): Persetujuan Lingkungan diberikan
-                                kepada Pelaku Usaha atau Instansi Pemerintah;
+                            <li class="list_kurung">
+                                Pasal 3 ayat (2) Persetujuan Lingkungan diberikan kepada Pelaku Usaha atau Instansi Pemerintah;
                             </li>
-                            <li class="list_kurung">Pasal 3 ayat (3): Persetujuan Lingkungan menjadi
-                                prasyarat penerbitan Perizinan Berusaha atau Persetujuan Pemerintah;</li>
-                            <li class="list_kurung">Pasal 3 ayat (4): Persetujuan Lingkungan dilakukan
-                                melalui penyusunan Amdal dan uji kelayakan Amdal;
+                            <li class="list_kurung">
+                                Pasal 3 ayat (3) Persetujuan Lingkungan menjadi prasyarat penerbitan Perizinan Berusaha atau Persetujuan Pemerintah;
                             </li>
-                            <li class="list_kurung">Pasal 89 ayat (1) : Penanggungjawab Usaha dan/atau
-                                Kegiatan wajib melakukan perubahan Persetujuan Lingkungan apabila Usaha dan/atau Kegiatannya yang telah memperoleh surat Keputusan Kelayakan Lingkungan Hidup atau persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup direncanakan untuk dilakukan perubahan;
+                            <li class="list_kurung">
+                                Pasal 3 ayat (4) Persetujuan Lingkungan dilakukan melalui: a. penyusunan Amdal dan uji kelayakan Amdal; atau b. penyusunan Formulir UKL-UPL dan pemeriksaan Formulir UKL-UPL;
                             </li>
-                            <li class="list_kurung">Pasal 89 ayat (2) : Perubahan Persetujuan Lingkungan
-                                dilakukan melalui: a. perubahan Persetujuan Lingkungan dengan kewajiban menyusun dokumen lingkungan hidup baru; atau b. perubahan Persetujuan Lingkungan tanpa disertai kewajiban menyusun dokumen lingkungan hidup baru
+                            <li class="list_kurung">
+                                Pasal 49 ayat (3) Surat Keputusan Kelayakan Lingkungan Hidup merupakan: a. bentuk Persetujuan Lingkungan Hidup; dan b. prasyarat penerbitan Perizinan Berusaha atau Persetujuan Pemerintah;
+                            </li>
+                            <li class="list_kurung">
+                                Pasal 89 ayat (1) Penanggung jawab Usaha dan/atau Kegiatan wajib melakukan perubahan Persetujuan Lingkungan apabila Usaha dan/atau Kegiatannya yang telah memperoleh surat Keputusan Kelayakan Lingkungan Hidup atau persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup direncanakan untuk dilakukan perubahan;
+                            </li>
+                            <li class="list_kurung">
+                                Pasal 90 Perubahan Persetujuan Lingkungan dilakukan melalui: a. perubahan Persetujuan Lingkungan dengan kewajiban menyusun dokumen lingkungan hidup baru; atau b. perubahan Persetujuan Lingkungan tanpa disertai kewajiban menyusun dokumen Lingkungan Hidup baru;
                             </li>
                         </ol>
-                    </li>
-                    <li>bahwa kegiatan ' . $skkl->nama_usaha_baru . ' Oleh ' . ucwords(strtolower($skkl->pelaku_usaha_baru)) . ' telah memiliki dokumen
+                    <li>
+                        bahwa usaha dan/atau kegiatan ' . $skkl->nama_usaha_baru . ' di '. ucwords(strtolower($kabkota)) . ' Provinsi '.ucwords(strtolower($prov)) .' oleh ' .($skkl->pelaku_usaha_baru) . ' telah memiliki dokumen
                         lingkungan yang telah disetujui berdasarkan:<br>
                         <ol> ' . $il_dkk . ' </ol>
                     </li>
+
                     <li>
                        Bahwa '. $skkl->jabatan_baru .' '. $skkl->pelaku_usaha_baru .' melalui surat Nomor: '. $skkl->nomor_pl .', Tanggal '. tgl_indo($skkl->tgl_pl) .' Perihal '. $skkl->perihal .', mengajukan permohonan perubahan persetujuan lingkungan kepada Menteri Lingkungan Hidup;
                     </li>
                     <li>
-                        Bahwa ' . ucfirst($skkl->pejabat_pl) .' '. ucfirst($skkl->pelaku_usaha_baru) . ' melalui surat nomor ' . strtoupper($skkl->nomor_pl) . ', tanggal ' . tgl_indo($skkl->tgl_pl) . ', perihal ' . ucfirst($skkl->perihal_surat) . ';
+                        bahwa berdasarkan hasil verifikasi administrasi oleh Pelayanan Terpadu Satu Pintu Kementrian Lingkungan Hidup dan Kehutanan sesuai Berita Acara Validasi Permohonan Layanan Nomor
+                        ' . strtoupper($skkl->nomor_validasi) . ', tanggal ' . tgl_indo($skkl->tgl_validasi) . ', dinyatakan lengkap secara administrasi;
                     </li>
-                    <li>bahwa berdasarkan hasil verifikasi administrasi sesuai
-                        Nomor ' . strtoupper($skkl->nomor_validasi) . ', tanggal ' . tgl_indo($skkl->tgl_validasi) . ', permohonan sebagaimana dimaksud pada huruf d, dinyatakan lengkap secara administrasi;
-                    </li>
-                    <li>berdasarkan pertimbangan sebagaimana
-                        dimaksud dalam huruf a sampai dengan e, perlu menetapkan Keputusan
-                        Menteri Lingkungan Hidup dan Kehutanan Republik Indonesia tentang Kelayakan Lingkungan
-                        Hidup Kegiatan ' . ucwords(strtolower($skkl->nama_usaha_baru)) . ' oleh ' . ucwords($skkl->pelaku_usaha_baru) . ';
+                    <li>
+                        berdasarkan pertimbangan sebagaimana dimaksud dalam huruf a sampai dengan huruf d, perlu menetapkan Keputusan
+                        Menteri Lingkungan Hidup dan Kehutanan tentang Kelayakan Lingkungan Hidup usaha dan/atau Kegiatan
+                        ' . $skkl->nama_usaha_baru . ' di '.ucwords(strtolower($kabkota)).' Provinsi '. ucwords(strtolower($prov)) .' oleh ' . $skkl->pelaku_usaha_baru . ';
                     </li>
                 </ol>
             </td>
@@ -416,35 +421,32 @@ class OperatorController extends Controller
             <td width="5%"> :</td>
             <td width="65%">
                 <ol>
-                    <li>Undang-Undang Nomor 32 Tahun 2009 tentang Perlindungan dan Pengelolaan Lingkungan Hidup
-                        (Lembaran Negara Republik Indonesia Tahun 2009 Nomor 140, Tambahan Lembaran Negara Republik Indonesia Nomor 5059) sebagaimana telah diubah dengan Peraturan Pemerintah Pengganti Undang-Undang Nomor 2 Tahun 2022 Tentang Cipta Kerja (Lembaran Negara Republik Indonesia Tahun 2022 Nomor 238);
+                    <li>
+                        Undang-Undang Nomor 32 Tahun 2009 tentang Perlindungan dan Pengelolaan Lingkungan Hidup sebagaimana telah diubah dengan Undang-Undang Nomor 11 Tahun 2020 tentang Cipta Kerja;
                     </li>
-                    <li>Peraturan Pemerintah Nomor 5 Tahun 2021 tentang
-                        Penyelenggaraan Perizinan Berusaha Berbasis Resiko (Lembaran Negara Republik Indonesia Tahun 2021 Nomor 15, Tambahan Lembaran Negara Republik Indonesia Nomor 6617);
+                    <li>
+                        Peraturan Pemerintah Nomor 5 Tahun 2021 tentang Penyelenggaraan Perizinan Berusaha Berbasis Risiko;
                     </li>
-                    <li>Peraturan Pemerintah Nomor 22 Tahun 2021 tentang
-                        Penyelenggaraan Perlindungan dan Pengelolaan Lingkungan Hidup (Lembaran Negara Republik Indonesia Tahun 2021 Nomor 32, Tambahan Lembaran Negara Republik indonesia Nomor 6634);
+                    <li>
+                        Peraturan Pemerintah Nomor 22 Tahun 2021 tentang Penyelenggaraan Perlindungan dan Pengelolaan Lingkungan Hidup;
                     </li>
-                    <li>Peraturan Presiden Nomor 68 Tahun 2019 tentang Organisasi
-                        Kementerian Negara , (Lembaran Negara Republik Indonesia Tahun 2019 Nomor 203), sebagaimana telah diubah dengan Peraturan Presiden Nomor 32 Tahun 2021 tentang Perubahan atas Peraturan Presiden Nomor 68 Tahun 2019 (Lembaran Negara Republik Indonesia Tahun 2021 Nomor 106);
+                    <li>
+                        Peraturan Presiden Nomor 68 Tahun 2019 tentang Organisasi Kementerian Negara sebagaimana telah diubah dengan Peraturan Presiden Nomor 32 Tahun 2021;
                     </li>
-                    <li>Peraturan Presiden Nomor 92 Tahun 2020 tentang Kementerian
-                        Lingkungan Hidup dan Kehutanan (Lembaran Negara Republik Indonesia Tahun 2020 Nomor 209);
+                    <li>
+                        Peraturan Presiden Nomor 92 Tahun 2020 tentang Kementerian Lingkungan Hidup dan Kehutanan;
                     </li>
-                    <li>Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 4 Tahun
-                        2021 tentang Daftar Usaha dan/atau Kegiatan yang Wajib Memiliki AMDAL, UKL-UPL atau SPPL (Berita Negara Republik Indonesia Tahun 2021 Nomor 267);
+                    <li>
+                        Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 4 Tahun 2021 tentang Daftar Usaha dan/atau Kegiatan yang Wajib Memiliki AMDAL, UKL-UPL atau SPPL;
                     </li>
-                    <li>Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 5 Tahun
-                        2021 tentang Tata Cara Penerbitan Persetujuan Teknis dan Surat Kelayakan Operasional Bidang Pengendalian Pencemaran Lingkungan (Berita Negara Republik Indonesia Tahun 2021 Nomor 268);
+                    <li>
+                        Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 5 Tahun 2021 tentang Tata Cara Penerbitan Persetujuan Teknis dan Surat Kelayakan Operasional Bidang Pengendalian Pencemaran Lingkungan;
                     </li>
-                    <li>Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 6 Tahun 2021 tentang Tata Cara dan
-                        Persyaratan Pengelolaan Limbah Bahan Berbahaya dan Beracun (Berita Negara Republik Indonesia Tahun 2021 Nomor 294);
+                    <li>
+                        Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 6 Tahun 2021
                     </li>
-                    <li>Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 15 Tahun 2021 tentang Organisasi dan Tata
-                        Kerja Kementerian Lingkungan Hidup dan Kehutanan (Berita Negara Republik Indonesia Tahun 2021 Nomor 756);
-                    </li>
-                    <li>Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 19 Tahun 2021 tentang Tata Cara Pengelolaan
-                        Limbah NonBahan Berbahaya dan Beracun (Berita Negara Republik Indonesia Tahun 2021 Nomor 1214);
+                    <li>
+                        Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 15 Tahun 2021 tentang Organisasi dan Tata Kerja Kementerian Lingkungan Hidup dan Kehutanan;
                     </li>
                 </ol>
             </td>
@@ -454,8 +456,7 @@ class OperatorController extends Controller
                 Memperhatikan
             </td>
             <td width="5%"> :</td>
-            <td width="65%">Risalah Pengolahan Data Proses
-                Penelaahan Surat Keputusan Kelayakan Lingkungan Hidup Kegiatan ' . ucfirst($skkl->nama_usaha_baru) . ' oleh '
+            <td width="65%">Risalah Pengolahan Data (RPD) Penerbitan Surat Keputusan Kelayakan Lingkungan Hidup usaha dan/atau kegiatan ' . ucfirst($skkl->nama_usaha_baru) . ' di '. ucwords(strtolower($kabkota)) . ucwords(strtolower($prov)).'  oleh '
                 . ucfirst($skkl->pelaku_usaha_baru) . '.<br>
                 Nomor: ' . $skkl->nomor_rpd . '<br>
                 tanggal ' . $skkl->tgl_rpd . '
@@ -470,7 +471,7 @@ class OperatorController extends Controller
             </td>
             <td width="5%"> :</td>
             <td width="65%">
-                KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN ' . strtoupper($skkl->nama_usaha_baru) . ' OLEH ' . strtoupper($skkl->pelaku_usaha_baru) . '
+                KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN '  . strtoupper($skkl->nama_usaha_baru) . ' DI '. strtoupper($kabkota) . strtoupper($prov) .' OLEH ' . strtoupper($skkl->pelaku_usaha_baru) . '
             </td>
         </tr>
         <tr>
@@ -573,7 +574,7 @@ class OperatorController extends Controller
                         melakukan koordinasi dengan instansi pusat maupun daerah, berkaitan dengan pelaksanaan kegiatan ini;
                     </li>
                     <li>
-                        mengupayakan aplikasi Reduce, Reuse dan Recycle (3R) terhadap limbah-limbah yang dihasilkan;
+                        mengupayakan pengurangan, penggunaan kembali, dan daur ulang terhadap limbah-limbah yang dihasilkan;
                     </li>
                     <li>
                         melakukan pengelolaan limbah non B3 sesuai rincian pengelolaan yang termuat dalam dokumen RKL-RPL;
@@ -600,7 +601,7 @@ class OperatorController extends Controller
                         melakukan audit lingkungan pada tahapan pasca operasi untuk memastikan kewajiban telah dilaksanakan dalam rangka pengakhiran kewajiban pengelolaan dan pemantauan lingkungan hidup dan/atau kewajiban lain yang ditetapkan oleh Menteri, Gubernur, Bupati/Walikota sesuai dengan kewenangannya berdasarkan kepentingan perlindungan dan pengelolaan lingkungan hidup;
                     </li>
                     <li>
-                        menyusun laporan pelaksanaan kewajiban sebagaimana dimaksud pada angka 1 (satu) sampai dengan angka 9 (sembilan), paling sedikit 1 (satu) kali setiap 6 (enam) bulan selama Kegiatan ' . ucfirst($skkl->nama_usaha_baru) . ' oleh ' . ucfirst($skkl->pelaku_usaha_baru) . 'berlangsung dan menyampaikan kepada:
+                    menyusun laporan pelaksanaan kewajiban sebagaimana dimaksud pada angka 1 (satu) sampai dengan angka 10 (sepuluh), paling sedikit 1 (satu) kali setiap 6 (enam) bulan selama usaha atau kegiatan berlangsung dan menyampaikan kepada:
                         <ol type="a">
                             <li>
                                 Menteri Lingkungan Hidup dan Kehutanan Republik Indonesia melalui Direktorat Jenderal Penegakan Hukum Lingkungan Hidup dan Kehutanan;
@@ -629,7 +630,7 @@ class OperatorController extends Controller
             </td>
             <td width="5%"> :</td>
             <td width="65%">
-                Apabila dalam pelaksanaan usaha dan/atau kegiatan timbul dampak lingkungan hidup di luar dari dampak yang dikelola sebagaimana dimaksud dalam Lampiran Keputusan Menteri ini, penanggung jawab usaha dan/atau kegiatan wajib melaporkan kepada instansi sebagaimana dimaksud dalam Diktum KEEMPAT angka 12 (dua belas) paling lama 30 (tiga puluh) hari kerja sejak diketahuinya timbulan dampak lingkungan hidup di luar dampak yang wajib dikelola.
+                Apabila dalam pelaksanaan usaha dan/atau kegiatan timbul dampak lingkungan hidup di luar dari dampak yang dikelola sebagaimana dimaksud dalam Lampiran Keputusan Menteri ini, penanggung jawab usaha dan/atau kegiatan wajib melaporkan kepada instansi sebagaimana dimaksud dalam Diktum KEEMPAT angka 14 (dua belas) paling lama 30 (tiga puluh) hari kerja sejak diketahuinya timbulan dampak lingkungan hidup di luar dampak yang wajib dikelola.
             </td>
             <br>
         </tr>
@@ -659,7 +660,7 @@ class OperatorController extends Controller
             </td>
             <td width="5%"> :</td>
             <td width="65%">
-                Dalam hal berdasarkan hasil pengawasan sebagaimana dimaksud dalam Diktum KETUJUH ditemukan pelanggaran, Penanggung jawab Usaha dan/atau Kegiatan dikenakan sanksi sesuai dengan ketentuan peraturan perundang-undangan.
+                Dalam hal berdasarkan hasil pengawasan sebagaimana dimaksud dalam Diktum KEDELAPAN ditemukan pelanggaran, Penanggung jawab Usaha dan/atau Kegiatan dikenakan sanksi sesuai dengan ketentuan peraturan perundang-undangan.
             </td>
             <br>
         </tr>
