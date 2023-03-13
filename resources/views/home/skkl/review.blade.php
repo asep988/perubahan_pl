@@ -233,16 +233,16 @@
                         </li>
 
                         <!-- point c baru-->
-                        <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
+                        {{-- <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
                             <span>
                                 bahwa {{ $data_skkl->jabatan_baru }} {{ $data_skkl->pelaku_usaha_baru }} melalui surat Nomor: {{ $data_skkl->nomor_pl }},
                                 Tanggal {{ tgl_indo($data_skkl->tgl_pl) }}, perihal {{ $data_skkl->perihal }},
                                 mengajukan permohonan perubahan persetujuan lingkungan kepada Menteri Lingkungan Hidup;
                             </span>
-                        </li>
+                        </li> --}}
 
                         <!-- point c lama-->
-                        {{-- @if ($data_skkl->jenis_perubahan == 'perkep1')
+                        @if ($data_skkl->jenis_perubahan == 'perkep1')
                             <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>bahwa terdapat
                                     perubahan kepemilikan kegiatan {{ $data_skkl->nama_usaha_baru }} oleh
                                     {{ $data_skkl->pelaku_usaha_baru }} berdasarkan:
@@ -284,7 +284,7 @@
                                     pengelolaan dan pemantauan oleh {{ $data_skkl->pelaku_usaha_baru }} akan mengintegrasikan:
                                 </span></p>
                             <ol type="1" style="margin:0pt; padding-left:0pt">
-                                @for ($i = 0; $i < count($pertek_skkl); $i++)
+                                @for ($i = 0; $i < count(array_values(array_unique($pertek_skkl))); $i++)
                                     @if ($pertek_skkl[$i]->pertek == 'pertek1')
                                         <li style="margin-left:72pt; text-align:justify; font-size:12pt">
                                             <span>
@@ -342,7 +342,7 @@
                                     pengelolaan dan pemantauan oleh {{ $data_skkl->pelaku_usaha_baru }} akan mengintegrasikan:
                                 </span></p>
                             <ol type="1" style="margin:0pt; padding-left:0pt">
-                                @for ($i = 0; $i < count($pertek_skkl); $i++)
+                                @for ($i = 0; $i < count(array_values(array_unique($pertek_skkl))); $i++)
                                     @if ($pertek_skkl[$i]->pertek == 'pertek1')
                                         <li style="margin-left:72pt; text-align:justify; font-size:12pt">
                                             <span>
@@ -394,7 +394,7 @@
                                     @endif
                                 @endfor
                             </ol>
-                        @endif --}}
+                        @endif
                         <ol start="4" type="a" style="margin:0pt; padding-left:0pt">
                             {{-- point d --}}
                             <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">

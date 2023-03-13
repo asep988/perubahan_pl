@@ -400,11 +400,12 @@ class OperatorController extends Controller
                     </li>
 
                     <li>
-                       Bahwa '. $skkl->jabatan_baru .' '. $skkl->pelaku_usaha_baru .' melalui surat Nomor: '. $skkl->nomor_pl .', Tanggal '. tgl_indo($skkl->tgl_pl) .' Perihal '. $skkl->perihal .', mengajukan permohonan perubahan persetujuan lingkungan kepada Menteri Lingkungan Hidup;
+                       <!-- Bahwa '. $skkl->jabatan_baru .' '. $skkl->pelaku_usaha_baru .' melalui surat Nomor: '. $skkl->nomor_pl .', Tanggal '. tgl_indo2($skkl->tgl_pl) .' Perihal '. $skkl->perihal .', mengajukan permohonan perubahan persetujuan lingkungan kepada Menteri Lingkungan Hidup; -->
+                       '.$perkep.'
                     </li>
                     <li>
                         bahwa berdasarkan hasil verifikasi administrasi oleh Pelayanan Terpadu Satu Pintu Kementrian Lingkungan Hidup dan Kehutanan sesuai Berita Acara Validasi Permohonan Layanan Nomor
-                        ' . strtoupper($skkl->nomor_validasi) . ', tanggal ' . tgl_indo($skkl->tgl_validasi) . ', dinyatakan lengkap secara administrasi;
+                        ' . strtoupper($skkl->nomor_validasi) . ', tanggal ' . tgl_indo2($skkl->tgl_validasi) . ', dinyatakan lengkap secara administrasi;
                     </li>
                     <li>
                         berdasarkan pertimbangan sebagaimana dimaksud dalam huruf a sampai dengan huruf d, perlu menetapkan Keputusan
@@ -765,7 +766,7 @@ class OperatorController extends Controller
             . $gubernur1
             . $loopkk3
             . $ekoregion .
-            '<li>'. $skkl->jabatan_baru .' ' . $skkl->pelaku_usaha_baru . ';</li>
+            '<li>'. ucwords(strtolower($skkl->jabatan_baru)) .' ' . $skkl->pelaku_usaha_baru . ';</li>
                 </ol>
             </td>
         </tr>';

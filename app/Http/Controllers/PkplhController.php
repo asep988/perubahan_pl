@@ -785,7 +785,7 @@ class PkplhController extends Controller
 
         $dasper = "";
         for ($i = 0; $i < count($pkplh->jenis_peraturan); $i++) {
-            $dasper = '<li>'. $pkplh->jenis_peraturan[$i] . ' ' . $pkplh->pejabat_daerah[$i] . ' Nomor ' . $pkplh->nomor_peraturan[$i] . ' tentang ' . $pkplh->perihal_peraturan[$i] . '</li>';
+            $dasper .= '<li>'. $pkplh->jenis_peraturan[$i] . ' ' . $pkplh->pejabat_daerah[$i] . ' Nomor ' . $pkplh->nomor_peraturan[$i] . ' tentang ' . $pkplh->perihal_peraturan[$i] . '</li>';
         }
 
         $perkep = "";
@@ -935,15 +935,16 @@ class PkplhController extends Controller
                         </ol>
                     <li>Pasal 5 ayat (1) Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 4 Tahun 2021 tentang Daftar Usaha dan/atau Kegiatan yang Wajib Memiliki Analisis Mengenai Dampak Lingkungan Hidup, Upaya Pengelolaan Lingkungan Hidup dan Upaya Pemantauan Lingkungan Hidup atau Surat Pernyataan Kesanggupan Pengelolaan dan Pemantauan Lingkungan Hidup, UKL-UPL wajib dimiliki bagi Usaha dan/atau Kegiatan yang tidak memiliki Dampak Penting terhadap lingkungan hidup;</li>
                 </ol>
-            <li>bahwa kegiatan '. ucfirst($pkplh->nama_usaha_baru) .' oleh '. ucfirst($pkplh->pelaku_usaha_baru) .' telah memiliki dokumen lingkungan hidup yang telah disetujui berdasarkan:<br>
+            <li>bahwa kegiatan '. ucfirst($pkplh->nama_usaha_baru) .' oleh '. $pkplh->pelaku_usaha_baru .' telah memiliki dokumen lingkungan hidup yang telah disetujui berdasarkan:<br>
                 <ol>'. $il_dkk .'</ol>
             </li>
             <li>
             Bahwa '. $pkplh->jabatan_baru .' melalui surat Nomor: '. $pkplh->nomor_pl .', Tanggal '. tgl_indo($pkplh->tgl_pl) .' Perihal '. $pkplh->perihal .', mengajukan permohonan perubahan persetujuan lingkungan kepada Menteri Lingkungan Hidup;
             </li>
             <li>
-                bahwa '. ucfirst($pkplh->pelaku_usaha_baru) .' sesuai Nomor '. $pkplh->nomor_pl  .'
-                tanggal '. tgl_indo($pkplh->tgl_pl) .' perihal '. $pkplh->perihal.' menyampaikan permohonan perubahan Persetujuan Lingkungan;
+                <!-- bahwa '. ucfirst($pkplh->pelaku_usaha_baru) .' sesuai Nomor '. $pkplh->nomor_pl  .'
+                tanggal '. tgl_indo($pkplh->tgl_pl) .' perihal '. $pkplh->perihal.' menyampaikan permohonan perubahan Persetujuan Lingkungan; -->
+				'.$perkep.'
             </li>
             <li>
                 bahwa berdasarkan hasil verifikasi administrasi sesuai Nomor '. $pkplh->nomor_validasi .' tanggal '. tgl_indo($pkplh->tgl_validasi) .',
