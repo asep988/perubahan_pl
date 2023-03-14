@@ -885,7 +885,7 @@
 
                             <div class="input-group mt-1 ml-5">
                                 <div id="rintek1_form" @if($pkplh->rintek_upload == null) style="display: none" @endif>
-                                    <input type="text" id="rintek1_data" value="pertek5" hidden>
+                                    <input type="text" id="rintek1_data" value="pertek5" @if($pkplh->rintek_upload != null) name="pertek[]" @endif hidden>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="rintek_upload1">Upload</span>
@@ -906,7 +906,7 @@
                             </div>
                             <div class="input-group mt-1 ml-5">
                                 <div id="rintek2_form" @if($pkplh->rintek2_upload == null) style="display: none" @endif>
-                                    <input type="text" id="rintek2_data" value="pertek5" hidden>
+                                    <input type="text" id="rintek2_data" value="pertek5" @if($pkplh->rintek2_upload != null) name="pertek[]" @endif hidden>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="rintek_upload2">Upload</span>
@@ -927,7 +927,7 @@
                             </div>
                             <div class="input-group mt-1 ml-5">
                                 <div id="rintek3_form" @if($pkplh->rintek3_upload == null) style="display: none" @endif>
-                                    <input type="text" id="rintek3_data" value="pertek5" hidden>
+                                    <input type="text" id="rintek3_data" value="pertek5" @if($pkplh->rintek3_upload != null) name="pertek[]" @endif hidden>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="rintek_upload3">Upload</span>
@@ -948,7 +948,7 @@
                             </div>
                             <div class="input-group mt-1 ml-5">
                                 <div id="rintek4_form" @if($pkplh->rintek4_upload == null) style="display: none" @endif>
-                                    <input type="text" id="rintek4_data" value="pertek5" hidden>
+                                    <input type="text" id="rintek4_data" value="pertek5" @if($pkplh->rintek4_upload != null) name="pertek[]" @endif hidden>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="rintek_upload4">Upload</span>
