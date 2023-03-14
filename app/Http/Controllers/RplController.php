@@ -67,7 +67,7 @@ class RplController extends Controller
 		$rpl->penerima				=	$request->penerima;
         $rpl->update();
 
-        return redirect()->route('rpl.create')->with('pesan', 'Data RPL Berhasil di Update');
+        return redirect()->route('rpl.create', $request->id_skkl)->with('pesan', 'Data RPL Berhasil di Update');
 	}
 
 	public function import(Request $request, $id)
