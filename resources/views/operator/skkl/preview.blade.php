@@ -284,7 +284,7 @@
                                     pengelolaan dan pemantauan oleh {{ $data_skkl->pelaku_usaha_baru }} akan mengintegrasikan:
                                 </span></p>
                             <ol type="1" style="margin:0pt; padding-left:0pt">
-                                @for ($i = 0; $i < count(array_values(array_unique($pertek_skkl))); $i++)
+                                @for ($i = 0; $i < count(array_values(array_unique($jml_pertek))); $i++)
                                     @if ($pertek_skkl[$i]->pertek == 'pertek1')
                                         <li style="margin-left:72pt; text-align:justify; font-size:12pt">
                                             <span>
@@ -342,7 +342,7 @@
                                     pengelolaan dan pemantauan oleh {{ $data_skkl->pelaku_usaha_baru }} akan mengintegrasikan:
                                 </span></p>
                             <ol type="1" style="margin:0pt; padding-left:0pt">
-                                @for ($i = 0; $i < count(array_values(array_unique($pertek_skkl))); $i++)
+                                @for ($i = 0; $i < count(array_values(array_unique($jml_pertek))); $i++)
                                     @if ($pertek_skkl[$i]->pertek == 'pertek1')
                                         <li style="margin-left:72pt; text-align:justify; font-size:12pt">
                                             <span>
@@ -717,7 +717,7 @@
                                             @if ($pertek_skkl[$i]->pertek == 'pertek3')
                                                 <li style="margin-left:50pt; text-align:justify; font-size:12pt">
                                                     <span>
-                                                        Lampiran {{ integerToRoman($roman) }}Persetujuan Teknis Di
+                                                        Lampiran {{ integerToRoman($roman) }} Persetujuan Teknis Di
                                                         Bidang Pengelolaan Limbah B3;
                                                     </span>
                                                 </li>

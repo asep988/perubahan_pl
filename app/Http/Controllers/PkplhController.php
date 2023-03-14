@@ -286,7 +286,7 @@ class PkplhController extends Controller
 		}
 		DB::commit();
 
-        return redirect()->route('uklupl.create', $pkplh_id)->with('pesan', 'Data berhasil diinput');
+        return redirect()->route('pkplh.review', $pkplh_id);
 	}
 
 	public function review($id)
@@ -295,7 +295,13 @@ class PkplhController extends Controller
 		$il_pkplh = il_pkplh::where('id_pkplh', $id)->get();
 		$pertek_pkplh = Pertek_pkplh::where('id_pkplh', $id)->get();
 
-		return view('home.pkplh.review', compact('data_pkplh', 'il_pkplh', 'pertek_pkplh'));
+		$jml_pertek = array();
+		foreach ($pertek_pkplh as $row)
+		{
+			$jml_pertek[] = $row->pertek;
+		};
+
+		return view('home.pkplh.review', compact('data_pkplh', 'il_pkplh', 'pertek_pkplh', 'jml_pertek'));
 	}
 
 	//OPERATOR
@@ -699,7 +705,13 @@ class PkplhController extends Controller
 		$il_pkplh = il_pkplh::where('id_pkplh', $id)->get();
         $pertek_pkplh = Pertek_pkplh::where('id_pkplh', $id)->get();
 
-		return view('operator.pkplh.preview', compact('data_pkplh', 'il_pkplh', 'pertek_pkplh'));
+		$jml_pertek = array();
+		foreach ($pertek_pkplh as $row)
+		{
+			$jml_pertek[] = $row->pertek;
+		};
+
+		return view('operator.pkplh.preview', compact('data_pkplh', 'il_pkplh', 'pertek_pkplh', 'jml_pertek'));
 	}
 
     public function batal(Request $request, $id)

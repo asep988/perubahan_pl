@@ -782,6 +782,12 @@ class OperatorController extends Controller
         $il_skkl = il_skkl::where('id_skkl', $id)->get();
         $pertek_skkl = Pertek_skkl::where('id_skkl', $id)->get();
 
-        return view('operator.skkl.preview', compact('data_skkl', 'il_skkl', 'pertek_skkl'));
+        $jml_pertek = array();
+		foreach ($pertek_skkl as $row)
+		{
+			$jml_pertek[] = $row->pertek;
+		};
+
+        return view('operator.skkl.preview', compact('data_skkl', 'il_skkl', 'pertek_skkl', 'jml_pertek'));
     }
 }

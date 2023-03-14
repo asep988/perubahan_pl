@@ -289,7 +289,7 @@ class SkklController extends Controller
 		}
 		DB::commit();
 
-        return redirect()->route('rkl.create', $skkl_id)->with('pesan', 'Data berhasil diinput');
+        return redirect()->route('skkl.review', $skkl_id);
 	}
 
 	public function review($id) //Pemrakarsa
@@ -298,7 +298,13 @@ class SkklController extends Controller
 		$il_skkl = il_skkl::where('id_skkl', $id)->get();
 		$pertek_skkl = Pertek_skkl::where('id_skkl', $id)->get();
 
-		return view('home.skkl.review', compact('data_skkl', 'il_skkl', 'pertek_skkl'));
+		$jml_pertek = array();
+		foreach ($pertek_skkl as $row)
+		{
+			$jml_pertek[] = $row->pertek;
+		};
+
+		return view('home.skkl.review', compact('data_skkl', 'il_skkl', 'pertek_skkl', 'jml_pertek'));
 	}
 
 	public function edit($id) //Pemrakarsa
