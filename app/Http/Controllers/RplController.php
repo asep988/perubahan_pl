@@ -54,9 +54,10 @@ class RplController extends Controller
 
 	public function update(Request $request, $id) //Pemrakarsa
 	{
+		return $request->all();
         $rpl = rpl::find($id);
 
-        $rpl->id_skkl				=	$request->id_skkl;
+		$rpl->jenis_dampak		        =	$request->jenis_dampak;
 		$rpl->indikator		        =	$request->indikator;
 		$rpl->sumber_dampak			=	$request->sumber_dampak;
 		$rpl->metode				=	$request->metode;
