@@ -5,8 +5,9 @@ namespace App\Imports;
 use App\Uklupl as AppUklupl;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 
-class Uklupl implements ToCollection
+class Uklupl implements ToCollection, WithStartRow
 {
     /**
     * @param Collection $collection
