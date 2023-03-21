@@ -291,7 +291,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="pejabat" class="col-sm-2 col-form-label">Pejabat yang menandatangani</label>
+                        <label for="pejabat" class="col-sm-2 col-form-label">Jabatan yang menandatangani</label>
                         <div class="col-sm-5">
                             <input type="text" class="form-control" aria-label="pejabat" id="pejabat"
                                 name="pejabat_pl">
@@ -480,7 +480,6 @@
                             <textarea class="form-control" id="mytextarea" aria-label="editor" name="pend_institut"></textarea>
                         </div>
                     </div>
-                    <hr>
                 </div>
                 <hr>
 
@@ -679,68 +678,104 @@
                             </div>
                         </div>
                     </div>
+
+                    <hr>
+                    <label><b>Lampiran Rincian Teknis</b></label>
                     {{-- pertek 5 --}}
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="pertek5">
-                        <label class="custom-control-label" for="pertek5">Dokumen Rincian Teknis</label>
+                        <label class="custom-control-label" for="pertek5">Dokumen Rincian Teknis Pengelolaan Limbah Non B3</label>
                     </div>
 
                     <div class="mb-3" id="rintek" style="display: none">
                         <div class="form-group row">
-                            <table border="1" width="100%">
-                                <thead>
-                                    <tr class="text-center">
-                                        <th>#</th>
-                                        <th>Surat Persetujuan Teknis</th>
-                                        <th>Nomor Persetujuan Teknis</th>
-                                        <th>Tanggal Persetujuan Teknis</th>
-                                        <th>Perihal Persetujuan Teknis</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-pertek5">
-                                    <tr id="prt5-1">
-                                        <td>1
-                                            <input type="text" id="name_pertek5" value="pertek5" hidden>
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" id="surat_pertek5" placeholder="Surat Persetujuan Teknis">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" id="nomor_pertek5" placeholder="Nomor Persetujuan Teknis">
-                                        </td>
-                                        <td>
-                                            <input type="date" class="form-control" id="tgl_pertek5" placeholder="Tanggal Persetujuan Teknis">
-                                        </td>
-                                        <td>
-                                            <textarea class="form-control" id="perihal_pertek5" rows="2"></textarea>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="mt-1">
-                                <button type="button" id="remove-pertek5" class="btn remove-pertek5 btn-sm btn-danger">
-                                    <i class="fas fa-minus fa-sm"></i>
-                                </button>
-                                <button type="button" id="add-pertek5" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-plus fa-sm"></i>
-                                </button>
+
+                            <div class="custom-control custom-checkbox ml-5">
+                                <input type="checkbox" class="custom-control-input" id="rintek1" name="surat_pertek[]" value="Penyimpanan">
+                                <label class="custom-control-label" for="rintek1">Dokumen Rincian Teknis Pengelolaan Limbah Non-B3 untuk Kegiatan Penyimpanan</label>
                             </div>
-                            <div class="input-group mt-1">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="rintek_upload">Upload dokumen yang diperlukan</span>
-                                </div>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input @error('rintek_upload') is-invalid @enderror" id="rintek_upload" name="rintek_upload" aria-describedby="rintek_upload">
-                                    <label class="custom-file-label" for="rintek_upload">Choose file</label>
+
+                            <div class="input-group mt-1 ml-5">
+                                <div id="rintek1_form" style="display: none">
+                                    <input type="text" id="rintek1_data" value="pertek5" hidden>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="rintek_upload1">Upload</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input @error('rintek_upload1') is-invalid @enderror" id="rintek_upload1" name="rintek_upload1" aria-describedby="rintek_upload1">
+                                            <label class="custom-file-label" for="rintek_upload1">Choose file</label>
+                                        </div>
+                                    </div>
+                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 15 mb </small>
                                 </div>
                             </div>
+
+                            <div class="custom-control custom-checkbox ml-5 mt-3">
+                                <input type="checkbox" class="custom-control-input" id="rintek2" name="surat_pertek[]" value="Pemanfaatan">
+                                <label class="custom-control-label" for="rintek2">Dokumen Rincian Teknis Pengelolaan Limbah Non-B3 untuk Kegiatan Pemanfaatan</label>
+                            </div>
+                            <div class="input-group mt-1 ml-5">
+                                <div id="rintek2_form" style="display: none;">
+                                    <input type="text" id="rintek2_data" value="pertek5" hidden>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="rintek_upload2">Upload</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input @error('rintek_upload2') is-invalid @enderror" id="rintek_upload2" name="rintek_upload2" aria-describedby="rintek_upload2">
+                                            <label class="custom-file-label" for="rintek_upload2">Choose file</label>
+                                        </div>
+                                    </div>
+                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 15 mb </small>
+                                </div>
+                            </div>
+
+                            <div class="custom-control custom-checkbox ml-5 mt-3">
+                                <input type="checkbox" class="custom-control-input" id="rintek3" name="surat_pertek[]" value="Penimbunan">
+                                <label class="custom-control-label" for="rintek3">Dokumen Rincian Teknis Pengelolaan Limbah Non-B3 untuk Kegiatan Penimbunan</label>
+                            </div>
+                            <div class="input-group mt-1 ml-5">
+                                <div id="rintek3_form" style="display: none">
+                                    <input type="text" id="rintek3_data" value="pertek5" hidden>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="rintek_upload3">Upload</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input @error('rintek_upload3') is-invalid @enderror" id="rintek_upload3" name="rintek_upload3" aria-describedby="rintek_upload3">
+                                            <label class="custom-file-label" for="rintek_upload3">Choose file</label>
+                                        </div>
+                                    </div>
+                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 15 mb </small>
+                                </div>
+                            </div>
+
+                            <div class="custom-control custom-checkbox ml-5 mt-3">
+                                <input type="checkbox" class="custom-control-input" id="rintek4" name="surat_pertek[]" value="Pengurangan">
+                                <label class="custom-control-label" for="rintek4">Dokumen Rincian Teknis Pengelolaan Limbah Non-B3 untuk Kegiatan Pengurangan</label>
+                            </div>
+                            <div class="input-group mt-1 ml-5">
+                                <div id="rintek4_form" style="display: none">
+                                    <input type="text" id="rintek4_data" value="pertek5" hidden>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="rintek_upload4">Upload</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input @error('rintek_upload4') is-invalid @enderror" id="rintek_upload4" name="rintek_upload4" aria-describedby="rintek_upload4">
+                                            <label class="custom-file-label" for="rintek_upload4">Choose file</label>
+                                        </div>
+                                    </div>
+                                    <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 15 mb </small>
+                                </div>
+                            </div>
+
                         </div>
-                        <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 5 mb </small>
                     </div>
 
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek6"
-                            id="pertek6">
+                        <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek6" id="pertek6">
                         <label class="custom-control-label" for="pertek6">Rincian Teknis Penyimpanan Limbah B3</label>
                     </div>
 
@@ -755,7 +790,7 @@
                                 <label class="custom-file-label" for="rintek_limbah_upload">Choose file</label>
                             </div>
                         </div>
-                        <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 5 mb </small>
+                        <small class="text-muted">Format: DOCX, DOC | Ukuran Maksimal: 10 mb </small>
                     </div>
                     <hr>
                 </div>
@@ -924,26 +959,20 @@
             $(document).on('change', '#pertek5', function() {
                 if ($('#pertek5').is(":checked")) {
                     $('#rintek').show();
-                    $('#name_pertek5').attr('name', 'pertek[]')
-                    $('#surat_pertek5').attr('name', 'surat_pertek[]')
-                    $('#nomor_pertek5').attr('name', 'nomor_pertek[]')
-                    $('#tgl_pertek5').attr('name', 'tgl_pertek[]')
-                    $('#perihal_pertek5').attr('name', 'perihal_pertek[]')
-                    $('#surat_pertek5').prop('required', true)
-                    $('#nomor_pertek5').prop('required', true)
-                    $('#tgl_pertek5').prop('required', true)
-                    $('#perihal_pertek5').prop('required', true)
                 } else {
                     $('#rintek').hide();
-                    $('#name_pertek5').removeAttr('name')
-                    $('#surat_pertek5').removeAttr('name')
-                    $('#nomor_pertek5').removeAttr('name')
-                    $('#tgl_pertek5').removeAttr('name')
-                    $('#perihal_pertek5').removeAttr('name')
-                    $('#surat_pertek5').prop('required', false)
-                    $('#nomor_pertek5').prop('required', false)
-                    $('#tgl_pertek5').prop('required', false)
-                    $('#perihal_pertek5').prop('required', false)
+                    $('#rintek1').prop('checked', false)
+                    $('#rintek1_form').hide();
+                    $('#rintek1_data').removeAttr('name')
+                    $('#rintek2').prop('checked', false)
+                    $('#rintek2_form').hide();
+                    $('#rintek2_data').removeAttr('name')
+                    $('#rintek3').prop('checked', false)
+                    $('#rintek3_form').hide();
+                    $('#rintek3_data').removeAttr('name')
+                    $('#rintek4').prop('checked', false)
+                    $('#rintek4_form').hide();
+                    $('#rintek4_data').removeAttr('name')
                 }
             });
 
@@ -952,6 +981,43 @@
                     $('#rintek_limbah').show();
                 } else {
                     $('#rintek_limbah').hide();
+                }
+            });
+
+            $(document).on('change', '#rintek1', function() {
+                if ($('#rintek1').is(":checked")) {
+                    $('#rintek1_form').show();
+                    $('#rintek1_data').attr('name', 'pertek[]')
+                } else {
+                    $('#rintek1_form').hide();
+                    $('#rintek1_data').removeAttr('name')
+                }
+            });
+            $(document).on('change', '#rintek2', function() {
+                if ($('#rintek2').is(":checked")) {
+                    $('#rintek2_form').show();
+                    $('#rintek2_data').attr('name', 'pertek[]')
+                } else {
+                    $('#rintek2_form').hide();
+                    $('#rintek2_data').removeAttr('name')
+                }
+            });
+            $(document).on('change', '#rintek3', function() {
+                if ($('#rintek3').is(":checked")) {
+                    $('#rintek3_form').show();
+                    $('#rintek3_data').attr('name', 'pertek[]')
+                } else {
+                    $('#rintek3_form').hide();
+                    $('#rintek3_data').removeAttr('name')
+                }
+            });
+            $(document).on('change', '#rintek4', function() {
+                if ($('#rintek4').is(":checked")) {
+                    $('#rintek4_form').show();
+                    $('#rintek4_data').attr('name', 'pertek[]')
+                } else {
+                    $('#rintek4_form').hide();
+                    $('#rintek4_data').removeAttr('name')
                 }
             });
 
@@ -1156,37 +1222,6 @@
                 var button_id = prt4;
                 $('#prt4-' + button_id + '').remove();
                 prt4--
-            });
-
-            // jquery pertek 5
-            var prt5 = 1;
-
-            $('#add-pertek5').click(function() {
-                prt5++
-                $('.table-pertek5').append(`
-                    <tr id="prt5-${prt5}">
-                        <td>${prt5}
-                            <input type="text" name="pertek[]" id="name_pertek5" value="pertek5" hidden>
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" id="surat_pertek5" name="surat_pertek[]" required placeholder="Surat Persetujuan Teknis">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" id="nomor_pertek5" name="nomor_pertek[]" required placeholder="Nomor Persetujuan Teknis">
-                        </td>
-                        <td>
-                            <input type="date" class="form-control" id="tgl_pertek5" name="tgl_pertek[]" required placeholder="Tanggal Persetujuan Teknis">
-                        </td>
-                        <td>
-                            <textarea class="form-control" name="perihal_pertek[]" id="perihal_pertek5" rows="2"></textarea>
-                        </td>
-                    </tr>`)
-            });
-
-            $(document).on('click', '#remove-pertek5', function() {
-                var button_id = prt5;
-                $('#prt5-' + button_id + '').remove();
-                prt5--
             });
         });
     </script>

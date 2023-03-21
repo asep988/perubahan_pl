@@ -101,10 +101,14 @@
                     <h5>
                         <b>Tambah Data RKL</b>
                     </h5>
+                    {{-- <div class="d-flex justify-content-center" style="padding-left: 150px;">
+                        <a class=" btn btn-outline-success mb-3" target="_blank" style="margin-left: 150px;" href="{{ route('preview.rkl', $id_skkl) }}">Preview</a>
+                    </div> --}}
                     <button type="button" class="btn btn-sm btn-primary ml-auto mb-1" data-toggle="modal"
                         data-target="#importModal">
                         Import
                     </button>
+                    <a target="_blank" href="{{ route('preview.rkl', $id_skkl) }}" type="button" class="btn btn-sm btn-success ml-1 mb-1">Preview RKL</a>
                 </div>
                 <input type="hidden" name="id_skkl" value="{{ $id_skkl }}">
                 <table border="1" width="100%">
@@ -174,6 +178,7 @@
 
                 <div>
                     <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="{{ route('rpl.create', $id_skkl) }}" type="button" class="btn btn-success float-right">Input Dokumen RPL</a>
                 </div>
             </form>
         </div>
@@ -207,7 +212,8 @@
                             <span style="font-size: 12px"><br>1. File yang diupload harus menggunakan template yang disediakan</span>
                             <span style="font-size: 12px"><br>2. Isi tabel harus menyesuaikan dengan template</span>
                             <span style="font-size: 12px"><br>3. File yang diupload tidak bisa melebihi dari 5 mb</span>
-                            <span style="font-size: 12px"><br>4. Format yang diupload harus berbentuk Excel (xlsx)</span>
+                            <span style="font-size: 12px"><br>4. Pengisian data tidak boleh ada cell yang dimerge </span>
+                            <span style="font-size: 12px"><br>5. Format yang diupload harus berbentuk Excel (xlsx)</span>
                         </div>
 
                         <span><b>Pilih file:</b></span>

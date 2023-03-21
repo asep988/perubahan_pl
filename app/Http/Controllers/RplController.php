@@ -54,9 +54,10 @@ class RplController extends Controller
 
 	public function update(Request $request, $id) //Pemrakarsa
 	{
+		// return $request->all();
         $rpl = rpl::find($id);
 
-        $rpl->id_skkl				=	$request->id_skkl;
+		$rpl->jenis_dampak		        =	$request->jenis_dampak;
 		$rpl->indikator		        =	$request->indikator;
 		$rpl->sumber_dampak			=	$request->sumber_dampak;
 		$rpl->metode				=	$request->metode;
@@ -67,7 +68,7 @@ class RplController extends Controller
 		$rpl->penerima				=	$request->penerima;
         $rpl->update();
 
-        return redirect()->route('rpl.create')->with('pesan', 'Data RPL Berhasil di Update');
+        return redirect()->route('rpl.create', $request->id_skkl)->with('pesan', 'Data RPL Berhasil di Update');
 	}
 
 	public function import(Request $request, $id)

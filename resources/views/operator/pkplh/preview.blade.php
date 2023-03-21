@@ -249,14 +249,14 @@
                             </span>
                         </li>
                         <!-- point c baru-->
-                        <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
+                        {{-- <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
                             <span>
                                 bahwa {{ $data_pkplh->jabatan_baru }} melalui surat Nomor: {{ $data_pkplh->nomor_pl }}, Tanggal {{ tgl_indo($data_pkplh->tgl_pl) }}, perihal {{ $data_pkplh->perihal }},
-                                mengajukan permohonan perubahan persetujuan lingkungan kepada Menteri Lingkungan Hidup; 
+                                mengajukan permohonan perubahan persetujuan lingkungan kepada Menteri Lingkungan Hidup;
                             </span>
-                        </li>
+                        </li> --}}
                         <!-- point c lama -->
-                        {{-- @if ($data_pkplh->jenis_perubahan == 'perkep1')
+                        @if ($data_pkplh->jenis_perubahan == 'perkep1')
                             <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>bahwa terdapat
                                     perubahan kepemilikan kegiatan {{ $data_pkplh->nama_usaha_baru }} oleh
                                     {{ $data_pkplh->pelaku_usaha_baru }} Berdasarkan:
@@ -298,7 +298,7 @@
                                     pengelolaan dan pemantauan oleh {{ $data_pkplh->pelaku_usaha_baru }} akan mengintegrasikan:
                                 </span></p>
                             <ol type="1" style="margin:0pt; padding-left:0pt">
-                                @for ($i = 0; $i < count($pertek_pkplh); $i++)
+                                @for ($i = 0; $i < count(array_values(array_unique($jml_pertek))); $i++)
                                     @if ($pertek_pkplh[$i]->pertek == 'pertek1')
                                         <li style="margin-left:72pt; text-align:justify; font-size:12pt">
                                             <span>
@@ -356,7 +356,7 @@
                                     pengelolaan dan pemantauan oleh {{ $data_pkplh->pelaku_usaha_baru }} akan mengintegrasikan:
                                 </span></p>
                             <ol type="1" style="margin:0pt; padding-left:0pt">
-                                @for ($i = 0; $i < count($pertek_pkplh); $i++)
+                                @for ($i = 0; $i < count(array_values(array_unique($jml_pertek))); $i++)
                                     @if ($pertek_pkplh[$i]->pertek == 'pertek1')
                                         <li style="margin-left:72pt; text-align:justify; font-size:12pt">
                                             <span>
@@ -408,7 +408,7 @@
                                     @endif
                                 @endfor
                             </ol>
-                        @endif --}}
+                        @endif
 
                     <ol start="4" type="a" style="margin:0pt; padding-left:0pt">
                         <!-- point d -->
@@ -430,7 +430,7 @@
                             <span>berdasarkan pertimbangan sebagaimana dimaksud dalam huruf a sampai dengan e, perlu
                                 menetapkan Keputusan Menteri Lingkungan Hidup dan Kehutanan Republik Indonesia
                                 tentang
-                                Kelayakan Lingkungan Hidup Kegiatan {{ $data_pkplh->nama_usaha_baru }} di Kota/Kabupaten {{ucwords(strtolower($data_kabkota))}} 
+                                Kelayakan Lingkungan Hidup Kegiatan {{ $data_pkplh->nama_usaha_baru }} di Kota/Kabupaten {{ucwords(strtolower($data_kabkota))}}
                                 Provinsi {{ucwords(strtolower($data_prov)) }}; </span>
                         </li>
                     </ol>
@@ -439,7 +439,7 @@
             <!-- mengingat -->
             <tr>
                 <td style="width:30%; padding:0.75pt; vertical-align:top">
-                    <p style="text-align:justify; font-size:12pt"><span>* Mengingat </span></p>
+                    <p style="text-align:justify; font-size:12pt"><span>Mengingat </span></p>
                 </td>
                 <td style="width:2%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>:</span></p>
@@ -507,7 +507,7 @@
                 <td style="width:68%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>Risalah Pengolahan Data (RPD) Penerbitan
                             Persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup Kegiatan
-                            {{ $data_pkplh->nama_usaha_baru }} di Kota/Kabupaten {{ucwords(strtolower($data_kabkota))}} Provinsi {{ ucwords(strtolower($data_prov)) }} 
+                            {{ $data_pkplh->nama_usaha_baru }} di Kota/Kabupaten {{ucwords(strtolower($data_kabkota))}} Provinsi {{ ucwords(strtolower($data_prov)) }}
                             Nomor RPD: {{ $data_pkplh->nomor_rpd }}
                 </td>
             </tr>
@@ -529,7 +529,7 @@
                     <p style="text-align:justify; font-size:12pt"><span>KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN
                             KEHUTANAN
                             TENTANG PERSETUJUAN PERNYATAAN KESANGGUPAN PENGELOLAAN LINGKUNGAN HIDUP KEGIATAN
-                            {{ strtoupper($data_pkplh->nama_usaha_baru) }} DI KOTA/KABUPATEN {{ $data_kabkota }} 
+                            {{ strtoupper($data_pkplh->nama_usaha_baru) }} DI KOTA/KABUPATEN {{ $data_kabkota }}
                             PROVINSI {{ $data_prov }} OLEH {{ strtoupper($data_pkplh->pelaku_usaha_baru) }} </span>
                     </p>
                 </td>
@@ -743,7 +743,7 @@
                                             @if ($pertek_pkplh[$i]->pertek == 'pertek3')
                                                 <li style="margin-left:50pt; text-align:justify; font-size:12pt">
                                                     <span>
-                                                        Lampiran {{ integerToRoman($roman) }}Persetujuan Teknis Di
+                                                        Lampiran {{ integerToRoman($roman) }} Persetujuan Teknis Di
                                                         Bidang Pengelolaan Limbah B3;
                                                     </span>
                                                 </li>
@@ -883,8 +883,11 @@
                     <p style="text-align:justify; font-size:12pt"><span>:</span></p>
                 </td>
                 <td style="width:68%; padding:0.75pt; vertical-align:top">
-                    <p style="text-align:justify; font-size:12pt"><span>Dalam pelaksanaan Keputusan ini, Menteri
-                            menugaskan Pejabat Pengawas Lingkungan Hidup (PPLH) untuk melakukan pengawasan. </span></p>
+                    <p style="text-align:justify; font-size:12pt"><span>Apabila dalam pelaksanaan usaha dan/atau kegiatan timbul dampak
+                        lingkungan hidup di luar dari dampak yang dikelola sebagaimana dimaksud dalam Lampiran Keputusan ini,
+                        Penanggung jawab Usaha dan/atau Kegiatan wajib melaporkan kepada instansi sebagaimana dimaksud dalam Diktum KEEMPAT
+                        angka 14 paling lama 30 (tiga puluh) hari kerja sejak diketahuinya timbulan dampak lingkungan
+                        hidup di luar dampak yang wajib dikelola.</span></p>
                 </td>
             </tr>
             {{-- KETUJUH --}}
@@ -896,9 +899,8 @@
                     <p style="text-align:justify; font-size:12pt"><span>:</span></p>
                 </td>
                 <td style="width:68%; padding:0.75pt; vertical-align:top">
-                    <p style="text-align:justify; font-size:12pt"><span>Pengawasan sebagaimana dimaksud dalam Diktum
-                            KEENAM dilaksanakan sesuai dengan ketentuan peraturan perundang-undangan paling sedikit 2
-                            (dua) kali dalam 1 (satu) tahun. </span></p>
+                    <p style="text-align:justify; font-size:12pt"><span>Dalam pelaksanaan Keputusan ini, Menteri
+                            menugaskan Pejabat Pengawas Lingkungan Hidup (PPLH) untuk melakukan pengawasan. </span></p>
                 </td>
             </tr>
             {{-- KEDELAPAN --}}
@@ -910,16 +912,30 @@
                     <p style="text-align:justify; font-size:12pt"><span>:</span></p>
                 </td>
                 <td style="width:68%; padding:0.75pt; vertical-align:top">
+                    <p style="text-align:justify; font-size:12pt"><span>Pengawasan sebagaimana dimaksud dalam Diktum
+                            KEENAM dilaksanakan sesuai dengan ketentuan peraturan perundang-undangan paling sedikit 2
+                            (dua) kali dalam 1 (satu) tahun. </span></p>
+                </td>
+            </tr>
+            {{-- KESEMBILAN --}}
+            <tr>
+                <td style="width:30%; padding:0.75pt; vertical-align:top">
+                    <p style="text-align:justify; font-size:12pt"><span>KESEMBILAN </span></p>
+                </td>
+                <td style="width:2%; padding:0.75pt; vertical-align:top">
+                    <p style="text-align:justify; font-size:12pt"><span>:</span></p>
+                </td>
+                <td style="width:68%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>Dalam hal berdasarkan hasil pengawasan
                             sebagaimana dimaksud dalam Diktum KETUJUH ditemukan pelanggaran, Penanggung jawab Usaha
                             dan/atau Kegiatan dikenakan sanksi sesuai dengan ketentuan peraturan perundang-undangan.
                         </span></p>
                 </td>
             </tr>
-            {{-- KESEMBILAN --}}
+            {{-- KESEPULUH --}}
             <tr>
                 <td style="width:30%; padding:0.75pt; vertical-align:top">
-                    <p style="text-align:justify; font-size:12pt"><span>KESEMBILAN</span></p>
+                    <p style="text-align:justify; font-size:12pt"><span>KESEPULUH</span></p>
                 </td>
                 <td style="width:2%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>:</span></p>
@@ -933,10 +949,10 @@
                         </span></p>
                 </td>
             </tr>
-            {{-- KESEPULUH --}}
+            {{-- KESEBELAS --}}
             <tr>
                 <td style="width:30%; padding:0.75pt; vertical-align:top">
-                    <p style="text-align:justify; font-size:12pt"><span>KESEPULUH</span></p>
+                    <p style="text-align:justify; font-size:12pt"><span>KESEBELAS</span></p>
                 </td>
                 <td style="width:2%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>:</span></p>
@@ -947,10 +963,10 @@
                         </span></p>
                 </td>
             </tr>
-            {{-- KESEBELAS --}}
+            {{-- KEDUA BELAS --}}
             <tr>
                 <td style="width:30%; padding:0.75pt; vertical-align:top">
-                    <p style="text-align:justify; font-size:12pt"><span>KESEBELAS</span></p>
+                    <p style="text-align:justify; font-size:12pt"><span>KEDUA BELAS</span></p>
                 </td>
                 <td style="width:2%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>:</span></p>
@@ -962,10 +978,10 @@
                         </span></p>
                 </td>
             </tr>
-            {{-- KEDUABELAS --}}
+            {{-- KETIGA BELAS --}}
             <tr>
                 <td style="width:30%; padding:0.75pt; vertical-align:top">
-                    <p style="text-align:justify; font-size:12pt"><span>KEDUABELAS</span></p>
+                    <p style="text-align:justify; font-size:12pt"><span>KETIGA BELAS</span></p>
                 </td>
                 <td style="width:2%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>:</span></p>
@@ -977,10 +993,10 @@
                         </span></p>
                 </td>
             </tr>
-            {{-- KETIGABELAS --}}
+            {{-- KEEMPAT BELAS --}}
             <tr>
                 <td style="width:30%; padding:0.75pt; vertical-align:top">
-                    <p style="text-align:justify; font-size:12pt"><span>KETIGA BELAS</span></p>
+                    <p style="text-align:justify; font-size:12pt"><span>KEEMPAT BELAS</span></p>
                 </td>
                 <td style="width:2%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>:</span></p>
@@ -1000,10 +1016,10 @@
                     </p>
                 </td>
             </tr>
-            {{-- KEEMPAT BELAS --}}
+            {{-- KELIMA BELAS --}}
             <tr>
                 <td style="width:30%; padding:0.75pt; vertical-align:top">
-                    <p style="text-align:justify; font-size:12pt"><span>KEEMPAT BELAS</span></p>
+                    <p style="text-align:justify; font-size:12pt"><span>KELIMA BELAS</span></p>
                 </td>
                 <td style="width:2%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>:</span></p>
@@ -1047,7 +1063,7 @@
                         <tr>
                             <td style="padding:0.75pt; vertical-align:top">
                                 <p style="text-align:justify; font-size:12pt"><span>a.n. MENTERI LINGKUNGAN HIDUP DAN
-                                        KEHUTANAN REPUBLIK INDONESIA</span><br /><span>PLT. DIREKTORAT JENDRAL
+                                        KEHUTANAN REPUBLIK INDONESIA</span><br /><span>PLT. DIREKTORAT JENDERAL
                                         PLANOLOGI</span><br /><span>KEHUTANAN DAN TATA LINGKUNGAN,
                                     </span><br /><br /><br /><br /><br /><br /><span>RUANDHA AGUNG
                                         SUGARDIMAN</span><br /><span>NIP 19620301 198802 1 001 </span></p>
@@ -1067,11 +1083,11 @@
                                 <span>Gubernur {{ ucwords(strtolower($prov)) }}</span>
                             </li>
                         @endforeach
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Sekretaris Jendral
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Sekretaris Jenderal
                                 Kementerian Lingkungan Hidup dan Kehutanan;</span></li>
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Direktur Jendral
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Direktur Jenderal
                                 Planologi Kehutanan dan Tata Lingkungan;</span></li>
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Direktur Jendral
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Direktur Jenderal
                                 Penegakan Hukum Lingkungan Hidup dan Kehutanan;</span></li>
                         @foreach ($data_pkplh->kabupaten_kota as $kabkot)
                             <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Bupati/Walikota

@@ -39,6 +39,11 @@ Route::post('/pkplh/chat/create/{id}', 'PkplhController@chatCreate')->name('pkpl
 Route::post('/pkplh/chat/update/{id}', 'PkplhController@chatUpdate')->name('pkplh.chat.update');
 Route::get('/pkplh/notif/update/{id}', 'PkplhController@notifUpdate')->name('pkplh.notif.update');
 
+Route::get('/ptsp', 'PtspController@login')->name('ptsp');
+Route::post('/ptsp/login', 'PtspController@authenticate')->name('ptsp.login');
+Route::get('/ptsp/skkl/8c7a5370e747a69ad6941f97c80dc06a', 'PtspController@skklIndex')->name('ptsp.skkl.index');
+Route::get('/ptsp/pkplh/842998c9fbab1a005e7fb0eb8f1f3765', 'PtspController@pkplhIndex')->name('ptsp.pkplh.index');
+
 Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {
     //skkl
     Route::get('/Pemrakarsa', 'HomeController@index')->name('pemrakarsa.index');
@@ -97,13 +102,13 @@ Route::group(['middleware' => ['auth', 'cekRole:Operator']], function() {
     Route::put('/Operator/skkl/periksa/{id}', 'OperatorController@periksa')->name('operator.skkl.periksa');
     Route::put('/Operator/skkl/rpd/{id}', 'OperatorController@rpd_skkl')->name('operator.skkl.rpd');
     Route::get('/Operator/skkl/chat/{id}', 'SkklController@chat')->name('skkl.operator.chat');
-    
+
     Route::put('/Operator/pkplh/rpd/{id}', 'OperatorController@rpd_pkplh')->name('operator.pkplh.rpd');
     Route::get('/Operator/download/{id}', 'OperatorController@download')->name('operator.download');
     Route::get('/Operator/preview/{id}', 'OperatorController@preview')->name('operator.preview');
     Route::put('/Operator/upload_file', 'OperatorController@upload_file')->name('operator.upload_file');
     Route::get('/Operator/file/delete/{id}', 'OperatorController@destroyFile')->name('operator.destroy.file');
-    
+
     Route::get('/Operator/pkplh', 'PkplhController@operatorIndex')->name('operator.pkplh.index');
     Route::get('/Operator/pkplh/preview/{id}', 'PkplhController@operatorPreview')->name('operator.pkplh.preview');
     Route::put('/Operator/pkplh/upload_file', 'PkplhController@uploadFile')->name('operator.pkplh.upload');
@@ -154,6 +159,9 @@ Route::group(['middleware' => ['auth', 'cekRole:Sekretariat']], function() {
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/skkl/review/{id}', 'SkklController@review')->name('skkl.review');
     Route::get('/pkplh/review/{id}', 'PkplhController@review')->name('pkplh.review');
+    Route::get('/rkl/preview/{id}', 'PreviewController@preview_rkl')->name('preview.rkl');
+    Route::get('/rpl/preview/{id}', 'PreviewController@preview_rpl')->name('preview.rpl');
+    Route::get('/uklupl/preview/{id}', 'PreviewController@preview_uklupl')->name('preview.uklupl');
 });
 
 

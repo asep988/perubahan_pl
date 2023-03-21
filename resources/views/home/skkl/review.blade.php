@@ -5,6 +5,18 @@
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta name="generator" content="Aspose.Words for .NET 23.1.0" />
     <title></title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js" integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $(window).on('load', function() {
+            $('.modal').modal('show');
+        });
+    </script>
+
     <style type="text/css">
         body {
             line-height: 115%;
@@ -150,9 +162,37 @@
     </style>
 </head>
 
-<button><a href="{{ route('pemrakarsa.index') }}">kembali</a></button>
+<div class="float-left">
+    <button><a href="{{ route('pemrakarsa.index') }}">kembali</a></button>
+</div>
+<div class="float-right">
+    <button><a href="{{ route('rkl.create', $data_skkl->id) }}">Matriks RKL</a></button>
+</div>
+
 
 <body>
+    <div class="modal hide fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">PERINGATAN</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Mohon periksa kembali redaksional data Perubahan PL yang telah diinput melalui Preview PL ini. Jika
+                    terdapat kesalahan penulisan redaksional, silakan perbaiki kembali data melalui tombol Ubah Data.
+                    Selanjutnya mohon lengkapi input data form Matriks RKL - RPL (sebagai Lampiran PL) secara lengkap,
+                    dan bukti submit digunakan sebagai praysarat administrasi di PTSP.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <?php
     $data_kabkota = implode(', ', $data_skkl->kabupaten_kota);
     $data_prov = implode(', ', $data_skkl->provinsi);
@@ -187,45 +227,52 @@
                                 Penyelenggaraan Perlindungan dan Pengelolaan Lingkungan Hidup, ditetapkan:</span>
                             <ol type="1" style="margin-right:0pt; margin-left:0pt; padding-left:0pt">
                                 {{-- 1 --}}
-                                <li style="margin-left:36pt"><span>Pasal 3 ayat (1): Persetujuan Lingkungan wajib
-                                        dimiliki oleh setiap Usaha dan/atau Kegiatan yang memiliki Dampak Penting
-                                        atau
-                                        tidak penting terhadap lingkungan; </span></li>
+                                <li style="margin-left:36pt"><span>
+                                        Pasal 3 ayat (1) Persetujuan Lingkungan wajib dimiliki oleh setiap Usaha
+                                        dan/atau Kegiatan yang memiliki Dampak Penting atau tidak penting terhadap
+                                        lingkungan;
+                                    </span></li>
                                 {{-- 2 --}}
-                                <li style="margin-left:36pt"><span>Pasal 3 ayat (2): Persetujuan Lingkungan
-                                        diberikan
-                                        kepada Pelaku Usaha atau Instansi Pemerintah; </span></li>
+                                <li style="margin-left:36pt"><span>
+                                        Pasal 3 ayat (2) Persetujuan Lingkungan diberikan kepada Pelaku Usaha atau
+                                        Instansi Pemerintah;</span></li>
                                 {{-- 3 --}}
-                                <li style="margin-left:36pt"><span>Pasal 3 ayat (3): Persetujuan Lingkungan menjadi
-                                        prasyarat penerbitan Perizinan Berusaha atau Persetujuan Pemerintah;</span>
+                                <li style="margin-left:36pt"><span>
+                                        Pasal 3 ayat (3) Persetujuan Lingkungan menjadi prasyarat penerbitan Perizinan
+                                        Berusaha atau Persetujuan Pemerintah;</span>
                                 </li>
                                 {{-- 4 --}}
-                                <li style="margin-left:36pt"><span>Pasal 3 ayat (4): Persetujuan Lingkungan
-                                        dilakukan
-                                        melalui penyusunan Amdal dan uji kelayakan Amdal; </span>
+                                <li style="margin-left:36pt"><span>
+                                        Pasal 3 ayat (4) Persetujuan Lingkungan dilakukan melalui: a. penyusunan Amdal
+                                        dan uji kelayakan Amdal; atau b. penyusunan Formulir UKL-UPL dan pemeriksaan
+                                        Formulir UKL-UPL;</span>
                                 </li>
                                 {{-- 5 --}}
-                                <li style="margin-left:36pt"><span>Pasal 49 ayat (3) : Surat Keputusan Kelayakan
-                                        Lingkungan Hidup merupakan: a. bentuk Persetujuan Lingkungan Hidup; dan b.
-                                        prasyarat penerbitan Perizinan Berusaha atau Persetujuan Pemerintah; </span>
+                                <li style="margin-left:36pt"><span>
+                                        Pasal 49 ayat (3) Surat Keputusan Kelayakan Lingkungan Hidup merupakan: a.
+                                        bentuk Persetujuan Lingkungan Hidup; dan b. prasyarat penerbitan Perizinan
+                                        Berusaha atau Persetujuan Pemerintah;</span>
                                 </li>
                                 {{-- 6 --}}
-                                <li style="margin-left:36pt"><span>Pasal 89 ayat (1) : Penanggung jawab Usaha dan/atau
-                                        Kegiatan wajib melakukan perubahan Persetujuan Lingkungan apabila Usaha dan/atau
-                                        Kegiatannya yang telah memperoleh surat Keputusan Kelayakan Lingkungan Hidup
-                                        atau persetujuan Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup
-                                        direncanakan untuk dilakukan perubahan;</span>
+                                <li style="margin-left:36pt"><span>
+                                        Pasal 89 ayat (1) Penanggung jawab Usaha dan/atau Kegiatan wajib melakukan
+                                        perubahan Persetujuan Lingkungan apabila Usaha dan/atau Kegiatannya yang telah
+                                        memperoleh surat Keputusan Kelayakan Lingkungan Hidup atau persetujuan
+                                        Pernyataan Kesanggupan Pengelolaan Lingkungan Hidup direncanakan untuk dilakukan
+                                        perubahan;</span>
                                 </li>
                                 {{-- 7 --}}
-                                <li style="margin-left:36pt"><span>Pasal 90 ayat (1) : Perubahan Persetujuan Lingkungan
-                                        dilakukan melalui: a. perubahan Persetujuan Lingkungan dengan kewajiban menyusun
-                                        dokumen lingkungan hidup baru; atau b. perubahan Persetujuan Lingkungan tanpa
-                                        disertai kewajiban menyusun dokumen Lingkungan Hidup baru;</span></li>
+                                <li style="margin-left:36pt"><span>
+                                        Pasal 90 Perubahan Persetujuan Lingkungan dilakukan melalui: a. perubahan
+                                        Persetujuan Lingkungan dengan kewajiban menyusun dokumen lingkungan hidup baru;
+                                        atau b. perubahan Persetujuan Lingkungan tanpa disertai kewajiban menyusun
+                                        dokumen Lingkungan Hidup baru;</span></li>
                             </ol>
                         </li>
                         <!-- point b -->
                         <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
-                            <span>bahwa usaha dan/atau kegiatan {{ $data_skkl->nama_usaha_baru }} di Kabupaten/Kota {{ ucwords(strtolower($data_kabkota)) }}
+                            <span>bahwa usaha dan/atau kegiatan {{ $data_skkl->nama_usaha_baru }} di
+                                {{ ucwords(strtolower($data_kabkota)) }}
                                 Provinsi {{ ucwords(strtolower($data_prov)) }} oleh {{ $data_skkl->pelaku_usaha_baru }}
                                 berdasarkan dokumen lingkungan yang telah disetujui yaitu:
                                 <ol type="1" style="margin-right:0pt; margin-left:0pt; padding-left:0pt">
@@ -242,15 +289,16 @@
                         </li>
 
                         <!-- point c baru-->
-                        <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
+                        {{-- <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
                             <span>
-                                bahwa {{ $data_skkl->jabatan_baru }} melalui surat Nomor: {{ $data_skkl->nomor_pl }}, Tanggal {{ tgl_indo($data_skkl->tgl_pl) }}, perihal {{ $data_skkl->perihal }},
+                                bahwa {{ $data_skkl->jabatan_baru }} {{ $data_skkl->pelaku_usaha_baru }} melalui surat Nomor: {{ $data_skkl->nomor_pl }},
+                                Tanggal {{ tgl_indo($data_skkl->tgl_pl) }}, perihal {{ $data_skkl->perihal }},
                                 mengajukan permohonan perubahan persetujuan lingkungan kepada Menteri Lingkungan Hidup;
                             </span>
-                        </li>
+                        </li> --}}
 
                         <!-- point c lama-->
-                        {{-- @if ($data_skkl->jenis_perubahan == 'perkep1')
+                        @if ($data_skkl->jenis_perubahan == 'perkep1')
                             <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>bahwa terdapat
                                     perubahan kepemilikan kegiatan {{ $data_skkl->nama_usaha_baru }} oleh
                                     {{ $data_skkl->pelaku_usaha_baru }} berdasarkan:
@@ -287,136 +335,137 @@
                                     @endfor
                                 </ol>
                             </li>
-                            </ol>
-                            <p style="margin-left:36pt; text-align:justify; font-size:12pt"><br /><span>dan perubahan
-                                    pengelolaan dan pemantauan oleh {{ $data_skkl->pelaku_usaha_baru }} akan mengintegrasikan:
-                                </span></p>
-                            <ol type="1" style="margin:0pt; padding-left:0pt">
-                                @for ($i = 0; $i < count($pertek_skkl); $i++)
-                                    @if ($pertek_skkl[$i]->pertek == 'pertek1')
-                                        <li style="margin-left:72pt; text-align:justify; font-size:12pt">
-                                            <span>
-                                                Persetujuan Teknis Air Limbah untuk Kegiatan
-                                                {{ $pertek_skkl[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
-                                                lingkungan hidup ke dalam Persetujuan Lingkungan;
-                                            </span>
-                                        </li>
-                                    @endif
+                    </ol>
+                    <p style="margin-left:36pt; text-align:justify; font-size:12pt"><br /><span>dan perubahan
+                            pengelolaan dan pemantauan oleh {{ $data_skkl->pelaku_usaha_baru }} akan mengintegrasikan:
+                        </span></p>
+                    <ol type="1" style="margin:0pt; padding-left:0pt">
+                        @for ($i = 0; $i < count(array_values(array_unique($jml_pertek))); $i++)
+                            @if ($pertek_skkl[$i]->pertek == 'pertek1')
+                                <li style="margin-left:72pt; text-align:justify; font-size:12pt">
+                                    <span>
+                                        Persetujuan Teknis Air Limbah untuk Kegiatan
+                                        {{ $pertek_skkl[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
+                                        lingkungan hidup ke dalam Persetujuan Lingkungan;
+                                    </span>
+                                </li>
+                            @endif
 
-                                    @if ($pertek_skkl[$i]->pertek == 'pertek2')
-                                        <li style="margin-left:72pt; text-align:justify; font-size:12pt">
-                                            <span>
-                                                Persetujuan Teknis Pemenuhan Baku Mutu Emisi untuk Kegiatan
-                                                {{ $pertek_skkl[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
-                                                lingkungan hidup ke dalam Persetujuan Lingkungan;
-                                            </span>
-                                        </li>
-                                    @endif
+                            @if ($pertek_skkl[$i]->pertek == 'pertek2')
+                                <li style="margin-left:72pt; text-align:justify; font-size:12pt">
+                                    <span>
+                                        Persetujuan Teknis Pemenuhan Baku Mutu Emisi untuk Kegiatan
+                                        {{ $pertek_skkl[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
+                                        lingkungan hidup ke dalam Persetujuan Lingkungan;
+                                    </span>
+                                </li>
+                            @endif
 
-                                    @if ($pertek_skkl[$i]->pertek == 'pertek3')
-                                        <li style="margin-left:72pt; text-align:justify; font-size:12pt">
-                                            <span>
-                                                Persetujuan Teknis Di Bidang Pengelolaan Limbah B3 untuk Kegiatan
-                                                {{ $pertek_skkl[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
-                                                lingkungan hidup ke dalam Persetujuan Lingkungan;
-                                            </span>
-                                        </li>
-                                    @endif
+                            @if ($pertek_skkl[$i]->pertek == 'pertek3')
+                                <li style="margin-left:72pt; text-align:justify; font-size:12pt">
+                                    <span>
+                                        Persetujuan Teknis Di Bidang Pengelolaan Limbah B3 untuk Kegiatan
+                                        {{ $pertek_skkl[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
+                                        lingkungan hidup ke dalam Persetujuan Lingkungan;
+                                    </span>
+                                </li>
+                            @endif
 
-                                    @if ($pertek_skkl[$i]->pertek == 'pertek4')
-                                        <li style="margin-left:72pt; text-align:justify; font-size:12pt">
-                                            <span>
-                                                Persetujuan Teknis Andalalin untuk Kegiatan
-                                                {{ $pertek_skkl[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
-                                                lingkungan hidup ke dalam Persetujuan Lingkungan;
-                                            </span>
-                                        </li>
-                                    @endif
+                            @if ($pertek_skkl[$i]->pertek == 'pertek4')
+                                <li style="margin-left:72pt; text-align:justify; font-size:12pt">
+                                    <span>
+                                        Persetujuan Teknis Andalalin untuk Kegiatan
+                                        {{ $pertek_skkl[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
+                                        lingkungan hidup ke dalam Persetujuan Lingkungan;
+                                    </span>
+                                </li>
+                            @endif
 
-                                    @if ($pertek_skkl[$i]->pertek == 'pertek5')
-                                        <li style="margin-left:72pt; text-align:justify; font-size:12pt">
-                                            <span>
-                                                Persetujuan Teknis Dokumen Rincian Teknis untuk Kegiatan
-                                                {{ $pertek_skkl[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
-                                                lingkungan hidup ke dalam Persetujuan Lingkungan;
-                                            </span>
-                                        </li>
-                                    @endif
-                                @endfor
-                            </ol>
-                        @else
-                            </ol>
-                            <p style="margin-left:36pt; text-align:justify; font-size:12pt"><br /><span>bahwa terdapat perubahan
-                                    pengelolaan dan pemantauan oleh {{ $data_skkl->pelaku_usaha_baru }} akan mengintegrasikan:
-                                </span></p>
-                            <ol type="1" style="margin:0pt; padding-left:0pt">
-                                @for ($i = 0; $i < count($pertek_skkl); $i++)
-                                    @if ($pertek_skkl[$i]->pertek == 'pertek1')
-                                        <li style="margin-left:72pt; text-align:justify; font-size:12pt">
-                                            <span>
-                                                Persetujuan Teknis Air Limbah untuk Kegiatan
-                                                {{ $pertek_skkl[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
-                                                lingkungan hidup ke dalam Persetujuan Lingkungan;
-                                            </span>
-                                        </li>
-                                    @endif
+                            @if ($pertek_skkl[$i]->pertek == 'pertek5')
+                                <li style="margin-left:72pt; text-align:justify; font-size:12pt">
+                                    <span>
+                                        Persetujuan Teknis Dokumen Rincian Teknis untuk Kegiatan
+                                        {{ $pertek_skkl[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
+                                        lingkungan hidup ke dalam Persetujuan Lingkungan;
+                                    </span>
+                                </li>
+                            @endif
+                        @endfor
+                    </ol>
+                @else
+                    </ol>
+                    <p style="margin-left:36pt; text-align:justify; font-size:12pt"><br /><span>bahwa terdapat perubahan
+                            pengelolaan dan pemantauan oleh {{ $data_skkl->pelaku_usaha_baru }} akan mengintegrasikan:
+                        </span></p>
+                    <ol type="1" style="margin:0pt; padding-left:0pt">
+                        @for ($i = 0; $i < count(array_values(array_unique($jml_pertek))); $i++)
+                            @if ($pertek_skkl[$i]->pertek == 'pertek1')
+                                <li style="margin-left:72pt; text-align:justify; font-size:12pt">
+                                    <span>
+                                        Persetujuan Teknis Air Limbah untuk Kegiatan
+                                        {{ $pertek_skkl[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
+                                        lingkungan hidup ke dalam Persetujuan Lingkungan;
+                                    </span>
+                                </li>
+                            @endif
 
-                                    @if ($pertek_skkl[$i]->pertek == 'pertek2')
-                                        <li style="margin-left:72pt; text-align:justify; font-size:12pt">
-                                            <span>
-                                                Persetujuan Teknis Pemenuhan Baku Mutu Emisi untuk Kegiatan
-                                                {{ $pertek_skkl[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
-                                                lingkungan hidup ke dalam Persetujuan Lingkungan;
-                                            </span>
-                                        </li>
-                                    @endif
+                            @if ($pertek_skkl[$i]->pertek == 'pertek2')
+                                <li style="margin-left:72pt; text-align:justify; font-size:12pt">
+                                    <span>
+                                        Persetujuan Teknis Pemenuhan Baku Mutu Emisi untuk Kegiatan
+                                        {{ $pertek_skkl[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
+                                        lingkungan hidup ke dalam Persetujuan Lingkungan;
+                                    </span>
+                                </li>
+                            @endif
 
-                                    @if ($pertek_skkl[$i]->pertek == 'pertek3')
-                                        <li style="margin-left:72pt; text-align:justify; font-size:12pt">
-                                            <span>
-                                                Persetujuan Teknis Di Bidang Pengelolaan Limbah B3 untuk Kegiatan
-                                                {{ $pertek_skkl[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
-                                                lingkungan hidup ke dalam Persetujuan Lingkungan;
-                                            </span>
-                                        </li>
-                                    @endif
+                            @if ($pertek_skkl[$i]->pertek == 'pertek3')
+                                <li style="margin-left:72pt; text-align:justify; font-size:12pt">
+                                    <span>
+                                        Persetujuan Teknis Di Bidang Pengelolaan Limbah B3 untuk Kegiatan
+                                        {{ $pertek_skkl[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
+                                        lingkungan hidup ke dalam Persetujuan Lingkungan;
+                                    </span>
+                                </li>
+                            @endif
 
-                                    @if ($pertek_skkl[$i]->pertek == 'pertek4')
-                                        <li style="margin-left:72pt; text-align:justify; font-size:12pt">
-                                            <span>
-                                                Persetujuan Teknis Andalalin untuk Kegiatan
-                                                {{ $pertek_skkl[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
-                                                lingkungan hidup ke dalam Persetujuan Lingkungan;
-                                            </span>
-                                        </li>
-                                    @endif
+                            @if ($pertek_skkl[$i]->pertek == 'pertek4')
+                                <li style="margin-left:72pt; text-align:justify; font-size:12pt">
+                                    <span>
+                                        Persetujuan Teknis Andalalin untuk Kegiatan
+                                        {{ $pertek_skkl[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
+                                        lingkungan hidup ke dalam Persetujuan Lingkungan;
+                                    </span>
+                                </li>
+                            @endif
 
-                                    @if ($pertek_skkl[$i]->pertek == 'pertek5')
-                                        <li style="margin-left:72pt; text-align:justify; font-size:12pt">
-                                            <span>
-                                                Persetujuan Teknis Dokumen Rincian Teknis untuk Kegiatan
-                                                {{ $pertek_skkl[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
-                                                lingkungan hidup ke dalam Persetujuan Lingkungan;
-                                            </span>
-                                        </li>
-                                    @endif
-                                @endfor
-                            </ol>
-                        @endif --}}
+                            @if ($pertek_skkl[$i]->pertek == 'pertek5')
+                                <li style="margin-left:72pt; text-align:justify; font-size:12pt">
+                                    <span>
+                                        Persetujuan Teknis Dokumen Rincian Teknis untuk Kegiatan
+                                        {{ $pertek_skkl[$i]->judul_pertek }} yang merupakan pengelolaan dan pemantauan
+                                        lingkungan hidup ke dalam Persetujuan Lingkungan;
+                                    </span>
+                                </li>
+                            @endif
+                        @endfor
+                    </ol>
+                    @endif
                     <ol start="4" type="a" style="margin:0pt; padding-left:0pt">
                         {{-- point d --}}
                         <li style="margin-left:35.98pt; text-align:justify; padding-left:0.02pt; font-size:12pt">
                             <span>Bahwa berdasarkan hasil verifikasi administrasi oleh pelayanan Terpadu
                                 Satu Pintu Kementerian Lingkungan Hidup dan Kehutanan sesuai Berita Acara Validasi
-                                Permohonan Layanan Nomor {{ $data_skkl->nomor_validasi }},tanggal
+                                Permohonan Layanan Nomor {{ $data_skkl->nomor_validasi }}, tanggal
                                 {{ tgl_indo($data_skkl->tgl_validasi) }}
                                 dinyatakan lengkap secara administrasi; </span>
                         </li>
                         {{-- point e --}}
                         <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>berdasarkan
-                                pertimbangan sebagaimana dimaksud dalam huruf a sampai dengan huruf d, perlu menetapkan
+                                pertimbangan sebagaimana dimaksud dalam huruf a sampai dengan huruf d, perlu
+                                menetapkan
                                 Keputusan Menteri Lingkungan Hidup dan Kehutanan tentang Kelayakan Lingkungan Hidup
-                                usaha dan/atau kegiatan {{ $data_skkl->nama_usaha_baru }} di Kabupaten/Kota
+                                usaha dan/atau kegiatan {{ $data_skkl->nama_usaha_baru }} di
                                 {{ ucwords(strtolower($data_kabkota)) }}
                                 Provinsi {{ ucwords(strtolower($data_prov)) }} oleh
                                 {{ $data_skkl->pelaku_usaha_baru }};
@@ -424,6 +473,8 @@
                     </ol>
                 </td>
             </tr>
+
+            {{-- mengingat --}}
             <tr>
                 <td style="width:30%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>Mengingat </span></p>
@@ -434,47 +485,50 @@
                 <td style="width:65%; padding:0.75pt; vertical-align:top">
                     <ol type="1" style="margin:0pt; padding-left:0pt">
                         {{-- 1 --}}
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Undang-Undang Nomor 32
-                                Tahun 2009 tentang Perlindungan dan Pengelolaan Lingkungan Hidup sebagaimana telah
-                                diubah dengan Undang-Undang Nomor 11 Tahun 2020 tentang Cipta Kerja; </span>
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>
+                                Undang-Undang Nomor 32 Tahun 2009 tentang Perlindungan dan Pengelolaan Lingkungan Hidup
+                                sebagaimana telah diubah dengan Undang-Undang Nomor 11 Tahun 2020 tentang Cipta
+                                Kerja;</span>
                         </li>
                         {{-- 2 --}}
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Pemerintah
-                                Nomor 5 Tahun 2021 tentang Penyelenggaraan Perizinan Berusaha Berbasis Resiko;</span>
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>
+                                Peraturan Pemerintah Nomor 5 Tahun 2021 tentang Penyelenggaraan Perizinan Berusaha
+                                Berbasis Risiko;</span>
                         </li>
                         {{-- 3 --}}
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Pemerintah
-                                Nomor 22 Tahun 2021 tentang Penyelenggaraan Perlindungan dan Pengelolaan Lingkungan
-                                Hidup ; </span>
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>
+                                Peraturan Pemerintah Nomor 22 Tahun 2021 tentang Penyelenggaraan Perlindungan dan
+                                Pengelolaan Lingkungan Hidup;</span>
                         </li>
                         {{-- 4 --}}
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Presiden
-                                Nomor 68 Tahun 2019 tentang Organisasi Kementerian Negara sebagaimana telah diubah
-                                dengan Peraturan Presiden Nomor 32 Tahun 2021;</span>
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>
+                                Peraturan Presiden Nomor 68 Tahun 2019 tentang Organisasi Kementerian Negara sebagaimana
+                                telah diubah dengan Peraturan Presiden Nomor 32 Tahun 2021;</span>
                         </li>
                         {{-- 5 --}}
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Presiden
-                                Nomor 92 Tahun 2020 tentang Kementerian Lingkungan Hidup dan Kehutanan;</span>
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>
+                                Peraturan Presiden Nomor 92 Tahun 2020 tentang Kementerian Lingkungan Hidup dan
+                                Kehutanan;</span>
                         </li>
                         {{-- 6 --}}
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Menteri
-                                Lingkungan Hidup dan Kehutanan Nomor 4 Tahun 2021 tentang Daftar Usaha dan/atau Kegiatan
-                                yang Wajib Memiliki AMDAL, UKL-UPL atau SPPL;</span>
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>
+                                Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 4 Tahun 2021 tentang Daftar Usaha
+                                dan/atau Kegiatan yang Wajib Memiliki AMDAL, UKL-UPL atau SPPL;</span>
                         </li>
                         {{-- 7 --}}
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Menteri
-                                Lingkungan Hidup dan Kehutanan Nomor 5 Tahun 2021 tentang Tata Cara Penerbitan
-                                Persetujuan Teknis dan Surat Kelayakan Operasional Bidang Pengendalian Pencemaran
-                                Lingkungan;</span>
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>
+                                Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 5 Tahun 2021 tentang Tata Cara
+                                Penerbitan Persetujuan Teknis dan Surat Kelayakan Operasional Bidang Pengendalian
+                                Pencemaran Lingkungan;</span>
                         </li>
                         {{-- 8 --}}
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Menteri
-                                Lingkungan Hidup dan Kehutanan Nomor 6 Tahun 2021</span>
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>
+                                Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 6 Tahun 2021</span>
                         </li>
                         {{-- 9 --}}
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Peraturan Menteri
-                                Lingkungan Hidup dan Kehutanan Nomor 15 Tahun 2021 tentang Organisasi dan Tata Kerja
-                                Kementerian Lingkungan Hidup dan Kehutanan; </span>
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>
+                                Peraturan Menteri Lingkungan Hidup dan Kehutanan Nomor 15 Tahun 2021 tentang Organisasi
+                                dan Tata Kerja Kementerian Lingkungan Hidup dan Kehutanan;</span>
                         </li>
                     </ol>
                 </td>
@@ -492,7 +546,8 @@
                     <p style="text-align:justify; font-size:12pt"><span>Risalah Pengolahan Data (RPD) Penerbitan
                             Surat Keputusan Kelayakan Lingkungan Hidup Kegiatan usaha dan/atau kegiatan
                             {{ $data_skkl->nama_usaha_baru }}
-                            di Kabupaten/Kota {{ $data_kabkota }} Provinsi {{ $data_prov }} oleh
+                            di {{ ucwords(strtolower($data_kabkota)) }} Provinsi {{ ucwords(strtolower($data_prov)) }}
+                            oleh
                             {{ $data_skkl->pelaku_usaha_baru }}.</span><br />
                     </p>
                 </td>
@@ -515,7 +570,8 @@
                 <td style="width:65%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>KEPUTUSAN MENTERI LINGKUNGAN HIDUP DAN
                             KEHUTANAN REPUBLIK INDONESIA TENTANG KELAYAKAN LINGKUNGAN HIDUP KEGIATAN
-                            {{ strtoupper($data_skkl->nama_usaha_baru) }} DI {{ $data_kabkota }} PROVINSI {{ $data_prov }}
+                            {{ strtoupper($data_skkl->nama_usaha_baru) }} DI {{ $data_kabkota }} PROVINSI
+                            {{ $data_prov }}
                             OLEH {{ $data_skkl->pelaku_usaha_baru }} </span></p>
                 </td>
             </tr>
@@ -728,7 +784,7 @@
                                             @if ($pertek_skkl[$i]->pertek == 'pertek3')
                                                 <li style="margin-left:50pt; text-align:justify; font-size:12pt">
                                                     <span>
-                                                        Lampiran {{ integerToRoman($roman) }}Persetujuan Teknis Di
+                                                        Lampiran {{ integerToRoman($roman) }} Persetujuan Teknis Di
                                                         Bidang Pengelolaan Limbah B3;
                                                     </span>
                                                 </li>
@@ -878,7 +934,7 @@
                     <p style="text-align:justify; font-size:12pt"><span>Apabila dalam Pelaksanaan Usaha dan/atau
                             Kegiatan timbul dampak lingkungan hidup di luar dari dampak yang dikelola sebagaimana
                             dimaksud dalam Lampiran Keputusan ini, Penanggung Jawab Usaha dan/atau Kegiatan wajib
-                            melaporkan kepada instansi sebagaimana dimaksud dalam Amar KEEMPAT angka 14 (empat belas)
+                            melaporkan kepada instansi sebagaimana dimaksud dalam Diktum KEEMPAT angka 14 (empat belas)
                             paling lama 30 (tiga puluh) hari kerja sejak diketahuinya timbulan dampak Lingkungan Hidup
                             di luar dampak yang wajib dikelola.
                         </span></p>
@@ -906,7 +962,7 @@
                     <p style="text-align:justify; font-size:12pt"><span>:</span></p>
                 </td>
                 <td style="width:65%; padding:0.75pt; vertical-align:top">
-                    <p style="text-align:justify; font-size:12pt"><span>Pengawasan sebagaimana dimaksud dalam Amar
+                    <p style="text-align:justify; font-size:12pt"><span>Pengawasan sebagaimana dimaksud dalam Diktum
                             KETUJUH dilaksanakan sesuai dengan ketentuan peraturan perundang-undangan paling sedikit 2
                             (dua) kali dalam 1 (satu) tahun.
                         </span></p>
@@ -922,7 +978,7 @@
                 </td>
                 <td style="width:65%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>Dalam hal berdasarkan hasil pengawasan
-                            sebagaimana dimaksud dalam Amar KEDELAPAN ditemukan pelanggaran, Penanggung Jawab Usaha
+                            sebagaimana dimaksud dalam Diktum KEDELAPAN ditemukan pelanggaran, Penanggung Jawab Usaha
                             dan/atau Kegiatan dikenakan sanksi sesuai dengan ketentuan peraturan perundang-undangan.
                         </span></p>
                 </td>
@@ -968,7 +1024,7 @@
                 </td>
                 <td style="width:65%; padding:0.75pt; vertical-align:top">
                     <p style="text-align:justify; font-size:12pt"><span>Dalam hal berdasarkan hasil pengawasan,
-                            ditemukan ketidaksesuaian data dan informasi sebagaimana dimaksud dalam Amar KESEBELAS,
+                            ditemukan ketidaksesuaian data dan informasi sebagaimana dimaksud dalam Diktum KESEBELAS,
                             penanggungjawab usaha dan/atau kegiatan dikenakan sanksi sesuai peraturan
                             perundang-undangan.
                         </span></p>
@@ -1021,7 +1077,7 @@
                     <p style="text-align:justify; font-size:12pt"><span>:</span></p>
                 </td>
                 <td style="width:65%; padding:0.75pt; vertical-align:top">
-                    <p style="text-align:justify; font-size:12pt"><span>Keputusan Menteri ini mulai berlaku pada
+                    <p style="text-align:justify; font-size:12pt"><span>Keputusan ini mulai berlaku pada
                             tanggal ditetapkan dan berakhir bersamaan dengan berakhirnya Perizinan Berusaha atau
                             Persetujuan Pemerintah. </span></p>
                 </td>
@@ -1072,11 +1128,11 @@
                                 <span>Gubernur {{ ucwords(strtolower($prov)) }}</span>
                             </li>
                         @endforeach
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Sekretaris Jendral
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Sekretaris Jenderal
                                 Kementerian Lingkungan Hidup dan Kehutanan;</span></li>
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Direktur Jendral
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Direktur Jenderal
                                 Planologi Kehutanan dan Tata Lingkungan;</span></li>
-                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Direktur Jendral
+                        <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Direktur Jenderal
                                 Penegakan Hukum Lingkungan Hidup dan Kehutanan;</span></li>
                         @foreach ($data_skkl->kabupaten_kota as $kabkot)
                             <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>Bupati/Walikota

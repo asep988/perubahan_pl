@@ -76,7 +76,11 @@ class Skkl extends Model
         'pic_pemohon',
         'no_hp_pic',
         'noreg',
-        'note'
+        'note',
+        'count',
+        'rintek2_upload',
+        'rintek3_upload',
+        'rintek4_upload'
     ];
 
     public function il_skkl()
