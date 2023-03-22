@@ -174,7 +174,7 @@
     <div class="float-right">
         <button><a href="{{ route('uklupl.create', $data_pkplh->id) }}">Matriks UKL-UPL</a></button>
     </div>
-    
+
     <div class="modal show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -315,7 +315,7 @@
                                     @endfor
                                 </ol>
                             </li>
-                        @elseif ($data_pkplh->jenis_perubahan = 'perkep2')
+                        @elseif ($data_pkplh->jenis_perubahan == 'perkep2')
                             <li style="margin-left:36pt; text-align:justify; font-size:12pt"><span>bahwa terdapat
                                     perubahan kepemilikan kegiatan {{ $data_pkplh->nama_usaha_baru }} oleh
                                     {{ $data_pkplh->pelaku_usaha_baru }} berdasarkan:

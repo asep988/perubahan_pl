@@ -31,7 +31,7 @@
         <form action="{{ route('sekre.pkplh.update') }}" method="POST">
             @csrf
             @method('PUT')
-            <table id="datatable" class="table table-bordered table-striped" style="table-layout: fixed;">
+            <table id="example" class="table table-bordered table-striped" style="table-layout: fixed;">
                 <thead>
                     <tr class="text-center">
                         <th width="70px">No</th>
@@ -52,7 +52,7 @@
                 </thead>
                 <tfoot>
                     <tr>
-                        <th colspan="12"></th>
+                        <th colspan="13"></th>
                         <th>
                             <button type="submit" class="btn btn-sm btn-success btn-block">Tugaskan</button>
                         </th>
@@ -264,18 +264,32 @@
 
 @push('scripts')
     <script>
+        // $(document).ready(function() {
+        //     $('.sekretariat-list').select2();
+        //     $("#datatable").DataTable({
+        //         "scrollX": true,
+        //         "responsive": false,
+        //         "lengthchange": true,
+        //         "autowidth": true,
+        //         "lengthmenu": [
+        //             [5, 10, 25, 50, -1],
+        //             [5, 10, 25, 50, 'All']
+        //         ]
+        //     });
+        // });
+
         $(document).ready(function() {
-            $('.sekretariat-list').select2();
-            $("#datatable").DataTable({
-                "scrollX": true,
-                "responsive": false,
-                "lengthchange": true,
-                "autowidth": true,
-                "lengthmenu": [
-                    [5, 10, 25, 50, -1],
-                    [5, 10, 25, 50, 'All']
-                ]
+            var table = $('#example').DataTable({
+                autoWidth: false,
+                lengthChange: false,
+                buttons: ['excel', 'colvis']
             });
+
+            new $.fn.dataTable.FixedHeader( table );
+            table.buttons().container()
+            .appendTo('#example_wrapper .col-md-6:eq(0)');
+
+            $('.operator-list').select2();
         });
     </script>
 @endpush

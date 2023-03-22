@@ -65,7 +65,7 @@
         OLEH {{ strtoupper($skkl->pelaku_usaha_baru) }}
 
         <br><br><br>
-        <center>MATRIKS RENCANA PENGELOLAAN LINGKUNGAN HIDUP</center>
+        <center>MATRIKS RENCANA PEMANTAUAN LINGKUNGAN HIDUP</center>
             <table class="solid-table" width="100%" border="1" rules="all" cellpadding="5" cellspacing="0" style="font-size: 7pt;">
                 <thead>
                     <tr>

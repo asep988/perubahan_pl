@@ -31,10 +31,10 @@
         <form action="{{ route('sekre.skkl.update') }}" method="POST">
             @csrf
             @method('PUT')
-            <table id="datatable" class="table table-bordered table-striped" style="table-layout: fixed;">
+            <table id="example" class="table table-bordered table-striped" style="table-layout: fixed;">
                 <thead>
                     <tr class="text-center">
-                        <th width="70px">No</th>
+                        <th>No</th>
                         <th>Nomor Registrasi</th>
                         <th>Tanggal Dibuat</th>
                         <th>Pemrakarsa</th>
@@ -52,7 +52,7 @@
                 </thead>
                 <tfoot>
                     <tr>
-                        <th colspan="12"></th>
+                        <th colspan="13"></th>
                         <th>
                             <button type="submit" class="btn btn-sm btn-success btn-block">Tugaskan</button>
                         </th>
@@ -77,7 +77,7 @@
                                 <!-- status -->
                                 @if ($skkl->status == 'Belum')
                                     <span class="badge badge-secondary">Belum diproses</span>
-                                @elseif ($skkl->status == "Submit")
+                                @elseif ($skkl->status == 'Submit')
                                     <span class="badge badge-info">Sudah Submit</span>
                                 @elseif ($skkl->status == 'Proses')
                                     <span class="badge badge-warning">Proses Validasi</span>
@@ -85,7 +85,7 @@
                                     <span class="badge badge-primary">Selesai Drafting</span>
                                 @elseif ($skkl->status == 'Final')
                                     <span class="badge badge-success">Selesai</span>
-                                @elseif ($skkl->status == "Batal")
+                                @elseif ($skkl->status == 'Batal')
                                     <span class="badge badge-danger" title="{{ $skkl->note }}">Dibatalkan</span>
                                 @else
                                     <span class="badge badge-danger" title="{{ $skkl->note }}">Ditolak</span>
@@ -120,7 +120,8 @@
                             <td>
                                 <div class="btn-group-vertical">
                                     {{-- <a href="{{ route('sekre.skkl.reject', $skkl->id) }}" class="btn btn-sm btn-danger @if ($skkl->status == 'Ditolak') disabled @endif" onclick="return confirm('Yakin ingin menolak pengajuan ini?')">Tolak</a> --}}
-                                    <button type="button" class="btn btn-sm btn-danger" @if ($skkl->status == 'Ditolak') disabled @endif data-toggle="modal"
+                                    <button type="button" class="btn btn-sm btn-danger"
+                                        @if ($skkl->status == 'Ditolak') disabled @endif data-toggle="modal"
                                         data-target="{{ '#tolak' . $skkl->id }}">
                                         Tolak
                                     </button>
@@ -204,25 +205,34 @@
                         <a class="btn btn-success btn-block"
                             href="{{ route('sekretariat.printrpl.download', [$skkl->id]) }}">
                             Unduh Lampiran 1 RPL</a></button>
-                        <a class="btn btn-success btn-block" target="_blank"
-                            href="{{ $skkl->link_drive }}"> Drive</a></button>
+                        <a class="btn btn-success btn-block" target="_blank" href="{{ $skkl->link_drive }}">
+                            Drive</a></button>
 
                         <hr>
                         @if ($skkl->rintek_upload)
-                            <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek_upload) }}">Dokumen Rincian Teknis Penyimpanan Limbah Non-B3</a></button>
+                            <a class="btn btn-success btn-block" target="_blank"
+                                href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek_upload) }}">Dokumen Rincian
+                                Teknis Penyimpanan Limbah Non-B3</a></button>
                         @endif
                         @if ($skkl->rintek2_upload)
-                            <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek2_upload) }}">Dokumen Rincian Teknis Pemanfaatan Limbah Non-B3</a></button>
+                            <a class="btn btn-success btn-block" target="_blank"
+                                href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek2_upload) }}">Dokumen Rincian
+                                Teknis Pemanfaatan Limbah Non-B3</a></button>
                         @endif
                         @if ($skkl->rintek3_upload)
-                            <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek3_upload) }}">Dokumen Rincian Teknis Penimbunan Limbah Non-B3</a></button>
+                            <a class="btn btn-success btn-block" target="_blank"
+                                href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek3_upload) }}">Dokumen Rincian
+                                Teknis Penimbunan Limbah Non-B3</a></button>
                         @endif
                         @if ($skkl->rintek4_upload)
-                            <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek4_upload) }}">Dokumen Rincian Teknis Pengurangan Limbah Non-B3</a></button>
+                            <a class="btn btn-success btn-block" target="_blank"
+                                href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek4_upload) }}">Dokumen Rincian
+                                Teknis Pengurangan Limbah Non-B3</a></button>
                         @endif
                         @if ($skkl->rintek_limbah_upload)
                             <a class="btn btn-success btn-block" target="_blank"
-                                href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek_limbah_upload) }}">Dokumen Rincian Teknis Penyimpanan Limbah B3</a></button>
+                                href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek_limbah_upload) }}">Dokumen
+                                Rincian Teknis Penyimpanan Limbah B3</a></button>
                         @endif
 
                         <hr>
@@ -232,34 +242,43 @@
                         <?php $i = 3; ?>
                         @if ($skkl->jenis_perubahan != 'perkep1' && $skkl->pertek[0] != null)
                             @foreach ($skkl->pertek as $pertek)
-                            @csrf
-                                @if ($pertek == "pertek5")
+                                @csrf
+                                @if ($pertek == 'pertek5')
                                     @foreach ($pertek_skkl as $row)
                                         @if ($row->id_skkl == $skkl->id)
-                                            @if ($row->pertek == "pertek5")
-                                                <form action="{{ route('sekretariat.download.rintek', $skkl->id) }}" method="GET">
-                                                    <input type="text" name="pertek" value="{{ $pertek }}" hidden>
-                                                    <input type="text" name="nomor" value="{{ $i }}" hidden>
-                                                    <input type="text" name="jenis" value="{{ $row->surat_pertek }}" hidden>
-                                                    <button type="submit" class="btn btn-primary btn-block mb-2">Unduh lampiran {{ integerToRoman($i) }}</button>
+                                            @if ($row->pertek == 'pertek5')
+                                                <form action="{{ route('sekretariat.download.rintek', $skkl->id) }}"
+                                                    method="GET">
+                                                    <input type="text" name="pertek" value="{{ $pertek }}"
+                                                        hidden>
+                                                    <input type="text" name="nomor" value="{{ $i }}"
+                                                        hidden>
+                                                    <input type="text" name="jenis"
+                                                        value="{{ $row->surat_pertek }}" hidden>
+                                                    <button type="submit" class="btn btn-primary btn-block mb-2">Unduh
+                                                        lampiran {{ integerToRoman($i) }}</button>
                                                     <?php $i++; ?>
                                                 </form>
                                             @endif
                                         @endif
                                     @endforeach
                                 @else
-                                <form @if ($pertek == "pertek6") action="{{ route('sekretariat.download.rintek', $skkl->id) }}" @else action="{{ route('sekretariat.download.pertek', $skkl->id) }}" @endif method="GET">
-                                    <input type="text" name="pertek" value="{{ $pertek }}" hidden>
-                                    <input type="text" name="nomor" value="{{ $i }}" hidden>
-                                    <button type="submit" class="btn btn-primary btn-block mb-2">Unduh lampiran {{ integerToRoman($i) }}</button>
-                                    <?php $i++; ?>
-                                </form>
+                                    <form
+                                        @if ($pertek == 'pertek6') action="{{ route('sekretariat.download.rintek', $skkl->id) }}" @else action="{{ route('sekretariat.download.pertek', $skkl->id) }}" @endif
+                                        method="GET">
+                                        <input type="text" name="pertek" value="{{ $pertek }}" hidden>
+                                        <input type="text" name="nomor" value="{{ $i }}" hidden>
+                                        <button type="submit" class="btn btn-primary btn-block mb-2">Unduh lampiran
+                                            {{ integerToRoman($i) }}</button>
+                                        <?php $i++; ?>
+                                    </form>
                                 @endif
                             @endforeach
                         @endif
 
                         <hr>
-                        <a class="btn btn-success btn-block" target="_blank" href="{{ route('skkl.sekretariat.chat', $skkl->id) }}">Chat dengan Pemrakarsa</a>
+                        <a class="btn btn-success btn-block" target="_blank"
+                            href="{{ route('skkl.sekretariat.chat', $skkl->id) }}">Chat dengan Pemrakarsa</a>
                         <a class="btn btn-warning btn-block"
                             href="{{ route('sekretariat.skkl.preview', [$skkl->id]) }}">Preview
                             PL</a></button>
@@ -272,18 +291,36 @@
 
 @push('scripts')
     <script>
+        // $(document).ready(function() {
+        //     $('.operator-list').select2();
+        //     $("#datatable").DataTable({
+        //         "scrollX": true,
+        //         "autoWidth": true,
+        //         "responsive": false,
+        //         "lengthChange": true,
+        //         "lengthmenu": [
+        //             [5, 10, 25, 50, -1],
+        //             [5, 10, 25, 50, 'All']
+        //         ]
+        //         dom: 'Bfrtip',
+        //         buttons: [
+        //             'copy', 'csv', 'excel', 'pdf', 'print'
+        //         ]
+        //     });
+        // });
+
         $(document).ready(function() {
-            $('.operator-list').select2();
-            $("#datatable").DataTable({
-                "scrollX": true,
-                "autoWidth": true,
-                "responsive": false,
-                "lengthChange": true,
-                "lengthmenu": [
-                    [5, 10, 25, 50, -1],
-                    [5, 10, 25, 50, 'All']
-                ]
+            var table = $('#example').DataTable({
+                autoWidth: false,
+                lengthChange: false,
+                buttons: ['excel', 'colvis']
             });
+
+            new $.fn.dataTable.FixedHeader( table );
+            table.buttons().container()
+            .appendTo('#example_wrapper .col-md-6:eq(0)');
+
+            $('.operator-list').select2();
         });
     </script>
 @endpush

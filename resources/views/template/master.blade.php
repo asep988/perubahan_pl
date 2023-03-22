@@ -9,18 +9,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Scripts (Disini)-->
-    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
-
-    <!-- Fonts -->
-    {{-- <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
-
-    {{-- <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
-
     <title>SKKL & PKPLH</title>
 
     <!-- link bootstrap&datapicker -->
@@ -28,14 +16,21 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.css') }}">
     <!-- datatable -->
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css"/> --}}
-    <link rel="stylesheet" href="{{ asset('css/jquery.datatables.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/jquery.datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsive.datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/cloudflare.twitter-bootstrap.css') }}">
-
     <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.css') }}"> --}}
+
+    {{-- datatable-new --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.bootstrap4.min.css">
+    {{-- datatable responsive --}}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.3.2/css/fixedHeader.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap.min.css">
+
 
     <!-- jquery&datapicker -->
     <script src="{{ asset('js/jquery.js') }}"></script>
