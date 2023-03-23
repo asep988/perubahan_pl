@@ -38,7 +38,7 @@
                         <th>Nomor Registrasi</th>
                         <th>Tanggal Dibuat</th>
                         <th>Pemrakarsa</th>
-                        <th>Nama Usaha/ Kegiatan</th>
+                        <th width="120px">Nama Usaha/ Kegiatan</th>
                         <th>Status</th>
                         <th>PIC</th>
                         <th>Nama PJM</th>
@@ -280,8 +280,9 @@
 
         $(document).ready(function() {
             var table = $('#example').DataTable({
-                autoWidth: false,
-                lengthChange: false,
+                autoWidth: true,
+                lengthChange: true,
+                scrollX: true,
                 buttons: ['excel', 'colvis']
             });
 

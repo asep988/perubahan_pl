@@ -34,11 +34,11 @@
             <table id="example" class="table table-bordered table-striped" style="table-layout: fixed;">
                 <thead>
                     <tr class="text-center">
-                        <th>No</th>
+                        <th width="30px">No</th>
                         <th>Nomor Registrasi</th>
                         <th>Tanggal Dibuat</th>
                         <th>Pemrakarsa</th>
-                        <th>Nama Usaha/ Kegiatan</th>
+                        <th width="120px">Nama Usaha/ Kegiatan</th>
                         <th>Status</th>
                         <th>PIC</th>
                         <th>Nama PJM</th>
@@ -47,7 +47,7 @@
                         <th>Tanggal Verif PTSP</th>
                         <th>Permohonan Dari Pemrakarsa</th>
                         <th>Aksi</th>
-                        <th width="120px">Penugasan</th>
+                        <th>Penugasan</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -311,8 +311,9 @@
 
         $(document).ready(function() {
             var table = $('#example').DataTable({
-                autoWidth: false,
-                lengthChange: false,
+                autoWidth: true,
+                lengthChange: true,
+                scrollX: true,
                 buttons: ['excel', 'colvis']
             });
 
