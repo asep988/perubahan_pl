@@ -209,7 +209,8 @@
                                 <span><br> 1. Izin Lingkungan, SKKL, PKPLH, Persetujuan DELH, Persetujuan DELH</span>
                                 <span><br> 2. Dokumen Amdal, UKL-UPL, DELH, atau DPLH yang dimiliki</span>
                                 <span><br> 3. Berita Acara Validasi dari PTSP</span>
-                                <span><br> 4. NIB beserta lampirannya (KBLI dan lokasi usaha kegiatan sesuai dengan usaha/kegiatan yg diajukan
+                                <span><br> 4. NIB beserta lampirannya (KBLI dan lokasi usaha kegiatan sesuai dengan
+                                    usaha/kegiatan yg diajukan
                                     perubahan PL-nya harus termuat di dalam dokumen NIB)</span>
                                 <span><br> 5. Akta Notaris Perubahan Kepemikan</span>
                                 <span><br> 6. RKL-RPL dalam Bentuk Word</span>
@@ -224,7 +225,8 @@
                                 name="link_drive" placeholder="Link Google Drive" required>
                         </div>
                         <div class="col-sm-2 ml-0">
-                            <button type="button" class="btn btn-warning" id="btn-detail"><i class="fa fa-info fa-sm"></i>&nbsp; Detail</button>
+                            <button type="button" class="btn btn-warning" id="btn-detail"><i
+                                    class="fa fa-info fa-sm"></i>&nbsp; Detail</button>
                         </div>
                     </div>
 
@@ -278,7 +280,8 @@
                     <div class="form-group row">
                         <label for="tgl_pl" class="col-sm-2 col-form-label">Tanggal</label>
                         <div class="col-sm-3">
-                            <input class="form-control" type="date" id="tgl_pl" name="tgl_pl" placeholder="yyyy/mm/dd" required>
+                            <input class="form-control" type="date" id="tgl_pl" name="tgl_pl"
+                                placeholder="yyyy/mm/dd" required>
                         </div>
                     </div>
 
@@ -302,16 +305,20 @@
                         <label for="nomor_validasi" class="col-sm-2 col-form-label">Nomor Bukti Validasi Administrasi
                             PTSP</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" aria-label="nomor_validasi" id="nomor_validasi" name="nomor_validasi" required>
-                            <small class="text-muted">Silakan isi dengan tanda "<b>-</b>" jika belum ada, dan perbarui kembali data jika sudah diproses di PTSP</small>
+                            <input type="text" class="form-control" aria-label="nomor_validasi" id="nomor_validasi"
+                                name="nomor_validasi" required>
+                            <small class="text-muted">Silakan isi dengan tanda "<b>-</b>" jika belum ada, dan perbarui
+                                kembali data jika sudah diproses di PTSP</small>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="tgl_validasi" class="col-sm-2 col-form-label">Tanggal Validasi</label>
                         <div class="col-sm-3">
-                            <input class="form-control" type="date" id="tgl_validasi" name="tgl_validasi" placeholder="yyyy/mm/dd" required>
-                            <small class="text-muted">Jika belum ada, silakan isi dengan tanggal hari ini dan perbarui kembali data jika sudah diproses di PTSP</small>
+                            <input class="form-control" type="date" id="tgl_validasi" name="tgl_validasi"
+                                placeholder="yyyy/mm/dd" required>
+                            <small class="text-muted">Jika belum ada, silakan isi dengan tanggal hari ini dan perbarui
+                                kembali data jika sudah diproses di PTSP</small>
                         </div>
                     </div>
 
@@ -342,7 +349,8 @@
                                 <tbody class="table-input1">
                                     <tr id="1Claster1">
                                         <td>
-                                            <input type="text" name="jenis_peraturan[]" class="form-control" placeholder="Surat/Akta Notaris/SK">
+                                            <input type="text" name="jenis_peraturan[]" class="form-control"
+                                                placeholder="Surat/Akta Notaris/SK">
                                         </td>
                                         <td>
                                             <input type="text" name="pejabat_daerah[]" class="form-control">
@@ -354,7 +362,8 @@
                                             <textarea class="form-control" name="perihal_peraturan[]" rows="2"></textarea>
                                         </td>
                                         <td class="text-center">
-                                            <button type="button" id="1" class="btn remove-btn1 btn-sm btn-danger">
+                                            <button type="button" id="1"
+                                                class="btn remove-btn1 btn-sm btn-danger">
                                                 <i class="fas fa-minus fa-sm"></i>
                                             </button>
                                         </td>
@@ -437,17 +446,18 @@
                 <hr>
                 <label>
                     <b>Sebutkan Ruang Lingkup (sebutkan ruang lingkup usaha dan/kegiatan yang akan di muat di dalam SK)</b>
-                    <button type="button" class="ml-2 btn btn-sm btn-warning" id="btn-detail-rl"><i class="fa fa-info fa-sm"></i>&nbsp; Detail</button>
+                    <button type="button" class="ml-2 btn btn-sm btn-warning" id="btn-detail-rl"><i
+                            class="fa fa-info fa-sm"></i>&nbsp; Detail</button>
                 </label>
                 <div class="form-group row">
                     <div style="display: none" class="alert alert-warning ml-2" role="alert" id="detail-rl">
                         <span>Muatan Ruang Lingkup antara lain mencakup:</span>
-                    <span><br> 1. Informasi Skala/besaran, seperti: luas / panjang</span>
-                    <span><br> 2. Data / tabel koordinat</span>
-                    <span><br> 3. Kapasitas / jenis usaha / kegiatan</span>
-                    <span><br> 4. Sumber energi listrik dan air (jika ada)</span>
-                    <span><br> 5. Limbah yang dihasilkan serta jenis pengelolaan (Jika ada)</span>
-                    <span><br> 6. Masukkan Tabel Koordinat Lokasi</span>
+                        <span><br>1. Koordinat tapak</span>
+                        <span><br>2. Penggunaan lahan luas / besaran dan tabel koordinat</span>
+                        <span><br>3. Fasilitas / alat dan jumlah</span>
+                        <span><br>4. Kebutuhan air bersih (water treatment plant)</span>
+                        <span><br>5. Sumber energi listrik (jumlah daya dan genset yang digunakan (jika pakai))</span>
+                        <span><br>6. Bahan baku dan bahan penolong (jika ada)</span>
                     </div>
                     <div class="col-sm-8">
                         <textarea class="form-control" id="mytextarea" aria-label="editor" name="ruang_lingkup"></textarea>
@@ -510,13 +520,16 @@
                                             <input type="text" id="name_pertek1" value="pertek1" hidden>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" id="surat_pertek1" placeholder="Surat Persetujuan Teknis">
+                                            <input type="text" class="form-control" id="surat_pertek1"
+                                                placeholder="Surat Persetujuan Teknis">
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" id="nomor_pertek1" placeholder="Nomor Persetujuan Teknis">
+                                            <input type="text" class="form-control" id="nomor_pertek1"
+                                                placeholder="Nomor Persetujuan Teknis">
                                         </td>
                                         <td>
-                                            <input type="date" class="form-control" id="tgl_pertek1" placeholder="Tanggal Persetujuan Teknis">
+                                            <input type="date" class="form-control" id="tgl_pertek1"
+                                                placeholder="Tanggal Persetujuan Teknis">
                                         </td>
                                         <td>
                                             <textarea class="form-control" id="perihal_pertek1" rows="2"></textarea>
@@ -558,13 +571,16 @@
                                             <input type="text" id="name_pertek2" value="pertek2" hidden>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" id="surat_pertek2" placeholder="Surat Persetujuan Teknis">
+                                            <input type="text" class="form-control" id="surat_pertek2"
+                                                placeholder="Surat Persetujuan Teknis">
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" id="nomor_pertek2" placeholder="Nomor Persetujuan Teknis">
+                                            <input type="text" class="form-control" id="nomor_pertek2"
+                                                placeholder="Nomor Persetujuan Teknis">
                                         </td>
                                         <td>
-                                            <input type="date" class="form-control" id="tgl_pertek2" placeholder="Tanggal Persetujuan Teknis">
+                                            <input type="date" class="form-control" id="tgl_pertek2"
+                                                placeholder="Tanggal Persetujuan Teknis">
                                         </td>
                                         <td>
                                             <textarea class="form-control" id="perihal_pertek2" rows="2"></textarea>
@@ -606,13 +622,16 @@
                                             <input type="text" id="name_pertek3" value="pertek3" hidden>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" id="surat_pertek3" placeholder="Surat Persetujuan Teknis">
+                                            <input type="text" class="form-control" id="surat_pertek3"
+                                                placeholder="Surat Persetujuan Teknis">
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" id="nomor_pertek3" placeholder="Nomor Persetujuan Teknis">
+                                            <input type="text" class="form-control" id="nomor_pertek3"
+                                                placeholder="Nomor Persetujuan Teknis">
                                         </td>
                                         <td>
-                                            <input type="date" class="form-control" id="tgl_pertek3" placeholder="Tanggal Persetujuan Teknis">
+                                            <input type="date" class="form-control" id="tgl_pertek3"
+                                                placeholder="Tanggal Persetujuan Teknis">
                                         </td>
                                         <td>
                                             <textarea class="form-control" id="perihal_pertek3" rows="2"></textarea>
@@ -654,13 +673,16 @@
                                             <input type="text" id="name_pertek4" value="pertek4" hidden>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" id="surat_pertek4" placeholder="Surat Persetujuan Teknis">
+                                            <input type="text" class="form-control" id="surat_pertek4"
+                                                placeholder="Surat Persetujuan Teknis">
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" id="nomor_pertek4" placeholder="Nomor Persetujuan Teknis">
+                                            <input type="text" class="form-control" id="nomor_pertek4"
+                                                placeholder="Nomor Persetujuan Teknis">
                                         </td>
                                         <td>
-                                            <input type="date" class="form-control" id="tgl_pertek4" placeholder="Tanggal Persetujuan Teknis">
+                                            <input type="date" class="form-control" id="tgl_pertek4"
+                                                placeholder="Tanggal Persetujuan Teknis">
                                         </td>
                                         <td>
                                             <textarea class="form-control" id="perihal_pertek4" rows="2"></textarea>
@@ -684,15 +706,18 @@
                     {{-- pertek 5 --}}
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="pertek5">
-                        <label class="custom-control-label" for="pertek5">Dokumen Rincian Teknis Pengelolaan Limbah Non B3</label>
+                        <label class="custom-control-label" for="pertek5">Dokumen Rincian Teknis Pengelolaan Limbah Non
+                            B3</label>
                     </div>
 
                     <div class="mb-3" id="rintek" style="display: none">
                         <div class="form-group row">
 
                             <div class="custom-control custom-checkbox ml-5">
-                                <input type="checkbox" class="custom-control-input" id="rintek1" name="surat_pertek[]" value="Penyimpanan">
-                                <label class="custom-control-label" for="rintek1">Dokumen Rincian Teknis Pengelolaan Limbah Non-B3 untuk Kegiatan Penyimpanan</label>
+                                <input type="checkbox" class="custom-control-input" id="rintek1" name="surat_pertek[]"
+                                    value="Penyimpanan">
+                                <label class="custom-control-label" for="rintek1">Dokumen Rincian Teknis Pengelolaan
+                                    Limbah Non-B3 untuk Kegiatan Penyimpanan</label>
                             </div>
 
                             <div class="input-group mt-1 ml-5">
@@ -703,7 +728,10 @@
                                             <span class="input-group-text" id="rintek_upload1">Upload</span>
                                         </div>
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input @error('rintek_upload1') is-invalid @enderror" id="rintek_upload1" name="rintek_upload1" aria-describedby="rintek_upload1">
+                                            <input type="file"
+                                                class="custom-file-input @error('rintek_upload1') is-invalid @enderror"
+                                                id="rintek_upload1" name="rintek_upload1"
+                                                aria-describedby="rintek_upload1">
                                             <label class="custom-file-label" for="rintek_upload1">Choose file</label>
                                         </div>
                                     </div>
@@ -712,8 +740,10 @@
                             </div>
 
                             <div class="custom-control custom-checkbox ml-5 mt-3">
-                                <input type="checkbox" class="custom-control-input" id="rintek2" name="surat_pertek[]" value="Pemanfaatan">
-                                <label class="custom-control-label" for="rintek2">Dokumen Rincian Teknis Pengelolaan Limbah Non-B3 untuk Kegiatan Pemanfaatan</label>
+                                <input type="checkbox" class="custom-control-input" id="rintek2" name="surat_pertek[]"
+                                    value="Pemanfaatan">
+                                <label class="custom-control-label" for="rintek2">Dokumen Rincian Teknis Pengelolaan
+                                    Limbah Non-B3 untuk Kegiatan Pemanfaatan</label>
                             </div>
                             <div class="input-group mt-1 ml-5">
                                 <div id="rintek2_form" style="display: none;">
@@ -723,7 +753,10 @@
                                             <span class="input-group-text" id="rintek_upload2">Upload</span>
                                         </div>
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input @error('rintek_upload2') is-invalid @enderror" id="rintek_upload2" name="rintek_upload2" aria-describedby="rintek_upload2">
+                                            <input type="file"
+                                                class="custom-file-input @error('rintek_upload2') is-invalid @enderror"
+                                                id="rintek_upload2" name="rintek_upload2"
+                                                aria-describedby="rintek_upload2">
                                             <label class="custom-file-label" for="rintek_upload2">Choose file</label>
                                         </div>
                                     </div>
@@ -732,8 +765,10 @@
                             </div>
 
                             <div class="custom-control custom-checkbox ml-5 mt-3">
-                                <input type="checkbox" class="custom-control-input" id="rintek3" name="surat_pertek[]" value="Penimbunan">
-                                <label class="custom-control-label" for="rintek3">Dokumen Rincian Teknis Pengelolaan Limbah Non-B3 untuk Kegiatan Penimbunan</label>
+                                <input type="checkbox" class="custom-control-input" id="rintek3" name="surat_pertek[]"
+                                    value="Penimbunan">
+                                <label class="custom-control-label" for="rintek3">Dokumen Rincian Teknis Pengelolaan
+                                    Limbah Non-B3 untuk Kegiatan Penimbunan</label>
                             </div>
                             <div class="input-group mt-1 ml-5">
                                 <div id="rintek3_form" style="display: none">
@@ -743,7 +778,10 @@
                                             <span class="input-group-text" id="rintek_upload3">Upload</span>
                                         </div>
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input @error('rintek_upload3') is-invalid @enderror" id="rintek_upload3" name="rintek_upload3" aria-describedby="rintek_upload3">
+                                            <input type="file"
+                                                class="custom-file-input @error('rintek_upload3') is-invalid @enderror"
+                                                id="rintek_upload3" name="rintek_upload3"
+                                                aria-describedby="rintek_upload3">
                                             <label class="custom-file-label" for="rintek_upload3">Choose file</label>
                                         </div>
                                     </div>
@@ -752,8 +790,10 @@
                             </div>
 
                             <div class="custom-control custom-checkbox ml-5 mt-3">
-                                <input type="checkbox" class="custom-control-input" id="rintek4" name="surat_pertek[]" value="Pengurangan">
-                                <label class="custom-control-label" for="rintek4">Dokumen Rincian Teknis Pengelolaan Limbah Non-B3 untuk Kegiatan Pengurangan</label>
+                                <input type="checkbox" class="custom-control-input" id="rintek4" name="surat_pertek[]"
+                                    value="Pengurangan">
+                                <label class="custom-control-label" for="rintek4">Dokumen Rincian Teknis Pengelolaan
+                                    Limbah Non-B3 untuk Kegiatan Pengurangan</label>
                             </div>
                             <div class="input-group mt-1 ml-5">
                                 <div id="rintek4_form" style="display: none">
@@ -763,7 +803,10 @@
                                             <span class="input-group-text" id="rintek_upload4">Upload</span>
                                         </div>
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input @error('rintek_upload4') is-invalid @enderror" id="rintek_upload4" name="rintek_upload4" aria-describedby="rintek_upload4">
+                                            <input type="file"
+                                                class="custom-file-input @error('rintek_upload4') is-invalid @enderror"
+                                                id="rintek_upload4" name="rintek_upload4"
+                                                aria-describedby="rintek_upload4">
                                             <label class="custom-file-label" for="rintek_upload4">Choose file</label>
                                         </div>
                                     </div>
@@ -775,7 +818,8 @@
                     </div>
 
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek6" id="pertek6">
+                        <input type="checkbox" class="custom-control-input" name="pertek[]" value="pertek6"
+                            id="pertek6">
                         <label class="custom-control-label" for="pertek6">Rincian Teknis Penyimpanan Limbah B3</label>
                     </div>
 
@@ -786,7 +830,10 @@
                                     diperlukan</span>
                             </div>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input @error('rintek_limbah_upload') is-invalid @enderror" id="rintek_limbah_upload" name="rintek_limbah_upload" aria-describedby="rintek_limbah_upload">
+                                <input type="file"
+                                    class="custom-file-input @error('rintek_limbah_upload') is-invalid @enderror"
+                                    id="rintek_limbah_upload" name="rintek_limbah_upload"
+                                    aria-describedby="rintek_limbah_upload">
                                 <label class="custom-file-label" for="rintek_limbah_upload">Choose file</label>
                             </div>
                         </div>

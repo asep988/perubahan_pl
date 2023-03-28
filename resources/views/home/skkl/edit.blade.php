@@ -545,12 +545,12 @@
                 <div class="form-group row">
                     <div style="display: none" class="alert alert-warning ml-2" role="alert" id="detail-rl">
                         <span>Muatan Ruang Lingkup antara lain mencakup:</span>
-                        <span><br> 1. Informasi Skala/besaran, seperti: luas / panjang</span>
-                        <span><br> 2. Data / tabel koordinat</span>
-                        <span><br> 3. Kapasitas / jenis usaha / kegiatan</span>
-                        <span><br> 4. Sumber energi listrik dan air (jika ada)</span>
-                        <span><br> 5. Limbah yang dihasilkan serta jenis pengelolaan (Jika ada)</span>
-                        <span><br> 6. Masukkan Tabel Koordinat Lokasi</span>
+                        <span><br>1. Koordinat tapak</span>
+                        <span><br>2. Penggunaan lahan luas / besaran dan tabel koordinat</span>
+                        <span><br>3. Fasilitas / alat dan jumlah</span>
+                        <span><br>4. Kebutuhan air bersih (water treatment plant)</span>
+                        <span><br>5. Sumber energi listrik (jumlah daya dan genset yang digunakan (jika pakai))</span>
+                        <span><br>6. Bahan baku dan bahan penolong (jika ada)</span>
                     </div>
                     <div class="col-sm-8">
                         <textarea class="form-control" id="mytextarea" aria-label="editor" name="ruang_lingkup">{!! $skkl->ruang_lingkup !!}</textarea>
@@ -1372,7 +1372,7 @@
                     $('#rintek4_form').hide();
                     $('#rintek4_data').removeAttr('name')
                 }
-            }); 
+            });
 
             $('#add-kbli').click(function() {
                 k++
