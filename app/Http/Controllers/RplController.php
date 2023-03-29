@@ -14,7 +14,7 @@ class RplController extends Controller
     public function create($id) //Pemrakarsa
     {
 		$id_skkl = $id;
-		$data_rpl = rpl::where('id_skkl', $id)->orderBy('tahap_kegiatan')->orderBy('id', 'asc')->get();
+		$data_rpl = rpl::where('id_skkl', $id)->orderBy('id', 'asc')->orderBy('tahap_kegiatan', 'asc')->groupBy('tahap_kegiatan', 'id')->get();
 
         return view('home.rpl.index', compact('data_rpl', 'id_skkl'));
     }
