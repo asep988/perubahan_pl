@@ -211,7 +211,7 @@
                                 <span><br> 4. NIB beserta lampirannya (KBLI dan lokasi usaha kegiatan sesuai dengan
                                     usaha/kegiatan yg diajukan perubahan PL-nya harus termuat di dalam dokumen NIB)</span>
                                 <span><br> 5. Akta Notaris Perubahan Kepemikan</span>
-                                <span><br> 6. RKL-RPL dalam Bentuk Word</span>
+                                <span><br> 6. UKL-UPL dalam Bentuk Word</span>
                                 <span><br> 7. Izin PPLH atau Persetujuan Teknis (Pembuangan Air Limbah, Emisi, Persetujuan
                                     Andalalin) yang telah dimiliki</span>
                                 <span><br> 8. Rincian Teknis Penyimpanan Limbah B3 dalam bentuk Word</span>

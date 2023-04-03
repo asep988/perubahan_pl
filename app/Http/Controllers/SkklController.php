@@ -193,7 +193,7 @@ class SkklController extends Controller
 		}
 		#endregion
 
-		$hash = hash_hmac('sha256', $request->nama_usaha_baru . rand(0,100), 'SKKL');
+		$hash = hash_hmac('sha256', $request->nama_usaha_baru . time(), 'SKKL');
 		$regist = "A" . substr($hash, 0, 14);
 
 		DB::beginTransaction();

@@ -193,7 +193,7 @@ class PkplhController extends Controller
 		}
 		#endregion
 
-        $hash = hash_hmac('sha256', $request->nama_usaha_baru . rand(0,100), 'PKPLH');
+        $hash = hash_hmac('sha256', $request->nama_usaha_baru . time(), 'PKPLH');
 		$regist = "B" . substr($hash, 0, 14);
 
 		DB::beginTransaction();
