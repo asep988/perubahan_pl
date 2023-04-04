@@ -11,7 +11,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 <li>
-                    <h4><b>Permohonan Persetujuan Lingkungan (PKPLH)</b></h4>
+                    <h4><b>Permohonan Perubahan Persetujuan Lingkungan (PKPLH)</b></h4>
                 </li>
             </ul>
 
