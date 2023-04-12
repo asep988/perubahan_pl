@@ -9,6 +9,8 @@ use App\User;
 use App\Pertek_skkl;
 use App\Pertek_pkplh;
 use Carbon\Carbon;
+use Yajra\DataTables\Contracts\DataTable;
+use Yajra\DataTables\Facades\DataTables;
 
 class SekretariatController extends Controller
 {
@@ -32,6 +34,296 @@ class SekretariatController extends Controller
         ->orderBy('pertek_skkl.id', 'asc')->get();
 
         return view('sekretariat.skkl.index', compact('data_skkl', 'operators', 'pemrakarsa', 'pertek_skkl'));
+    }
+
+    public function datatableSkkl()
+    {
+        $limit = request('length');
+        $start = request('start');
+        $search = request('search');
+        $total = Skkl::get();
+        
+        $operators = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
+		->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
+		->where('feasibility_test_teams.authority', 'Pusat')
+		->select('users.name')
+        ->orderBy('users.name', 'ASC')
+		->get();
+
+        $operator = '';
+        foreach ($operators as $row) {
+            $operator .= '<option value="'.$row->name.'">'.$row->name.'</option>';
+        }
+        
+        $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
+        ->where('initiators.user_type', 'Pemrakarsa')
+        ->orWhere('initiators.user_type', 'Pemerintah')
+        ->select('users.id', 'users.name', 'users.email')
+        ->get();
+
+        $data = Skkl::select(
+            'id',
+            'noreg',
+            'created_at',
+            'user_id',
+            'nama_usaha_baru',
+            'status',
+            'pic_pemohon',
+            'no_hp_pic',
+            'nama_operator',
+            'jenis_perubahan',
+            'nomor_validasi',
+            'tgl_validasi',
+            'perihal',
+            'tgl_rpd',
+            'count',
+            'pelaku_usaha',
+            'note',
+            'pertek',
+        );
+
+        if ($search['value'] != '') {
+            $data->where('id', 'like', '%' . $search['value'] . '%')
+            ->orWhere('noreg', 'like', '%' . $search['value'] . '%')
+            ->orWhere('nama_usaha_baru', 'like', '%' . $search['value'] . '%')
+            ->orWhere('status', 'like', '%' . $search['value'] . '%')
+            ->orWhere('pic_pemohon', 'like', '%' . $search['value'] . '%')
+            ->orWhere('no_hp_pic', 'like', '%' . $search['value'] . '%')
+            ->orWhere('nama_operator', 'like', '%' . $search['value'] . '%')
+            ->orWhere('nomor_validasi', 'like', '%' . $search['value'] . '%')
+            ->orWhere('tgl_validasi', 'like', '%' . $search['value'] . '%')
+            ->orWhere('perihal', 'like', '%' . $search['value'] . '%')
+            ->orWhere('pelaku_usaha', 'like', '%' . $search['value'] . '%');
+        }
+
+        $data = $data->orderBy('tgl_validasi', 'ASC')->skip($start)->take($limit)->get();
+
+        for ($i=0; $i < count($data); $i++) { 
+            $data[$i]->count = $start + $i + 1;
+            if ($data[$i]->status == "Belum") {
+                $status = '<span class="badge badge-secondary">Belum diproses</span>';
+            } elseif ($data[$i]->status == "Submit") {
+                $status = '<span class="badge badge-info">Sudah Submit</span>';
+            } elseif ($data[$i]->status == "Proses") {
+                $status = '<span class="badge badge-warning">Proses Validasi</span>';
+            } elseif ($data[$i]->status == "Draft") {
+                $status = '<span class="badge badge-primary">Selesai Drafting</span>';
+            } elseif ($data[$i]->status == "Final") {
+                $status = '<span class="badge badge-success">Selesai</span>';
+            } elseif ($data[$i]->status == "Batal") {
+                $status = '<span class="badge badge-danger" title="{{ $skkl->note }}">Dibatalkan</span>';
+            } else {
+                $status = '<span class="badge badge-danger" title="{{ $skkl->note }}">Ditolak</span>';
+            }
+            $data[$i]->status = $status;
+
+            foreach ($pemrakarsa as $user) {
+                if ($data[$i]->user_id == $user->id) {
+                    $data[$i]->pelaku_usaha = $user->name;
+                }
+            }
+
+            $pic = $data[$i]->pic_pemohon . '<br>' . $data[$i]->no_hp_pic;
+            $data[$i]->pic_pemohon = $pic;
+
+            if ($data[$i]->nama_operator == null) {
+                $data[$i]->nama_operator = '-';
+            }
+
+            if ($data[$i]->jenis_perubahan == 'perkep1') {
+                $perkep = 'Perubahan Kepemilikkan';
+            } elseif ($data[$i]->jenis_perubahan == 'perkep2') {
+                $perkep = 'Perubahan Kepemilikkan dan Integrasi Pertek/Rintek';
+            } elseif ($data[$i]->jenis_perubahan == 'perkep3') {
+                $perkep = 'Integrasi Pertek/Rintek';
+            }
+            $data[$i]->jenis_perubahan = $perkep;
+
+            $disable = '';
+            if ($data[$i]->status == "Ditolak") {
+                $disable = 'disabled';
+            }
+
+            $data[$i]->note = '<div class="btn-group-vertical">
+                                    <button type="button" class="btn btn-sm btn-danger"
+                                        '. $disable .' data-toggle="modal"
+                                        data-target="#tolak'.$data[$i]->id.'">
+                                        Tolak
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                        data-target="#aksiModal'. $data[$i]->id .'">
+                                        Pilih
+                                    </button>
+                                </div>';
+
+            $data[$i]->pertek = '<select class="operator-list" style="width: 100%" name="operator_name[]">
+                                    <option value="-">Pilih</option>' . $operator .
+                                '</select>
+                                <input type="text" name="id[]" value="'. $data[$i]->id .'" hidden>
+                                <script>
+                                    $(document).ready(function() {
+                                        $(".operator-list").select2();
+                                    });
+                                </script>';
+
+            $tgl = $data[$i]->created_at->format('d-m-Y, H:i:s');
+            $data[$i]->tgl_rpd = $tgl;
+        }
+
+        return response()->json([
+            "draw" => intval(request('draw')),
+            "recordsTotal" => intval($total->count()),
+            "recordsFiltered" => intval($total->count()),
+            "data" => $data
+        ]);
+    }
+
+    public function datatablePkplh()
+    {
+        $limit = request('length');
+        $start = request('start');
+        $search = request('search');
+        $total = Pkplh::get();
+        
+        $operators = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
+		->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
+		->where('feasibility_test_teams.authority', 'Pusat')
+		->select('users.name')
+        ->orderBy('users.name', 'ASC')
+		->get();
+
+        $operator = '';
+        foreach ($operators as $row) {
+            $operator .= '<option value="'.$row->name.'">'.$row->name.'</option>';
+        }
+        
+        $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
+        ->where('initiators.user_type', 'Pemrakarsa')
+        ->orWhere('initiators.user_type', 'Pemerintah')
+        ->select('users.id', 'users.name', 'users.email')
+        ->get();
+
+        $data = Pkplh::select(
+            'id',
+            'noreg',
+            'created_at',
+            'user_id',
+            'nama_usaha_baru',
+            'status',
+            'pic_pemohon',
+            'no_hp_pic',
+            'nama_operator',
+            'jenis_perubahan',
+            'nomor_validasi',
+            'tgl_validasi',
+            'perihal',
+            'tgl_rpd',
+            'count',
+            'pelaku_usaha',
+            'note',
+            'pertek',
+        );
+
+        if ($search['value'] != '') {
+            $data->where('id', 'like', '%' . $search['value'] . '%')
+            ->orWhere('noreg', 'like', '%' . $search['value'] . '%')
+            ->orWhere('nama_usaha_baru', 'like', '%' . $search['value'] . '%')
+            ->orWhere('status', 'like', '%' . $search['value'] . '%')
+            ->orWhere('pic_pemohon', 'like', '%' . $search['value'] . '%')
+            ->orWhere('no_hp_pic', 'like', '%' . $search['value'] . '%')
+            ->orWhere('nama_operator', 'like', '%' . $search['value'] . '%')
+            ->orWhere('nomor_validasi', 'like', '%' . $search['value'] . '%')
+            ->orWhere('tgl_validasi', 'like', '%' . $search['value'] . '%')
+            ->orWhere('perihal', 'like', '%' . $search['value'] . '%')
+            ->orWhere('pelaku_usaha', 'like', '%' . $search['value'] . '%');
+        }
+
+        $data = $data->orderBy('tgl_validasi', 'ASC')->skip($start)->take($limit)->get();
+
+        for ($i=0; $i < count($data); $i++) { 
+            $data[$i]->count = $start + $i + 1;
+            if ($data[$i]->status == "Belum") {
+                $status = '<span class="badge badge-secondary">Belum diproses</span>';
+            } elseif ($data[$i]->status == "Submit") {
+                $status = '<span class="badge badge-info">Sudah Submit</span>';
+            } elseif ($data[$i]->status == "Proses") {
+                $status = '<span class="badge badge-warning">Proses Validasi</span>';
+            } elseif ($data[$i]->status == "Draft") {
+                $status = '<span class="badge badge-primary">Selesai Drafting</span>';
+            } elseif ($data[$i]->status == "Final") {
+                $status = '<span class="badge badge-success">Selesai</span>';
+            } elseif ($data[$i]->status == "Batal") {
+                $status = '<span class="badge badge-danger" title="{{ $skkl->note }}">Dibatalkan</span>';
+            } else {
+                $status = '<span class="badge badge-danger" title="{{ $skkl->note }}">Ditolak</span>';
+            }
+            $data[$i]->status = $status;
+
+            foreach ($pemrakarsa as $user) {
+                if ($data[$i]->user_id == $user->id) {
+                    $data[$i]->pelaku_usaha = $user->name;
+                }
+            }
+
+            $pic = $data[$i]->pic_pemohon . '<br>' . $data[$i]->no_hp_pic;
+            $data[$i]->pic_pemohon = $pic;
+
+            if ($data[$i]->nama_operator == null) {
+                $data[$i]->nama_operator = '-';
+            }
+
+            if ($data[$i]->jenis_perubahan == 'perkep1') {
+                $perkep = 'Perubahan Kepemilikkan';
+            } elseif ($data[$i]->jenis_perubahan == 'perkep2') {
+                $perkep = 'Perubahan Kepemilikkan dan Integrasi Pertek/Rintek';
+            } elseif ($data[$i]->jenis_perubahan == 'perkep3') {
+                $perkep = 'Integrasi Pertek/Rintek';
+            }
+            $data[$i]->jenis_perubahan = $perkep;
+
+            $disable = '';
+            if ($data[$i]->status == "Ditolak") {
+                $disable = 'disabled';
+            }
+
+            $data[$i]->note = '<div class="btn-group-vertical">
+                                    <button type="button" class="btn btn-sm btn-danger"
+                                        '. $disable .' data-toggle="modal"
+                                        data-target="#tolak'.$data[$i]->id.'">
+                                        Tolak
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                        data-target="#aksiModal'. $data[$i]->id .'">
+                                        Pilih
+                                    </button>
+                                </div>';
+
+            $data[$i]->pertek = '<select class="operator-list" style="width: 100%" name="operator_name[]">
+                                    <option value="-">Pilih</option>' . $operator .
+                                '</select>
+                                <input type="text" name="id[]" value="'. $data[$i]->id .'" hidden>
+                                <script>
+                                    $(document).ready(function() {
+                                        $(".operator-list").select2();
+                                    });
+                                </script>';
+
+            $tgl = $data[$i]->created_at->format('d-m-Y, H:i:s');
+            $data[$i]->tgl_rpd = $tgl;
+        }
+
+        return response()->json([
+            "draw" => intval(request('draw')),
+            "recordsTotal" => intval($total->count()),
+            "recordsFiltered" => intval($total->count()),
+            "data" => $data
+        ]);
+    }
+
+    public function datatables_skkl()
+    {
+        $data = Skkl::latest()->get();
+        return DataTables::of($data);
     }
 
     public function assign(Request $request)

@@ -59,7 +59,7 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    @foreach ($data_pkplh as $pkplh)
+                    {{-- @foreach ($data_pkplh as $pkplh)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $pkplh->noreg }}</td>
@@ -119,9 +119,6 @@
                             <td>{{ $pkplh->perihal }}</td> <!-- permohonan dari pemrakarsa -->
                             <td>
                                 <div class="btn-group-vertical">
-                                    {{-- <a href="{{ route('sekre.pkplh.reject', $pkplh->id) }}"
-                                    class="btn btn-sm btn-danger @if ($pkplh->status == 'Ditolak') disabled @endif"
-                                    onclick="return confirm('Yakin ingin menolak pengajuan ini?')">Tolak</a> --}}
                                     <button type="button" class="btn btn-sm btn-danger"
                                         @if ($pkplh->status == 'Ditolak') disabled @endif data-toggle="modal"
                                         data-target="{{ '#tolak' . $pkplh->id }}">
@@ -141,12 +138,9 @@
                                     @endforeach
                                 </select>
                                 <input type="text" name="id[]" value="{{ $pkplh->id }}" hidden>
-                                {{-- <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="{{ '#aksiModal'.$pkplh->id }}">
-                            Tugaskan
-                        </button> --}}
                             </td>
                         </tr>
-                    @endforeach
+                    @endforeach --}}
                 </tbody>
             </table>
         </form>
@@ -283,7 +277,30 @@
                 autoWidth: true,
                 lengthChange: true,
                 scrollX: true,
-                buttons: ['excel', 'colvis']
+                lengthmenu: [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, 'All']
+                ],
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('datatable.pkplh') }}",
+                columns: [
+                    {data: 'count', name: 'count'},
+                    {data: 'noreg', name: 'noreg'},
+                    {data: 'tgl_rpd', name: 'tgl_rpd'},
+                    {data: 'pelaku_usaha', name: 'pelaku_usaha'},
+                    {data: 'nama_usaha_baru', name: 'nama_usaha_baru'},
+                    {data: 'status', name: 'status'},
+                    {data: 'pic_pemohon', name: 'pic_pemohon'},
+                    {data: 'nama_operator', name: 'nama_operator'},
+                    {data: 'jenis_perubahan', name: 'jenis_perubahan'},
+                    {data: 'nomor_validasi', name: 'nomor_validasi'},
+                    {data: 'tgl_validasi', name: 'tgl_validasi'},
+                    {data: 'perihal', name: 'perihal'},
+                    {data: 'note', name: 'note'},
+                    {data: 'pertek', name: 'pertek'},
+                ],
+                buttons: ['excel', 'colvis'],
             });
 
             new $.fn.dataTable.FixedHeader( table );

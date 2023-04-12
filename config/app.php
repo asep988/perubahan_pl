@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Novay\WordTemplate\WordTemplateServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -230,6 +231,7 @@ return [
         'WordTemplate' => Novay\WordTemplate\Facade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class, 
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ],
 
 ];
