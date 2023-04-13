@@ -20,7 +20,7 @@
         "maatwebsite/excel": "^3.1",
         "novay/laravel-word-template": "^1.1",
         "phpoffice/phpword": "^1.0",
-        "yajra/laravel-datatables-oracle": "~9.0"
+        "yajra/laravel-datatables-oracle": "^9.21"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

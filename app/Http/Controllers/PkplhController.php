@@ -757,7 +757,7 @@ class PkplhController extends Controller
 			'last_uklupl' => tgl_indo2($last_uklupl->updated_at->format('d-m-Y')),
 		];
 
-		if ($pkplh->status == "Belum") {
+		if ($pkplh->status == "Belum" || $pkplh->status == "Batal") {
 			$pkplh->status = "Submit";
 			$pkplh->update();
 		}

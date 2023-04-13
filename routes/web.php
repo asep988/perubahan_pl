@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ModalController;
+use App\Http\Controllers\SekretariatController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,6 +44,8 @@ Route::get('/ptsp', 'PtspController@login')->name('ptsp');
 Route::post('/ptsp/login', 'PtspController@authenticate')->name('ptsp.login');
 Route::get('/ptsp/skkl/8c7a5370e747a69ad6941f97c80dc06a', 'PtspController@skklIndex')->name('ptsp.skkl.index');
 Route::get('/ptsp/pkplh/842998c9fbab1a005e7fb0eb8f1f3765', 'PtspController@pkplhIndex')->name('ptsp.pkplh.index');
+Route::get('/datatable/skkl', [SekretariatController::class, 'datatableSkkl'])->name('datatable.skkl');
+Route::get('/datatable/pkplh', [SekretariatController::class, 'datatablePkplh'])->name('datatable.pkplh');
 
 Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {
     //skkl

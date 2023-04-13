@@ -691,7 +691,7 @@ class SkklController extends Controller
 			'last_rpl' => tgl_indo2($last_rpl->updated_at->format('d-m-Y')),
 		];
 
-		if ($skkl->status == "Belum") {
+		if ($skkl->status == "Belum" || $skkl->status == "Batal") {
 			$skkl->status = "Submit";
 			$skkl->update();
 		}
