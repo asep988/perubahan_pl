@@ -23,7 +23,9 @@ class SekretariatController extends Controller
         $operators = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
 		->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
 		->where('feasibility_test_teams.authority', 'Pusat')
+        ->where('tuk_secretary_members.institution', 'like', '%PDLUK%')
 		->select('users.name')
+        ->orderBy('users.name', 'ASC')
 		->get();
 
         $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
@@ -45,18 +47,6 @@ class SekretariatController extends Controller
         $start = request('start');
         $search = request('search');
         $total = Skkl::get();
-        
-        $operators = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
-		->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
-		->where('feasibility_test_teams.authority', 'Pusat')
-		->select('users.name')
-        ->orderBy('users.name', 'ASC')
-		->get();
-
-        $operator = '';
-        foreach ($operators as $row) {
-            $operator .= '<option value="'.$row->name.'">'.$row->name.'</option>';
-        }
         
         $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
         ->where('initiators.user_type', 'Pemrakarsa')
@@ -194,18 +184,6 @@ class SekretariatController extends Controller
         $search = request('search');
         $total = Pkplh::get();
         
-        $operators = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
-		->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
-		->where('feasibility_test_teams.authority', 'Pusat')
-		->select('users.name')
-        ->orderBy('users.name', 'ASC')
-		->get();
-
-        $operator = '';
-        foreach ($operators as $row) {
-            $operator .= '<option value="'.$row->name.'">'.$row->name.'</option>';
-        }
-        
         $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
         ->where('initiators.user_type', 'Pemrakarsa')
         ->orWhere('initiators.user_type', 'Pemerintah')
@@ -313,16 +291,6 @@ class SekretariatController extends Controller
                                 <input type="text" id="id_' . $data[$i]->noreg . '" value="'. $data[$i]->id .'" hidden>
                                 <input type="text" id="pu_' . $data[$i]->noreg . '" value="'. $data[$i]->pelaku_usaha .'" hidden>';
 
-            // $data[$i]->pertek = '<select class="operator-list" style="width: 100%" name="operator_name[]">
-            //                         <option value="-">Pilih</option>' . $operator .
-            //                     '</select>
-            //                     <input type="text" name="id[]" value="'. $data[$i]->id .'" hidden>
-            //                     <script>
-            //                         $(document).ready(function() {
-            //                             $(".operator-list").select2();
-            //                         });
-            //                     </script>';
-
             $tgl = $data[$i]->created_at->format('d-m-Y, H:i:s');
             $data[$i]->tgl_rpd = $tgl;
         }
@@ -388,7 +356,9 @@ class SekretariatController extends Controller
         $operators = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
 		->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
 		->where('feasibility_test_teams.authority', 'Pusat')
+		->where('tuk_secretary_members.institution', 'like', '%PDLUK%')
 		->select('users.name')
+        ->orderBy('users.name', 'ASC')
 		->get();
 
         $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
