@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PkplhExport;
+use App\Exports\SkklExport;
 use App\Pkplh;
 use Illuminate\Http\Request;
 use App\Skkl;
@@ -9,6 +11,7 @@ use App\User;
 use App\Pertek_skkl;
 use App\Pertek_pkplh;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -156,15 +159,21 @@ class SekretariatController extends Controller
                                     </button>
                                 </div>';
 
-            $data[$i]->pertek = '<select class="operator-list" style="width: 100%" name="operator_name[]">
-                                    <option value="-">Pilih</option>' . $operator .
-                                '</select>
-                                <input type="text" name="id[]" value="'. $data[$i]->id .'" hidden>
-                                <script>
-                                    $(document).ready(function() {
-                                        $(".operator-list").select2();
-                                    });
-                                </script>';
+            $data[$i]->pertek = '<button id="' . $data[$i]->noreg . '" type="button" class="btn penugasan-btn btn-sm btn-success">
+                                    Penugasan
+                                </button>
+                                <input type="text" id="id_' . $data[$i]->noreg . '" value="'. $data[$i]->id .'" hidden>
+                                <input type="text" id="pu_' . $data[$i]->noreg . '" value="'. $data[$i]->pelaku_usaha .'" hidden>';
+                                
+            // $data[$i]->pertek = '<select class="operator-list" style="width: 100%" name="operator_name[]">
+            //                         <option value="-">Pilih</option>' . $operator .
+            //                     '</select>
+            //                     <input type="text" name="id[]" value="'. $data[$i]->id .'" hidden>
+            //                     <script>
+            //                         $(document).ready(function() {
+            //                             $(".operator-list").select2();
+            //                         });
+            //                     </script>';
 
             $tgl = $data[$i]->created_at->format('d-m-Y, H:i:s');
             $data[$i]->tgl_rpd = $tgl;
@@ -298,15 +307,21 @@ class SekretariatController extends Controller
                                     </button>
                                 </div>';
 
-            $data[$i]->pertek = '<select class="operator-list" style="width: 100%" name="operator_name[]">
-                                    <option value="-">Pilih</option>' . $operator .
-                                '</select>
-                                <input type="text" name="id[]" value="'. $data[$i]->id .'" hidden>
-                                <script>
-                                    $(document).ready(function() {
-                                        $(".operator-list").select2();
-                                    });
-                                </script>';
+            $data[$i]->pertek = '<button id="' . $data[$i]->noreg . '" type="button" class="btn penugasan-btn btn-sm btn-success">
+                                    Penugasan
+                                </button>
+                                <input type="text" id="id_' . $data[$i]->noreg . '" value="'. $data[$i]->id .'" hidden>
+                                <input type="text" id="pu_' . $data[$i]->noreg . '" value="'. $data[$i]->pelaku_usaha .'" hidden>';
+
+            // $data[$i]->pertek = '<select class="operator-list" style="width: 100%" name="operator_name[]">
+            //                         <option value="-">Pilih</option>' . $operator .
+            //                     '</select>
+            //                     <input type="text" name="id[]" value="'. $data[$i]->id .'" hidden>
+            //                     <script>
+            //                         $(document).ready(function() {
+            //                             $(".operator-list").select2();
+            //                         });
+            //                     </script>';
 
             $tgl = $data[$i]->created_at->format('d-m-Y, H:i:s');
             $data[$i]->tgl_rpd = $tgl;
@@ -428,5 +443,15 @@ class SekretariatController extends Controller
         $pkplh = Pkplh::find($id);
 
         return redirect()->route('sekre.pkplh.index')->with('message', 'Permohonan perubahan ' . $pkplh->pelaku_usaha_baru . ' berhasil ditolak!');
+    }
+
+    public function skklExport()
+    {
+        return Excel::download(new SkklExport, 'Rekap SKKL.xlsx');
+    }
+
+    public function pkplhExport()
+    {
+        return Excel::download(new PkplhExport, 'Rekap PKPLH.xlsx');
     }
 }

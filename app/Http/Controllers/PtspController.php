@@ -30,7 +30,7 @@ class PtspController extends Controller
 
     public function skklIndex()
     {
-        $data_skkl = Skkl::orderBy('tgl_validasi', 'ASC')->get();
+        $data_skkl = Skkl::orderBy('updated_at', 'DESC')->where('status', '!=', 'Batal')->get();
         $pertek_skkl = Pertek_skkl::join('skkl', 'pertek_skkl.id_skkl', 'skkl.id')
         ->select('pertek_skkl.id_skkl', 'pertek_skkl.pertek', 'pertek_skkl.surat_pertek')
         ->orderBy('pertek_skkl.id', 'asc')->get();
@@ -47,12 +47,19 @@ class PtspController extends Controller
             $jum_rpl[] = Rpl::where('id_skkl', $row->id)->get()->count();
         }
         
+        $operator = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
+                ->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
+                ->where('feasibility_test_teams.authority', 'Pusat')
+                ->select('users.email')
+                ->get();
+
+        // return $operator;
         return view('ptsp.skkl.index', compact('data_skkl', 'jum_rkl', 'jum_rpl', 'pertek_skkl', 'pemrakarsa'));
     }
 
     public function pkplhIndex()
     {
-        $data_pkplh = Pkplh::orderBy('updated_at', 'DESC')->get();
+        $data_pkplh = Pkplh::orderBy('updated_at', 'DESC')->where('status', '!=', 'Batal')->get();
         $pertek_pkplh = Pertek_pkplh::join('pkplh', 'pertek_pkplh.id_pkplh', 'pkplh.id')
         ->select('pertek_pkplh.id_pkplh', 'pertek_pkplh.pertek', 'pertek_pkplh.surat_pertek')
         ->orderBy('pertek_pkplh.id', 'asc')->get();

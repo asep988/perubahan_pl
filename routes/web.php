@@ -23,7 +23,7 @@ Auth::routes([
 
 Route::get('/loginform', 'HomeController@loginform');
 // Route::get('/testing', 'HomeController@testing');
-// Route::get('/dd', 'HomeController@dd');
+Route::get('/dd', 'HomeController@dd');
 // Route::get('/registration_def', 'HomeController@registration_def');
 // Route::get('/truncate-reset', 'HomeController@reset');
 
@@ -157,6 +157,10 @@ Route::group(['middleware' => ['auth', 'cekRole:Sekretariat']], function() {
     Route::get('/Sekretariat/lampiran/satu/{id}', 'SkklController@download_lampiranI')->name('sekretariat.download.lampiran1');
     Route::get('/Sekretariat/pertek/{id}', 'SkklController@download_pertek')->name('sekretariat.download.pertek');
     Route::get('/Sekretariat/rintek/{id}', 'SkklController@download_rintek')->name('sekretariat.download.rintek');
+
+    // export
+    Route::get('/sekretariat/export/skkl', [SekretariatController::class, 'skklExport'])->name('sekre.export.skkl');
+    Route::get('/sekretariat/export/pkplh', [SekretariatController::class, 'pkplhExport'])->name('sekre.export.pkplh');
 });
 
 Route::group(['middleware' => ['auth']], function() {
