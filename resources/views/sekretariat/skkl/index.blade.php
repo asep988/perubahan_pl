@@ -161,6 +161,7 @@
                     <th width="50px">No</th>
                     <th>Nomor Registrasi</th>
                     <th>Pemrakarsa</th>
+                    <th>Nama Usaha</th>
                     <th>Penanggung Jawab Materi</th>
                     <th width="50px">#</th>
                 </tr>
@@ -397,6 +398,7 @@
             $(document).on('click', '.penugasan-btn', function() {
                 var noreg = $(this).attr('id');
                 var pemrakarsa = $(`#pu_${noreg}`).val();
+                var nama_usaha = $(`#nu_${noreg}`).val();
                 var id = $(`#id_${noreg}`).val();
                 j++
                 $('.table-penugasan').append(`<tr id="claster${j}">
@@ -409,6 +411,9 @@
                             </td>
                             <td>
                                 <input type="text" value="${pemrakarsa}" class="form-control" disabled>
+                            </td>
+                            <td>
+                                <textarea class="form-control" disabled>${nama_usaha}</textarea>
                             </td>
                             <td class="select${j}">
                                 <select class="operator-list" style="width: 100%" name="operator_name[]">

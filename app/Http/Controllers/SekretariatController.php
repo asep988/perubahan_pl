@@ -104,9 +104,9 @@ class SekretariatController extends Controller
             } elseif ($data[$i]->status == "Final") {
                 $status = '<span class="badge badge-success">Selesai</span>';
             } elseif ($data[$i]->status == "Batal") {
-                $status = '<span class="badge badge-danger" title="{{ $skkl->note }}">Dibatalkan</span>';
+                $status = '<span class="badge badge-danger" title="' . $data[$i]->note . '">Dibatalkan</span>';
             } else {
-                $status = '<span class="badge badge-danger" title="{{ $skkl->note }}">Ditolak</span>';
+                $status = '<span class="badge badge-danger" title="' . $data[$i]->note . '">Ditolak</span>';
             }
             $data[$i]->status = $status;
 
@@ -153,6 +153,7 @@ class SekretariatController extends Controller
                                     Penugasan
                                 </button>
                                 <input type="text" id="id_' . $data[$i]->noreg . '" value="'. $data[$i]->id .'" hidden>
+                                <input type="text" id="nu_' . $data[$i]->noreg . '" value="'. $data[$i]->nama_usaha_baru .'" hidden>
                                 <input type="text" id="pu_' . $data[$i]->noreg . '" value="'. $data[$i]->pelaku_usaha .'" hidden>';
                                 
             // $data[$i]->pertek = '<select class="operator-list" style="width: 100%" name="operator_name[]">
@@ -240,9 +241,9 @@ class SekretariatController extends Controller
             } elseif ($data[$i]->status == "Final") {
                 $status = '<span class="badge badge-success">Selesai</span>';
             } elseif ($data[$i]->status == "Batal") {
-                $status = '<span class="badge badge-danger" title="{{ $skkl->note }}">Dibatalkan</span>';
+                $status = '<span class="badge badge-danger" title="' . $data[$i]->note . '">Dibatalkan</span>';
             } else {
-                $status = '<span class="badge badge-danger" title="{{ $skkl->note }}">Ditolak</span>';
+                $status = '<span class="badge badge-danger" title="' . $data[$i]->note . '">Ditolak</span>';
             }
             $data[$i]->status = $status;
 
@@ -289,6 +290,7 @@ class SekretariatController extends Controller
                                     Penugasan
                                 </button>
                                 <input type="text" id="id_' . $data[$i]->noreg . '" value="'. $data[$i]->id .'" hidden>
+                                <input type="text" id="nu_' . $data[$i]->noreg . '" value="'. $data[$i]->nama_usaha_baru .'" hidden>
                                 <input type="text" id="pu_' . $data[$i]->noreg . '" value="'. $data[$i]->pelaku_usaha .'" hidden>';
 
             $tgl = $data[$i]->created_at->format('d-m-Y, H:i:s');
