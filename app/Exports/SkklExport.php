@@ -38,8 +38,9 @@ class SkklExport implements FromCollection, WithHeadings, ShouldAutoSize
             'perihal',
             'tgl_rpd',
             'count',
-            'pelaku_usaha'
-        )->orderBy('tgl_validasi', 'ASC')->get();
+            'pelaku_usaha',
+            'created_at'
+        )->orderBy('created_at', 'ASC')->get();
 
         for ($i=0; $i < count($data); $i++) { 
             $data[$i]->count = $i + 1;

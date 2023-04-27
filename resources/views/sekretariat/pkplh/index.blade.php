@@ -157,7 +157,7 @@
             </thead>
             <tfoot>
                 <tr>
-                    <th colspan="3"></th>
+                    <th colspan="4"></th>
                     <th colspan="2">
                         <button type="submit" class="btn btn-sm btn-success btn-block">Tugaskan</button>
                     </th>
