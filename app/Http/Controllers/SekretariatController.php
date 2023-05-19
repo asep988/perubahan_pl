@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PkplhExport;
+use App\Exports\SkklExport;
 use App\Pkplh;
 use Illuminate\Http\Request;
 use App\Skkl;
@@ -9,6 +11,7 @@ use App\User;
 use App\Pertek_skkl;
 use App\Pertek_pkplh;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -20,7 +23,9 @@ class SekretariatController extends Controller
         $operators = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
 		->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
 		->where('feasibility_test_teams.authority', 'Pusat')
+        ->where('tuk_secretary_members.institution', 'like', '%PDLUK%')
 		->select('users.name')
+        ->orderBy('users.name', 'ASC')
 		->get();
 
         $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
@@ -42,18 +47,6 @@ class SekretariatController extends Controller
         $start = request('start');
         $search = request('search');
         $total = Skkl::get();
-
-        $operators = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
-		->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
-		->where('feasibility_test_teams.authority', 'Pusat')
-		->select('users.name')
-        ->orderBy('users.name', 'ASC')
-		->get();
-
-        $operator = '';
-        foreach ($operators as $row) {
-            $operator .= '<option value="'.$row->name.'">'.$row->name.'</option>';
-        }
 
         $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
         ->where('initiators.user_type', 'Pemrakarsa')
@@ -111,9 +104,9 @@ class SekretariatController extends Controller
             } elseif ($data[$i]->status == "Final") {
                 $status = '<span class="badge badge-success">Selesai</span>';
             } elseif ($data[$i]->status == "Batal") {
-                $status = '<span class="badge badge-danger" title="{{ $skkl->note }}">Dibatalkan</span>';
+                $status = '<span class="badge badge-danger" title="' . $data[$i]->note . '">Dibatalkan</span>';
             } else {
-                $status = '<span class="badge badge-danger" title="{{ $skkl->note }}">Ditolak</span>';
+                $status = '<span class="badge badge-danger" title="' . $data[$i]->note . '">Ditolak</span>';
             }
             $data[$i]->status = $status;
 
@@ -156,15 +149,22 @@ class SekretariatController extends Controller
                                     </button>
                                 </div>';
 
-            $data[$i]->pertek = '<select class="operator-list" style="width: 100%" name="operator_name[]">
-                                    <option value="-">Pilih</option>' . $operator .
-                                '</select>
-                                <input type="text" name="id[]" value="'. $data[$i]->id .'" hidden>
-                                <script>
-                                    $(document).ready(function() {
-                                        $(".operator-list").select2();
-                                    });
-                                </script>';
+            $data[$i]->pertek = '<button id="' . $data[$i]->noreg . '" type="button" class="btn penugasan-btn btn-sm btn-success">
+                                    Penugasan
+                                </button>
+                                <input type="text" id="id_' . $data[$i]->noreg . '" value="'. $data[$i]->id .'" hidden>
+                                <input type="text" id="nu_' . $data[$i]->noreg . '" value="'. $data[$i]->nama_usaha_baru .'" hidden>
+                                <input type="text" id="pu_' . $data[$i]->noreg . '" value="'. $data[$i]->pelaku_usaha .'" hidden>';
+
+            // $data[$i]->pertek = '<select class="operator-list" style="width: 100%" name="operator_name[]">
+            //                         <option value="-">Pilih</option>' . $operator .
+            //                     '</select>
+            //                     <input type="text" name="id[]" value="'. $data[$i]->id .'" hidden>
+            //                     <script>
+            //                         $(document).ready(function() {
+            //                             $(".operator-list").select2();
+            //                         });
+            //                     </script>';
 
             $tgl = $data[$i]->created_at->format('d-m-Y, H:i:s');
             $data[$i]->tgl_rpd = $tgl;
@@ -184,19 +184,6 @@ class SekretariatController extends Controller
         $start = request('start');
         $search = request('search');
         $total = Pkplh::get();
-
-        $operators = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
-		->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
-		->where('feasibility_test_teams.authority', 'Pusat')
-		->select('users.name')
-        ->orderBy('users.name', 'ASC')
-		->get();
-
-        $operator = '';
-        foreach ($operators as $row) {
-            $operator .= '<option value="'.$row->name.'">'.$row->name.'</option>';
-        }
-
         $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
         ->where('initiators.user_type', 'Pemrakarsa')
         ->orWhere('initiators.user_type', 'Pemerintah')
@@ -253,9 +240,9 @@ class SekretariatController extends Controller
             } elseif ($data[$i]->status == "Final") {
                 $status = '<span class="badge badge-success">Selesai</span>';
             } elseif ($data[$i]->status == "Batal") {
-                $status = '<span class="badge badge-danger" title="{{ $skkl->note }}">Dibatalkan</span>';
+                $status = '<span class="badge badge-danger" title="' . $data[$i]->note . '">Dibatalkan</span>';
             } else {
-                $status = '<span class="badge badge-danger" title="{{ $skkl->note }}">Ditolak</span>';
+                $status = '<span class="badge badge-danger" title="' . $data[$i]->note . '">Ditolak</span>';
             }
             $data[$i]->status = $status;
 
@@ -298,15 +285,12 @@ class SekretariatController extends Controller
                                     </button>
                                 </div>';
 
-            $data[$i]->pertek = '<select class="operator-list" style="width: 100%" name="operator_name[]">
-                                    <option value="-">Pilih</option>' . $operator .
-                                '</select>
-                                <input type="text" name="id[]" value="'. $data[$i]->id .'" hidden>
-                                <script>
-                                    $(document).ready(function() {
-                                        $(".operator-list").select2();
-                                    });
-                                </script>';
+            $data[$i]->pertek = '<button id="' . $data[$i]->noreg . '" type="button" class="btn penugasan-btn btn-sm btn-success">
+                                    Penugasan
+                                </button>
+                                <input type="text" id="id_' . $data[$i]->noreg . '" value="'. $data[$i]->id .'" hidden>
+                                <input type="text" id="nu_' . $data[$i]->noreg . '" value="'. $data[$i]->nama_usaha_baru .'" hidden>
+                                <input type="text" id="pu_' . $data[$i]->noreg . '" value="'. $data[$i]->pelaku_usaha .'" hidden>';
 
             $tgl = $data[$i]->created_at->format('d-m-Y, H:i:s');
             $data[$i]->tgl_rpd = $tgl;
@@ -373,7 +357,9 @@ class SekretariatController extends Controller
         $operators = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
 		->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
 		->where('feasibility_test_teams.authority', 'Pusat')
+		->where('tuk_secretary_members.institution', 'like', '%PDLUK%')
 		->select('users.name')
+        ->orderBy('users.name', 'ASC')
 		->get();
 
         $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
@@ -428,5 +414,15 @@ class SekretariatController extends Controller
         $pkplh = Pkplh::find($id);
 
         return redirect()->route('sekre.pkplh.index')->with('message', 'Permohonan perubahan ' . $pkplh->pelaku_usaha_baru . ' berhasil ditolak!');
+    }
+
+    public function skklExport()
+    {
+        return Excel::download(new SkklExport, 'Rekap SKKL.xlsx');
+    }
+
+    public function pkplhExport()
+    {
+        return Excel::download(new PkplhExport, 'Rekap PKPLH.xlsx');
     }
 }

@@ -31,125 +31,184 @@
                 {{ session('message') }}
             </div>
         @endif
-        <form action="{{ route('sekre.skkl.update') }}" method="POST">
-            @csrf
-            @method('PUT')
-            <table id="example" class="table table-bordered table-striped" style="table-layout: fixed;">
-                <thead>
-                    <tr class="text-center">
-                        <th width="30px">No</th>
-                        <th>Nomor Registrasi</th>
-                        <th>Tanggal Dibuat</th>
-                        <th>Pemrakarsa</th>
-                        <th width="120px">Nama Usaha/ Kegiatan</th>
-                        <th>Status</th>
-                        <th>PIC</th>
-                        <th>Nama PJM</th>
-                        <th>Jenis Permohonan</th>
-                        <th>Nomor Verif PTSP</th>
-                        <th>Tanggal Verif PTSP</th>
-                        <th>Permohonan Dari Pemrakarsa</th>
-                        <th>Aksi</th>
-                        <th>Penugasan</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th colspan="13"></th>
-                        <th>
-                            <button type="submit" class="btn btn-sm btn-success btn-block">Tugaskan</button>
-                        </th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                    {{-- @foreach ($data_skkl as $skkl)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $skkl->noreg }}</td>
-                            <td>{{ $skkl->created_at }}</td>
-                            <td>
-                                <!-- Pemrakarsa -->
-                                @foreach ($pemrakarsa as $user)
-                                    @if ($skkl->user_id == $user->id)
-                                        {{ $user->name }}
-                                    @endif
-                                @endforeach
-                            </td>
-                            <td>{{ $skkl->nama_usaha_baru }}</td> <!-- nama usaha/kegiatan -->
-                            <td class="text-center">
-                                <!-- status -->
-                                @if ($skkl->status == 'Belum')
-                                    <span class="badge badge-secondary">Belum diproses</span>
-                                @elseif ($skkl->status == 'Submit')
-                                    <span class="badge badge-info">Sudah Submit</span>
-                                @elseif ($skkl->status == 'Proses')
-                                    <span class="badge badge-warning">Proses Validasi</span>
-                                @elseif ($skkl->status == 'Draft')
-                                    <span class="badge badge-primary">Selesai Drafting</span>
-                                @elseif ($skkl->status == 'Final')
-                                    <span class="badge badge-success">Selesai</span>
-                                @elseif ($skkl->status == 'Batal')
-                                    <span class="badge badge-danger" title="{{ $skkl->note }}">Dibatalkan</span>
-                                @else
-                                    <span class="badge badge-danger" title="{{ $skkl->note }}">Ditolak</span>
-                                @endif
-                            </td>
-                            <td>
-                                <!-- pic -->
-                                {{ $skkl->pic_pemohon }} <br>
-                                ({{ $skkl->no_hp_pic }})
-                            </td>
-                            <td>
-                                <!-- nama pjm -->
-                                @if ($skkl->nama_operator != null)
-                                    {{ $skkl->nama_operator }}
-                                @else
-                                    -
-                                @endif
-                            </td>
-                            <td>
-                                <!-- jenis permohonan -->
-                                @if ($skkl->jenis_perubahan == 'perkep1')
-                                    Perubahan Kepemilikkan
-                                @elseif ($skkl->jenis_perubahan == 'perkep2')
-                                    Perubahan Kepemilikkan dan Integrasi Pertek/Rintek
-                                @elseif ($skkl->jenis_perubahan == 'perkep3')
-                                    Integrasi Pertek/Rintek
-                                @endif
-                            </td>
-                            <td>{{ $skkl->nomor_validasi }}</td> <!-- nomor verif ptsp -->
-                            <td>{{ $skkl->tgl_validasi }}</td> <!-- tgl verif ptsp-->
-                            <td>{{ $skkl->perihal }}</td> <!-- permohonan dari pemrakarsa -->
-                            <td>
-                                <div class="btn-group-vertical">
-                                    <button type="button" class="btn btn-sm btn-danger"
-                                        @if ($skkl->status == 'Ditolak') disabled @endif data-toggle="modal"
-                                        data-target="{{ '#tolak' . $skkl->id }}">
-                                        Tolak
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                                        data-target="{{ '#aksiModal' . $skkl->id }}">
-                                        Pilih
-                                    </button>
-                                </div>
-                            </td>
-                            <td>
-                                <select class="operator-list" style="width: 100%" name="operator_name[]">
-                                    <option value="-">Pilih</option>
-                                    @foreach ($operators as $operator)
-                                        <option value="{{ $operator->name }}">{{ $operator->name }}</option>
-                                    @endforeach
-                                </select>
-                                <input type="text" name="id[]" value="{{ $skkl->id }}" hidden>
-                            </td>
-                        </tr>
-                    @endforeach --}}
-                </tbody>
 
-            </table>
-        </form>
+        <a href="{{ route('sekre.export.skkl') }}" class="btn btn-success mb-3"><i class="fas fa-file-excel">&nbsp;Export</i></a>
+
+        <table id="example" class="table table-bordered table-striped" style="table-layout: fixed;">
+            <thead>
+                <tr class="text-center">
+                    <th width="30px">No</th>
+                    <th>Nomor Registrasi</th>
+                    <th>Tanggal Dibuat</th>
+                    <th>Pemrakarsa</th>
+                    <th width="120px">Nama Usaha/ Kegiatan</th>
+                    <th>Status</th>
+                    <th>PIC</th>
+                    <th>Nama PJM</th>
+                    <th>Jenis Permohonan</th>
+                    <th>Nomor Verif PTSP</th>
+                    <th>Tanggal Verif PTSP</th>
+                    <th>Permohonan Dari Pemrakarsa</th>
+                    <th>Aksi</th>
+                    <th>Penugasan</th>
+                </tr>
+            </thead>
+            {{-- <tfoot>
+                <tr>
+                    <th colspan="13"></th>
+                    <th>
+                        <button type="submit" class="btn btn-sm btn-success btn-block">Tugaskan</button>
+                    </th>
+                </tr>
+            </tfoot> --}}
+            <tbody>
+                {{-- @foreach ($data_skkl as $skkl)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $skkl->noreg }}</td>
+                        <td>{{ $skkl->created_at }}</td>
+                        <td>
+                            <!-- Pemrakarsa -->
+                            @foreach ($pemrakarsa as $user)
+                                @if ($skkl->user_id == $user->id)
+                                    {{ $user->name }}
+                                @endif
+                            @endforeach
+                        </td>
+                        <td>{{ $skkl->nama_usaha_baru }}</td> <!-- nama usaha/kegiatan -->
+                        <td class="text-center">
+                            <!-- status -->
+                            @if ($skkl->status == 'Belum')
+                                <span class="badge badge-secondary">Belum diproses</span>
+                            @elseif ($skkl->status == 'Submit')
+                                <span class="badge badge-info">Sudah Submit</span>
+                            @elseif ($skkl->status == 'Proses')
+                                <span class="badge badge-warning">Proses Validasi</span>
+                            @elseif ($skkl->status == 'Draft')
+                                <span class="badge badge-primary">Selesai Drafting</span>
+                            @elseif ($skkl->status == 'Final')
+                                <span class="badge badge-success">Selesai</span>
+                            @elseif ($skkl->status == 'Batal')
+                                <span class="badge badge-danger" title="{{ $skkl->note }}">Dibatalkan</span>
+                            @else
+                                <span class="badge badge-danger" title="{{ $skkl->note }}">Ditolak</span>
+                            @endif
+                        </td>
+                        <td>
+                            <!-- pic -->
+                            {{ $skkl->pic_pemohon }} <br>
+                            ({{ $skkl->no_hp_pic }})
+                        </td>
+                        <td>
+                            <!-- nama pjm -->
+                            @if ($skkl->nama_operator != null)
+                                {{ $skkl->nama_operator }}
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td>
+                            <!-- jenis permohonan -->
+                            @if ($skkl->jenis_perubahan == 'perkep1')
+                                Perubahan Kepemilikkan
+                            @elseif ($skkl->jenis_perubahan == 'perkep2')
+                                Perubahan Kepemilikkan dan Integrasi Pertek/Rintek
+                            @elseif ($skkl->jenis_perubahan == 'perkep3')
+                                Integrasi Pertek/Rintek
+                            @endif
+                        </td>
+                        <td>{{ $skkl->nomor_validasi }}</td> <!-- nomor verif ptsp -->
+                        <td>{{ $skkl->tgl_validasi }}</td> <!-- tgl verif ptsp-->
+                        <td>{{ $skkl->perihal }}</td> <!-- permohonan dari pemrakarsa -->
+                        <td>
+                            <div class="btn-group-vertical">
+                                <button type="button" class="btn btn-sm btn-danger"
+                                    @if ($skkl->status == 'Ditolak') disabled @endif data-toggle="modal"
+                                    data-target="{{ '#tolak' . $skkl->id }}">
+                                    Tolak
+                                </button>
+                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                    data-target="{{ '#aksiModal' . $skkl->id }}">
+                                    Pilih
+                                </button>
+                            </div>
+                        </td>
+                        <td>
+                            <select class="operator-list" style="width: 100%" name="operator_name[]">
+                                <option value="-">Pilih</option>
+                                @foreach ($operators as $operator)
+                                    <option value="{{ $operator->name }}">{{ $operator->name }}</option>
+                                @endforeach
+                            </select>
+                            <input type="text" name="id[]" value="{{ $skkl->id }}" hidden>
+                        </td>
+                    </tr>
+                @endforeach --}}
+            </tbody>
+
+        </table>
     </div>
     <!-- Modal -->
+
+    <hr>
+
+    <form action="{{ route('sekre.skkl.update') }}" method="POST">
+        @csrf
+        @method('PUT')
+        <table id="example" class="table table-bordered table-striped px-3" style="table-layout: fixed;">
+            <thead>
+                <tr class="text-center">
+                    <th width="50px">No</th>
+                    <th>Nomor Registrasi</th>
+                    <th>Pemrakarsa</th>
+                    <th>Nama Usaha</th>
+                    <th>Penanggung Jawab Materi</th>
+                    <th width="50px">#</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th colspan="4"></th>
+                    <th colspan="2">
+                        <button type="submit" class="btn btn-sm btn-success btn-block">Tugaskan</button>
+                    </th>
+                </tr>
+            </tfoot>
+            <tbody class="table-penugasan">
+                {{-- <tr id="claster1">
+                    <td>
+                        0
+                    </td>
+                    <td>
+                        <input type="text" name="noreg[]" value="value" class="form-control" disabled>
+                    </td>
+                    <td>
+                        <input type="text" value="pemrakarsa" class="form-control" disabled>
+                    </td>
+                    <td>
+                        <select class="operator-list" style="width: 100%" name="operator_name[]">
+                            @foreach ($operators as $operator)
+                                <option value="{{ $operator->name }}">{{ $operator->name }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td class="text-center">
+                        <button type="button" id="1" class="btn remove-btn btn-sm btn-danger">
+                            <i class="fas fa-minus fa-sm"></i>
+                        </button>
+                    </td>
+                </tr> --}}
+            </tbody>
+        </table>
+    </form>
+
+    <div class="selector" style="display: none;">
+        <select class="operator-list" style="width: 100%" name="operator_name[]">
+            @foreach ($operators as $operator)
+                <option value="{{ $operator->name }}">{{ $operator->name }}</option>
+            @endforeach
+        </select>
+    </div>
 
     @foreach ($data_skkl as $skkl)
         <div class="modal fade" id="{{ 'tolak' . $skkl->id }}" tabindex="-1" aria-labelledby="batalLabel"
@@ -285,29 +344,22 @@
             </div>
         </div>
     @endforeach
+
+    <script>
+        // var count = 1;
+        // setInterval(function () {
+        //     count++;
+        //     $("#test").text(count);
+        // }, 1000);
+        $('.operator-list').select2({
+            dropdownCssClass: "select2--small",
+        });
+    </script>
 @endsection
 
 @push('scripts')
     <script>
         // $(document).ready(function() {
-        //     $('.operator-list').select2();
-        //     $("#datatable").DataTable({
-        //         "scrollX": true,
-        //         "autoWidth": true,
-        //         "responsive": false,
-        //         "lengthChange": true,
-        //         "lengthmenu": [
-        //             [5, 10, 25, 50, -1],
-        //             [5, 10, 25, 50, 'All']
-        //         ]
-        //         dom: 'Bfrtip',
-        //         buttons: [
-        //             'copy', 'csv', 'excel', 'pdf', 'print'
-        //         ]
-        //     });
-        // });
-
-        $(document).ready(function() {
             var table = $('#example').DataTable({
                 autoWidth: true,
                 lengthChange: true,
@@ -338,27 +390,55 @@
                 buttons: ['excel', 'colvis'],
             });
 
-            var co = 0;
-            setInterval(function() {
-                if (document.getElementById("btn1").hidden === true) {
-                    $('#test').text(co);
-                    co++;
-                    $('#operator-list').select2();
-                }
-            }, 1000);
-
-            // var table = $('#example').DataTable({
-            //     autoWidth: true,
-            //     lengthChange: true,
-            //     scrollX: true,
-            //     buttons: ['excel', 'colvis']
-            // });
-
             new $.fn.dataTable.FixedHeader( table );
             table.buttons().container()
             .appendTo('#example_wrapper .col-md-6:eq(0)');
 
-            // $('.operator-list').select2();
-        });
+            var j = 0;
+            $(document).on('click', '.penugasan-btn', function() {
+                var noreg = $(this).attr('id');
+                var pemrakarsa = $(`#pu_${noreg}`).val();
+                var nama_usaha = $(`#nu_${noreg}`).val();
+                var id = $(`#id_${noreg}`).val();
+                j++
+                $('.table-penugasan').append(`<tr id="claster${j}">
+                            <td>
+                                ${j}
+                            </td>
+                            <td>
+                                <input type="text" name="noreg[]" value="${noreg}" class="form-control" disabled>
+                                <input type="text" name="id[]" value="${id}" class="form-control" hidden>
+                            </td>
+                            <td>
+                                <input type="text" value="${pemrakarsa}" class="form-control" disabled>
+                            </td>
+                            <td>
+                                <textarea class="form-control" disabled>${nama_usaha}</textarea>
+                            </td>
+                            <td class="select${j}">
+                                <select class="operator-list" style="width: 100%" name="operator_name[]">
+                                    @foreach ($operators as $operator)
+                                        <option value="{{ $operator->name }}">{{ $operator->name }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td class="text-center">
+                                <button type="button" id="${j}" class="btn remove-btn btn-sm btn-danger">
+                                    <i class="fas fa-minus fa-sm"></i>
+                                </button>
+                            </td>
+                        </tr>`);
+                // $('.operator-list').select2('destroy');
+                // var selectList = $('.selector').html();
+                // $(`.select${j}`).append(selectList);
+                // $('.operator-list').select2();
+            });
+
+            $(document).on('click', '.remove-btn', function() {
+                var button_id = $(this).attr('id');
+                $('#claster' + button_id + '').remove();
+                j--
+            });
+        // });
     </script>
 @endpush
