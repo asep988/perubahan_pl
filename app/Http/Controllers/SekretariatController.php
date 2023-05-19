@@ -42,7 +42,7 @@ class SekretariatController extends Controller
         $start = request('start');
         $search = request('search');
         $total = Skkl::get();
-        
+
         $operators = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
 		->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
 		->where('feasibility_test_teams.authority', 'Pusat')
@@ -54,7 +54,7 @@ class SekretariatController extends Controller
         foreach ($operators as $row) {
             $operator .= '<option value="'.$row->name.'">'.$row->name.'</option>';
         }
-        
+
         $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
         ->where('initiators.user_type', 'Pemrakarsa')
         ->orWhere('initiators.user_type', 'Pemerintah')
@@ -98,7 +98,7 @@ class SekretariatController extends Controller
 
         $data = $data->orderBy('tgl_validasi', 'ASC')->skip($start)->take($limit)->get();
 
-        for ($i=0; $i < count($data); $i++) { 
+        for ($i=0; $i < count($data); $i++) {
             $data[$i]->count = $start + $i + 1;
             if ($data[$i]->status == "Belum") {
                 $status = '<span class="badge badge-secondary">Belum diproses</span>';
@@ -184,7 +184,7 @@ class SekretariatController extends Controller
         $start = request('start');
         $search = request('search');
         $total = Pkplh::get();
-        
+
         $operators = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
 		->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
 		->where('feasibility_test_teams.authority', 'Pusat')
@@ -196,7 +196,7 @@ class SekretariatController extends Controller
         foreach ($operators as $row) {
             $operator .= '<option value="'.$row->name.'">'.$row->name.'</option>';
         }
-        
+
         $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
         ->where('initiators.user_type', 'Pemrakarsa')
         ->orWhere('initiators.user_type', 'Pemerintah')
@@ -240,7 +240,7 @@ class SekretariatController extends Controller
 
         $data = $data->orderBy('tgl_validasi', 'ASC')->skip($start)->take($limit)->get();
 
-        for ($i=0; $i < count($data); $i++) { 
+        for ($i=0; $i < count($data); $i++) {
             $data[$i]->count = $start + $i + 1;
             if ($data[$i]->status == "Belum") {
                 $status = '<span class="badge badge-secondary">Belum diproses</span>';
@@ -334,13 +334,13 @@ class SekretariatController extends Controller
 
         for ($i = 0; $i < count($request->id); $i++) {
             $skkl = Skkl::find($request->id[$i]);
-    
+
             if ($skkl->tgl_update) {
                 $time = $skkl->tgl_update;
             } else {
                 $time = Carbon::now()->toDateString();
             }
-    
+
             if ($request->operator_name[$i] != '-') {
                 Skkl::find($request->id[$i])->update([
                     'nama_operator' => $request->operator_name[$i],
@@ -352,7 +352,7 @@ class SekretariatController extends Controller
 
         return redirect()->route('sekre.skkl.index')->with('message', 'Berhasil menugaskan PJM pada usaha/kegiatan yang dipilih');
     }
-    
+
     public function skklReject(Request $request, $id)
     {
         Skkl::find($id)->update([
@@ -361,7 +361,7 @@ class SekretariatController extends Controller
             'nama_operator' => null,
             'note' => $request->note
         ]);
-        
+
         $skkl = Skkl::find($id);
 
         return redirect()->route('sekre.skkl.index')->with('message', $skkl->nama_usaha_baru . ' berhasil ditolak!');
@@ -397,13 +397,13 @@ class SekretariatController extends Controller
 
         for ($i = 0; $i < count($request->id); $i++) {
             $pkplh = Pkplh::find($request->id[$i]);
-    
+
             if ($pkplh->tgl_update) {
                 $time = $pkplh->tgl_update;
             } else {
                 $time = Carbon::now()->toDateString();
             }
-    
+
             if ($request->operator_name[$i] != '-') {
                 Pkplh::find($request->id[$i])->update([
                     'nama_operator' => $request->operator_name[$i],
@@ -424,7 +424,7 @@ class SekretariatController extends Controller
             'nama_operator' => null,
             'note' => $request->note
         ]);
-        
+
         $pkplh = Pkplh::find($id);
 
         return redirect()->route('sekre.pkplh.index')->with('message', 'Permohonan perubahan ' . $pkplh->pelaku_usaha_baru . ' berhasil ditolak!');

@@ -346,7 +346,7 @@
                     $('#operator-list').select2();
                 }
             }, 1000);
-            
+
             // var table = $('#example').DataTable({
             //     autoWidth: true,
             //     lengthChange: true,
