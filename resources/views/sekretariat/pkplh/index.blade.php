@@ -29,7 +29,76 @@
             </div>
         @endif
 
-        <a href="{{ route('sekre.export.pkplh') }}" class="btn btn-success mb-3"><i class="fas fa-file-excel">&nbsp;Export</i></a>
+        {{-- <a href="{{ route('sekre.export.pkplh') }}" class="btn btn-success mb-3"><i class="fas fa-file-excel">&nbsp;Export</i></a> --}}
+        <form action="{{ route('sekre.export.pkplh') }}" method="GET">
+            @csrf
+            <input type="text" name="status" value="{{ $reqStat ?? '' }}" hidden>
+            <input type="text" name="param" value="{{ $param ?? '' }}" hidden>
+            <button type="submit" class="btn btn-success mb-3"><i class="fas fa-file-excel">&nbsp;Export</i></button>
+        </form>
+
+        <div class="row">
+            <div class="col-2">
+                <form action="{{ route('sekre.pkplh.index') }}" method='GET'>
+                    @csrf
+                    <input type="text" name="status" value="1" hidden>
+                    <button type="submit" class="btn btn-secondary btn-lg btn-block mb-3 {{ $reqStat == '1' ? 'active' : '' }}">
+                        <span>Belum Diproses</span>
+                        <h3>{{ $status['Belum'] }}</h3>
+                    </button>
+                </form>
+            </div>
+            <div class="col-2">
+                <form action="{{ route('sekre.pkplh.index') }}" method='GET'>
+                    @csrf
+                    <input type="text" name="status" value="2" hidden>
+                    <button type="submit" class="btn btn-info btn-lg btn-block mb-3 {{ $reqStat == '2' ? 'active' : '' }}">
+                        <span>Sudah Submit</span>
+                        <h3>{{ $status['Submit'] }}</h3>
+                    </button>
+                </form>
+            </div>
+            <div class="col-2">
+                <form action="{{ route('sekre.pkplh.index') }}" method='GET'>
+                    @csrf
+                    <input type="text" name="status" value="3" hidden>
+                    <button type="submit" class="btn btn-warning btn-lg btn-block mb-3 {{ $reqStat == '3' ? 'active' : '' }}">
+                        <span>Proses Validasi</span>
+                        <h3>{{ $status['Proses'] }}</h3>
+                    </button>
+                </form>
+            </div>
+            <div class="col-2">
+                <form action="{{ route('sekre.pkplh.index') }}" method='GET'>
+                    @csrf
+                    <input type="text" name="status" value="4" hidden>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block mb-3 {{ $reqStat == '4' ? 'active' : '' }}">
+                        <span>Drafting</span>
+                        <h3>{{ $status['Draft'] }}</h3>
+                    </button>
+                </form>
+            </div>
+            <div class="col-2">
+                <form action="{{ route('sekre.pkplh.index') }}" method='GET'>
+                    @csrf
+                    <input type="text" name="status" value="5" hidden>
+                    <button type="submit" class="btn btn-success btn-lg btn-block mb-3 {{ $reqStat == '5' ? 'active' : '' }}">
+                        <span>Selesai</span>
+                        <h3>{{ $status['Final'] }}</h3>
+                    </button>
+                </form>
+            </div>
+            <div class="col-2">
+                <form action="{{ route('sekre.pkplh.index') }}" method='GET'>
+                    @csrf
+                    <input type="text" name="status" value="6" hidden>
+                    <button type="submit" class="btn btn-danger btn-lg btn-block mb-3 {{ $reqStat == '6' ? 'active' : '' }}">
+                        <span>Ditolak/Batal</span>
+                        <h3>{{ $status['Batal'] }}</h3>
+                    </button>
+                </form>
+            </div>
+        </div>
 
         <table id="example" class="table table-bordered table-striped" style="table-layout: fixed;">
             <thead>
@@ -74,7 +143,7 @@
                             @elseif ($pkplh->status == 'Proses')
                                 <span class="badge badge-warning">Proses Validasi</span>
                             @elseif ($pkplh->status == 'Draft')
-                                <span class="badge badge-primary">Selesai Drafting</span>
+                                <span class="badge badge-primary">Drafting</span>
                             @elseif ($pkplh->status == 'Final')
                                 <span class="badge badge-success">Selesai</span>
                             @elseif ($pkplh->status == "Batal")
@@ -313,7 +382,7 @@
                 ],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('datatable.pkplh') }}",
+                ajax: "{{ route('datatable.pkplh', [$reqStat, $param]) }}",
                 columns: [
                     {data: 'count', name: 'count'},
                     {data: 'noreg', name: 'noreg'},

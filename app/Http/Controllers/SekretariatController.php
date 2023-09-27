@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\PkplhExport;
-use App\Exports\SkklExport;
-use App\Pkplh;
-use Illuminate\Http\Request;
 use App\Skkl;
 use App\User;
+use App\Pkplh;
+use Carbon\Carbon;
 use App\Pertek_skkl;
 use App\Pertek_pkplh;
-use Carbon\Carbon;
+use App\Exports\SkklExport;
+use App\Exports\PkplhExport;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
-use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\Facades\DataTables;
+use Yajra\DataTables\Contracts\DataTable;
 
 class SekretariatController extends Controller
 {
-    public function index()
+    public function index($param)
     {
         $data_skkl = Skkl::orderBy('tgl_validasi', 'ASC')->get();
         $operators = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
@@ -38,10 +39,16 @@ class SekretariatController extends Controller
         ->select('pertek_skkl.id_skkl', 'pertek_skkl.pertek', 'pertek_skkl.surat_pertek')
         ->orderBy('pertek_skkl.id', 'asc')->get();
 
-        return view('sekretariat.skkl.index', compact('data_skkl', 'operators', 'pemrakarsa', 'pertek_skkl'));
+        $status = $this->status('skkl');
+        request('status') ? $reqstat = request('status') : $reqstat = 0;
+
+        return view('sekretariat.skkl.index', compact('data_skkl', 'operators', 'pemrakarsa', 'pertek_skkl', 'status'))->with([
+            'reqStat' => $reqstat,
+            'param' => $param
+        ]);
     }
 
-    public function datatableSkkl()
+    public function datatableSkkl($req, $param)
     {
         $limit = request('length');
         $start = request('start');
@@ -73,7 +80,18 @@ class SekretariatController extends Controller
             'pelaku_usaha',
             'note',
             'pertek',
-        )->orderBy('tgl_validasi', 'ASC')->get();
+        );
+
+        $param == 'sudah' ? $data->where('nama_operator', '!=', NULL) : '';
+        $param == 'belum' ? $data->where('nama_operator', NULL) : '';
+
+        $req == 1 ? $data->where('status', 'Belum') : '';
+        $req == 2 ? $data->where('status', 'Submit') : '';
+        $req == 3 ? $data->where('status', 'Proses') : '';
+        $req == 4 ? $data->where('status', 'Draft') : '';
+        $req == 5 ? $data->where('status', 'Final') : '';
+        $req == 6 ? $data->where('status', 'Batal')->orWhere('status', 'Ditolak') : '';
+        $data = $data->orderBy('tgl_validasi', 'ASC')->get();
 
         for ($i=0; $i < count($data); $i++) { 
             $data[$i]->count = $start + $i + 1;
@@ -84,7 +102,7 @@ class SekretariatController extends Controller
             } elseif ($data[$i]->status == "Proses") {
                 $status = '<span class="badge badge-warning">Proses Validasi</span>';
             } elseif ($data[$i]->status == "Draft") {
-                $status = '<span class="badge badge-primary">Selesai Drafting</span>';
+                $status = '<span class="badge badge-primary">Drafting</span>';
             } elseif ($data[$i]->status == "Final") {
                 $status = '<span class="badge badge-success">Selesai</span>';
             } elseif ($data[$i]->status == "Batal") {
@@ -180,7 +198,7 @@ class SekretariatController extends Controller
         ]);
     }
 
-    public function datatablePkplh()
+    public function datatablePkplh($req, $param)
     {
         $limit = request('length');
         $start = request('start');
@@ -212,8 +230,19 @@ class SekretariatController extends Controller
             'pelaku_usaha',
             'note',
             'pertek',
-        )->orderBy('tgl_validasi', 'ASC')->get();
+        );
 
+        $param == 'sudah' ? $data->where('nama_operator', '!=', NULL) : '';
+        $param == 'belum' ? $data->where('nama_operator', NULL) : '';
+
+        $req == 1 ? $data->where('status', 'Belum') : '';
+        $req == 2 ? $data->where('status', 'Submit') : '';
+        $req == 3 ? $data->where('status', 'Proses') : '';
+        $req == 4 ? $data->where('status', 'Draft') : '';
+        $req == 5 ? $data->where('status', 'Final') : '';
+        $req == 6 ? $data->where('status', 'Batal')->orWhere('status', 'Ditolak') : '';
+        $data = $data->orderBy('tgl_validasi', 'ASC')->get();
+        
         for ($i=0; $i < count($data); $i++) { 
             $data[$i]->count = $start + $i + 1;
             if ($data[$i]->status == "Belum") {
@@ -223,7 +252,7 @@ class SekretariatController extends Controller
             } elseif ($data[$i]->status == "Proses") {
                 $status = '<span class="badge badge-warning">Proses Validasi</span>';
             } elseif ($data[$i]->status == "Draft") {
-                $status = '<span class="badge badge-primary">Selesai Drafting</span>';
+                $status = '<span class="badge badge-primary">Drafting</span>';
             } elseif ($data[$i]->status == "Final") {
                 $status = '<span class="badge badge-success">Selesai</span>';
             } elseif ($data[$i]->status == "Batal") {
@@ -350,7 +379,7 @@ class SekretariatController extends Controller
         return redirect()->route('sekre.skkl.index')->with('message', $skkl->nama_usaha_baru . ' berhasil ditolak!');
     }
 
-    public function pkplhIndex()
+    public function pkplhIndex($param)
     {
         $data_pkplh = Pkplh::orderBy('updated_at', 'DESC')->get();
         $operators = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
@@ -371,7 +400,13 @@ class SekretariatController extends Controller
         ->select('pertek_pkplh.id_pkplh', 'pertek_pkplh.pertek', 'pertek_pkplh.surat_pertek')
         ->orderBy('pertek_pkplh.id', 'asc')->get();
 
-        return view('sekretariat.pkplh.index', compact('data_pkplh', 'operators', 'pemrakarsa', 'pertek_pkplh'));
+        $status = $this->status('pkplh');
+        request('status') ? $reqstat = request('status') : $reqstat = 0;
+
+        return view('sekretariat.pkplh.index', compact('data_pkplh', 'operators', 'pemrakarsa', 'pertek_pkplh', 'status'))->with([
+            'reqStat' => $reqstat,
+            'param' => $param
+        ]);
     }
 
     public function pkplhAssign(Request $request)
@@ -417,11 +452,41 @@ class SekretariatController extends Controller
 
     public function skklExport()
     {
-        return Excel::download(new SkklExport, 'Rekap SKKL.xlsx');
+        return Excel::download(new SkklExport(request('param'), request('status')), 'Rekap SKKL.xlsx');
     }
 
     public function pkplhExport()
     {
-        return Excel::download(new PkplhExport, 'Rekap PKPLH.xlsx');
+        return Excel::download(new PkplhExport(request('param'), request('status')), 'Rekap PKPLH.xlsx');
+    }
+
+    private function status($doc) {
+        $doc == 'skkl' ? $count = Skkl::select('status', DB::raw('count(*) as total'))->groupBy('status')->orderBy('status')->get() : $count = Pkplh::select('status', DB::raw('count(*) as total'))->groupBy('status')->orderBy('status')->get();
+        $status = array();
+        $status['Belum'] = 0;
+        $status['Submit'] = 0;
+        $status['Proses'] = 0;
+        $status['Draft'] = 0;
+        $status['Final'] = 0;
+        $status['Batal'] = 0;
+        foreach ($count as $step) {
+            if ($step->status == 'Belum') {
+                $status['Belum'] += $step->total;
+            } else if ($step->status == 'Submit') {
+                $status['Submit'] += $step->total;
+            } else if ($step->status == 'Proses') {
+                $status['Proses'] += $step->total;
+            } else if ($step->status == 'Draft') {
+                $status['Draft'] += $step->total;
+            } else if ($step->status == 'Final') {
+                $status['Final'] += $step->total;
+            } else if ($step->status == 'Batal') {
+                $status['Batal'] += $step->total;
+            } else if ($step->status == 'Ditolak') {
+                $status['Batal'] += $step->total;
+            }
+        }
+
+        return $status;
     }
 }

@@ -65,18 +65,32 @@
             </a>
         </li>
     @elseif ($role == 'Sekretariat')
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('sekre.skkl.index') }}">
+        <li class="nav-item {{ Request::routeIs('sekre.skkl.*') ? 'active' : '' }}">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSkkl" aria-expanded="true" aria-controls="collapseSkkl">
                 <i class="fas fa-book"></i>
                 <span>Perubahan SKKL</span>
             </a>
+            <div id="collapseSkkl" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item {{ Request::routeIs('sekre.skkl.index') ? 'active' : '' }}" href="{{ route('sekre.skkl.index') }}">Semua Permohonan</a>
+                    <a class="collapse-item {{ Request::routeIs('sekre.skkl.sudah') ? 'active' : '' }}" href="{{ route('sekre.skkl.sudah') }}">Sudah Disposisi</a>
+                    <a class="collapse-item {{ Request::routeIs('sekre.skkl.belum') ? 'active' : '' }}" href="{{ route('sekre.skkl.belum') }}">Belum Disposisi</a>
+                </div>
+            </div>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('sekre.pkplh.index') }}">
+        <li class="nav-item {{ Request::routeIs('sekre.pkplh.*') ? 'active' : '' }}">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePkplh" aria-expanded="true" aria-controls="collapsePkplh">
                 <i class="fas fa-book"></i>
                 <span>Perubahan PKPLH</span>
             </a>
+            <div id="collapsePkplh" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item {{ Request::routeIs('sekre.pkplh.index') ? 'active' : '' }}" href="{{ route('sekre.pkplh.index') }}">Semua Permohonan</a>
+                    <a class="collapse-item {{ Request::routeIs('sekre.pkplh.sudah') ? 'active' : '' }}" href="{{ route('sekre.pkplh.sudah') }}">Sudah Disposisi</a>
+                    <a class="collapse-item {{ Request::routeIs('sekre.pkplh.belum') ? 'active' : '' }}" href="{{ route('sekre.pkplh.belum') }}">Belum Disposisi</a>
+                </div>
+            </div>
         </li>
     @else
         <li class="nav-item">

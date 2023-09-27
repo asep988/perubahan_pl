@@ -76,7 +76,7 @@
                             @elseif ($data_pkplh[$i]->status == 'Proses')
                                 <span class="badge badge-warning">Proses Validasi</span>
                             @elseif ($data_pkplh[$i]->status == 'Draft')
-                                <span class="badge badge-primary">Selesai Drafting</span>
+                                <span class="badge badge-primary">Drafting</span>
                             @elseif ($data_pkplh[$i]->status == 'Final')
                                 <span class="badge badge-success">Selesai</span>
                             @elseif ($data_pkplh[$i]->status == 'Batal')

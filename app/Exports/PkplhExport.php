@@ -10,6 +10,12 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
 class PkplhExport implements FromCollection, WithHeadings, ShouldAutoSize
 {
+    public function __construct($param, $status)
+    {
+        $this->param = $param;
+        $this->status = $status;
+    }
+
     /**
     * @return \Illuminate\Support\Collection
     */
@@ -39,7 +45,18 @@ class PkplhExport implements FromCollection, WithHeadings, ShouldAutoSize
             'count',
             'pelaku_usaha',
             'created_at'
-        )->orderBy('created_at', 'ASC')->get();
+        );
+
+        $this->param == 'sudah' ? $data->where('nama_operator', '!=', NULL) : '';
+        $this->param == 'belum' ? $data->where('nama_operator', NULL) : '';
+
+        $this->status == 1 ? $data->where('status', 'Belum') : '';
+        $this->status == 2 ? $data->where('status', 'Submit') : '';
+        $this->status == 3 ? $data->where('status', 'Proses') : '';
+        $this->status == 4 ? $data->where('status', 'Draft') : '';
+        $this->status == 5 ? $data->where('status', 'Final') : '';
+        $this->status == 6 ? $data->where('status', 'Batal')->orWhere('status', 'Ditolak') : '';
+        $data = $data->orderBy('tgl_validasi', 'ASC')->get();
 
         for ($i=0; $i < count($data); $i++) { 
             $data[$i]->count = $i + 1;
@@ -50,7 +67,7 @@ class PkplhExport implements FromCollection, WithHeadings, ShouldAutoSize
             } elseif ($data[$i]->status == "Proses") {
                 $status = 'Proses Validasi';
             } elseif ($data[$i]->status == "Draft") {
-                $status = 'Selesai Drafting';
+                $status = 'Drafting';
             } elseif ($data[$i]->status == "Final") {
                 $status = 'Selesai';
             } elseif ($data[$i]->status == "Batal") {
