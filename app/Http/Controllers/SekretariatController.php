@@ -75,7 +75,6 @@ class SekretariatController extends Controller
             'pertek',
         )->orderBy('tgl_validasi', 'ASC')->get();
 
-        return $data;
         for ($i=0; $i < count($data); $i++) { 
             $data[$i]->count = $start + $i + 1;
             if ($data[$i]->status == "Belum") {
