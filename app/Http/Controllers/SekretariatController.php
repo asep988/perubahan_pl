@@ -45,9 +45,9 @@ class SekretariatController extends Controller
     {
         $limit = request('length');
         $start = request('start');
-        $search = request('search');
+        $search = request('search')['value'];
         $total = Skkl::get();
-        
+
         $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
         ->where('initiators.user_type', 'Pemrakarsa')
         ->orWhere('initiators.user_type', 'Pemerintah')
@@ -73,24 +73,9 @@ class SekretariatController extends Controller
             'pelaku_usaha',
             'note',
             'pertek',
-        );
+        )->orderBy('tgl_validasi', 'ASC')->get();
 
-        if ($search['value'] != '') {
-            $data->where('id', 'like', '%' . $search['value'] . '%')
-            ->orWhere('noreg', 'like', '%' . $search['value'] . '%')
-            ->orWhere('nama_usaha_baru', 'like', '%' . $search['value'] . '%')
-            ->orWhere('status', 'like', '%' . $search['value'] . '%')
-            ->orWhere('pic_pemohon', 'like', '%' . $search['value'] . '%')
-            ->orWhere('no_hp_pic', 'like', '%' . $search['value'] . '%')
-            ->orWhere('nama_operator', 'like', '%' . $search['value'] . '%')
-            ->orWhere('nomor_validasi', 'like', '%' . $search['value'] . '%')
-            ->orWhere('tgl_validasi', 'like', '%' . $search['value'] . '%')
-            ->orWhere('perihal', 'like', '%' . $search['value'] . '%')
-            ->orWhere('pelaku_usaha', 'like', '%' . $search['value'] . '%');
-        }
-
-        $data = $data->orderBy('tgl_validasi', 'ASC')->skip($start)->take($limit)->get();
-
+        return $data;
         for ($i=0; $i < count($data); $i++) { 
             $data[$i]->count = $start + $i + 1;
             if ($data[$i]->status == "Belum") {
@@ -170,11 +155,29 @@ class SekretariatController extends Controller
             $data[$i]->tgl_rpd = $tgl;
         }
 
+        $result = collect($data);
+        if ($search != null) {
+            $datas = $result->filter(function ($item) use ($search) {
+                return false !== stripos($item['noreg'], $search) or stripos($item['nama_usaha_baru'], $search) or stripos($item['status'], $search) or stripos($item['pic_pemohon'], $search) or stripos($item['no_hp_pic'], $search) or stripos($item['nama_operator'], $search) or stripos($item['jenis_perubahan'], $search) or stripos($item['nomor_validasi'], $search) or stripos($item['tgl_validasi'], $search) or stripos($item['perihal'], $search) or stripos($item['tgl_rpd'], $search) or stripos($item['pelaku_usaha'], $search);
+            })->skip($start)->take($limit);
+            $totalSearch = intval($datas->count());
+
+            $loop = array();
+            foreach ($datas as $row) {
+                $loop[] = $row;
+            }
+            
+            $datas = $loop;
+        } else {
+            $datas = $result->skip($start)->take($limit);
+            $totalSearch = intval($result->count());
+        }
+
         return response()->json([
             "draw" => intval(request('draw')),
             "recordsTotal" => intval($total->count()),
-            "recordsFiltered" => intval($total->count()),
-            "data" => $data
+            "recordsFiltered" => $totalSearch,
+            "data" => $datas
         ]);
     }
 
@@ -182,7 +185,7 @@ class SekretariatController extends Controller
     {
         $limit = request('length');
         $start = request('start');
-        $search = request('search');
+        $search = request('search')['value'];
         $total = Pkplh::get();
         
         $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
@@ -210,23 +213,7 @@ class SekretariatController extends Controller
             'pelaku_usaha',
             'note',
             'pertek',
-        );
-
-        if ($search['value'] != '') {
-            $data->where('id', 'like', '%' . $search['value'] . '%')
-            ->orWhere('noreg', 'like', '%' . $search['value'] . '%')
-            ->orWhere('nama_usaha_baru', 'like', '%' . $search['value'] . '%')
-            ->orWhere('status', 'like', '%' . $search['value'] . '%')
-            ->orWhere('pic_pemohon', 'like', '%' . $search['value'] . '%')
-            ->orWhere('no_hp_pic', 'like', '%' . $search['value'] . '%')
-            ->orWhere('nama_operator', 'like', '%' . $search['value'] . '%')
-            ->orWhere('nomor_validasi', 'like', '%' . $search['value'] . '%')
-            ->orWhere('tgl_validasi', 'like', '%' . $search['value'] . '%')
-            ->orWhere('perihal', 'like', '%' . $search['value'] . '%')
-            ->orWhere('pelaku_usaha', 'like', '%' . $search['value'] . '%');
-        }
-
-        $data = $data->orderBy('tgl_validasi', 'ASC')->skip($start)->take($limit)->get();
+        )->orderBy('tgl_validasi', 'ASC')->get();
 
         for ($i=0; $i < count($data); $i++) { 
             $data[$i]->count = $start + $i + 1;
@@ -297,18 +284,30 @@ class SekretariatController extends Controller
             $data[$i]->tgl_rpd = $tgl;
         }
 
+        $result = collect($data);
+        if ($search != null) {
+            $datas = $result->filter(function ($item) use ($search) {
+                return false !== stripos($item['noreg'], $search) or stripos($item['nama_usaha_baru'], $search) or stripos($item['status'], $search) or stripos($item['pic_pemohon'], $search) or stripos($item['no_hp_pic'], $search) or stripos($item['nama_operator'], $search) or stripos($item['jenis_perubahan'], $search) or stripos($item['nomor_validasi'], $search) or stripos($item['tgl_validasi'], $search) or stripos($item['perihal'], $search) or stripos($item['tgl_rpd'], $search) or stripos($item['pelaku_usaha'], $search);
+            })->skip($start)->take($limit);
+            $totalSearch = intval($datas->count());
+
+            $loop = array();
+            foreach ($datas as $row) {
+                $loop[] = $row;
+            }
+            
+            $datas = $loop;
+        } else {
+            $datas = $result->skip($start)->take($limit);
+            $totalSearch = intval($result->count());
+        }
+
         return response()->json([
             "draw" => intval(request('draw')),
             "recordsTotal" => intval($total->count()),
-            "recordsFiltered" => intval($total->count()),
-            "data" => $data
+            "recordsFiltered" => $totalSearch,
+            "data" => $datas
         ]);
-    }
-
-    public function datatables_skkl()
-    {
-        $data = Skkl::latest()->get();
-        return DataTables::of($data);
     }
 
     public function assign(Request $request)
