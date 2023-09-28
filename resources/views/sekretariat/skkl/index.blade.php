@@ -38,7 +38,8 @@
             <input type="text" name="param" value="{{ $param ?? '' }}" hidden>
             <button type="submit" class="btn btn-success mb-3"><i class="fas fa-file-excel">&nbsp;Export</i></button>
         </form>
-        {{-- <a href="{{ route('sekre.export.skkl') }}" class="btn btn-success mb-3"><i class="fas fa-file-excel">&nbsp;Export</i></a> --}}
+
+        <!-- Card -->
         <div class="row">
             <div class="col-2">
                 <form action="{{ route('sekre.skkl.index') }}" method='GET'>

@@ -51,14 +51,14 @@
             </a>
         </li>
     @elseif ($role == 'Operator')
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('operator.index') }}">
+        <li class="nav-item {{ Request::routeIs('operator.skkl.*') ? 'active' : '' }}">
+            <a class="nav-link collapsed" href="{{ route('operator.skkl.index') }}">
                 <i class="fas fa-book"></i>
                 <span>Perubahan SKKL</span>
             </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item {{ Request::routeIs('operator.pkplh.*') ? 'active' : '' }}">
             <a class="nav-link collapsed" href="{{ route('operator.pkplh.index') }}" >
                 <i class="fas fa-book"></i>
                 <span>Perubahan PKPLH</span>

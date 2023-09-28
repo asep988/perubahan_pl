@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Skkl;
+use App\User;
+use App\Pkplh;
+use Exception;
 use App\il_skkl;
 use App\Pertek_skkl;
-use App\Pkplh;
-use App\User;
-use Exception;
-use Illuminate\Contracts\Session\Session;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Response;
+use App\Pertek_pkplh;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Controllers\Response;
+use Illuminate\Contracts\Session\Session;
 
 // use FacadePdf;
 
@@ -25,9 +27,18 @@ class OperatorController extends Controller
      */
     public function index()
     {
-        $data_skkl = Skkl::orderBy('skkl.created_at', 'DESC')
-        ->where('skkl.nama_operator', Auth::user()->name)
-        ->get();
+        $status = $this->status('skkl');
+        $data_skkl = Skkl::orderBy('created_at', 'DESC')
+        ->where('nama_operator', Auth::user()->name);
+
+        request('status') ? $reqStat = request('status') : $reqStat = 0;
+        $reqStat == 1 ? $data_skkl->where('status', 'Belum') : '';
+        $reqStat == 2 ? $data_skkl->where('status', 'Submit') : '';
+        $reqStat == 3 ? $data_skkl->where('status', 'Proses') : '';
+        $reqStat == 4 ? $data_skkl->where('status', 'Draft') : '';
+        $reqStat == 5 ? $data_skkl->where('status', 'Final') : '';
+        $reqStat == 6 ? $data_skkl->where('status', 'Batal')->orWhere('status', 'Ditolak') : '';
+        $data_skkl = $data_skkl->get();
 
         $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
         ->where('initiators.user_type', 'Pemrakarsa')
@@ -39,73 +50,84 @@ class OperatorController extends Controller
         ->select('pertek_skkl.id_skkl', 'pertek_skkl.pertek', 'pertek_skkl.surat_pertek')
         ->orderBy('pertek_skkl.id', 'asc')->get();
 
-        return view('operator.skkl.index', compact('data_skkl', 'pemrakarsa', 'pertek_skkl'));
+        return view('operator.skkl.index', compact('data_skkl', 'pemrakarsa', 'pertek_skkl', 'status', 'reqStat'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function pkplhIndex()
     {
-        //
-    }
+        $status = $this->status('pkplh');
+        $data_pkplh = Pkplh::orderBy('created_at', 'DESC')
+        ->where('nama_operator', Auth::user()->name);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        request('status') ? $reqStat = request('status') : $reqStat = 0;
+        $reqStat == 1 ? $data_pkplh->where('status', 'Belum') : '';
+        $reqStat == 2 ? $data_pkplh->where('status', 'Submit') : '';
+        $reqStat == 3 ? $data_pkplh->where('status', 'Proses') : '';
+        $reqStat == 4 ? $data_pkplh->where('status', 'Draft') : '';
+        $reqStat == 5 ? $data_pkplh->where('status', 'Final') : '';
+        $reqStat == 6 ? $data_pkplh->where('status', 'Batal')->orWhere('status', 'Ditolak') : '';
+        $data_pkplh = $data_pkplh->get();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
+        ->where('initiators.user_type', 'Pemrakarsa')
+		->orWhere('initiators.user_type', 'Pemerintah')
+        ->select('users.id', 'users.name', 'users.email')
+        ->get();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+		$pertek_pkplh = Pertek_pkplh::join('pkplh', 'pertek_pkplh.id_pkplh', 'pkplh.id')
+        ->select('pertek_pkplh.id_pkplh', 'pertek_pkplh.pertek', 'pertek_pkplh.surat_pertek')
+        ->orderBy('pertek_pkplh.id', 'asc')->get();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+		return view('operator.pkplh.index', compact('data_pkplh', 'pemrakarsa', 'pertek_pkplh', 'status', 'reqStat'));
     }
+    
+    public function uploadFilePkplh(Request $request)
+	{
+		$request->validate([
+            'file' => 'required|mimes:pdf|max:5120',
+            'status' => 'required'
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+        if ($request->status == "draft") {
+            $status = "Belum";
+        } else {
+            $status = "Selesai";
+        }
+
+        $id = $request->id_pkplh;
+        $pkplh_id = Pkplh::find($id);
+
+        $destination = 'files/pkplh/' . $pkplh_id->file;
+        if ($destination) {
+            Storage::delete($destination);
+        }
+
+        $file = $request->file('file');
+        $format = $file->getClientOriginalExtension();
+        $fileName = time() . '_pkplh.' . $format; //Variabel yang menampung nama file
+        $file->storeAs('files/pkplh', $fileName); //Simpan ke Storage
+
+        Pkplh::find($id)->update([
+            'status' => $status,
+            'file' => $fileName
+        ]);
+
+        return back()->with('message', 'PDF berhasil diupload!');
+	}
+
+	public function destroyFilePkplh($id)
     {
-        //
+        $pkplh = Pkplh::find($id);
+        $destination = 'files/pkplh/' . $pkplh->file;
+        if ($destination) {
+            Storage::delete($destination);
+        }
+
+        $pkplh->update([
+            'file' => null
+        ]);
+
+        return back()->with('message', 'PDF berhasil dihapus!');
     }
 
     public function rpd_skkl(Request $request, $id)
@@ -128,7 +150,7 @@ class OperatorController extends Controller
         return back()->with('message', 'Nomor RPD dan Tanggal RPD berhasil diisi');
     }
 
-    public function upload_file(Request $request)
+    public function uploadFileSkkl(Request $request)
     {
         // Validation
         $request->validate([
@@ -163,7 +185,7 @@ class OperatorController extends Controller
         return back()->with('message', 'PDF berhasil diupload!');
     }
 
-    public function destroyFile($id)
+    public function destroyFileSkkl($id)
     {
         $skkl = Skkl::find($id);
         $destination = 'files/skkl/' . $skkl->file;
@@ -789,5 +811,35 @@ class OperatorController extends Controller
 		};
 
         return view('operator.skkl.preview', compact('data_skkl', 'il_skkl', 'pertek_skkl', 'jml_pertek'));
+    }
+
+    private function status($doc) {
+        $doc == 'skkl' ? $count = Skkl::select('status', DB::raw('count(*) as total'))->where('nama_operator', Auth::user()->name)->groupBy('status')->orderBy('status')->get() : $count = Pkplh::select('status', DB::raw('count(*) as total'))->where('nama_operator', Auth::user()->name)->groupBy('status')->orderBy('status')->get();
+        $status = array();
+        $status['Belum'] = 0;
+        $status['Submit'] = 0;
+        $status['Proses'] = 0;
+        $status['Draft'] = 0;
+        $status['Final'] = 0;
+        $status['Batal'] = 0;
+        foreach ($count as $step) {
+            if ($step->status == 'Belum') {
+                $status['Belum'] += $step->total;
+            } else if ($step->status == 'Submit') {
+                $status['Submit'] += $step->total;
+            } else if ($step->status == 'Proses') {
+                $status['Proses'] += $step->total;
+            } else if ($step->status == 'Draft') {
+                $status['Draft'] += $step->total;
+            } else if ($step->status == 'Final') {
+                $status['Final'] += $step->total;
+            } else if ($step->status == 'Batal') {
+                $status['Batal'] += $step->total;
+            } else if ($step->status == 'Ditolak') {
+                $status['Batal'] += $step->total;
+            }
+        }
+
+        return $status;
     }
 }

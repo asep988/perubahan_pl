@@ -100,22 +100,21 @@ Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {
 });
 
 Route::group(['middleware' => ['auth', 'cekRole:Operator']], function() {
-    Route::get('/Operator', 'OperatorController@index')->name('operator.index');
-    Route::get('/Operator/search', 'OperatorController@search')->name('operator.search');
+    Route::get('/Operator', 'OperatorController@index')->name('operator.skkl.index');
     Route::put('/Operator/skkl/periksa/{id}', 'OperatorController@periksa')->name('operator.skkl.periksa');
     Route::put('/Operator/skkl/rpd/{id}', 'OperatorController@rpd_skkl')->name('operator.skkl.rpd');
-    Route::get('/Operator/skkl/chat/{id}', 'SkklController@chat')->name('skkl.operator.chat');
+    Route::get('/Operator/skkl/chat/{id}', 'SkklController@chat')->name('operator.skkl.chat');
 
     Route::put('/Operator/pkplh/rpd/{id}', 'OperatorController@rpd_pkplh')->name('operator.pkplh.rpd');
-    Route::get('/Operator/download/{id}', 'OperatorController@download')->name('operator.download');
-    Route::get('/Operator/preview/{id}', 'OperatorController@preview')->name('operator.preview');
-    Route::put('/Operator/upload_file', 'OperatorController@upload_file')->name('operator.upload_file');
-    Route::get('/Operator/file/delete/{id}', 'OperatorController@destroyFile')->name('operator.destroy.file');
+    Route::get('/Operator/skkl/download/{id}', 'OperatorController@download')->name('operator.download');
+    Route::get('/Operator/skkl/preview/{id}', 'OperatorController@preview')->name('operator.preview');
+    Route::put('/Operator/skkl/upload_file', 'OperatorController@uploadFileSkkl')->name('operator.upload_file');
+    Route::get('/Operator/skkl/file/delete/{id}', 'OperatorController@destroyFileSkkl')->name('operator.destroy.file');
 
-    Route::get('/Operator/pkplh', 'PkplhController@operatorIndex')->name('operator.pkplh.index');
+    Route::get('/Operator/pkplh', 'OperatorController@pkplhIndex')->name('operator.pkplh.index');
     Route::get('/Operator/pkplh/preview/{id}', 'PkplhController@operatorPreview')->name('operator.pkplh.preview');
-    Route::put('/Operator/pkplh/upload_file', 'PkplhController@uploadFile')->name('operator.pkplh.upload');
-    Route::get('/Operator/pkplh/file/delete/{id}', 'PkplhController@destroyFile')->name('operator.pkplh.destroy');
+    Route::put('/Operator/pkplh/upload_file', 'OperatorController@uploadFilePkplh')->name('operator.pkplh.upload');
+    Route::get('/Operator/pkplh/file/delete/{id}', 'OperatorController@destroyFilePkplh')->name('operator.pkplh.destroy');
     Route::get('/Operator/pkplh/download/{id}', 'PkplhController@download')->name('operator.pkplh.download');
     Route::get('/Operator/pkplh/chat/{id}', 'PkplhController@chat')->name('pkplh.operator.chat');
 
