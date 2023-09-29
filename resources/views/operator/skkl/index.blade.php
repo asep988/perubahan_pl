@@ -355,7 +355,7 @@
                         @endif
 
                         <hr>
-                        <a class="btn btn-success btn-block" target="_blank" href="{{ route('operator.skkl.chat', $skkl->id) }}">Chat dengan Pemrakarsa</a>
+                        <a class="btn btn-success btn-block" target="_blank" href="{{ route('operator.skkl.chat', $skkl->id) }}">Chat dengan Pemrakarsa <span class="badge badge-danger">{{ $skkl->total_chat }}</span></a>
                         <a class="btn btn-warning btn-block" href="{{ route('operator.preview', [$skkl->id]) }}">Preview
                             PL</a></button>
                     </div>

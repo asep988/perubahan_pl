@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Chat_pkplh;
+use App\Chat_skkl;
 use App\Skkl;
 use App\User;
 use App\Pkplh;
@@ -40,6 +42,15 @@ class OperatorController extends Controller
         $reqStat == 6 ? $data_skkl->where('status', 'Batal')->orWhere('status', 'Ditolak') : '';
         $data_skkl = $data_skkl->get();
 
+        foreach ($data_skkl as $row) {
+            $total = Chat_skkl::where('id_skkl', $row->id)
+            ->select(DB::raw('count(*) as total'))
+            ->groupBy('id_skkl')
+            ->first();
+
+            $row['total_chat'] = $total ? $total->total : 0;
+        }
+
         $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
         ->where('initiators.user_type', 'Pemrakarsa')
         ->orWhere('initiators.user_type', 'Pemerintah')
@@ -67,6 +78,15 @@ class OperatorController extends Controller
         $reqStat == 5 ? $data_pkplh->where('status', 'Final') : '';
         $reqStat == 6 ? $data_pkplh->where('status', 'Batal')->orWhere('status', 'Ditolak') : '';
         $data_pkplh = $data_pkplh->get();
+
+        foreach ($data_pkplh as $row) {
+            $total = Chat_pkplh::where('id_pkplh', $row->id)
+            ->select(DB::raw('count(*) as total'))
+            ->groupBy('id_pkplh')
+            ->first();
+
+            $row['total_chat'] = $total ? $total->total : 0;
+        }
 
         $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
         ->where('initiators.user_type', 'Pemrakarsa')

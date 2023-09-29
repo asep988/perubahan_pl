@@ -312,7 +312,7 @@
                         @endif
 
                         <hr>
-                        <a class="btn btn-success btn-block" target="_blank" href="{{ route('pkplh.operator.chat', $pkplh->id) }}">Chat dengan Pemrakarsa</a>
+                        <a class="btn btn-success btn-block" target="_blank" href="{{ route('pkplh.operator.chat', $pkplh->id) }}">Chat dengan Pemrakarsa <span class="badge badge-danger">{{ $pkplh->total_chat }}</span></a>
                         <a class="btn btn-success btn-block"
                             href="{{ route('operator.pkplh.download', $pkplh->id) }}">Unduh PKPLH</a></button>
                         <a class="btn btn-primary btn-block"

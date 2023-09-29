@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Chat_pkplh;
+use App\Chat_skkl;
 use App\Skkl;
 use App\User;
 use App\Pkplh;
@@ -21,6 +23,15 @@ class SekretariatController extends Controller
     public function index($param)
     {
         $data_skkl = Skkl::orderBy('tgl_validasi', 'ASC')->get();
+        foreach ($data_skkl as $row) {
+            $total = Chat_skkl::where('id_skkl', $row->id)
+            ->select(DB::raw('count(*) as total'))
+            ->groupBy('id_skkl')
+            ->first();
+
+            $row['total_chat'] = $total ? $total->total : 0;
+        }
+
         $operators = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
 		->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
 		->where('feasibility_test_teams.authority', 'Pusat')
@@ -178,18 +189,17 @@ class SekretariatController extends Controller
                 return false !== stripos($item['noreg'], $search) or stripos($item['nama_usaha_baru'], $search) or stripos($item['status'], $search) or stripos($item['pic_pemohon'], $search) or stripos($item['no_hp_pic'], $search) or stripos($item['nama_operator'], $search) or stripos($item['jenis_perubahan'], $search) or stripos($item['nomor_validasi'], $search) or stripos($item['tgl_validasi'], $search) or stripos($item['perihal'], $search) or stripos($item['tgl_rpd'], $search) or stripos($item['pelaku_usaha'], $search);
             })->skip($start)->take($limit);
             $totalSearch = intval($datas->count());
-
-            $loop = array();
-            foreach ($datas as $row) {
-                $loop[] = $row;
-            }
-            
-            $datas = $loop;
         } else {
             $datas = $result->skip($start)->take($limit);
             $totalSearch = intval($result->count());
         }
 
+        $loop = array();
+        foreach ($datas as $row) {
+            $loop[] = $row;
+        }
+        $datas = $loop;
+        
         return response()->json([
             "draw" => intval(request('draw')),
             "recordsTotal" => intval($total->count()),
@@ -318,17 +328,16 @@ class SekretariatController extends Controller
                 return false !== stripos($item['noreg'], $search) or stripos($item['nama_usaha_baru'], $search) or stripos($item['status'], $search) or stripos($item['pic_pemohon'], $search) or stripos($item['no_hp_pic'], $search) or stripos($item['nama_operator'], $search) or stripos($item['jenis_perubahan'], $search) or stripos($item['nomor_validasi'], $search) or stripos($item['tgl_validasi'], $search) or stripos($item['perihal'], $search) or stripos($item['tgl_rpd'], $search) or stripos($item['pelaku_usaha'], $search);
             })->skip($start)->take($limit);
             $totalSearch = intval($datas->count());
-
-            $loop = array();
-            foreach ($datas as $row) {
-                $loop[] = $row;
-            }
-            
-            $datas = $loop;
         } else {
             $datas = $result->skip($start)->take($limit);
             $totalSearch = intval($result->count());
         }
+
+        $loop = array();
+        foreach ($datas as $row) {
+            $loop[] = $row;
+        }
+        $datas = $loop;
 
         return response()->json([
             "draw" => intval(request('draw')),
@@ -382,6 +391,15 @@ class SekretariatController extends Controller
     public function pkplhIndex($param)
     {
         $data_pkplh = Pkplh::orderBy('updated_at', 'DESC')->get();
+        foreach ($data_pkplh as $row) {
+            $total = Chat_pkplh::where('id_pkplh', $row->id)
+            ->select(DB::raw('count(*) as total'))
+            ->groupBy('id_pkplh')
+            ->first();
+
+            $row['total_chat'] = $total ? $total->total : 0;
+        }
+
         $operators = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
 		->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
 		->where('feasibility_test_teams.authority', 'Pusat')
