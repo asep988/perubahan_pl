@@ -41,63 +41,73 @@
 
         <!-- Card -->
         <div class="row">
-            <div class="col-2">
+            <div class="col">
                 <form action="{{ route('sekre.skkl.index') }}" method='GET'>
                     @csrf
                     <input type="text" name="status" value="1" hidden>
-                    <button type="submit" class="btn btn-secondary btn-lg btn-block mb-3 {{ $reqStat == '1' ? 'active' : '' }}">
+                    <button type="submit" class="btn btn-lg btn-block mb-3 {{ $reqStat == '1' ? 'btn-outline-secondary' : 'btn-secondary' }}">
                         <span>Belum Diproses</span>
                         <h3>{{ $status['Belum'] }}</h3>
                     </button>
                 </form>
             </div>
-            <div class="col-2">
+            <div class="col">
                 <form action="{{ route('sekre.skkl.index') }}" method='GET'>
                     @csrf
                     <input type="text" name="status" value="2" hidden>
-                    <button type="submit" class="btn btn-info btn-lg btn-block mb-3 {{ $reqStat == '2' ? 'active' : '' }}">
+                    <button type="submit" class="btn btn-lg btn-block mb-3 {{ $reqStat == '2' ? 'btn-outline-info' : 'btn-info' }}">
                         <span>Sudah Submit</span>
                         <h3>{{ $status['Submit'] }}</h3>
                     </button>
                 </form>
             </div>
-            <div class="col-2">
+            <div class="col">
                 <form action="{{ route('sekre.skkl.index') }}" method='GET'>
                     @csrf
                     <input type="text" name="status" value="3" hidden>
-                    <button type="submit" class="btn btn-warning btn-lg btn-block mb-3 {{ $reqStat == '3' ? 'active' : '' }}">
+                    <button type="submit" class="btn btn-lg btn-block mb-3 {{ $reqStat == '3' ? 'btn-outline-warning' : 'btn-warning' }}">
                         <span>Proses Validasi</span>
                         <h3>{{ $status['Proses'] }}</h3>
                     </button>
                 </form>
             </div>
-            <div class="col-2">
+            <div class="col">
                 <form action="{{ route('sekre.skkl.index') }}" method='GET'>
                     @csrf
                     <input type="text" name="status" value="4" hidden>
-                    <button type="submit" class="btn btn-primary btn-lg btn-block mb-3 {{ $reqStat == '4' ? 'active' : '' }}">
+                    <button type="submit" class="btn btn-lg btn-block mb-3 {{ $reqStat == '4' ? 'btn-outline-primary' : 'btn-primary' }}">
                         <span>Drafting</span>
                         <h3>{{ $status['Draft'] }}</h3>
                     </button>
                 </form>
             </div>
-            <div class="col-2">
+            <div class="col">
                 <form action="{{ route('sekre.skkl.index') }}" method='GET'>
                     @csrf
                     <input type="text" name="status" value="5" hidden>
-                    <button type="submit" class="btn btn-success btn-lg btn-block mb-3 {{ $reqStat == '5' ? 'active' : '' }}">
+                    <button type="submit" class="btn btn-lg btn-block mb-3 {{ $reqStat == '5' ? 'btn-outline-success' : 'btn-success' }}">
                         <span>Selesai</span>
                         <h3>{{ $status['Final'] }}</h3>
                     </button>
                 </form>
             </div>
-            <div class="col-2">
+            <div class="col">
                 <form action="{{ route('sekre.skkl.index') }}" method='GET'>
                     @csrf
                     <input type="text" name="status" value="6" hidden>
-                    <button type="submit" class="btn btn-danger btn-lg btn-block mb-3 {{ $reqStat == '6' ? 'active' : '' }}">
+                    <button type="submit" class="btn btn-lg btn-block mb-3 {{ $reqStat == '6' ? 'btn-outline-danger' : 'btn-danger' }}">
                         <span>Ditolak/Batal</span>
                         <h3>{{ $status['Batal'] }}</h3>
+                    </button>
+                </form>
+            </div>
+            <div class="col">
+                <form action="{{ route('sekre.skkl.index') }}" method='GET'>
+                    @csrf
+                    <input type="text" name="status" value="0" hidden>
+                    <button type="submit" class="btn btn-lg btn-block mb-3 {{ $reqStat == '0' ? 'btn-outline-dark' : 'btn-dark' }}">
+                        <span>Total</span>
+                        <h3>{{ $status['Total'] }}</h3>
                     </button>
                 </form>
             </div>

@@ -487,6 +487,7 @@ class SekretariatController extends Controller
         $status['Draft'] = 0;
         $status['Final'] = 0;
         $status['Batal'] = 0;
+        $status['Total'] = 0;
         foreach ($count as $step) {
             if ($step->status == 'Belum') {
                 $status['Belum'] += $step->total;
@@ -503,6 +504,7 @@ class SekretariatController extends Controller
             } else if ($step->status == 'Ditolak') {
                 $status['Batal'] += $step->total;
             }
+            $status['Total'] += $step->total;
         }
 
         return $status;
