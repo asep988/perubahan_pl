@@ -2,24 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\PkplhExport;
-use App\Exports\SkklExport;
-use App\Pkplh;
-use Illuminate\Http\Request;
+use App\Chat_pkplh;
+use App\Chat_skkl;
 use App\Skkl;
 use App\User;
+use App\Pkplh;
+use Carbon\Carbon;
 use App\Pertek_skkl;
 use App\Pertek_pkplh;
-use Carbon\Carbon;
+use App\Exports\SkklExport;
+use App\Exports\PkplhExport;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
-use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\Facades\DataTables;
+use Yajra\DataTables\Contracts\DataTable;
 
 class SekretariatController extends Controller
 {
-    public function index()
+    public function index($param)
     {
         $data_skkl = Skkl::orderBy('tgl_validasi', 'ASC')->get();
+        foreach ($data_skkl as $row) {
+            $total = Chat_skkl::where('id_skkl', $row->id)
+            ->select(DB::raw('count(*) as total'))
+            ->groupBy('id_skkl')
+            ->first();
+
+            $row['total_chat'] = $total ? $total->total : 0;
+        }
+
         $operators = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
 		->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
 		->where('feasibility_test_teams.authority', 'Pusat')
@@ -38,14 +50,20 @@ class SekretariatController extends Controller
         ->select('pertek_skkl.id_skkl', 'pertek_skkl.pertek', 'pertek_skkl.surat_pertek')
         ->orderBy('pertek_skkl.id', 'asc')->get();
 
-        return view('sekretariat.skkl.index', compact('data_skkl', 'operators', 'pemrakarsa', 'pertek_skkl'));
+        $status = $this->status('skkl');
+        request('status') ? $reqstat = request('status') : $reqstat = 0;
+
+        return view('sekretariat.skkl.index', compact('data_skkl', 'operators', 'pemrakarsa', 'pertek_skkl', 'status'))->with([
+            'reqStat' => $reqstat,
+            'param' => $param
+        ]);
     }
 
-    public function datatableSkkl()
+    public function datatableSkkl($req, $param)
     {
         $limit = request('length');
         $start = request('start');
-        $search = request('search');
+        $search = request('search')['value'];
         $total = Skkl::get();
 
         $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
@@ -75,21 +93,16 @@ class SekretariatController extends Controller
             'pertek',
         );
 
-        if ($search['value'] != '') {
-            $data->where('id', 'like', '%' . $search['value'] . '%')
-            ->orWhere('noreg', 'like', '%' . $search['value'] . '%')
-            ->orWhere('nama_usaha_baru', 'like', '%' . $search['value'] . '%')
-            ->orWhere('status', 'like', '%' . $search['value'] . '%')
-            ->orWhere('pic_pemohon', 'like', '%' . $search['value'] . '%')
-            ->orWhere('no_hp_pic', 'like', '%' . $search['value'] . '%')
-            ->orWhere('nama_operator', 'like', '%' . $search['value'] . '%')
-            ->orWhere('nomor_validasi', 'like', '%' . $search['value'] . '%')
-            ->orWhere('tgl_validasi', 'like', '%' . $search['value'] . '%')
-            ->orWhere('perihal', 'like', '%' . $search['value'] . '%')
-            ->orWhere('pelaku_usaha', 'like', '%' . $search['value'] . '%');
-        }
+        $param == 'sudah' ? $data->where('nama_operator', '!=', NULL) : '';
+        $param == 'belum' ? $data->where('nama_operator', NULL) : '';
 
-        $data = $data->orderBy('tgl_validasi', 'ASC')->skip($start)->take($limit)->get();
+        $req == 1 ? $data->where('status', 'Belum') : '';
+        $req == 2 ? $data->where('status', 'Submit') : '';
+        $req == 3 ? $data->where('status', 'Proses') : '';
+        $req == 4 ? $data->where('status', 'Draft') : '';
+        $req == 5 ? $data->where('status', 'Final') : '';
+        $req == 6 ? $data->where('status', 'Batal')->orWhere('status', 'Ditolak') : '';
+        $data = $data->orderBy('tgl_validasi', 'ASC')->get();
 
         for ($i=0; $i < count($data); $i++) {
             $data[$i]->count = $start + $i + 1;
@@ -100,7 +113,7 @@ class SekretariatController extends Controller
             } elseif ($data[$i]->status == "Proses") {
                 $status = '<span class="badge badge-warning">Proses Validasi</span>';
             } elseif ($data[$i]->status == "Draft") {
-                $status = '<span class="badge badge-primary">Selesai Drafting</span>';
+                $status = '<span class="badge badge-primary">Drafting</span>';
             } elseif ($data[$i]->status == "Final") {
                 $status = '<span class="badge badge-success">Selesai</span>';
             } elseif ($data[$i]->status == "Batal") {
@@ -170,19 +183,36 @@ class SekretariatController extends Controller
             $data[$i]->tgl_rpd = $tgl;
         }
 
+        $result = collect($data);
+        if ($search != null) {
+            $datas = $result->filter(function ($item) use ($search) {
+                return false !== stripos($item['noreg'], $search) or stripos($item['nama_usaha_baru'], $search) or stripos($item['status'], $search) or stripos($item['pic_pemohon'], $search) or stripos($item['no_hp_pic'], $search) or stripos($item['nama_operator'], $search) or stripos($item['jenis_perubahan'], $search) or stripos($item['nomor_validasi'], $search) or stripos($item['tgl_validasi'], $search) or stripos($item['perihal'], $search) or stripos($item['tgl_rpd'], $search) or stripos($item['pelaku_usaha'], $search);
+            })->skip($start)->take($limit);
+            $totalSearch = intval($datas->count());
+        } else {
+            $datas = $result->skip($start)->take($limit);
+            $totalSearch = intval($result->count());
+        }
+
+        $loop = array();
+        foreach ($datas as $row) {
+            $loop[] = $row;
+        }
+        $datas = $loop;
+        
         return response()->json([
             "draw" => intval(request('draw')),
             "recordsTotal" => intval($total->count()),
-            "recordsFiltered" => intval($total->count()),
-            "data" => $data
+            "recordsFiltered" => $totalSearch,
+            "data" => $datas
         ]);
     }
 
-    public function datatablePkplh()
+    public function datatablePkplh($req, $param)
     {
         $limit = request('length');
         $start = request('start');
-        $search = request('search');
+        $search = request('search')['value'];
         $total = Pkplh::get();
         $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
         ->where('initiators.user_type', 'Pemrakarsa')
@@ -211,23 +241,18 @@ class SekretariatController extends Controller
             'pertek',
         );
 
-        if ($search['value'] != '') {
-            $data->where('id', 'like', '%' . $search['value'] . '%')
-            ->orWhere('noreg', 'like', '%' . $search['value'] . '%')
-            ->orWhere('nama_usaha_baru', 'like', '%' . $search['value'] . '%')
-            ->orWhere('status', 'like', '%' . $search['value'] . '%')
-            ->orWhere('pic_pemohon', 'like', '%' . $search['value'] . '%')
-            ->orWhere('no_hp_pic', 'like', '%' . $search['value'] . '%')
-            ->orWhere('nama_operator', 'like', '%' . $search['value'] . '%')
-            ->orWhere('nomor_validasi', 'like', '%' . $search['value'] . '%')
-            ->orWhere('tgl_validasi', 'like', '%' . $search['value'] . '%')
-            ->orWhere('perihal', 'like', '%' . $search['value'] . '%')
-            ->orWhere('pelaku_usaha', 'like', '%' . $search['value'] . '%');
-        }
+        $param == 'sudah' ? $data->where('nama_operator', '!=', NULL) : '';
+        $param == 'belum' ? $data->where('nama_operator', NULL) : '';
 
-        $data = $data->orderBy('tgl_validasi', 'ASC')->skip($start)->take($limit)->get();
-
-        for ($i=0; $i < count($data); $i++) {
+        $req == 1 ? $data->where('status', 'Belum') : '';
+        $req == 2 ? $data->where('status', 'Submit') : '';
+        $req == 3 ? $data->where('status', 'Proses') : '';
+        $req == 4 ? $data->where('status', 'Draft') : '';
+        $req == 5 ? $data->where('status', 'Final') : '';
+        $req == 6 ? $data->where('status', 'Batal')->orWhere('status', 'Ditolak') : '';
+        $data = $data->orderBy('tgl_validasi', 'ASC')->get();
+        
+        for ($i=0; $i < count($data); $i++) { 
             $data[$i]->count = $start + $i + 1;
             if ($data[$i]->status == "Belum") {
                 $status = '<span class="badge badge-secondary">Belum diproses</span>';
@@ -236,7 +261,7 @@ class SekretariatController extends Controller
             } elseif ($data[$i]->status == "Proses") {
                 $status = '<span class="badge badge-warning">Proses Validasi</span>';
             } elseif ($data[$i]->status == "Draft") {
-                $status = '<span class="badge badge-primary">Selesai Drafting</span>';
+                $status = '<span class="badge badge-primary">Drafting</span>';
             } elseif ($data[$i]->status == "Final") {
                 $status = '<span class="badge badge-success">Selesai</span>';
             } elseif ($data[$i]->status == "Batal") {
@@ -296,18 +321,29 @@ class SekretariatController extends Controller
             $data[$i]->tgl_rpd = $tgl;
         }
 
+        $result = collect($data);
+        if ($search != null) {
+            $datas = $result->filter(function ($item) use ($search) {
+                return false !== stripos($item['noreg'], $search) or stripos($item['nama_usaha_baru'], $search) or stripos($item['status'], $search) or stripos($item['pic_pemohon'], $search) or stripos($item['no_hp_pic'], $search) or stripos($item['nama_operator'], $search) or stripos($item['jenis_perubahan'], $search) or stripos($item['nomor_validasi'], $search) or stripos($item['tgl_validasi'], $search) or stripos($item['perihal'], $search) or stripos($item['tgl_rpd'], $search) or stripos($item['pelaku_usaha'], $search);
+            })->skip($start)->take($limit);
+            $totalSearch = intval($datas->count());
+        } else {
+            $datas = $result->skip($start)->take($limit);
+            $totalSearch = intval($result->count());
+        }
+
+        $loop = array();
+        foreach ($datas as $row) {
+            $loop[] = $row;
+        }
+        $datas = $loop;
+
         return response()->json([
             "draw" => intval(request('draw')),
             "recordsTotal" => intval($total->count()),
-            "recordsFiltered" => intval($total->count()),
-            "data" => $data
+            "recordsFiltered" => $totalSearch,
+            "data" => $datas
         ]);
-    }
-
-    public function datatables_skkl()
-    {
-        $data = Skkl::latest()->get();
-        return DataTables::of($data);
     }
 
     public function assign(Request $request)
@@ -351,9 +387,18 @@ class SekretariatController extends Controller
         return redirect()->route('sekre.skkl.index')->with('message', $skkl->nama_usaha_baru . ' berhasil ditolak!');
     }
 
-    public function pkplhIndex()
+    public function pkplhIndex($param)
     {
         $data_pkplh = Pkplh::orderBy('updated_at', 'DESC')->get();
+        foreach ($data_pkplh as $row) {
+            $total = Chat_pkplh::where('id_pkplh', $row->id)
+            ->select(DB::raw('count(*) as total'))
+            ->groupBy('id_pkplh')
+            ->first();
+
+            $row['total_chat'] = $total ? $total->total : 0;
+        }
+
         $operators = User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
 		->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
 		->where('feasibility_test_teams.authority', 'Pusat')
@@ -372,7 +417,13 @@ class SekretariatController extends Controller
         ->select('pertek_pkplh.id_pkplh', 'pertek_pkplh.pertek', 'pertek_pkplh.surat_pertek')
         ->orderBy('pertek_pkplh.id', 'asc')->get();
 
-        return view('sekretariat.pkplh.index', compact('data_pkplh', 'operators', 'pemrakarsa', 'pertek_pkplh'));
+        $status = $this->status('pkplh');
+        request('status') ? $reqstat = request('status') : $reqstat = 0;
+
+        return view('sekretariat.pkplh.index', compact('data_pkplh', 'operators', 'pemrakarsa', 'pertek_pkplh', 'status'))->with([
+            'reqStat' => $reqstat,
+            'param' => $param
+        ]);
     }
 
     public function pkplhAssign(Request $request)
@@ -418,11 +469,43 @@ class SekretariatController extends Controller
 
     public function skklExport()
     {
-        return Excel::download(new SkklExport, 'Rekap SKKL.xlsx');
+        return Excel::download(new SkklExport(request('param'), request('status')), 'Rekap SKKL.xlsx');
     }
 
     public function pkplhExport()
     {
-        return Excel::download(new PkplhExport, 'Rekap PKPLH.xlsx');
+        return Excel::download(new PkplhExport(request('param'), request('status')), 'Rekap PKPLH.xlsx');
+    }
+
+    private function status($doc) {
+        $doc == 'skkl' ? $count = Skkl::select('status', DB::raw('count(*) as total'))->groupBy('status')->orderBy('status')->get() : $count = Pkplh::select('status', DB::raw('count(*) as total'))->groupBy('status')->orderBy('status')->get();
+        $status = array();
+        $status['Belum'] = 0;
+        $status['Submit'] = 0;
+        $status['Proses'] = 0;
+        $status['Draft'] = 0;
+        $status['Final'] = 0;
+        $status['Batal'] = 0;
+        $status['Total'] = 0;
+        foreach ($count as $step) {
+            if ($step->status == 'Belum') {
+                $status['Belum'] += $step->total;
+            } else if ($step->status == 'Submit') {
+                $status['Submit'] += $step->total;
+            } else if ($step->status == 'Proses') {
+                $status['Proses'] += $step->total;
+            } else if ($step->status == 'Draft') {
+                $status['Draft'] += $step->total;
+            } else if ($step->status == 'Final') {
+                $status['Final'] += $step->total;
+            } else if ($step->status == 'Batal') {
+                $status['Batal'] += $step->total;
+            } else if ($step->status == 'Ditolak') {
+                $status['Batal'] += $step->total;
+            }
+            $status['Total'] += $step->total;
+        }
+
+        return $status;
     }
 }

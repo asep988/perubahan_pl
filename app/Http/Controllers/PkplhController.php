@@ -305,25 +305,6 @@ class PkplhController extends Controller
 	}
 
 	//OPERATOR
-	public function operatorIndex()
-	{
-		$data_pkplh = Pkplh::orderBy('created_at', 'DESC')
-        ->where('nama_operator', Auth::user()->name)
-        ->get();
-
-        $pemrakarsa = User::join('initiators', 'users.email', 'initiators.email')
-        ->where('initiators.user_type', 'Pemrakarsa')
-		->orWhere('initiators.user_type', 'Pemerintah')
-        ->select('users.id', 'users.name', 'users.email')
-        ->get();
-
-		$pertek_pkplh = Pertek_pkplh::join('pkplh', 'pertek_pkplh.id_pkplh', 'pkplh.id')
-        ->select('pertek_pkplh.id_pkplh', 'pertek_pkplh.pertek', 'pertek_pkplh.surat_pertek')
-        ->orderBy('pertek_pkplh.id', 'asc')->get();
-
-		return view('operator.pkplh.index', compact('data_pkplh', 'pemrakarsa', 'pertek_pkplh'));
-	}
-
 	public function uploadFile(Request $request)
 	{
 		$request->validate([

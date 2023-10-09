@@ -219,7 +219,8 @@
                                 <span><br> 8. Rincian Teknis Penyimpanan Limbah B3 dalam bentuk Word</span>
                                 <span><br> 9. Rincian Teknis Penyimpanan Limbah Non B3 (optional bila melakukan penyimpanan
                                     limbah non B3)</span>
-                                <span><br> 10. Pastikan Link Google Drive anda Bisa diakses Oleh Publik</span>
+                                <span><br> 10. Surat Permohonan Perubahan Perizinan Lingkungan</span>
+                                <span><br> 11. Pastikan Link Google Drive anda Bisa diakses Oleh Publik</span>
                             </div>
                             <input type="text" style="width: 100%" class="form-control" id="link_drive"
                                 name="link_drive" placeholder="Link Google Drive" required>

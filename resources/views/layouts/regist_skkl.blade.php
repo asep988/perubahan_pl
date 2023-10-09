@@ -83,7 +83,7 @@
             <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $tgl_diperbarui }}, {{ $jam_diperbarui }}</td>
         </tr>
         <tr style="border: 1px solid black; border-collapse: collapse;">
-            <td style="border: 1px solid black; border-collapse: collapse; width: 150px;">Jumlah Perubahan</td>
+            <td style="border: 1px solid black; border-collapse: collapse; width: 150px;">Jumlah Pembaruan Data</td>
             <td style="border: 1px solid black; border-collapse: collapse; padding-left: 8px;"> {{ $jml_perubahan == null ? '0' : $jml_perubahan }}</td>
         </tr>
         <tr style="border: 1px solid black; border-collapse: collapse;">

@@ -1012,7 +1012,7 @@ class SkklController extends Controller
 		$chat->update();
 
 		if ($request->role == 'Operator') {
-			return redirect()->route('skkl.operator.chat', $chat->id_skkl);
+			return redirect()->route('operator.skkl.chat', $chat->id_skkl);
 		} else if ($request->role == 'Pemrakarsa') {
 			return redirect()->route('skkl.chat', $chat->id_skkl);
 		} else {
@@ -1035,7 +1035,7 @@ class SkklController extends Controller
 		$chat->update();
 
 		if ($role == 'Operator') {
-			return redirect()->route('skkl.operator.chat', $chat->id_skkl);
+			return redirect()->route('operator.skkl.chat', $chat->id_skkl);
 		} else if ($role == 'Pemrakarsa') {
 			return redirect()->route('skkl.chat', $chat->id_skkl);
 		} else {

@@ -100,7 +100,7 @@ class AppServiceProvider extends ServiceProvider
                 // Query SKKL
 
                 $skkl_notif = Chat_skkl::join('skkl', 'chat_skkl.id_skkl', 'skkl.id')
-                ->select('skkl.noreg', 'skkl.nama_usaha_baru', 'chat_skkl.created_at', 'chat_skkl.id')
+                ->select('skkl.noreg', 'skkl.nama_usaha_baru', 'chat_skkl.created_at', 'skkl.pelaku_usaha_baru', 'chat_skkl.id')
                 ->where('chat_skkl.sender', '!=', $role);
 
                 if ($role == 'Pemrakarsa') {
@@ -118,7 +118,7 @@ class AppServiceProvider extends ServiceProvider
                 // Query PKPLH
 
                 $pkplh_notif = Chat_pkplh::join('pkplh', 'chat_pkplh.id_pkplh', 'pkplh.id')
-                ->select('pkplh.noreg', 'pkplh.nama_usaha_baru', 'chat_pkplh.created_at', 'chat_pkplh.id')
+                ->select('pkplh.noreg', 'pkplh.nama_usaha_baru', 'chat_pkplh.created_at', 'pkplh.pelaku_usaha_baru', 'chat_pkplh.id')
                 ->where('chat_pkplh.sender', '!=', $role);
 
                 if ($role == 'Pemrakarsa') {

@@ -44,8 +44,8 @@ Route::get('/ptsp', 'PtspController@login')->name('ptsp');
 Route::post('/ptsp/login', 'PtspController@authenticate')->name('ptsp.login');
 Route::get('/ptsp/skkl/8c7a5370e747a69ad6941f97c80dc06a', 'PtspController@skklIndex')->name('ptsp.skkl.index');
 Route::get('/ptsp/pkplh/842998c9fbab1a005e7fb0eb8f1f3765', 'PtspController@pkplhIndex')->name('ptsp.pkplh.index');
-Route::get('/datatable/skkl', [SekretariatController::class, 'datatableSkkl'])->name('datatable.skkl');
-Route::get('/datatable/pkplh', [SekretariatController::class, 'datatablePkplh'])->name('datatable.pkplh');
+Route::get('/datatable/skkl/{req}/{param}', [SekretariatController::class, 'datatableSkkl'])->name('datatable.skkl');
+Route::get('/datatable/pkplh/{req}/{param}', [SekretariatController::class, 'datatablePkplh'])->name('datatable.pkplh');
 
 Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {
     //skkl
@@ -100,22 +100,21 @@ Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {
 });
 
 Route::group(['middleware' => ['auth', 'cekRole:Operator']], function() {
-    Route::get('/Operator', 'OperatorController@index')->name('operator.index');
-    Route::get('/Operator/search', 'OperatorController@search')->name('operator.search');
+    Route::get('/Operator', 'OperatorController@index')->name('operator.skkl.index');
     Route::put('/Operator/skkl/periksa/{id}', 'OperatorController@periksa')->name('operator.skkl.periksa');
     Route::put('/Operator/skkl/rpd/{id}', 'OperatorController@rpd_skkl')->name('operator.skkl.rpd');
-    Route::get('/Operator/skkl/chat/{id}', 'SkklController@chat')->name('skkl.operator.chat');
+    Route::get('/Operator/skkl/chat/{id}', 'SkklController@chat')->name('operator.skkl.chat');
 
     Route::put('/Operator/pkplh/rpd/{id}', 'OperatorController@rpd_pkplh')->name('operator.pkplh.rpd');
-    Route::get('/Operator/download/{id}', 'OperatorController@download')->name('operator.download');
-    Route::get('/Operator/preview/{id}', 'OperatorController@preview')->name('operator.preview');
-    Route::put('/Operator/upload_file', 'OperatorController@upload_file')->name('operator.upload_file');
-    Route::get('/Operator/file/delete/{id}', 'OperatorController@destroyFile')->name('operator.destroy.file');
+    Route::get('/Operator/skkl/download/{id}', 'OperatorController@download')->name('operator.download');
+    Route::get('/Operator/skkl/preview/{id}', 'OperatorController@preview')->name('operator.preview');
+    Route::put('/Operator/skkl/upload_file', 'OperatorController@uploadFileSkkl')->name('operator.upload_file');
+    Route::get('/Operator/skkl/file/delete/{id}', 'OperatorController@destroyFileSkkl')->name('operator.destroy.file');
 
-    Route::get('/Operator/pkplh', 'PkplhController@operatorIndex')->name('operator.pkplh.index');
+    Route::get('/Operator/pkplh', 'OperatorController@pkplhIndex')->name('operator.pkplh.index');
     Route::get('/Operator/pkplh/preview/{id}', 'PkplhController@operatorPreview')->name('operator.pkplh.preview');
-    Route::put('/Operator/pkplh/upload_file', 'PkplhController@uploadFile')->name('operator.pkplh.upload');
-    Route::get('/Operator/pkplh/file/delete/{id}', 'PkplhController@destroyFile')->name('operator.pkplh.destroy');
+    Route::put('/Operator/pkplh/upload_file', 'OperatorController@uploadFilePkplh')->name('operator.pkplh.upload');
+    Route::get('/Operator/pkplh/file/delete/{id}', 'OperatorController@destroyFilePkplh')->name('operator.pkplh.destroy');
     Route::get('/Operator/pkplh/download/{id}', 'PkplhController@download')->name('operator.pkplh.download');
     Route::get('/Operator/pkplh/chat/{id}', 'PkplhController@chat')->name('pkplh.operator.chat');
 
@@ -133,10 +132,27 @@ Route::group(['middleware' => ['auth', 'cekRole:Operator']], function() {
 });
 
 Route::group(['middleware' => ['auth', 'cekRole:Sekretariat']], function() {
-    Route::get('/Sekretariat', 'SekretariatController@index')->name('sekre.skkl.index');
+    Route::get('/Sekretariat', function() {
+        return (new SekretariatController)->index('all');
+    })->name('sekre.skkl.index');
+    Route::get('/Sekretariat/skkl/assigned', function() {
+        return (new SekretariatController)->index('sudah');
+    })->name('sekre.skkl.sudah');
+    Route::get('/Sekretariat/skkl/unassigned', function() {
+        return (new SekretariatController)->index('belum');
+    })->name('sekre.skkl.belum');
     Route::put('/Sekretariat/penugasan/update', 'SekretariatController@assign')->name('sekre.skkl.update');
     Route::put('/Sekretariat/skkl/reject/{id}', 'SekretariatController@skklReject')->name('sekre.skkl.reject');
-    Route::get('/Sekretariat/pkplh', 'SekretariatController@pkplhIndex')->name('sekre.pkplh.index');
+    // Route::get('/Sekretariat/pkplh', 'SekretariatController@pkplhIndex')->name('sekre.pkplh.index');
+    Route::get('/Sekretariat/pkplh', function() {
+        return (new SekretariatController)->pkplhIndex('all');
+    })->name('sekre.pkplh.index');
+    Route::get('/Sekretariat/pkplh/assigned', function() {
+        return (new SekretariatController)->pkplhIndex('sudah');
+    })->name('sekre.pkplh.sudah');
+    Route::get('/Sekretariat/pkplh/unassigned', function() {
+        return (new SekretariatController)->pkplhIndex('belum');
+    })->name('sekre.pkplh.belum');
     Route::put('/Sekretariat/pkplh/update', 'SekretariatController@pkplhAssign')->name('sekre.pkplh.update');
     Route::put('/Sekretariat/pkplh/reject/{id}', 'SekretariatController@pkplhReject')->name('sekre.pkplh.reject');
     Route::get('/Sekretariat/skkl/chat/{id}', 'SkklController@chat')->name('skkl.sekretariat.chat');
