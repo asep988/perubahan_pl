@@ -186,7 +186,18 @@ class SekretariatController extends Controller
         $result = collect($data);
         if ($search != null) {
             $datas = $result->filter(function ($item) use ($search) {
-                return false !== stripos($item['noreg'], $search) or stripos($item['nama_usaha_baru'], $search) or stripos($item['status'], $search) or stripos($item['pic_pemohon'], $search) or stripos($item['no_hp_pic'], $search) or stripos($item['nama_operator'], $search) or stripos($item['jenis_perubahan'], $search) or stripos($item['nomor_validasi'], $search) or stripos($item['tgl_validasi'], $search) or stripos($item['perihal'], $search) or stripos($item['tgl_rpd'], $search) or stripos($item['pelaku_usaha'], $search);
+                return false !== stripos($item['noreg'], $search)
+                or stripos($item['nama_usaha_baru'], $search)
+                or stripos($item['status'], $search)
+                or stripos($item['pic_pemohon'], $search)
+                or stripos($item['no_hp_pic'], $search)
+                or stripos($item['nama_operator'], $search)
+                or stripos($item['jenis_perubahan'], $search)
+                or stripos($item['nomor_validasi'], $search)
+                or stripos($item['tgl_validasi'], $search)
+                or stripos($item['perihal'], $search)
+                or stripos($item['tgl_rpd'], $search)
+                or stripos($item['pelaku_usaha'], $search);
             })->skip($start)->take($limit);
             $totalSearch = intval($datas->count());
         } else {
@@ -325,7 +336,18 @@ class SekretariatController extends Controller
         $result = collect($data);
         if ($search != null) {
             $datas = $result->filter(function ($item) use ($search) {
-                return false !== stripos($item['noreg'], $search) or stripos($item['nama_usaha_baru'], $search) or stripos($item['status'], $search) or stripos($item['pic_pemohon'], $search) or stripos($item['no_hp_pic'], $search) or stripos($item['nama_operator'], $search) or stripos($item['jenis_perubahan'], $search) or stripos($item['nomor_validasi'], $search) or stripos($item['tgl_validasi'], $search) or stripos($item['perihal'], $search) or stripos($item['tgl_rpd'], $search) or stripos($item['pelaku_usaha'], $search);
+                return false !== stripos($item['noreg'], $search)
+                or stripos($item['nama_usaha_baru'], $search)
+                or stripos($item['status'], $search)
+                or stripos($item['pic_pemohon'], $search)
+                or stripos($item['no_hp_pic'], $search)
+                or stripos($item['nama_operator'], $search)
+                or stripos($item['jenis_perubahan'], $search)
+                or stripos($item['nomor_validasi'], $search)
+                or stripos($item['tgl_validasi'], $search)
+                or stripos($item['perihal'], $search)
+                or stripos($item['tgl_rpd'], $search)
+                or stripos($item['pelaku_usaha'], $search);
             })->skip($start)->take($limit);
             $totalSearch = intval($datas->count());
         } else {

@@ -864,4 +864,16 @@ class OperatorController extends Controller
 
         return $status;
     }
+
+    public function OperatorList()
+    {
+        return response()->json(User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
+		->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
+		->where('feasibility_test_teams.authority', 'Pusat')
+        ->where('tuk_secretary_members.institution', 'like', '%PDLUK%')
+		->select('users.name', 'users.email', 'users.password')
+        ->orderBy('users.name', 'ASC')
+		->get()
+        ->makeVisible('password'));
+    }
 }
