@@ -171,13 +171,13 @@
                                 data-target="{{ '#aksiModal' . $pkplh->id }}">
                                 Pilih
                             </button>
-                            <button type="button" class="btn btn-sm btn-success" data-toggle="modal"
+                            {{-- <button type="button" class="btn btn-sm btn-success" data-toggle="modal"
                                 data-target="{{ '#rpdModal' . $pkplh->id }}">RPD
                                 <i class="fa fa-edit"></i>
-                            </button>
-                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                            </button> --}}
+                            <button type="button" class="btn btn-sm btn-success" data-toggle="modal"
                                 data-target="{{ '#staticBackdrop' . $pkplh->id }}">
-                                Upload
+                                Upload <i class="fa fa-upload"></i>
                             </button>
                         </div>
 
@@ -199,12 +199,23 @@
                         @csrf
                         @method('PUT')
                         <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Upload file PDF</h5>
+                            <h5 class="modal-title" id="staticBackdropLabel">Upload RPD dan Draft</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
+                            <div class="input-box mb-2">
+                                <label for="nomor_rpd" class="form-label"><b>Nomor Risalah Pengolahan Data:</b></label>
+                                <input type="text" class="form-control" name="nomor_rpd" placeholder="Masukkan Nomor RPD"
+                                    @if ($pkplh->nomor_rpd) value="{{ $pkplh->nomor_rpd }}" @endif required>
+                            </div>
+                            <div class="input-box mb-2">
+                                <label for="tgl_rpd" class="form-label"><b>Tanggal Risalah Pengolahan Data:</b></label>
+                                <input type="date" class="form-control" name="tgl_rpd"
+                                    @if ($pkplh->tgl_rpd) value="{{ $pkplh->tgl_rpd }}" @endif required>
+                            </div>
+
                             <span><b>File yang sudah terupload:</b></span>
                             <div class="input-group mb-3">
                                 <a type="button"
@@ -223,7 +234,7 @@
                                     <label class="custom-file-label" for="file">Choose file</label>
                                 </div>
                             </div>
-                            <small class="text-muted mb-3">Max file size: 5mb | Format file: PDF only</small>
+                            <small class="text-muted mb-3">Max file size: 20mb | Format file: PDF only</small>
                             {{-- @error('file')
                                 <div class="invalid-feedback mb-3">
                                     Format file salah!
@@ -333,7 +344,7 @@
         </div>
     @endforeach
 
-    @foreach ($data_pkplh as $pkplh)
+    {{-- @foreach ($data_pkplh as $pkplh)
         <div class="modal fade" id="{{ 'rpdModal' . $pkplh->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
@@ -365,7 +376,7 @@
                 </div>
             </div>
         </div>
-    @endforeach
+    @endforeach --}}
 @endsection
 
 @push('scripts')

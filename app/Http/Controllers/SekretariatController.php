@@ -517,6 +517,10 @@ class SekretariatController extends Controller
                 $status['Submit'] += $step->total;
             } else if ($step->status == 'Proses') {
                 $status['Proses'] += $step->total;
+                // $doc == 'skkl' ? $rpd = Skkl::select(DB::raw('count(*) as total'))->where('status', 'Proses')->where('nomor_rpd', '!=', null)->get() : $rpd = Pkplh::select(DB::raw('count(*) as total'))->where('status', 'Proses')->where('nomor_rpd', '!=', null)->get();
+                // $doc == 'skkl' ? $proses = Skkl::select(DB::raw('count(*) as total'))->where('status', 'Proses')->where('nomor_rpd', null)->get() : $proses = Pkplh::select(DB::raw('count(*) as total'))->where('status', 'Proses')->where('nomor_rpd', null)->get();
+                // $status['Proses'] += $proses[0]->total;
+                // $status['Draft'] += $rpd[0]->total;
             } else if ($step->status == 'Draft') {
                 $status['Draft'] += $step->total;
             } else if ($step->status == 'Final') {
