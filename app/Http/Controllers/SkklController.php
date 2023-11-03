@@ -221,6 +221,7 @@ class SkklController extends Controller
 		$skkl->rintek2_upload		=	$rintek2;
 		$skkl->rintek3_upload		=	$rintek3;
 		$skkl->rintek4_upload		=	$rintek4;
+		$skkl->file_pkkpr			= 	$request->file_pkkpr;
 		$skkl->rintek_limbah_upload	=	$fileName2;
 		$skkl->noreg				=	$regist;
 
@@ -571,6 +572,7 @@ class SkklController extends Controller
 		$skkl->rintek2_upload		=	$rintek2;
 		$skkl->rintek3_upload		=	$rintek3;
 		$skkl->rintek4_upload		=	$rintek4;
+		$skkl->file_pkkpr			= 	$request->file_pkkpr;
 		$skkl->rintek_limbah_upload	=	$fileName2;
 
 		$skkl->provinsi				=	$provinsi;

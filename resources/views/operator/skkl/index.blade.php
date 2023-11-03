@@ -324,7 +324,8 @@
                         Unduh Lampiran I RPL</a></button>
                         <button class="btn btn-success btn-block"><a style="color: white;" target="_blank"
                                 href="{{ $skkl->link_drive }}">Drive</a></button>
-
+                        <a class="btn btn-success btn-block" href={{ asset('storage/files/skkl/pkkpr/' . $skkl->rintek_upload) }}> PKKPR </a></button>
+                        
                         <hr>
                         @if ($skkl->rintek_upload)
                             <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/skkl/rintek/' . $skkl->rintek_upload) }}">Dokumen Rincian Teknis Penyimpanan Limbah Non-B3</a></button>
@@ -386,6 +387,13 @@
             </div>
         </div>
     @endforeach
+    <script>
+        // custom file
+        $(".custom-file-input").on("change", function() {
+          var fileName = $(this).val().split("\\").pop();
+          $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
 @endsection
 
 @push('scripts')

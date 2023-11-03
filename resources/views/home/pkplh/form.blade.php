@@ -137,6 +137,17 @@
                 </table>
 
                 <div class="mb-3">
+                    <div class="form-group row">
+                        <label for="file_pkkpr" class="col-sm-2 col-form-label">File PKKPR</label>
+                        <div class="col-sm-5">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="file_pkkpr" 
+                                    id="file_pkkpr" required>
+                                <label class="custom-file-label" for="file">Choose file</label>
+                            </div>
+                            <small class="text-muted mb-3">Format file: PDF only</small>
+                        </div>
+                    </div>
                     <!-- Provinsi, Kabupaten & Kota, Bukti Perubahan -->
                     <div class="form-group row">
                         <label for="nomor_pl" class="col-sm-2 col-form-label">Jenis Usaha/Kegiatan & KBLI</label>
@@ -1243,5 +1254,10 @@
                 prt4--
             });
         });
+    // Custom File
+    $(".custom-file-input").on("change", function() {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
     </script>
 @endsection

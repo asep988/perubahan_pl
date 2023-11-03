@@ -242,6 +242,7 @@ class PkplhController extends Controller
 		$pkplh->perihal_peraturan	    =	$perihal_peraturan;
 		$pkplh->ruang_lingkup		    = 	$request->ruang_lingkup;
 		$pkplh->pertek				    = 	$pertek;
+		$pkplh->file_pkkpr				= 	$file_pkkpr;
 		$pkplh->status 				    = 	"Belum";
 		$pkplh->count 				    = 	0;
 		$pkplh->save();
@@ -637,6 +638,7 @@ class PkplhController extends Controller
 		$pkplh->perihal_peraturan	=	$perihal_peraturan;
 		$pkplh->ruang_lingkup		= 	$request->ruang_lingkup;
 		$pkplh->pertek				= 	$pertek;
+		$pkplh->file_pkkpr			= 	$file_pkkpr;
 		$pkplh->count				= 	$pkplh->count + 1;
 		$pkplh->update();
 
