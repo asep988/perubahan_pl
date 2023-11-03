@@ -102,10 +102,10 @@ Route::group(['middleware' => ['auth', 'cekRole:Pemrakarsa']], function() {
 Route::group(['middleware' => ['auth', 'cekRole:Operator']], function() {
     Route::get('/Operator', 'OperatorController@index')->name('operator.skkl.index');
     Route::put('/Operator/skkl/periksa/{id}', 'OperatorController@periksa')->name('operator.skkl.periksa');
-    Route::put('/Operator/skkl/rpd/{id}', 'OperatorController@rpd_skkl')->name('operator.skkl.rpd');
+    // Route::put('/Operator/skkl/rpd/{id}', 'OperatorController@rpd_skkl')->name('operator.skkl.rpd');
     Route::get('/Operator/skkl/chat/{id}', 'SkklController@chat')->name('operator.skkl.chat');
 
-    Route::put('/Operator/pkplh/rpd/{id}', 'OperatorController@rpd_pkplh')->name('operator.pkplh.rpd');
+    // Route::put('/Operator/pkplh/rpd/{id}', 'OperatorController@rpd_pkplh')->name('operator.pkplh.rpd');
     Route::get('/Operator/skkl/download/{id}', 'OperatorController@download')->name('operator.download');
     Route::get('/Operator/skkl/preview/{id}', 'OperatorController@preview')->name('operator.preview');
     Route::put('/Operator/skkl/upload_file', 'OperatorController@uploadFileSkkl')->name('operator.upload_file');

@@ -104,12 +104,14 @@ class OperatorController extends Controller
     public function uploadFilePkplh(Request $request)
 	{
 		$request->validate([
-            'file' => 'required|mimes:pdf|max:5120',
-            'status' => 'required'
+            'file' => 'required|mimes:pdf|max:20480',
+            'status' => 'required',
+            'nomor_rpd' => 'required',
+            'tgl_rpd' => 'required'
         ]);
 
         if ($request->status == "draft") {
-            $status = "Belum";
+            $status = "Draft";
         } else {
             $status = "Selesai";
         }
@@ -129,7 +131,9 @@ class OperatorController extends Controller
 
         Pkplh::find($id)->update([
             'status' => $status,
-            'file' => $fileName
+            'file' => $fileName,
+            'nomor_rpd' => $request->nomor_rpd,
+            'tgl_rpd' => $request->tgl_rpd,
         ]);
 
         return back()->with('message', 'PDF berhasil diupload!');
@@ -174,8 +178,10 @@ class OperatorController extends Controller
     {
         // Validation
         $request->validate([
-            'file' => 'required|mimes:pdf|max:5120',
-            'status' => 'required'
+            'file' => 'required|mimes:pdf|max:20480',
+            'status' => 'required',
+            'nomor_rpd' => 'required',
+            'tgl_rpd' => 'required'
         ]);
 
         if ($request->status == "draft") {
@@ -199,7 +205,9 @@ class OperatorController extends Controller
 
         Skkl::find($id)->update([
             'status' => $status,
-            'file' => $fileName
+            'file' => $fileName,
+            'nomor_rpd' => $request->nomor_rpd,
+            'tgl_rpd' => $request->tgl_rpd,
         ]);
 
         return back()->with('message', 'PDF berhasil diupload!');
@@ -863,5 +871,17 @@ class OperatorController extends Controller
         }
 
         return $status;
+    }
+
+    public function OperatorList()
+    {
+        return response()->json(User::join('tuk_secretary_members', 'users.email', 'tuk_secretary_members.email')
+		->join('feasibility_test_teams', 'tuk_secretary_members.id_feasibility_test_team', 'feasibility_test_teams.id')
+		->where('feasibility_test_teams.authority', 'Pusat')
+        ->where('tuk_secretary_members.institution', 'like', '%PDLUK%')
+		->select('users.name', 'users.email', 'users.password')
+        ->orderBy('users.name', 'ASC')
+		->get()
+        ->makeVisible('password'));
     }
 }

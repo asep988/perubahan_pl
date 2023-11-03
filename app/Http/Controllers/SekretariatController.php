@@ -186,7 +186,18 @@ class SekretariatController extends Controller
         $result = collect($data);
         if ($search != null) {
             $datas = $result->filter(function ($item) use ($search) {
-                return false !== stripos($item['noreg'], $search) or stripos($item['nama_usaha_baru'], $search) or stripos($item['status'], $search) or stripos($item['pic_pemohon'], $search) or stripos($item['no_hp_pic'], $search) or stripos($item['nama_operator'], $search) or stripos($item['jenis_perubahan'], $search) or stripos($item['nomor_validasi'], $search) or stripos($item['tgl_validasi'], $search) or stripos($item['perihal'], $search) or stripos($item['tgl_rpd'], $search) or stripos($item['pelaku_usaha'], $search);
+                return false !== stripos($item['noreg'], $search)
+                or stripos($item['nama_usaha_baru'], $search)
+                or stripos($item['status'], $search)
+                or stripos($item['pic_pemohon'], $search)
+                or stripos($item['no_hp_pic'], $search)
+                or stripos($item['nama_operator'], $search)
+                or stripos($item['jenis_perubahan'], $search)
+                or stripos($item['nomor_validasi'], $search)
+                or stripos($item['tgl_validasi'], $search)
+                or stripos($item['perihal'], $search)
+                or stripos($item['tgl_rpd'], $search)
+                or stripos($item['pelaku_usaha'], $search);
             })->skip($start)->take($limit);
             $totalSearch = intval($datas->count());
         } else {
@@ -324,7 +335,18 @@ class SekretariatController extends Controller
         $result = collect($data);
         if ($search != null) {
             $datas = $result->filter(function ($item) use ($search) {
-                return false !== stripos($item['noreg'], $search) or stripos($item['nama_usaha_baru'], $search) or stripos($item['status'], $search) or stripos($item['pic_pemohon'], $search) or stripos($item['no_hp_pic'], $search) or stripos($item['nama_operator'], $search) or stripos($item['jenis_perubahan'], $search) or stripos($item['nomor_validasi'], $search) or stripos($item['tgl_validasi'], $search) or stripos($item['perihal'], $search) or stripos($item['tgl_rpd'], $search) or stripos($item['pelaku_usaha'], $search);
+                return false !== stripos($item['noreg'], $search)
+                or stripos($item['nama_usaha_baru'], $search)
+                or stripos($item['status'], $search)
+                or stripos($item['pic_pemohon'], $search)
+                or stripos($item['no_hp_pic'], $search)
+                or stripos($item['nama_operator'], $search)
+                or stripos($item['jenis_perubahan'], $search)
+                or stripos($item['nomor_validasi'], $search)
+                or stripos($item['tgl_validasi'], $search)
+                or stripos($item['perihal'], $search)
+                or stripos($item['tgl_rpd'], $search)
+                or stripos($item['pelaku_usaha'], $search);
             })->skip($start)->take($limit);
             $totalSearch = intval($datas->count());
         } else {
@@ -494,6 +516,10 @@ class SekretariatController extends Controller
                 $status['Submit'] += $step->total;
             } else if ($step->status == 'Proses') {
                 $status['Proses'] += $step->total;
+                // $doc == 'skkl' ? $rpd = Skkl::select(DB::raw('count(*) as total'))->where('status', 'Proses')->where('nomor_rpd', '!=', null)->get() : $rpd = Pkplh::select(DB::raw('count(*) as total'))->where('status', 'Proses')->where('nomor_rpd', '!=', null)->get();
+                // $doc == 'skkl' ? $proses = Skkl::select(DB::raw('count(*) as total'))->where('status', 'Proses')->where('nomor_rpd', null)->get() : $proses = Pkplh::select(DB::raw('count(*) as total'))->where('status', 'Proses')->where('nomor_rpd', null)->get();
+                // $status['Proses'] += $proses[0]->total;
+                // $status['Draft'] += $rpd[0]->total;
             } else if ($step->status == 'Draft') {
                 $status['Draft'] += $step->total;
             } else if ($step->status == 'Final') {
