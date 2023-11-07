@@ -324,7 +324,7 @@
                         Unduh Lampiran I RPL</a></button>
                         <button class="btn btn-success btn-block"><a style="color: white;" target="_blank"
                                 href="{{ $skkl->link_drive }}">Drive</a></button>
-                        <a class="btn btn-success btn-block" href={{ asset('storage/files/skkl/pkkpr/' . $skkl->rintek_upload) }}> PKKPR </a></button>
+                        <a class="btn btn-success btn-block" href="{{ asset('storage/files/pkkpr/' . $skkl->file_pkkpr) }}"> PKKPR </a></button>
                         
                         <hr>
                         @if ($skkl->rintek_upload)

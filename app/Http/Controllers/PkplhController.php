@@ -208,6 +208,15 @@ class PkplhController extends Controller
 			$pkplh->alamat			    =	$request->alamat;
 		}
 
+		$request->validate([
+			'file_pkkpr' => 'required|mimes:pdf|max:20480'
+		]);
+
+		$file_pkkpr = $request->file('file_pkkpr');
+		$format = $file_pkkpr->getClientOriginalExtension();
+		$fileName = time() . '_pkkpr_pkplh.' . $format;
+		$file_pkkpr->storeAs('files/pkkpr', $fileName);
+
 		$pkplh->pelaku_usaha_baru 	    =   $request->pelaku_usaha_baru;
 		$pkplh->nama_usaha_baru		    =	$request->nama_usaha_baru;
 		$pkplh->penanggung_baru		    =	$request->penanggung_baru;
@@ -604,6 +613,15 @@ class PkplhController extends Controller
 			$pkplh->jabatan			=	$request->jabatan;
 			$pkplh->alamat			=	$request->alamat;
 		}
+
+		$request->validate([
+			'file_pkkpr' => 'required|mimes:pdf|max:20480'
+		]);
+
+		$file_pkkpr = $request->file('file_pkkpr');
+		$format = $file_pkkpr->getClientOriginalExtension();
+		$fileName = time() . '_pkkpr_pkplh.' . $format;
+		$file_pkkpr->storeAs('files/pkkpr', $fileName);
 
 		$pkplh->pelaku_usaha_baru 	=   $request->pelaku_usaha_baru;
 		$pkplh->nama_usaha_baru		=	$request->nama_usaha_baru;

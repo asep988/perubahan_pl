@@ -201,12 +201,30 @@ class SkklController extends Controller
 		$skkl->user_id 				=   $id_user;
 		$skkl->jenis_perubahan 		=   $request->jenis_perubahan;
 
+		// $request->validate([
+		// 	'file_pkkpr' => 'required|mimes:pdf|max:20480'
+		// ]);
+
+		// $file = $request->file('file_pkkpr');
+		// $format = $file->getClientOriginalExtension();
+		// $filename = time() . '_pkkpr_skkl.' . $format;
+		// $file->storeAs('files/skkl', $fileName);
+
 		if ($request->jenis_perubahan != "perkep3") {
 			$skkl->pelaku_usaha 	=   $request->pelaku_usaha;
 			$skkl->penanggung		=	$request->penanggung;
 			$skkl->jabatan			=	$request->jabatan;
 			$skkl->alamat			=	$request->alamat;
 		}
+
+		$request->validate([
+			'file_pkkpr' => 'required|mimes:pdf|max:20480'
+		]);
+
+		$file_pkkpr = $request->file('file_pkkpr');
+		$format = $file_pkkpr->getClientOriginalExtension();
+		$fileName = time() . '_pkkpr_skkl.' . $format;
+		$file_pkkpr->storeAs('files/pkkpr', $fileName);
 
 		$skkl->pelaku_usaha_baru 	=   $request->pelaku_usaha_baru;
 		$skkl->nama_usaha_baru		=	$request->nama_usaha_baru;
@@ -559,6 +577,15 @@ class SkklController extends Controller
 			$skkl->alamat			=	$request->alamat;
 		}
 
+		$request->validate([
+			'file_pkkpr' => 'required|mimes:pdf|max:20480'
+		]);
+
+		$file_pkkpr = $request->file('file_pkkpr');
+		$format = $file_pkkpr->getClientOriginalExtension();
+		$fileName = time() . '_pkkpr_skkl.' . $format;
+		$file_pkkpr->storeAs('files/pkkpr', $fileName);
+
 		$skkl->pelaku_usaha_baru 	=   $request->pelaku_usaha_baru;
 		$skkl->nama_usaha_baru		=	$request->nama_usaha_baru;
 		$skkl->penanggung_baru		=	$request->penanggung_baru;
@@ -572,7 +599,7 @@ class SkklController extends Controller
 		$skkl->rintek2_upload		=	$rintek2;
 		$skkl->rintek3_upload		=	$rintek3;
 		$skkl->rintek4_upload		=	$rintek4;
-		$skkl->file_pkkpr			= 	$request->file_pkkpr;
+		$skkl->file_pkkpr			= 	$fileName;
 		$skkl->rintek_limbah_upload	=	$fileName2;
 
 		$skkl->provinsi				=	$provinsi;
@@ -701,6 +728,18 @@ class SkklController extends Controller
 		$pdf = Pdf::loadView('layouts.regist_skkl', $data);
         return $pdf->stream();
 	}
+
+	// public function uploadFilePkkpr(Request $request)
+	// {
+	// 	$request->validate([
+	// 		'file_pkkpr' => 'required|mimes:pdf|max:20480'
+	// 	]);
+
+	// 	$file = $request->file('file_pkkpr');
+	// 	$format = $file->getClientOriginalExtension();
+	// 	$filename = time() . '_pkkpr_skkl.' . $format;
+	// 	$file->storeAs('files/skkl', $fileName);
+	// }
 
 	public function download_lampiranI($id)
 	{

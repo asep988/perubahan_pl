@@ -283,7 +283,7 @@
                         <a class="btn btn-success btn-block" href="{{ route('printuklupl.download', $pkplh->id) }}">Unduh
                             UKL-UPL</a></button>
                         <a class="btn btn-success btn-block" target="_blank" href="{{ $pkplh->link_drive }}"> Drive</a></button>
-                        <a class="btn btn-success btn-block" href={{ asset('storage/files/pkplh/pkkpr/' . $pkplh->rintek_upload) }}> PKKPR </a></button>
+                        <a class="btn btn-success btn-block" href={{ asset('storage/files/pkkpr/' . $pkplh->rintek_upload) }}> PKKPR </a></button>
                         <hr>
                         @if ($pkplh->rintek_upload)
                             <a class="btn btn-success btn-block" target="_blank" href="{{ asset('storage/files/pkplh/rintek/' . $pkplh->rintek_upload) }}">Dokumen Rincian Teknis Penyimpanan Limbah Non-B3</a></button>
