@@ -102,7 +102,28 @@ class SekretariatController extends Controller
         $req == 4 ? $data->where('status', 'Draft') : '';
         $req == 5 ? $data->where('status', 'Final') : '';
         $req == 6 ? $data->where('status', 'Batal')->orWhere('status', 'Ditolak') : '';
-        $data = $data->orderBy('tgl_validasi', 'ASC')->get();
+        $data = $data->where('id', 'like', '%' . $search . '%')
+        ->orWhere('noreg', 'like', '%' . $search . '%')
+        ->orWhere('created_at', 'like', '%' . $search . '%')
+        ->orWhere('user_id', 'like', '%' . $search . '%')
+        ->orWhere('nama_usaha_baru', 'like', '%' . $search . '%')
+        ->orWhere('status', 'like', '%' . $search . '%')
+        ->orWhere('pic_pemohon', 'like', '%' . $search . '%')
+        ->orWhere('no_hp_pic', 'like', '%' . $search . '%')
+        ->orWhere('nama_operator', 'like', '%' . $search . '%')
+        ->orWhere('jenis_perubahan', 'like', '%' . $search . '%')
+        ->orWhere('nomor_validasi', 'like', '%' . $search . '%')
+        ->orWhere('tgl_validasi', 'like', '%' . $search . '%')
+        ->orWhere('perihal', 'like', '%' . $search . '%')
+        ->orWhere('tgl_rpd', 'like', '%' . $search . '%')
+        ->orWhere('count', 'like', '%' . $search . '%')
+        ->orWhere('pelaku_usaha', 'like', '%' . $search . '%')
+        ->orWhere('note', 'like', '%' . $search . '%')
+        ->orWhere('pertek', 'like', '%' . $search . '%')
+        ->orderBy('tgl_validasi', 'ASC');
+        
+        $totalFiltered = $data->count();
+        $data = $data->offset($start)->limit($limit)->get();
 
         for ($i=0; $i < count($data); $i++) {
             $data[$i]->count = $start + $i + 1;
@@ -184,38 +205,38 @@ class SekretariatController extends Controller
         }
 
         $result = collect($data);
-        if ($search != null) {
-            $datas = $result->filter(function ($item) use ($search) {
-                return false !== stripos($item['noreg'], $search)
-                or stripos($item['nama_usaha_baru'], $search)
-                or stripos($item['status'], $search)
-                or stripos($item['pic_pemohon'], $search)
-                or stripos($item['no_hp_pic'], $search)
-                or stripos($item['nama_operator'], $search)
-                or stripos($item['jenis_perubahan'], $search)
-                or stripos($item['nomor_validasi'], $search)
-                or stripos($item['tgl_validasi'], $search)
-                or stripos($item['perihal'], $search)
-                or stripos($item['tgl_rpd'], $search)
-                or stripos($item['pelaku_usaha'], $search);
-            })->skip($start)->take($limit);
-            $totalSearch = intval($datas->count());
-        } else {
-            $datas = $result->skip($start)->take($limit);
-            $totalSearch = intval($result->count());
-        }
+        // if ($search != null) {
+        //     $datas = $result->filter(function ($item) use ($search) {
+        //         return false !== stripos($item['noreg'], $search)
+        //         or stripos($item['nama_usaha_baru'], $search)
+        //         or stripos($item['status'], $search)
+        //         or stripos($item['pic_pemohon'], $search)
+        //         or stripos($item['no_hp_pic'], $search)
+        //         or stripos($item['nama_operator'], $search)
+        //         or stripos($item['jenis_perubahan'], $search)
+        //         or stripos($item['nomor_validasi'], $search)
+        //         or stripos($item['tgl_validasi'], $search)
+        //         or stripos($item['perihal'], $search)
+        //         or stripos($item['tgl_rpd'], $search)
+        //         or stripos($item['pelaku_usaha'], $search);
+        //     })->skip($start)->take($limit);
+        //     $totalSearch = intval($datas->count());
+        // } else {
+        //     $datas = $result->skip($start)->take($limit);
+        //     $totalSearch = intval($result->count());
+        // }
 
-        $loop = array();
-        foreach ($datas as $row) {
-            $loop[] = $row;
-        }
-        $datas = $loop;
+        // $loop = array();
+        // foreach ($datas as $row) {
+        //     $loop[] = $row;
+        // }
+        // $datas = $loop;
         
         return response()->json([
             "draw" => intval(request('draw')),
             "recordsTotal" => intval($total->count()),
-            "recordsFiltered" => $totalSearch,
-            "data" => $datas
+            "recordsFiltered" => $totalFiltered,
+            "data" => $result
         ]);
     }
 
@@ -261,7 +282,28 @@ class SekretariatController extends Controller
         $req == 4 ? $data->where('status', 'Draft') : '';
         $req == 5 ? $data->where('status', 'Final') : '';
         $req == 6 ? $data->where('status', 'Batal')->orWhere('status', 'Ditolak') : '';
-        $data = $data->orderBy('tgl_validasi', 'ASC')->get();
+        $data = $data->where('id', 'like', '%' . $search . '%')
+        ->orWhere('noreg', 'like', '%' . $search . '%')
+        ->orWhere('created_at', 'like', '%' . $search . '%')
+        ->orWhere('user_id', 'like', '%' . $search . '%')
+        ->orWhere('nama_usaha_baru', 'like', '%' . $search . '%')
+        ->orWhere('status', 'like', '%' . $search . '%')
+        ->orWhere('pic_pemohon', 'like', '%' . $search . '%')
+        ->orWhere('no_hp_pic', 'like', '%' . $search . '%')
+        ->orWhere('nama_operator', 'like', '%' . $search . '%')
+        ->orWhere('jenis_perubahan', 'like', '%' . $search . '%')
+        ->orWhere('nomor_validasi', 'like', '%' . $search . '%')
+        ->orWhere('tgl_validasi', 'like', '%' . $search . '%')
+        ->orWhere('perihal', 'like', '%' . $search . '%')
+        ->orWhere('tgl_rpd', 'like', '%' . $search . '%')
+        ->orWhere('count', 'like', '%' . $search . '%')
+        ->orWhere('pelaku_usaha', 'like', '%' . $search . '%')
+        ->orWhere('note', 'like', '%' . $search . '%')
+        ->orWhere('pertek', 'like', '%' . $search . '%')
+        ->orderBy('tgl_validasi', 'ASC');
+        
+        $totalFiltered = $data->count();
+        $data = $data->offset($start)->limit($limit)->get();
         
         for ($i=0; $i < count($data); $i++) { 
             $data[$i]->count = $start + $i + 1;
@@ -333,38 +375,38 @@ class SekretariatController extends Controller
         }
 
         $result = collect($data);
-        if ($search != null) {
-            $datas = $result->filter(function ($item) use ($search) {
-                return false !== stripos($item['noreg'], $search)
-                or stripos($item['nama_usaha_baru'], $search)
-                or stripos($item['status'], $search)
-                or stripos($item['pic_pemohon'], $search)
-                or stripos($item['no_hp_pic'], $search)
-                or stripos($item['nama_operator'], $search)
-                or stripos($item['jenis_perubahan'], $search)
-                or stripos($item['nomor_validasi'], $search)
-                or stripos($item['tgl_validasi'], $search)
-                or stripos($item['perihal'], $search)
-                or stripos($item['tgl_rpd'], $search)
-                or stripos($item['pelaku_usaha'], $search);
-            })->skip($start)->take($limit);
-            $totalSearch = intval($datas->count());
-        } else {
-            $datas = $result->skip($start)->take($limit);
-            $totalSearch = intval($result->count());
-        }
+        // if ($search != null) {
+        //     $datas = $result->filter(function ($item) use ($search) {
+        //         return false !== stripos($item['noreg'], $search)
+        //         or stripos($item['nama_usaha_baru'], $search)
+        //         or stripos($item['status'], $search)
+        //         or stripos($item['pic_pemohon'], $search)
+        //         or stripos($item['no_hp_pic'], $search)
+        //         or stripos($item['nama_operator'], $search)
+        //         or stripos($item['jenis_perubahan'], $search)
+        //         or stripos($item['nomor_validasi'], $search)
+        //         or stripos($item['tgl_validasi'], $search)
+        //         or stripos($item['perihal'], $search)
+        //         or stripos($item['tgl_rpd'], $search)
+        //         or stripos($item['pelaku_usaha'], $search);
+        //     })->skip($start)->take($limit);
+        //     $totalSearch = intval($datas->count());
+        // } else {
+        //     $datas = $result->skip($start)->take($limit);
+        //     $totalSearch = intval($result->count());
+        // }
 
-        $loop = array();
-        foreach ($datas as $row) {
-            $loop[] = $row;
-        }
-        $datas = $loop;
+        // $loop = array();
+        // foreach ($datas as $row) {
+        //     $loop[] = $row;
+        // }
+        // $datas = $loop;
 
         return response()->json([
             "draw" => intval(request('draw')),
             "recordsTotal" => intval($total->count()),
-            "recordsFiltered" => $totalSearch,
-            "data" => $datas
+            "recordsFiltered" => $totalFiltered,
+            "data" => $result
         ]);
     }
 
