@@ -77,7 +77,8 @@ class Pkplh extends Model
         'count',
         'rintek2_upload',
         'rintek3_upload',
-        'rintek4_upload'
+        'rintek4_upload',
+        'file_pkkpr',
     ];
 
     public function il_pkplh()
