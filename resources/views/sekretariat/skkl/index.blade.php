@@ -440,6 +440,9 @@
     <script>
         // $(document).ready(function() {
             var table = $('#example').DataTable({
+                fixedColumns: {
+                    right: 1
+                },
                 autoWidth: true,
                 lengthChange: true,
                 scrollX: true,
@@ -447,6 +450,7 @@
                     [10, 25, 50, -1],
                     [10, 25, 50, 'All']
                 ],
+                scrollCollapse: true,
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('datatable.skkl', [$reqStat, $param]) }}",
